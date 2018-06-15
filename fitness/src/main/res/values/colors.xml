@@ -9,4 +9,37 @@
     <color name="accent">#17d3ff</color>
     <color name="accentDark">#0da3c7</color>
     <color name="accentLight">#bef0fc</color>
+    <color name="primary_30">#501fe76e</color>
+    <color name="primary_dark">#1bbf81</color>
+    <color name="accent_30">#5017d3ff</color>
+
+    <color name="title">#c000</color>
+    <color name="sub_title">#8000</color>
+    <color name="comment">#5000</color>
+    <!--<color name="color_header">#50ff9600</color>-->
+    <color name="gunmetal">#515554</color>
+    <color name="charcoal">#262a29</color>
+    <color name="gunmetal_40">#65515554</color>
+    <color name="charcoal_40">#65262a29</color>
+    <color name="pale_grey">#f1f1f3</color>
+    <color name="shamrock_green">#00bd5f</color>
+
+    <color name="black">#000</color>
+    <color name="black_10">#2000</color>
+    <color name="black_15">#3000</color>
+    <color name="black_20">#4000</color>
+    <color name="black_30">#5000</color>
+    <color name="black_50">#8000</color>
+    <color name="black_60">#a000</color>
+    <color name="black_70">#b000</color>
+    <color name="white">#ffffff</color>
+    <color name="white_50">#8fff</color>
+    <color name="white_70">#bfff</color>
+    <color name="white_80">#cfff</color>
+    <color name="green_teal">#0ab861</color>
+    <color name="silver">#d5d5df</color>
+    <color name="f1">#f1f1f1</color>
+    <color name="e2">#e2e2e2</color>
+    <color name="d8">#d8d8e2</color>
+    <color name="ffece2">#ffece2</color>
 </resources>
