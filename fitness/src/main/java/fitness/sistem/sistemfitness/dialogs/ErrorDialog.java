@@ -11,7 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import fitness.sistem.interfaces_classes.IErrorDialog;
+//import fitness.sistem.interfaces_classes.IErrorDialog;
+import fitness.sistem.compon.interfaces_classes.IErrorDialog;
 import fitness.sistem.sistemfitness.R;
 
 public class ErrorDialog extends DialogFragment implements IErrorDialog {
