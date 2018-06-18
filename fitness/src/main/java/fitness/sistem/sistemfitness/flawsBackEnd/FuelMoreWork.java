@@ -2,20 +2,27 @@ package fitness.sistem.sistemfitness.flawsBackEnd;
 
 import android.util.Log;
 
-import fitness.sistem.base.BaseComponent;
-import fitness.sistem.interfaces_classes.Filters;
-import fitness.sistem.interfaces_classes.MoreWork;
-import fitness.sistem.json_simple.Field;
-import fitness.sistem.json_simple.ListFields;
-import fitness.sistem.json_simple.ListRecords;
-import fitness.sistem.json_simple.Record;
-import fitness.sistem.json_simple.SimpleRecordToJson;
+//import fitness.sistem.base.BaseComponent;
+//import fitness.sistem.interfaces_classes.Filters;
+//import fitness.sistem.interfaces_classes.MoreWork;
+//import fitness.sistem.json_simple.Field;
+//import fitness.sistem.json_simple.ListFields;
+//import fitness.sistem.json_simple.ListRecords;
+//import fitness.sistem.json_simple.Record;
+//import fitness.sistem.json_simple.SimpleRecordToJson;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class FuelMoreWork extends MoreWork{
+import fitness.sistem.compon.base.BaseComponent;
+import fitness.sistem.compon.interfaces_classes.MoreWork;
+import fitness.sistem.compon.json_simple.Field;
+import fitness.sistem.compon.json_simple.ListFields;
+import fitness.sistem.compon.json_simple.ListRecords;
+import fitness.sistem.compon.json_simple.Record;
+
+public class FuelMoreWork extends MoreWork {
     @Override
     public void beforeProcessingResponse(Field response, BaseComponent baseComponent) {
         String name = baseComponent.paramMV.nameParentComponent;

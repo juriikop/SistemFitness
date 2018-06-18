@@ -8,18 +8,19 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-
-import fitness.sistem.base.BaseFragment;
+//import com.google.android.gms.common.ConnectionResult;
+//import com.google.android.gms.common.api.GoogleApiClient;
+//import com.google.android.gms.location.LocationListener;
+//import com.google.android.gms.location.LocationRequest;
+//import com.google.android.gms.location.LocationServices;
+//import com.google.android.gms.maps.GoogleMap;
+//import com.google.android.gms.maps.MapView;
+//import com.google.android.gms.maps.OnMapReadyCallback;
+//import com.google.android.gms.maps.model.CameraPosition;
+//import com.google.android.gms.maps.model.LatLng;
+//
+//import fitness.sistem.base.BaseFragment;
+import fitness.sistem.compon.base.BaseFragment;
 import fitness.sistem.sistemfitness.R;
 
 public class MapFragment extends BaseFragment

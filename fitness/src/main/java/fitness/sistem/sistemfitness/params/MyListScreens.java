@@ -86,7 +86,7 @@ public class MyListScreens extends ListScreens {
                 .addFragmentsContainer(R.id.content_frame, context.getString(R.string.tickets))
                 .addNavigator(new Navigator().add(R.id.radio1, context.getString(R.string.tickets))
                         .add(R.id.radio2, context.getString(R.string.map))
-                        .add(R.id.radio3, context.getString(R.string.calculator))
+//                        .add(R.id.radio3, context.getString(R.string.calculator))
                         .add(R.id.radio5, context.getString(R.string.profile)));
 
         addFragment(context.getString(R.string.tickets), R.layout.fragment_tickets, context.getString(R.string.my_tickets))
@@ -174,8 +174,8 @@ public class MyListScreens extends ListScreens {
                 .addTotalComponent(R.id.total, R.id.recycler, showManager(visibility(R.id.total_panel, "amount"),
                         enabled(R.id.contin, "amount")), "cost", "amount");
 
-        addFragment(context.getString(R.string.calculator), R.layout.activity_calculator)
-                .addNavigator(new Navigator().add(R.id.first_point, context.getString(R.string.search_departure)));
+//        addFragment(context.getString(R.string.calculator), R.layout.activity_calculator1)
+//                .addNavigator(new Navigator().add(R.id.first_point, context.getString(R.string.search_departure)));
 
         addActivity(context.getString(R.string.search_departure), R.layout.activity_search_departure, Constants.AnimateScreen.BT)
                 .addSearchComponent(R.id.search, new ParamModel(),
