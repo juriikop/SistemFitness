@@ -18,10 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     protected Unbinder unbinder;
 
-    @BindView(R.id.button)
-    ButtonAccent button;
-    @BindView(R.id.back)
-    ImageViewOnPrimary back;
+    @BindView(R.id.button) ButtonAccent button;
+    @BindView(R.id.back) ImageViewOnPrimary back;
     @BindView(R.id.imgSel)
     ImageView imgSel;
     @BindView(R.id.txtSel)
