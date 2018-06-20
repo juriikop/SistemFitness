@@ -3,16 +3,6 @@ package fitness.sistem.sistemfitness.params;
 import android.content.Context;
 import android.util.Log;
 
-//import fitness.sistem.base.ListScreens;
-//import fitness.sistem.param.ParamComponent;
-//import fitness.sistem.param.ParamMap;
-//import fitness.sistem.param.ParamModel;
-//import fitness.sistem.param.ParamView;
-//import fitness.sistem.interfaces_classes.FilterParam;
-//import fitness.sistem.interfaces_classes.Filters;
-//import fitness.sistem.interfaces_classes.Navigator;
-//import fitness.sistem.interfaces_classes.ViewHandler;
-//import fitness.sistem.tools.Constants;
 import fitness.sistem.compon.base.ListScreens;
 import fitness.sistem.compon.interfaces_classes.FilterParam;
 import fitness.sistem.compon.interfaces_classes.Filters;
@@ -25,10 +15,11 @@ import fitness.sistem.compon.param.ParamView;
 import fitness.sistem.compon.tools.Constants;
 import fitness.sistem.sistemfitness.R;
 import fitness.sistem.sistemfitness.flawsBackEnd.FuelMoreWork;
-//import fitness.sistem.sistemfitness.fragments.MapFragment;
 import fitness.sistem.sistemfitness.more_work.FuelProcessing;
 import fitness.sistem.sistemfitness.network.Api;
 import fitness.sistem.sistemfitness.network.TestInternetProvider;
+
+import static fitness.sistem.compon.interfaces_classes.FilterParam.Operation.equally;
 
 //import static fitness.sistem.param.ParamView.visibility;
 //import static fitness.sistem.interfaces_classes.FilterParam.Operation.equally;

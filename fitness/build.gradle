@@ -8,7 +8,7 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-        multiDexEnabled = true
+//        multiDexEnabled = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -17,9 +17,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
 }
 
 dependencies {
+    implementation 'com.android.support:multidex:1.0.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':compon')
     testImplementation 'junit:junit:4.12'
@@ -32,11 +37,12 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     implementation 'com.github.bumptech.glide:glide:3.7.0'
-
     implementation 'com.google.android.gms:play-services-location:11.8.0'
-//    implementation 'com.google.android.gms:play-services-base:11.8.0'
-//    implementation 'com.google.android.gms:play-services-gcm:11.8.0'
-//    implementation 'com.google.android.gms:play-services-maps:11.8.0'
-    implementation 'com.google.maps.android:android-maps-utils:0.4+'
+    implementation 'com.google.android.gms:play-services-base:11.8.0'
+    implementation 'com.google.android.gms:play-services-gcm:11.8.0'
+    implementation 'com.google.android.gms:play-services-maps:11.8.0'
+    implementation 'com.google.maps.android:android-maps-utils:0.4.3'
 
+    //dotted line
+    implementation 'com.xfinity:dahdit:0.9.3'
 }

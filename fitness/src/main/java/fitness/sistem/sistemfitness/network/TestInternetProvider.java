@@ -3,18 +3,25 @@ package fitness.sistem.sistemfitness.network;
 import android.os.Handler;
 import android.util.Log;
 
-import fitness.sistem.ComponGlob;
-import fitness.sistem.base.BaseInternetProvider;
-import fitness.sistem.json_simple.Field;
-import fitness.sistem.json_simple.ListRecords;
-import fitness.sistem.json_simple.Record;
-import fitness.sistem.json_simple.SimpleRecordToJson;
-import fitness.sistem.tools.Constants;
+//import fitness.sistem.ComponGlob;
+//import fitness.sistem.base.BaseInternetProvider;
+//import fitness.sistem.json_simple.Field;
+//import fitness.sistem.json_simple.ListRecords;
+//import fitness.sistem.json_simple.Record;
+//import fitness.sistem.json_simple.SimpleRecordToJson;
+//import fitness.sistem.tools.Constants;
+import fitness.sistem.compon.ComponGlob;
+import fitness.sistem.compon.base.BaseInternetProvider;
+import fitness.sistem.compon.json_simple.Field;
+import fitness.sistem.compon.json_simple.ListRecords;
+import fitness.sistem.compon.json_simple.Record;
+import fitness.sistem.compon.json_simple.SimpleRecordToJson;
+import fitness.sistem.compon.tools.Constants;
 import fitness.sistem.sistemfitness.network.Api;
 
 import java.util.Map;
 
-public class TestInternetProvider extends BaseInternetProvider{
+public class TestInternetProvider extends BaseInternetProvider {
     private Handler handler;
 
     @Override
