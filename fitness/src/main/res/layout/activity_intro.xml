@@ -30,30 +30,36 @@
 
         <fitness.sistem.sistemfitness.tools.changeColor.ButtonAccent
             android:id="@+id/contin"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/h_bottom"
-            android:layout_marginRight="@dimen/pad_30"
-            android:layout_marginLeft="@dimen/pad_30"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/pad_30"
-            android:text="Продолжить"
             android:elevation="@dimen/pad_6"
             android:gravity="center"
-            android:visibility="gone"/>
+            android:paddingLeft="@dimen/pad_24"
+            android:paddingRight="@dimen/pad_24"
+            android:text="Продолжить"
+            android:textAllCaps="true"
+            android:visibility="gone" />
+
         <fitness.sistem.sistemfitness.tools.changeColor.ButtonAccent
             android:id="@+id/start"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/h_bottom"
-            android:layout_marginRight="@dimen/pad_30"
-            android:layout_marginLeft="@dimen/pad_30"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/pad_30"
-            android:text="Начать"
             android:elevation="@dimen/pad_6"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:paddingLeft="@dimen/pad_24"
+            android:paddingRight="@dimen/pad_24"
+            android:text="Начать"
+            android:textAllCaps="true" />
         <fitness.sistem.sistemfitness.tools.changeColor.TextViewPrimary
             android:id="@+id/skip"
             android:layout_width="match_parent"
             android:layout_height="@dimen/h_button"
             android:layout_marginTop="@dimen/pad_90"
+            android:textAllCaps="true"
             android:gravity="center"
             android:text="Пропустить"
             android:textSize="@dimen/pad_16"/>

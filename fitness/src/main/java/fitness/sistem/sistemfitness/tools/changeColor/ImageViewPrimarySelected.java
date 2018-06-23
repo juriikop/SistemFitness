@@ -28,20 +28,10 @@ public class ImageViewPrimarySelected extends AppCompatImageView {
     }
 
     private void init(Context context, @Nullable AttributeSet attrs) {
-//        ColorStateList stateList = new ColorStateList(
-//                new int[][]{
-//                    new int[]{android.R.attr.state_selected},
-//                    new int[]{}
-//                },
-//                new int[] {
-//                    AppColors.primary,
-//                    AppColors.primaryLight
-//                }
-//        );
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setImageTintList(AppColors.selectorImage);
+            setImageTintList(AppColors.selectorImage());
         } else {
-            setImageDrawable(tintIcon(getDrawable(), AppColors.selectorImage));
+            setImageDrawable(tintIcon(getDrawable(), AppColors.selectorImage()));
         }
     }
 

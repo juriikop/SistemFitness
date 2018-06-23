@@ -6,14 +6,15 @@ import android.support.multidex.MultiDexApplication;
 import fitness.sistem.compon.base.SetSettings;
 import fitness.sistem.sistemfitness.network.MyNetworkParams;
 import fitness.sistem.sistemfitness.params.MyListScreens;
+import fitness.sistem.sistemfitness.tools.changeColor.AppColors;
 
-public class FuelApp extends MultiDexApplication {
-    private static FuelApp instance;
+public class FitnessApp extends MultiDexApplication {
+    private static FitnessApp instance;
     private Context context;
 
-    public static FuelApp getInstance() {
+    public static FitnessApp getInstance() {
         if (instance == null) {
-            instance = new FuelApp();
+            instance = new FitnessApp();
         }
         return instance;
     }

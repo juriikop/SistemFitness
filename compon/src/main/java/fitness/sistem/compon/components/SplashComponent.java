@@ -17,10 +17,6 @@ public class SplashComponent extends BaseComponent {
                 && ! PreferenceTool.getTutorial()) {
             iBase.startScreen(paramMV.tutorial, false);
         }
-//        else if  (paramMV.auth != null && paramMV.auth.length() > 0
-//                && ! PreferenceTool.getAuth()) {
-//            iBase.startScreen(paramMV.auth, false);
-//        }
         else if  (paramMV.auth != null && paramMV.auth.length() > 0
                 && PreferenceTool.getSessionToken().length() == 0) {
             iBase.startScreen(paramMV.auth, false);

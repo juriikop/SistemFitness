@@ -176,11 +176,11 @@ public class MultiComponents <T>{
         return addModel(ParamModel.PARENT_MODEL, paramModel);
     }
 
-    public MultiComponents addFragmentsContainer(int fragmentsContainerId) {
-        return addFragmentsContainer(fragmentsContainerId, "");
+    public MultiComponents fragmentsContainer(int fragmentsContainerId) {
+        return fragmentsContainer(fragmentsContainerId, "");
     }
 
-    public MultiComponents addFragmentsContainer(int fragmentsContainerId, String nameStartFragment) {
+    public MultiComponents fragmentsContainer(int fragmentsContainerId, String nameStartFragment) {
         ParamComponent paramComponent = new ParamComponent();
         paramComponent.type = ParamComponent.TC.CONTAINER;
         paramComponent.fragmentsContainerId = fragmentsContainerId;
@@ -324,9 +324,9 @@ public class MultiComponents <T>{
                 case SEARCH:
                     new SearchComponent(iBase, cMV, this);
                     break;
-//                case BUTTON:
-//                    new ButtonComponent(iBase, cMV);
-//                    break;
+                case INTRO:
+                    new IntroComponent(iBase, cMV, this);
+                    break;
 //                case PHONE:
 //                    new EditPhoneComponent(iBase, cMV);
 //                    break;

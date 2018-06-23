@@ -10,7 +10,7 @@ import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.sistemfitness.R;
 
-public class FuelProcessing extends MoreWork {
+public class FitnessProcessing extends MoreWork {
 
     @Override
     public void clickView(View viewClick, View parentView,

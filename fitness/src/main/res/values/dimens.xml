@@ -7,6 +7,7 @@
     <dimen name="d_icon_g">62dp</dimen>
     <dimen name="d_icon_azs">50dp</dimen>
     <dimen name="h_bottom">50dp</dimen>
+    <dimen name="intro_img_h">282dp</dimen>
 
     <dimen name="pad_1">1dp</dimen>
     <dimen name="pad_3">3dp</dimen>

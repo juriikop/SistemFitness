@@ -24,7 +24,7 @@ public class ButtonAccent extends AppCompatTextView {
 
     private void init(Context context, @Nullable AttributeSet attrs) {
         setClickable(true);
-        setBackgroundDrawable(AppColors.selectorButton);
+        setBackgroundDrawable(AppColors.selectorButton(context));
         setTextColor(AppColors.textOnAccent);
     }
 }

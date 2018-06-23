@@ -22,7 +22,7 @@ import fitness.sistem.compon.json_simple.ListFields;
 import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
 
-public class FuelMoreWork extends MoreWork {
+public class FitnessMoreWork extends MoreWork {
     @Override
     public void beforeProcessingResponse(Field response, BaseComponent baseComponent) {
         String name = baseComponent.paramMV.nameParentComponent;
