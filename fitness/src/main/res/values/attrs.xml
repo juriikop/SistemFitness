@@ -14,8 +14,7 @@
         <!--<attr name="hintAppearance" format="reference"/>-->
     <!--</declare-styleable>-->
 
-    <!--<declare-styleable name="MaskedEditText">-->
-        <!--<attr name="mask" format="string" />-->
-        <!--<attr name="placeholderMask" format="string" />-->
-    <!--</declare-styleable>-->
+    <declare-styleable name="ToolBar">
+        <attr name="title" format="string" />
+    </declare-styleable>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
@@ -37,6 +38,14 @@ public class AppColors {
         selectorButton.addState(new int[]{android.R.attr.state_pressed}, shapeAccentLight);
         selectorButton.addState(new int[]{}, shapeAccent);
         return selectorButton;
+    }
+
+    public static GradientDrawable gradient() {
+        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
+                new int[] { primaryDark, primary});
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
+        return drawable;
     }
 
     public static ColorStateList selectorText() {

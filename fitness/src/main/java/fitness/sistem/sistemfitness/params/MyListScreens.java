@@ -34,23 +34,23 @@ public class MyListScreens extends ListScreens {
         activity(context.getString(R.string.auth), R.layout.activity_auth)
                 .fragmentsContainer(R.id.content_frame, context.getString(R.string.auth_phone));
 
-        fragment(context.getString(R.string.auth_phone), R.layout.fragment_auth_phone)
-                .addComponent(ParamComponent.TC.PANEL_ENTER, null, new ParamView(R.id.panel),
-                        new Navigator().add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
-                                new ParamModel(ParamModel.POST, Api.LOGIN_PHONE, "phone"),
-                                actionsAfterResponse().startScreen(context.getString(R.string.auth_code)),
-                                true, R.id.phone));
-
-        fragment(context.getString(R.string.auth_code), R.layout.fragment_auth_code)
-                .addComponent(ParamComponent.TC.PANEL_ENTER, null, new ParamView(R.id.panel),
-                        new Navigator().add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
-                                new ParamModel(ParamModel.POST, Api.LOGIN_CODE, "phone,code"),
-                                actionsAfterResponse()
-                                        .preferenceSetToken("token")
-//                                        .preferenceSetName("phone")
-                                        .startScreen(context.getString(R.string.main))
-                                        .back(),
-                                true, R.id.code));
+//        fragment(context.getString(R.string.auth_phone), R.layout.fragment_auth_phone)
+//                .addComponent(ParamComponent.TC.PANEL_ENTER, null, new ParamView(R.id.panel),
+//                        new Navigator().add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
+//                                new ParamModel(ParamModel.POST, Api.LOGIN_PHONE, "phone"),
+//                                actionsAfterResponse().startScreen(context.getString(R.string.auth_code)),
+//                                true, R.id.phone));
+//
+//        fragment(context.getString(R.string.auth_code), R.layout.fragment_auth_code)
+//                .addComponent(ParamComponent.TC.PANEL_ENTER, null, new ParamView(R.id.panel),
+//                        new Navigator().add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
+//                                new ParamModel(ParamModel.POST, Api.LOGIN_CODE, "phone,code"),
+//                                actionsAfterResponse()
+//                                        .preferenceSetToken("token")
+////                                        .preferenceSetName("phone")
+//                                        .startScreen(context.getString(R.string.main))
+//                                        .back(),
+//                                true, R.id.code));
 //
 //        activity(context.getString(R.string.main), R.layout.activity_fuel)
 //                .fragmentsContainer(R.id.content_frame, context.getString(R.string.tickets))
