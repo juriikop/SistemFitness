@@ -40,6 +40,7 @@ public class MyListScreens extends ListScreens {
                                 new ParamModel(ParamModel.POST, Api.LOGIN_PHONE, "phone"),
                                 actionsAfterResponse().startScreen(context.getString(R.string.auth_code)),
                                 true, R.id.phone));
+
 //
 //        fragment(context.getString(R.string.auth_code), R.layout.fragment_auth_code)
 //                .addComponent(ParamComponent.TC.PANEL_ENTER, null, new ParamView(R.id.panel),
