@@ -1,6 +1,7 @@
 package fitness.sistem.compon.custom_components;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -17,12 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EditTextMask extends android.support.v7.widget.AppCompatEditText implements IComponent {
-    private Context context;
     private String mask;
     private int lenOriginText;
     private int textColor, hintColor;
     private String significant = "_";
-    private int[] charBegin, charEnd, charCount;
     private List<MaskElem> maskElemList;
     private int lenPref;
     private String textPref;
@@ -47,23 +46,33 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
     }
 
     private void init(Context context, AttributeSet attrs) {
-        context = context;
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.Simple,
                 0, 0);
-
         try {
             mask = a.getString(R.styleable.Simple_mask);
         } finally {
             a.recycle();
         }
-        if (mask == null) {
-            mask = "";
-        }
+        lenPref = 0;
         hintColor = getCurrentHintTextColor();
         textColor = getCurrentTextColor();
-        maskProcessing();
         isNoBlank = isValid = isTimeOut = false;
-        oldStr = formText("");;
+        oldStr = "";
+        if (mask == null) {
+            mask = "";
+        } else {
+            maskProcessing();
+            oldStr = formText("");
+            setSpan(oldStr);
+            setSelection(oldStr.length());
+            addTextChangedListener(new MaskTextWatcher());
+        }
+    }
+
+    public void setMask(String mask) {
+        this.mask = mask;
+        maskProcessing();
+        oldStr = formText(stripText(getText().toString()));
         setSpan(oldStr);
         setSelection(oldStr.length());
         addTextChangedListener(new MaskTextWatcher());
@@ -155,21 +164,23 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
     private String formText(String txt) {
         String result = "";
         int lenTxt = txt.length();
-        for (MaskElem m : maskElemList) {
-            if (m.begin > -1) {
-                result += m.value;
-            }
-            if (lenTxt > m.beginMask) {
-                int i = m.endMask;
-                if (lenTxt <= m.endMask) {
-                    i = lenTxt;
-                    result += txt.substring(m.beginMask, i);
-                    return result;
-                } else {
-                    result += txt.substring(m.beginMask, i);
+        if (maskElemList != null) {
+            for (MaskElem m : maskElemList) {
+                if (m.begin > -1) {
+                    result += m.value;
                 }
-            } else {
-                break;
+                if (lenTxt > m.beginMask) {
+                    int i = m.endMask;
+                    if (lenTxt <= m.endMask) {
+                        i = lenTxt;
+                        result += txt.substring(m.beginMask, i);
+                        return result;
+                    } else {
+                        result += txt.substring(m.beginMask, i);
+                    }
+                } else {
+                    break;
+                }
             }
         }
         return result;
@@ -181,7 +192,7 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
         if (lenPref > -1 && text.length() > lenPref) {
             st = text.substring(lenPref);
         } else {
-            st = text;
+            st = "";
         }
         for (int i = 0; i < st.length(); i++) {
             char c = st.charAt(i);

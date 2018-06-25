@@ -7,11 +7,13 @@ import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.components.MultiComponents;
 import fitness.sistem.compon.interfaces_classes.ActionsAfterResponse;
 import fitness.sistem.compon.interfaces_classes.Visibility;
+import fitness.sistem.compon.param.ParamComponent;
 import fitness.sistem.compon.tools.Constants;
 
 import java.util.Map;
 
 public class ListScreens <T>{
+    protected ParamComponent.TC TC;
     private Map<String, MultiComponents> MapScreen;
     protected Context context;
 

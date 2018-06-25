@@ -18,6 +18,7 @@
     <!--// Auth-->
     <!--<string name="code_uk">+380</string>-->
     <string name="phone">Телефон</string>
+    <string name="contin">Продовжити</string>
 
 
 </resources>

@@ -24,7 +24,7 @@ public class MyListScreens extends ListScreens {
                         context.getString(R.string.auth), context.getString(R.string.main));
 
         activity(context.getString(R.string.tutorial), R.layout.activity_intro)
-                .addComponent(ParamComponent.TC.INTRO, new ParamModel(Api.INTRO)
+                .addComponent(TC.INTRO, new ParamModel(Api.INTRO)
                                 .internetProvider(TestInternetProvider.class),
                         new ParamView(R.id.pager, R.layout.item_intro)
                                 .setIndicator(R.id.indicator)
@@ -34,12 +34,12 @@ public class MyListScreens extends ListScreens {
         activity(context.getString(R.string.auth), R.layout.activity_auth)
                 .fragmentsContainer(R.id.content_frame, context.getString(R.string.auth_phone));
 
-//        fragment(context.getString(R.string.auth_phone), R.layout.fragment_auth_phone)
-//                .addComponent(ParamComponent.TC.PANEL_ENTER, null, new ParamView(R.id.panel),
-//                        new Navigator().add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
-//                                new ParamModel(ParamModel.POST, Api.LOGIN_PHONE, "phone"),
-//                                actionsAfterResponse().startScreen(context.getString(R.string.auth_code)),
-//                                true, R.id.phone));
+        fragment(context.getString(R.string.auth_phone), R.layout.fragment_auth_phone)
+                .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
+                        new Navigator().add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
+                                new ParamModel(ParamModel.POST, Api.LOGIN_PHONE, "phone"),
+                                actionsAfterResponse().startScreen(context.getString(R.string.auth_code)),
+                                true, R.id.phone));
 //
 //        fragment(context.getString(R.string.auth_code), R.layout.fragment_auth_code)
 //                .addComponent(ParamComponent.TC.PANEL_ENTER, null, new ParamView(R.id.panel),
