@@ -45,22 +45,14 @@ public class TestInternetProvider extends BaseInternetProvider {
     };
 
     private String jsonResult(String request) {
-        if (Api.TICKETS_ACTIVE.contains(request)) {
-            return setActive();
-        } else {
-            switch (request) {
-                case Api.TICKETS_ACTIVE:
-                    return setActive();
-                case Api.MARKER_MAP:
-                    return setMarker();
-                case Api.TUTORIAL:
-                    return setTutorial();
-            }
+        switch (request) {
+             case Api.INTRO:
+                return setIntro();
         }
         return null;
     }
 
-    private String setTutorial() {
+    private String setIntro() {
         Record rec = new Record();
         ListRecords lr = new ListRecords();
         Field f = new Field("", Field.TYPE_RECORD, rec);
@@ -68,115 +60,30 @@ public class TestInternetProvider extends BaseInternetProvider {
 
         Record record;
         record = new Record();
-        record.add(new Field("text", Field.TYPE_STRING, "Талоны дешевле на 12%, чем на АЗС"));
-        record.add(new Field("img", Field.TYPE_STRING, "tutorial_1"));
-        record.add(new Field("skip", Field.TYPE_STRING, "Пропустить знакомство"));
-        record.add(new Field("contin", Field.TYPE_STRING, "Продолжить"));
-        record.add(new Field("proceed", Field.TYPE_STRING, ""));
+        record.add(new Field("message", Field.TYPE_STRING, "Более 120 индивидуальных\nи групповых услуг"));
+        record.add(new Field("title", Field.TYPE_STRING, "Заказывай услуги"));
+        record.add(new Field("img", Field.TYPE_STRING, "intro_1"));
         lr.add(record);
 
         record = new Record();
-        record.add(new Field("text", Field.TYPE_STRING, "Электронные талоны всегда с собой"));
-        record.add(new Field("img", Field.TYPE_STRING, "tutorial_2"));
-        record.add(new Field("skip", Field.TYPE_STRING, "Пропустить знакомство"));
-        record.add(new Field("contin", Field.TYPE_STRING, "Продолжить"));
-        record.add(new Field("proceed", Field.TYPE_STRING, ""));
+        record.add(new Field("message", Field.TYPE_STRING, "Удобный планировщик\nс возможностью отмены занятий"));
+        record.add(new Field("title", Field.TYPE_STRING, "Составляй расписание"));
+        record.add(new Field("img", Field.TYPE_STRING, "intro_2"));
         lr.add(record);
 
         record = new Record();
-        record.add(new Field("text", Field.TYPE_STRING, "Становитесь агентом и зарабатывайте"));
-        record.add(new Field("img", Field.TYPE_STRING, "tutorial_3"));
-        record.add(new Field("skip", Field.TYPE_STRING, "Пропустить знакомство"));
-        record.add(new Field("contin", Field.TYPE_STRING, "Продолжить"));
-        record.add(new Field("proceed", Field.TYPE_STRING, ""));
+        record.add(new Field("message", Field.TYPE_STRING, "Поставь перед собой цель\nи иди к ней, а мы поможем"));
+        record.add(new Field("title", Field.TYPE_STRING, "Достигай целей"));
+        record.add(new Field("img", Field.TYPE_STRING, "intro_3"));
         lr.add(record);
 
         record = new Record();
-        record.add(new Field("text", Field.TYPE_STRING, "Навигатор укажет путь к ближайшей заправке"));
-        record.add(new Field("img", Field.TYPE_STRING, "tutorial_4"));
-        record.add(new Field("skip", Field.TYPE_STRING, ""));
-        record.add(new Field("contin", Field.TYPE_STRING, ""));
-        record.add(new Field("proceed", Field.TYPE_STRING, "Приступить"));
+        record.add(new Field("message", Field.TYPE_STRING, "Ни одна акция или новость\nне пройдет мимо"));
+        record.add(new Field("title", Field.TYPE_STRING, "Будь в курсе событий"));
+        record.add(new Field("img", Field.TYPE_STRING, "intro_4"));
         lr.add(record);
 
         SimpleRecordToJson recordToJson = new SimpleRecordToJson();
-//        Log.d("QWERT","1111 RESULT="+recordToJson.modelToJson(f));
-        return recordToJson.modelToJson(f);
-    }
-
-    private String setActive() {
-//        Log.d("QWERT","setActive setActive setActive");
-//        Record rec = new Record();
-//        ListRecords lr = new ListRecords();
-////        Field f = new Field("", Field.TYPE_LIST, lr);
-//        Field f = new Field("", Field.TYPE_RECORD, rec);
-//        rec.add(new Field("data", Field.TYPE_LIST_RECORD, lr));
-//
-//        Record record;
-//        record = new Record();
-//        record.add(new Field("type", Field.TYPE_INTEGER, 1));
-//        record.add(new Field("amount_confirm", Field.TYPE_INTEGER, 5));
-//        record.add(new Field("amount_expect", Field.TYPE_INTEGER, 3));
-//        lr.add(record);
-//
-//        record = new Record();
-//        record.add(new Field("id", Field.TYPE_INTEGER, 0));
-//        record.add(new Field("volume", Field.TYPE_INTEGER, 100));
-//        record.add(new Field("fuelingName", Field.TYPE_STRING, "ОККО"));
-//        record.add(new Field("network_icon", Field.TYPE_STRING, "azs_active"));
-//        record.add(new Field("fuelTypeName", Field.TYPE_STRING, "92"));
-//        record.add(new Field("fuel_icon", Field.TYPE_STRING, "a92_evro"));
-//        record.add(new Field("due_date", Field.TYPE_STRING, "2019-05-24"));
-//        lr.add(record);
-//
-//        record = new Record();
-//        record.add(new Field("id", Field.TYPE_INTEGER, 1));
-//        record.add(new Field("volume", Field.TYPE_INTEGER, 200));
-//        record.add(new Field("fuelingName", Field.TYPE_STRING, "ОККО"));
-//        record.add(new Field("network_icon", Field.TYPE_STRING, "azs_active"));
-//        record.add(new Field("fuelTypeName", Field.TYPE_STRING, "95"));
-//        record.add(new Field("fuel_icon", Field.TYPE_STRING, "a95_evro"));
-//        record.add(new Field("due_date", Field.TYPE_STRING, "2019-01-12"));
-//        lr.add(record);
-//
-//        SimpleRecordToJson recordToJson = new SimpleRecordToJson();
-//        Log.d("QWERT","1111 RESULT="+recordToJson.modelToJson(f));
-//        return recordToJson.modelToJson(f);
-        return null;
-    }
-
-    private String setMarker() {
-        int i = url.indexOf("?");
-        String par = "";
-        if (i > -1) {
-            par = url.substring(i + 1);
-        }
-        String[] parA = par.split("&");
-        String[] latLon = parA[0].split("=");
-        double lat = Double.valueOf(latLon[1]);
-        latLon = parA[1].split("=");
-        double lon = Double.valueOf(latLon[1]);
-        Record rec = new Record();
-        ListRecords lr = new ListRecords();
-//        Field f = new Field("", Field.TYPE_LIST, lr);
-        Field f = new Field("", Field.TYPE_RECORD, rec);
-        rec.add(new Field("data", Field.TYPE_LIST_RECORD, lr));
-
-        Record record;
-        record = new Record();
-        record.add(new Field(Constants.MARKER_LAT, Field.TYPE_DOUBLE, lat + 0.001));
-        record.add(new Field(Constants.MARKER_LON, Field.TYPE_DOUBLE, lon + 0.001));
-        record.add(new Field(Constants.MARKER_NAME_NUMBER, Field.TYPE_INTEGER, 1));
-        lr.add(record);
-
-        record = new Record();
-        record.add(new Field(Constants.MARKER_LAT, Field.TYPE_DOUBLE, lat - 0.001));
-        record.add(new Field(Constants.MARKER_LON, Field.TYPE_DOUBLE, lon - 0.001));
-        record.add(new Field(Constants.MARKER_NAME_NUMBER, Field.TYPE_INTEGER, 0));
-        lr.add(record);
-
-        SimpleRecordToJson recordToJson = new SimpleRecordToJson();
-//        Log.d("QWERT","RESULT="+recordToJson.modelToJson(f));
         return recordToJson.modelToJson(f);
     }
 

@@ -16,6 +16,6 @@ public class MyNetworkParams extends NetworkParams {
         paginationNameParamNumberPage = "page";
         classProgress = ProgressDialog.class;
         classErrorDialog = ErrorDialog.class;
-        errorDialogViewId = R.id.error_dialog;
+//        errorDialogViewId = R.id.error_dialog;
     }
 }

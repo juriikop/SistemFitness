@@ -17,6 +17,7 @@ public class ParamView {
     public ParamModel paramModel;
     public String[] nameFragment;
     public String[] nameFields;
+    public int furtherSkip, furtherNext, furtherStart;
     public Visibility[] visibilityArray;
 
     public ParamView(int viewId) {
@@ -80,6 +81,13 @@ public class ParamView {
 
     public ParamView setFurtherView(int furtherViewId) {
         this.furtherViewId = furtherViewId;
+        return this;
+    }
+
+    public ParamView setFurtherBtn(int skip, int next, int stert) {
+        furtherSkip = skip;
+        furtherNext = next;
+        furtherStart = stert;
         return this;
     }
 

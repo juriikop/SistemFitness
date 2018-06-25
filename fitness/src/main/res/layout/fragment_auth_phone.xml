@@ -7,29 +7,18 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="@color/white">
-    <RelativeLayout
+    <fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutPrimary
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/h_header"
-        android:background="@drawable/shape_header">
+        android:layout_height="@dimen/h_header">
 
-        <TextView
-            style="@style/st_16_white"
+        <fitness.sistem.sistemfitness.tools.changeColor.TextViewOnPrimary
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
-            android:text="@string/begining" />
-
-        <ImageView
-            android:id="@+id/question"
-            android:layout_width="@dimen/h_button"
-            android:layout_height="@dimen/h_button"
-            android:layout_marginRight="@dimen/pad_10"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/question" />
-
-    </RelativeLayout>
+            android:textSize="@dimen/pad_16"
+            android:text="@string/title_ayth_phone" />
+    </fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutPrimary>
 
     <TextView
         android:layout_width="match_parent"
@@ -38,52 +27,61 @@
         android:layout_marginLeft="@dimen/pad_30"
         android:layout_marginRight="@dimen/pad_30"
         style="@style/st_16_black"
-        android:text="@string/number_phone"/>
+        android:text="@string/phone"/>
 
-    <LinearLayout
-        android:id="@+id/panel"
+    <fitness.sistem.sistemfitness.tools.views.ToolBar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <net.ukr.jura.compon.custom_components.EditPhone
-            android:id="@+id/phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/pad_30"
-            android:layout_marginRight="@dimen/pad_30"
-            android:layout_marginTop="@dimen/pad_10"
-            android:theme="@style/BaseEditTextStyle"
-            android:inputType="number"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black_50"
-            android:textSize="20dp"
-            app:mask="+38 ___ ___ __ __"
-            app:imageId="@drawable/del"
-            app:heightLine="5dp"
-            app:selectorLine="@drawable/selector_edit_text"/>
+        android:layout_height="56dp"
+        android:textSize="18dp"
+        android:textAllCaps="true"
+        android:text="Qwert Asdf">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pad_18"
-            android:layout_marginLeft="@dimen/pad_30"
-            android:layout_marginRight="@dimen/pad_30"
-            style="@style/st_14_black_50_sp8"
-            android:text="@string/info_phone"/>
+    </fitness.sistem.sistemfitness.tools.views.ToolBar>
 
-        <TextView
-            android:id="@+id/done"
-            style="@style/st_button"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/h_bottom"
-            android:layout_marginLeft="@dimen/pad_30"
-            android:layout_marginRight="@dimen/pad_30"
-            android:layout_marginTop="@dimen/pad_72"
-            android:background="@drawable/selector_button"
-            android:elevation="@dimen/pad_6"
-            android:gravity="center"
-            android:enabled="false"
-            android:text="@string/contin"/>
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/panel"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
+        <!--<fitness.sistem.compon.custom_components.EditPhone-->
+            <!--android:id="@+id/phone"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="@dimen/pad_30"-->
+            <!--android:layout_marginRight="@dimen/pad_30"-->
+            <!--android:layout_marginTop="@dimen/pad_10"-->
+            <!--android:theme="@style/BaseEditTextStyle"-->
+            <!--android:inputType="number"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textColorHint="@color/black_50"-->
+            <!--android:textSize="20dp"-->
+            <!--app:mask="+380 __ ___ __ __"-->
+            <!--app:imageId="@drawable/del"-->
+            <!--app:heightLine="5dp"-->
+            <!--app:selectorLine="@drawable/selector_edit_text"/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/pad_18"-->
+            <!--android:layout_marginLeft="@dimen/pad_30"-->
+            <!--android:layout_marginRight="@dimen/pad_30"-->
+            <!--style="@style/st_14_black_50_sp8"-->
+            <!--android:text="@string/info_phone"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/done"-->
+            <!--style="@style/st_button"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/h_bottom"-->
+            <!--android:layout_marginLeft="@dimen/pad_30"-->
+            <!--android:layout_marginRight="@dimen/pad_30"-->
+            <!--android:layout_marginTop="@dimen/pad_72"-->
+            <!--android:background="@drawable/selector_button"-->
+            <!--android:elevation="@dimen/pad_6"-->
+            <!--android:gravity="center"-->
+            <!--android:enabled="false"-->
+            <!--android:text="@string/contin"/>-->
+    <!--</LinearLayout>-->
 
 </LinearLayout>

@@ -40,21 +40,21 @@ public class ListScreens <T>{
         this.MapScreen = MapScreen;
     }
 
-    protected MultiComponents addFragment(String name, int layoutId, String title, String... args) {
+    protected MultiComponents fragment(String name, int layoutId, String title, String... args) {
         MultiComponents mc = new MultiComponents(name, layoutId, title, args);
         mc.typeView = MultiComponents.TYPE_VIEW.FRAGMENT;
         MapScreen.put(name, mc);
         return mc;
     }
 
-    protected MultiComponents addFragment(String name, int layoutId) {
+    protected MultiComponents fragment(String name, int layoutId) {
         MultiComponents mc = new MultiComponents(name, layoutId);
         mc.typeView = MultiComponents.TYPE_VIEW.FRAGMENT;
         MapScreen.put(name, mc);
         return mc;
     }
 
-    protected MultiComponents addFragment(String name, Class customFragment) {
+    protected MultiComponents fragment(String name, Class customFragment) {
         MultiComponents mc = new MultiComponents(name, customFragment);
         mc.typeView = MultiComponents.TYPE_VIEW.CUSTOM_FRAGMENT;
         MapScreen.put(name, mc);
@@ -67,14 +67,14 @@ public class ListScreens <T>{
         return mc;
     }
 
-    protected MultiComponents addActivity(String name, int layoutId, String title, String... args) {
+    protected MultiComponents activity(String name, int layoutId, String title, String... args) {
         MultiComponents mc = new MultiComponents(name, layoutId, title, args);
         mc.typeView = MultiComponents.TYPE_VIEW.ACTIVITY;
         MapScreen.put(name, mc);
         return mc;
     }
 
-    protected MultiComponents addActivity(String name, int layoutId, Constants.AnimateScreen animate) {
+    protected MultiComponents activity(String name, int layoutId, Constants.AnimateScreen animate) {
         MultiComponents mc = new MultiComponents(name, layoutId);
         mc.typeView = MultiComponents.TYPE_VIEW.ACTIVITY;
         mc.animateScreen = animate;
@@ -82,14 +82,14 @@ public class ListScreens <T>{
         return mc;
     }
 
-    protected MultiComponents addActivity(String name, int layoutId) {
+    protected MultiComponents activity(String name, int layoutId) {
         MultiComponents mc = new MultiComponents(name, layoutId);
         mc.typeView = MultiComponents.TYPE_VIEW.ACTIVITY;
         MapScreen.put(name, mc);
         return mc;
     }
 
-    protected MultiComponents addActivity(String name, int layoutId, Class<T> additionalWork) {
+    protected MultiComponents activity(String name, int layoutId, Class<T> additionalWork) {
         MultiComponents mc = new MultiComponents(name, layoutId);
         mc.typeView = MultiComponents.TYPE_VIEW.ACTIVITY;
         mc.additionalWork = additionalWork;
