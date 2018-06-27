@@ -5,7 +5,7 @@ import fitness.sistem.compon.interfaces_classes.MoreWork;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 
 public class ParamComponent <T>{
-    public static enum TC {PANEL, PANEL_ENTER, PANEL_MULTI, SPINNER,
+    public static enum TC {PANEL, PANEL_ENTER, PANEL_MULTI, SPINNER, DRAWER,
         RECYCLER, RECYCLER_HORIZONTAL, RECYCLER_GRID, RECYCLER_EXPANDED, RECYCLER_STICKY,
         MENU, CONTAINER, MAP, SPLASH, BUTTON, PHONE, TOTAL, SEARCH,
         STATIC_LIST, MODEL, PAGER_V, PAGER_F, INTRO};

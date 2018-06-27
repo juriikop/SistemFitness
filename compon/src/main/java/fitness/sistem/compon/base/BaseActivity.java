@@ -179,14 +179,14 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         containerFragmentId = id;
     }
 
-    protected View getContentView(Bundle savedInstanceState) {
-        View view = inflate(this, R.layout.activity_drawer, null);
-        return view;
-    }
+//    protected View getContentView(Bundle savedInstanceState) {
+//        View view = inflate(this, R.layout.activity_drawer, null);
+//        return view;
+//    }
 
-    protected String startFragment() {
-        return null;
-    }
+//    protected String startFragment() {
+//        return null;
+//    }
 
     @Override
     protected void onStart() {
@@ -419,6 +419,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         }
     }
 
+    @Override
     public void startDrawerFragment(String nameMVP, int containerFragmentId) {
         MultiComponents model = mapFragment.get(nameMVP);
         BaseFragment fragment = new ComponentsFragment();

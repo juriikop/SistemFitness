@@ -151,6 +151,11 @@ public class MultiComponents <T>{
         return addComponentMap(viewId, null, paramMap, null, 0);
     }
 
+    public MultiComponents addDrawer(int viewId, int containerId, int leftDrawerId, String nameFragment) {
+        return addComponent(ParamComponent.TC.DRAWER, new ParamView(viewId, nameFragment,
+                new int[] {containerId, leftDrawerId}));
+    }
+
     public MultiComponents addSearchComponent(int viewIdEdit, ParamModel paramModel, ParamView paramView,
                                               Navigator navigator) {
         ParamComponent paramComponent = new ParamComponent();

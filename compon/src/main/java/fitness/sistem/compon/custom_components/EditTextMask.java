@@ -9,6 +9,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import fitness.sistem.compon.R;
 import fitness.sistem.compon.interfaces_classes.IComponent;
@@ -62,8 +63,9 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
             mask = "";
         } else {
             maskProcessing();
-            oldStr = formText("");
-            setSpan(oldStr);
+//            oldStr = formText("");
+            oldStr = "";
+//            setSpan(oldStr);
             setSelection(oldStr.length());
             addTextChangedListener(new MaskTextWatcher());
         }
@@ -250,12 +252,19 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
             if (sel > oldStr.length()) {
                 isEnd = true;
             }
-            if (lenPref > 0 && sel < lenPref && st.length() > 0) {
+            int lenSt = st.length();
+            if (lenPref > 0 && sel < lenPref && lenSt > 0) {
                 setSpan(oldStr);
-                setSelection(lenPref);
+                int selN = lenPref;
+                if (selN > lenSt) {
+                    selN = lenSt;
+                }
+                Log.d("QWERT","onTextChanged selN="+selN);
+                setSelection(selN);
                 return;
             }
             String origin = stripText(st);
+            Log.d("QWERT","onTextChanged origin="+origin);
             if (origin.length() == 0) {
                 if (isNoBlank) {
                     isNoBlank = false;
@@ -314,7 +323,7 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
     }
 
     private void setSpan(String text) {
-        if (lenPref > 0) {
+        if (lenPref > 0 && text.length() >= lenPref) {
             SpannableString ss;
             ss = new SpannableString(text);
             ss.setSpan(new ForegroundColorSpan(hintColor), 0, lenPref, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);

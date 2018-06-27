@@ -26,6 +26,7 @@ public interface IBase {
 //    public void startFragment(String nameMVP, boolean startFlag);
     public void startScreen(String nameMVP, boolean startFlag, Object object);
     public void startScreen(String nameMVP, boolean startFlag);
+    public void startDrawerFragment(String nameMVP, int containerFragmentId);
     public void backPressed();
     public void progressStart();
     public void progressStop();
