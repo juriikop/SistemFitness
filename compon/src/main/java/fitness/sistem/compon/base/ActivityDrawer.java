@@ -22,15 +22,15 @@ public abstract class ActivityDrawer extends BaseActivity{
     protected int menuStart;
     protected DrawerLayout drawer;
 
-    @Override
-    protected View getContentView(Bundle savedInstanceState) {
-        View view = inflate(this, R.layout.activity_drawer, null);
-        drawer = (DrawerLayout) view.findViewById(R.id.drawer);
-        containerFragmentId = R.id.content_frame;
-        nameDrawer = getDrawerFragment();
-        startDrawerFragment(nameDrawer, R.id.left_drawer);
-        return view;
-    }
+//    @Override
+//    protected View getContentView(Bundle savedInstanceState) {
+//        View view = inflate(this, R.layout.activity_drawer, null);
+//        drawer = (DrawerLayout) view.findViewById(R.id.drawer);
+//        containerFragmentId = R.id.content_frame;
+//        nameDrawer = getDrawerFragment();
+//        startDrawerFragment(nameDrawer, R.id.left_drawer);
+//        return view;
+//    }
 
     @Override
     public void initView() {

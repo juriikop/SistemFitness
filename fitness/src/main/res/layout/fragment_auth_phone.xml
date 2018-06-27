@@ -17,14 +17,14 @@
 
     </fitness.sistem.sistemfitness.tools.views.ToolBar>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/pad_40"
-        android:layout_marginLeft="@dimen/pad_30"
-        android:layout_marginRight="@dimen/pad_30"
-        style="@style/st_16_black"
-        android:text="@string/phone"/>
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/pad_40"-->
+        <!--android:layout_marginLeft="@dimen/pad_30"-->
+        <!--android:layout_marginRight="@dimen/pad_30"-->
+        <!--style="@style/st_16_black"-->
+        <!--android:text="@string/phone"/>-->
 
     <LinearLayout
         android:id="@+id/panel"
@@ -35,7 +35,11 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="@dimen/pad_250"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad_24"
+            android:textColorHint="@color/black_50"
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/st_12_black_50">
 
             <fitness.sistem.sistemfitness.tools.views.EditPhone
                 android:id="@+id/phone"
@@ -43,9 +47,14 @@
                 android:layout_height="wrap_content"
                 android:inputType="phone"
                 android:textColor="@color/black"
+                android:textSize="@dimen/pad_18"
                 android:textColorHint="@color/black_50"
+                android:hint="@string/phone"
+                android:imeOptions="actionNext"
                 app:mask="+380 __ ___ __ __" />
         </android.support.design.widget.TextInputLayout>
+
+
         <!--<fitness.sistem.compon.custom_components.EditPhone-->
             <!--android:id="@+id/phone"-->
             <!--android:layout_width="match_parent"-->
@@ -84,15 +93,15 @@
             android:textAllCaps="true"
             android:text="@string/contin"/>
 
-        <fitness.sistem.sistemfitness.tools.views.EditPhone
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/pad_24"
-            android:textSize="24sp"
-            android:inputType="phone"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black_50"
-            app:mask="+380 __ ___ __ __"/>
+        <!--<fitness.sistem.sistemfitness.tools.views.EditPhone-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="@dimen/pad_24"-->
+            <!--android:textSize="24sp"-->
+            <!--android:inputType="phone"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textColorHint="@color/black_50"-->
+            <!--app:mask="+380 __ ___ __ __"/>-->
 
     </LinearLayout>
 

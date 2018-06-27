@@ -23,11 +23,10 @@ public class EditPhone extends EditTextMask{
     protected int offsetY = (int) (7f * DENSITY);
     protected int dp1 = (int) (DENSITY);
     protected int dp2 = (int) (2f * DENSITY);
-//    private int LINE_ACTIVE_DEFAULT = 0xffff9600;
-//    private int LINE_PASSIVE_DEFAULT = 0xffaaaaaa;
     protected int BG_COLOR, LINE_ACTIVE, LINE_PASSIVE;
     private OnFocusChangeListener onFocusChangeListener;
     protected boolean isFocus;
+    protected boolean setMask = false;
 
     public EditPhone(Context context) {
         super(context);
@@ -84,6 +83,10 @@ public class EditPhone extends EditTextMask{
     private View.OnFocusChangeListener focus = new View.OnFocusChangeListener() {
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus && ! setMask) {
+                setMask = true;
+                setMask();
+            }
             isFocus = hasFocus;
             if (onFocusChangeListener != null) {
                 onFocusChangeListener.onFocusChange(v, hasFocus);

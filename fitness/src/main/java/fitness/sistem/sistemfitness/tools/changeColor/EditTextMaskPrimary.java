@@ -2,9 +2,7 @@ package fitness.sistem.sistemfitness.tools.changeColor;
 
 import android.content.Context;
 import android.content.res.Resources;
-//import android.content.res.TypedArray;
 import android.graphics.Canvas;
-//import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -14,32 +12,30 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
-//
-//import fitness.sistem.sistemfitness.R;
 
-public class EditTextPrimary extends AppCompatEditText {
+import fitness.sistem.compon.custom_components.EditTextMask;
+
+public class EditTextMaskPrimary extends EditTextMask {
 
     protected int canvasW, canvasH;
     private float DENSITY = getResources().getDisplayMetrics().density;
     protected int offsetY = (int) (7f * DENSITY);
     protected int dp1 = (int) (DENSITY);
     protected int dp2 = (int) (2f * DENSITY);
-//    private int LINE_ACTIVE_DEFAULT = 0xffff9600;
-//    private int LINE_PASSIVE_DEFAULT = 0xffaaaaaa;
     protected int BG_COLOR, LINE_ACTIVE, LINE_PASSIVE;
     private OnFocusChangeListener onFocusChangeListener;
     protected boolean isFocus;
 
-    public EditTextPrimary(Context context) {
+    public EditTextMaskPrimary(Context context) {
         this(context, null);
     }
 
-    public EditTextPrimary(Context context, AttributeSet attrs) {
+    public EditTextMaskPrimary(Context context, AttributeSet attrs) {
         super(context, attrs);
         setAttributes(context, attrs);
     }
 
-    public EditTextPrimary(Context context, AttributeSet attrs, int defStyleAttr) {
+    public EditTextMaskPrimary(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setAttributes(context, attrs);
     }
@@ -47,7 +43,7 @@ public class EditTextPrimary extends AppCompatEditText {
 
     private void setAttributes(Context context, AttributeSet attrs) {
         onFocusChangeListener = null;
-        super.setOnFocusChangeListener(focus);
+//        setOnFocusChangeListener(focus);
         LINE_ACTIVE = AppColors.primary;
         LINE_PASSIVE = AppColors.gray;
         setBackgroundColor(BG_COLOR);
@@ -78,8 +74,8 @@ public class EditTextPrimary extends AppCompatEditText {
     }
 
     @Override
-    public void setOnFocusChangeListener(OnFocusChangeListener l) {
-        onFocusChangeListener = l;
+    public void setOnFocusChangeListener(OnFocusChangeListener listener) {
+        onFocusChangeListener = listener;
     }
 
     private View.OnFocusChangeListener focus = new View.OnFocusChangeListener() {
