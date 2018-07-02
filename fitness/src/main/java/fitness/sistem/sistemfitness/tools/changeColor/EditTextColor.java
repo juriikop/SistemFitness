@@ -2,9 +2,9 @@ package fitness.sistem.sistemfitness.tools.changeColor;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
+//import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
+//import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -14,8 +14,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
-
-import fitness.sistem.sistemfitness.R;
+//
+//import fitness.sistem.sistemfitness.R;
 
 public class EditTextPrimary extends AppCompatEditText {
 
@@ -24,8 +24,8 @@ public class EditTextPrimary extends AppCompatEditText {
     protected int offsetY = (int) (7f * DENSITY);
     protected int dp1 = (int) (DENSITY);
     protected int dp2 = (int) (2f * DENSITY);
-    private int LINE_ACTIVE_DEFAULT = 0xffff9600;
-    private int LINE_PASSIVE_DEFAULT = 0xffaaaaaa;
+//    private int LINE_ACTIVE_DEFAULT = 0xffff9600;
+//    private int LINE_PASSIVE_DEFAULT = 0xffaaaaaa;
     protected int BG_COLOR, LINE_ACTIVE, LINE_PASSIVE;
     private OnFocusChangeListener onFocusChangeListener;
     protected boolean isFocus;

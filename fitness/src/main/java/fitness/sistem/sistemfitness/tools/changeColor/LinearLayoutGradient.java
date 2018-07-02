@@ -2,26 +2,29 @@ package fitness.sistem.sistemfitness.tools.changeColor;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+import android.widget.LinearLayout;
 
-public class TextViewPrimary extends AppCompatTextView {
-    public TextViewPrimary(Context context) {
+public class LinearLayoutPrimaryGradient extends LinearLayout {
+
+    private String title;
+
+    public LinearLayoutPrimaryGradient(Context context) {
         super(context);
         init(context, null);
     }
 
-    public TextViewPrimary(Context context, AttributeSet attrs) {
+    public LinearLayoutPrimaryGradient(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public TextViewPrimary(Context context, AttributeSet attrs, int defStyleAttr) {
+    public LinearLayoutPrimaryGradient(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
     private void init(Context context, @Nullable AttributeSet attrs) {
-        setTextColor(AppColors.primary);
+        setBackground(AppColors.gradient());
     }
 }

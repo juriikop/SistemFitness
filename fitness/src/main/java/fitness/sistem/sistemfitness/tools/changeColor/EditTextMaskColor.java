@@ -1,4 +1,4 @@
-package fitness.sistem.sistemfitness.tools.views;
+package fitness.sistem.sistemfitness.tools.changeColor;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -14,9 +14,8 @@ import android.widget.TextView;
 import java.lang.reflect.Field;
 
 import fitness.sistem.compon.custom_components.EditTextMask;
-import fitness.sistem.sistemfitness.tools.changeColor.AppColors;
 
-public class EditPhone extends EditTextMask{
+public class EditTextMaskPrimary extends EditTextMask {
 
     protected int canvasW, canvasH;
     private float DENSITY = getResources().getDisplayMetrics().density;
@@ -26,26 +25,25 @@ public class EditPhone extends EditTextMask{
     protected int BG_COLOR, LINE_ACTIVE, LINE_PASSIVE;
     private OnFocusChangeListener onFocusChangeListener;
     protected boolean isFocus;
-    protected boolean setMask = false;
 
-    public EditPhone(Context context) {
-        super(context);
-        init(context, null);
+    public EditTextMaskPrimary(Context context) {
+        this(context, null);
     }
 
-    public EditPhone(Context context, AttributeSet attrs) {
+    public EditTextMaskPrimary(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
+        setAttributes(context, attrs);
     }
 
-    public EditPhone(Context context, AttributeSet attrs, int defStyleAttr) {
+    public EditTextMaskPrimary(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        setAttributes(context, attrs);
     }
 
-    private void init(Context context, AttributeSet attrs) {
+
+    private void setAttributes(Context context, AttributeSet attrs) {
         onFocusChangeListener = null;
-        super.setOnFocusChangeListener(focus);
+//        setOnFocusChangeListener(focus);
         LINE_ACTIVE = AppColors.primary;
         LINE_PASSIVE = AppColors.gray;
         setBackgroundColor(BG_COLOR);
@@ -76,17 +74,13 @@ public class EditPhone extends EditTextMask{
     }
 
     @Override
-    public void setOnFocusChangeListener(OnFocusChangeListener l) {
-        onFocusChangeListener = l;
+    public void setOnFocusChangeListener(OnFocusChangeListener listener) {
+        onFocusChangeListener = listener;
     }
 
     private View.OnFocusChangeListener focus = new View.OnFocusChangeListener() {
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
-            if (hasFocus && ! setMask) {
-                setMask = true;
-                setMask();
-            }
             isFocus = hasFocus;
             if (onFocusChangeListener != null) {
                 onFocusChangeListener.onFocusChange(v, hasFocus);

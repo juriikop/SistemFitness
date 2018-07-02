@@ -111,6 +111,10 @@ public abstract class BaseFragment extends Fragment implements IBase {
         return savedInstanceState;
     }
 
+    @Override
+    public void startDrawerFragment(String nameMVP, int containerFragmentId) {
+    }
+
     public int getLayoutId() {
         return 0;
     }
@@ -295,7 +299,7 @@ public abstract class BaseFragment extends Fragment implements IBase {
     public ParentModel getParentModel(String name) {
         if (parentModelList.size() > 0) {
             for (ParentModel pm : parentModelList) {
-                if (pm.nameParentModel.equals(name)) {
+                if (pm.nameParentModel != null && pm.nameParentModel.equals(name)) {
                     return pm;
                 }
             }

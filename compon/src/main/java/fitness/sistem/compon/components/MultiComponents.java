@@ -151,9 +151,8 @@ public class MultiComponents <T>{
         return addComponentMap(viewId, null, paramMap, null, 0);
     }
 
-    public MultiComponents addDrawer(int viewId, int containerId, int leftDrawerId, String nameFragment) {
-        return addComponent(ParamComponent.TC.DRAWER, new ParamView(viewId, nameFragment,
-                new int[] {containerId, leftDrawerId}));
+    public MultiComponents addDrawer(int viewId, int[] containerId, String[] nameFragments) {
+        return addComponent(ParamComponent.TC.DRAWER, new ParamView(viewId, nameFragments, containerId));
     }
 
     public MultiComponents addSearchComponent(int viewIdEdit, ParamModel paramModel, ParamView paramView,
@@ -332,6 +331,9 @@ public class MultiComponents <T>{
                 case INTRO:
                     new IntroComponent(iBase, cMV, this);
                     break;
+                case DRAWER:
+                    new DrawerComponent(iBase, cMV, this);
+                    break;
 //                case PHONE:
 //                    new EditPhoneComponent(iBase, cMV);
 //                    break;
@@ -395,5 +397,4 @@ public class MultiComponents <T>{
         }
         return st;
     }
-
 }

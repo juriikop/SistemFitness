@@ -30,6 +30,7 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
     private OnChangeStatusListener statusListener;
     private Integer status = new Integer(-1);
     private boolean isNoBlank, isValid, isTimeOut;
+    private boolean noFocus = true;
 
     public EditTextMask(Context context) {
         super(context);
@@ -47,6 +48,7 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
     }
 
     private void init(Context context, AttributeSet attrs) {
+//        setOnFocusChangeListener(focus);
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.Simple,
                 0, 0);
         try {
@@ -63,16 +65,36 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
             mask = "";
         } else {
             maskProcessing();
-//            oldStr = formText("");
-            oldStr = "";
-//            setSpan(oldStr);
-            setSelection(oldStr.length());
-            addTextChangedListener(new MaskTextWatcher());
         }
     }
 
+//    private View.OnFocusChangeListener focus = new View.OnFocusChangeListener() {
+//        @Override
+//        public void onFocusChange(View v, boolean hasFocus) {
+//            Log.d("QWERT","focus hasFocus="+hasFocus+" LLL="+getText());
+//            if (hasFocus && getText().length() == 0) {
+//                noFocus = false;
+//                maskProcessing();
+//                oldStr = formText("");
+//                Log.d("QWERT","focus oldStr="+oldStr);
+//                setSpan(oldStr);
+//                setSelection(oldStr.length());
+//                addTextChangedListener(new MaskTextWatcher());
+//            }
+//        }
+//    };
+
     public void setMask(String mask) {
         this.mask = mask;
+        setMask();
+//        maskProcessing();
+//        oldStr = formText(stripText(getText().toString()));
+//        setSpan(oldStr);
+//        setSelection(oldStr.length());
+//        addTextChangedListener(new MaskTextWatcher());
+    }
+
+    public void setMask() {
         maskProcessing();
         oldStr = formText(stripText(getText().toString()));
         setSpan(oldStr);
@@ -83,6 +105,7 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
     @Override
     protected void onSelectionChanged(int selStart, int selEnd) {
         super.onSelectionChanged(selStart, selEnd);
+        if (noFocus) return;
         if (lenPref > 0 && selStart < lenPref && getText().length() > 0) {
             setSelection(lenPref);
             return;

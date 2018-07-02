@@ -5,6 +5,7 @@ import fitness.sistem.compon.base.ListScreens;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.param.ParamComponent;
+import fitness.sistem.compon.param.ParamMap;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.param.ParamView;
 import fitness.sistem.sistemfitness.R;
@@ -21,7 +22,8 @@ public class MyListScreens extends ListScreens {
     public void initScreen() {
         activity(context.getString(R.string.splash), R.layout.activity_splash)
                 .addComponentSplash(context.getString(R.string.tutorial),
-                        context.getString(R.string.auth), context.getString(R.string.main));
+//                        context.getString(R.string.auth), context.getString(R.string.main));
+                        null, context.getString(R.string.main));
 
         activity(context.getString(R.string.tutorial), R.layout.activity_intro)
                 .addComponent(TC.INTRO, new ParamModel(Api.INTRO)
@@ -52,14 +54,10 @@ public class MyListScreens extends ListScreens {
 //                                        .startScreen(context.getString(R.string.main))
 //                                        .back(),
 //                                true, R.id.code));
-//
-//        activity(context.getString(R.string.main), R.layout.activity_fuel)
-//                .fragmentsContainer(R.id.content_frame, context.getString(R.string.tickets))
-//                .addNavigator(new Navigator().add(R.id.radio1, context.getString(R.string.tickets))
-//                        .add(R.id.radio2, context.getString(R.string.map))
-////                        .add(R.id.radio3, context.getString(R.string.calculator))
-//                        .add(R.id.radio5, context.getString(R.string.profile)));
-//
+
+        activity(context.getString(R.string.main), R.layout.activity_main)
+                .addDrawer(R.id.drawer, new int[] {R.id.content_frame, R.id.left_drawer}, new String[] {context.getString(R.string.map), context.getString(R.string.map)});
+
 //        fragment(context.getString(R.string.tickets), R.layout.fragment_tickets, context.getString(R.string.my_tickets))
 //                .addNavigator(new Navigator().add(R.id.question, context.getString(R.string.help)))
 //                .addComponent(ParamComponent.TC.PAGER_F, new ParamView(R.id.pager,
@@ -90,17 +88,10 @@ public class MyListScreens extends ListScreens {
 //        fragment(context.getString(R.string.profile), R.layout.fragment_profile)
 //                .setDataParam(R.id.phone, "phone", 1);
 //
-//        fragment(context.getString(R.string.map), R.layout.fragment_map)
-//                .addComponent(ParamComponent.TC.SPINNER, new ParamModel(Api.NETWORKS_ALL).changeNameField("id", "network"),
-//                        new ParamView(R.id.spinner, "type", new int[] {R.layout.spinner_drop_map, R.layout.spinher_drop_begin_map},
-//                                new int[] {R.layout.spinher_hider_map}), null, 0, FuelMoreWork.class)
-//                .addComponentMap(R.id.map, new ParamModel(Api.MARKER_MAP, "network").changeNameField("network.icon", "icon_1"),
-//                        new ParamMap(true)
-//                                .coordinateValue(50.0276271, 36.2237879)
-//                                .markerImg(R.drawable.tab_map_green, Constants.MARKER_NAME_NUMBER,
-//                                        R.drawable.marker_map, R.drawable.marker_map)
-//                                .markerClick(R.id.infoWindow), new Navigator().add(R.id.contin, ViewHandler.TYPE.MAP_ROUTE),
-//                        R.id.spinner);
+        fragment(context.getString(R.string.map), R.layout.fragment_map)
+                .addComponentMap(R.id.map, new ParamModel(),
+                        new ParamMap(true)
+                                .coordinateValue(50.0276271, 36.2237879), null, 0);
 //
 //        activity(context.getString(R.string.help), R.layout.activity_help, Constants.AnimateScreen.RL)
 //                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK)

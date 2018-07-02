@@ -10,6 +10,7 @@
     <string name="auth">auth</string>
     <string name="auth_phone">auth_phone</string>
     <string name="auth_code">auth_code</string>
+    <string name="map">map</string>
 
 
     // Title screen
