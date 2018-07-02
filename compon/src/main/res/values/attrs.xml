@@ -39,5 +39,13 @@
         <attr name="textColor" format="color"/>
         <attr name="stringArray" format="reference"/>
         <attr name="alias" format="string"/>
+        <attr name="textError" format="string"/>
+        <attr name="minValue" format="string"/>
+        <attr name="maxValue" format="string"/>
+        <attr name="typeValidate">
+            <enum name="filled" value="0" />
+            <enum name="length" value="1" />
+            <enum name="email" value="2" />
+        </attr>
     </declare-styleable>
 </resources>
