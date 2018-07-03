@@ -127,24 +127,23 @@ public abstract class BaseFragment extends Fragment implements IBase {
     View.OnClickListener navigatorClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Log.d("QWERT","navigatorClick navigatorClick");
             int id = view.getId();
             for (ViewHandler vh : mComponent.navigator.viewHandlers) {
                 if (vh.viewId == id) {
                     switch (vh.type) {
                         case NAME_FRAGMENT:
-//                            ComponGlob.getInstance().setParam(record);
                             getBaseActivity().startScreen(vh.nameFragment, false);
-//                            startFragment(vh.nameFragment, false);
                             break;
                         case SHOW:
-                            Log.d("QWERT","navigatorClick SHOW");
                             View showView = parentLayout.findViewById(vh.showViewId);
                             if (showView instanceof AnimatePanel) {
                                 ((AnimatePanel) showView).show(BaseFragment.this);
                             } else {
                                 showView.setVisibility(View.VISIBLE);
                             }
+                            break;
+                        case BACK:
+                            backPressed();
                             break;
                     }
                     break;
@@ -342,7 +341,7 @@ public abstract class BaseFragment extends Fragment implements IBase {
     }
 //    @Override
     public void startFragment(String nameMVP, boolean startFlag,Object object) {
-        getBaseActivity().startFragment(nameMVP, startFlag, object);
+        getBaseActivity().startFragment(nameMVP, getBaseActivity().mapFragment.get(nameMVP), startFlag, object);
     }
 
 //    @Override

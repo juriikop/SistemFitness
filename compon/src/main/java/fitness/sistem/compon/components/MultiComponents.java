@@ -75,6 +75,12 @@ public class MultiComponents <T>{
         }
     }
 
+
+    public MultiComponents animate(Constants.AnimateScreen animate) {
+        animateScreen = animate;
+        return this;
+    }
+
     public void setName(String nameComponent) {
         this.nameComponent = nameComponent;
     }

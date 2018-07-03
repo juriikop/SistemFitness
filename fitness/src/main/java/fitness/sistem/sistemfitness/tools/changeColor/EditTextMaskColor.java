@@ -2,6 +2,7 @@ package fitness.sistem.sistemfitness.tools.changeColor;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -14,8 +15,9 @@ import android.widget.TextView;
 import java.lang.reflect.Field;
 
 import fitness.sistem.compon.custom_components.EditTextMask;
+import fitness.sistem.sistemfitness.R;
 
-public class EditTextMaskPrimary extends EditTextMask {
+public class EditTextMaskColor extends EditTextMask {
 
     protected int canvasW, canvasH;
     private float DENSITY = getResources().getDisplayMetrics().density;
@@ -25,17 +27,19 @@ public class EditTextMaskPrimary extends EditTextMask {
     protected int BG_COLOR, LINE_ACTIVE, LINE_PASSIVE;
     private OnFocusChangeListener onFocusChangeListener;
     protected boolean isFocus;
+    protected boolean setMask = false;
+    private int colorText = AppColors.textOnPrimary;
 
-    public EditTextMaskPrimary(Context context) {
+    public EditTextMaskColor(Context context) {
         this(context, null);
     }
 
-    public EditTextMaskPrimary(Context context, AttributeSet attrs) {
+    public EditTextMaskColor(Context context, AttributeSet attrs) {
         super(context, attrs);
         setAttributes(context, attrs);
     }
 
-    public EditTextMaskPrimary(Context context, AttributeSet attrs, int defStyleAttr) {
+    public EditTextMaskColor(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setAttributes(context, attrs);
     }
@@ -43,34 +47,23 @@ public class EditTextMaskPrimary extends EditTextMask {
 
     private void setAttributes(Context context, AttributeSet attrs) {
         onFocusChangeListener = null;
-//        setOnFocusChangeListener(focus);
-        LINE_ACTIVE = AppColors.primary;
+        super.setOnFocusChangeListener(focus);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ChangeColor);
+        try {
+            int i = a.getInt(R.styleable.ChangeColor_colorCursor, 0);
+            LINE_ACTIVE = AppColors.colors[i];
+            i = a.getInt(R.styleable.ChangeColor_colorText, -1);
+            if (i > -1) {
+                colorText = AppColors.colors[i];
+                setTextColor(colorText);
+            }
+        } finally {
+            a.recycle();
+        }
+//        LINE_ACTIVE = colorCursor;
         LINE_PASSIVE = AppColors.gray;
         setBackgroundColor(BG_COLOR);
-        setCursorDrawableColor(this, AppColors.primary);
-    }
-
-    private void setCursorDrawableColor(AppCompatEditText editText, int color) {
-        try {
-            Field fCursorDrawableRes =
-                    TextView.class.getDeclaredField("mCursorDrawableRes");
-            fCursorDrawableRes.setAccessible(true);
-            int mCursorDrawableRes = fCursorDrawableRes.getInt(editText);
-            Field fEditor = TextView.class.getDeclaredField("mEditor");
-            fEditor.setAccessible(true);
-            Object editor = fEditor.get(editText);
-            Class<?> clazz = editor.getClass();
-            Field fCursorDrawable = clazz.getDeclaredField("mCursorDrawable");
-            fCursorDrawable.setAccessible(true);
-            Drawable[] drawables = new Drawable[2];
-            Resources res = editText.getContext().getResources();
-            drawables[0] = res.getDrawable(mCursorDrawableRes);
-            drawables[1] = res.getDrawable(mCursorDrawableRes);
-            drawables[0].setColorFilter(color, PorterDuff.Mode.SRC_IN);
-            drawables[1].setColorFilter(color, PorterDuff.Mode.SRC_IN);
-            fCursorDrawable.set(editor, drawables);
-        } catch (final Throwable ignored) {
-        }
+        AppColors.setCursorDrawableColor(this, AppColors.primary);
     }
 
     @Override
@@ -78,9 +71,23 @@ public class EditTextMaskPrimary extends EditTextMask {
         onFocusChangeListener = listener;
     }
 
+//    private View.OnFocusChangeListener focus = new View.OnFocusChangeListener() {
+//        @Override
+//        public void onFocusChange(View v, boolean hasFocus) {
+//            isFocus = hasFocus;
+//            if (onFocusChangeListener != null) {
+//                onFocusChangeListener.onFocusChange(v, hasFocus);
+//            }
+//        }
+//    };
+
     private View.OnFocusChangeListener focus = new View.OnFocusChangeListener() {
         @Override
         public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus && ! setMask) {
+                setMask = true;
+                setMask();
+            }
             isFocus = hasFocus;
             if (onFocusChangeListener != null) {
                 onFocusChangeListener.onFocusChange(v, hasFocus);

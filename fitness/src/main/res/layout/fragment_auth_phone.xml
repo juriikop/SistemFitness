@@ -8,23 +8,30 @@
     android:gravity="center_horizontal"
     android:background="@color/white">
 
-    <fitness.sistem.sistemfitness.tools.views.ToolBar
+    <fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:textSize="18dp"
-        android:textAllCaps="true"
-        android:text="@string/title_ayth_phone">
+        app:color_1="darkPrimary"
+        app:color_2="primary">
+        <fitness.sistem.sistemfitness.tools.changeColor.ImageViewColor
+            android:id="@+id/back"
+            android:layout_width="@dimen/d_icon"
+            android:layout_height="@dimen/d_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/pad_16"
+            android:src="@drawable/back"
+            app:colorText="textOnPrimary" />
 
-    </fitness.sistem.sistemfitness.tools.views.ToolBar>
-
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="@dimen/pad_40"-->
-        <!--android:layout_marginLeft="@dimen/pad_30"-->
-        <!--android:layout_marginRight="@dimen/pad_30"-->
-        <!--style="@style/st_16_black"-->
-        <!--android:text="@string/phone"/>-->
+        <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/title_ayth_phone"
+            android:textAllCaps="true"
+            android:textSize="18dp"
+            app:colorText="textOnPrimary"/>
+    </fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient>
 
     <LinearLayout
         android:id="@+id/panel"
@@ -41,7 +48,7 @@
             app:errorEnabled="true"
             app:hintTextAppearance="@style/st_12_black_50">
 
-            <fitness.sistem.sistemfitness.tools.views.EditPhone
+            <fitness.sistem.sistemfitness.tools.changeColor.EditTextMaskColor
                 android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,37 +58,11 @@
                 android:textColorHint="@color/black_50"
                 android:hint="@string/phone"
                 android:imeOptions="actionNext"
-                app:mask="+380 __ ___ __ __" />
+                app:mask="+380 __ ___ __ __"
+                app:colorCursor="primary"/>
         </android.support.design.widget.TextInputLayout>
 
-
-        <!--<fitness.sistem.compon.custom_components.EditPhone-->
-            <!--android:id="@+id/phone"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="@dimen/pad_30"-->
-            <!--android:layout_marginRight="@dimen/pad_30"-->
-            <!--android:layout_marginTop="@dimen/pad_10"-->
-            <!--android:theme="@style/BaseEditTextStyle"-->
-            <!--android:inputType="number"-->
-            <!--android:textColor="@color/black"-->
-            <!--android:textColorHint="@color/black_50"-->
-            <!--android:textSize="20dp"-->
-            <!--app:mask="+380 __ ___ __ __"-->
-            <!--app:imageId="@drawable/del"-->
-            <!--app:heightLine="5dp"-->
-            <!--app:selectorLine="@drawable/selector_edit_text"/>-->
-
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="@dimen/pad_18"-->
-            <!--android:layout_marginLeft="@dimen/pad_30"-->
-            <!--android:layout_marginRight="@dimen/pad_30"-->
-            <!--style="@style/st_14_black_50_sp8"-->
-            <!--android:text="@string/info_phone"/>-->
-
-        <fitness.sistem.sistemfitness.tools.changeColor.ButtonAccent
+        <fitness.sistem.sistemfitness.tools.changeColor.ButtonColor
             android:id="@+id/done"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/h_button"
@@ -91,18 +72,25 @@
             android:paddingLeft="@dimen/pad_24"
             android:paddingRight="@dimen/pad_24"
             android:textAllCaps="true"
-            android:text="@string/contin"/>
-
-        <!--<fitness.sistem.sistemfitness.tools.views.EditPhone-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="@dimen/pad_24"-->
-            <!--android:textSize="24sp"-->
-            <!--android:inputType="phone"-->
-            <!--android:textColor="@color/black"-->
-            <!--android:textColorHint="@color/black_50"-->
-            <!--app:mask="+380 __ ___ __ __"/>-->
+            android:text="@string/contin"
+            app:colorText="textOnAccent"
+            app:color_1="accent"
+            app:color_2="lightAccent"/>
 
     </LinearLayout>
+
+    <fitness.sistem.sistemfitness.tools.changeColor.ButtonColor
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/h_button"
+        android:layout_marginTop="@dimen/pad_32"
+        android:gravity="center"
+        android:paddingLeft="@dimen/pad_24"
+        android:paddingRight="@dimen/pad_24"
+        android:textAllCaps="true"
+        android:text="@string/register"
+        app:colorText="textOnPrimary"
+        app:color_1="primary"
+        app:color_2="lightPrimary"/>
 
 </LinearLayout>

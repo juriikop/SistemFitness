@@ -2,6 +2,7 @@ package fitness.sistem.sistemfitness.params;
 
 import android.content.Context;
 import fitness.sistem.compon.base.ListScreens;
+import fitness.sistem.compon.components.Menu;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.param.ParamComponent;
@@ -33,15 +34,31 @@ public class MyListScreens extends ListScreens {
                                 .setFurtherBtn(R.id.skip, R.id.contin, R.id.start),
                         new Navigator().add(context.getString(R.string.auth)));
 
-        activity(context.getString(R.string.auth), R.layout.activity_auth)
+        activity(context.getString(R.string.auth), R.layout.activity_auth).animate(AS.LR)
                 .fragmentsContainer(R.id.content_frame, context.getString(R.string.auth_phone));
 
         fragment(context.getString(R.string.auth_phone), R.layout.fragment_auth_phone)
+                .addNavigator(new Navigator().add(R.id.register, context.getString(R.string.auth_register))
+                        .add(R.id.back, ViewHandler.TYPE.BACK))
                 .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
-                        new Navigator().add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
-                                new ParamModel(ParamModel.POST, Api.LOGIN_PHONE, "phone"),
-                                actionsAfterResponse().startScreen(context.getString(R.string.auth_code)),
-                                true, R.id.phone));
+                        new Navigator()
+                                .add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
+                                        new ParamModel(ParamModel.POST, Api.LOGIN_PHONE, "phone"),
+                                        actionsAfterResponse().startScreen(context.getString(R.string.auth_code)),
+                                        true, R.id.phone));
+
+        fragment(context.getString(R.string.auth_register), R.layout.fragment_register).animate(AS.TB)
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
+                .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
+                        new Navigator()
+                                .add(R.id.done_register, ViewHandler.TYPE.CLICK_SEND,
+                                        new ParamModel(ParamModel.POST, Api.REGISTER,
+                                                "phone,surname,name,patronymic,email"),
+                                        actionsAfterResponse().startScreen(context.getString(R.string.auth_code)),
+                                        false, R.id.phone, R.id.surname, R.id.name, R.id.patronymic, R.id.email))
+//                .addButtonComponent(R.id.done_register, new Navigator(), R.id.phone, R.id.surname, R.id.name, R.id.patronymic, R.id.email)
+        ;
+
 
 //
 //        fragment(context.getString(R.string.auth_code), R.layout.fragment_auth_code)
@@ -56,7 +73,25 @@ public class MyListScreens extends ListScreens {
 //                                true, R.id.code));
 
         activity(context.getString(R.string.main), R.layout.activity_main)
-                .addDrawer(R.id.drawer, new int[] {R.id.content_frame, R.id.left_drawer}, new String[] {context.getString(R.string.map), context.getString(R.string.map)});
+                .addDrawer(R.id.drawer, new int[] {R.id.content_frame, R.id.left_drawer},
+                        new String[] {"", context.getString(R.string.drawer)});
+
+        Menu menu = new Menu()
+                .addItem("targets", "Мои цели", "")
+                .addItem("icon_lil_phone", "Услуги", getString(R.string.map), true)
+                .addDivider()
+                .addItem("icon_lil_phone", "Money clouds", "");
+
+        fragment(context.getString(R.string.drawer), R.layout.fragment_drawer)
+                .addComponent(TC.PANEL_MULTI, new ParamModel(getProfile()),
+                        new ParamView(R.id.panel, R.layout.drawer_header_main, R.layout.drawer_header_not),
+                        new Navigator().add(R.id.enter, context.getString(R.string.auth))
+                                .add(R.id.enter, ViewHandler.TYPE.CLOSE_DRAWER))
+                .addComponent(ParamComponent.TC.MENU, new ParamModel(menu),
+                        new ParamView(R.id.recycler, "select",
+                                new int[]{R.layout.item_menu_divider, R.layout.item_menu, R.layout.item_menu_select}),
+                        new Navigator().add("nameFunc"));
+
 
 //        fragment(context.getString(R.string.tickets), R.layout.fragment_tickets, context.getString(R.string.my_tickets))
 //                .addNavigator(new Navigator().add(R.id.question, context.getString(R.string.help)))

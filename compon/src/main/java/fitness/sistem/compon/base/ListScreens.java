@@ -7,6 +7,7 @@ import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.components.MultiComponents;
 import fitness.sistem.compon.interfaces_classes.ActionsAfterResponse;
 import fitness.sistem.compon.interfaces_classes.Visibility;
+import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.param.ParamComponent;
 import fitness.sistem.compon.tools.Constants;
 
@@ -14,8 +15,10 @@ import java.util.Map;
 
 public class ListScreens <T>{
     protected ParamComponent.TC TC;
+    protected Constants.AnimateScreen AS;
     private Map<String, MultiComponents> MapScreen;
     protected Context context;
+    protected ComponGlob componGlob;
 
     public void initScreen() {
         for (MultiComponents value : MapScreen.values()) {
@@ -24,13 +27,19 @@ public class ListScreens <T>{
                 String[] param = par.split(Constants.SEPARATOR_LIST);
                 int ik = param.length;
                 for (int i = 0; i < ik; i++) {
-                    ComponGlob.getInstance().addParam(param[i]);
+                    componGlob.addParam(param[i]);
+//                    ComponGlob.getInstance().addParam(param[i]);
                 }
             }
         }
     }
 
+    public Field getProfile() {
+        return componGlob.profile;
+    }
+
     public ListScreens(Context context) {
+        componGlob = ComponGlob.getInstance();
         this.context = context;
     }
 
@@ -72,14 +81,6 @@ public class ListScreens <T>{
     protected MultiComponents activity(String name, int layoutId, String title, String... args) {
         MultiComponents mc = new MultiComponents(name, layoutId, title, args);
         mc.typeView = MultiComponents.TYPE_VIEW.ACTIVITY;
-        MapScreen.put(name, mc);
-        return mc;
-    }
-
-    protected MultiComponents activity(String name, int layoutId, Constants.AnimateScreen animate) {
-        MultiComponents mc = new MultiComponents(name, layoutId);
-        mc.typeView = MultiComponents.TYPE_VIEW.ACTIVITY;
-        mc.animateScreen = animate;
         MapScreen.put(name, mc);
         return mc;
     }

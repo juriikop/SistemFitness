@@ -11,6 +11,7 @@ import android.view.View;
 
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.components.MultiComponents;
+import fitness.sistem.compon.interfaces_classes.IValidate;
 import fitness.sistem.compon.param.ParamComponent;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.json_simple.WorkWithRecordsAndViews;
@@ -226,11 +227,23 @@ public abstract class BaseComponent {
                             new BasePresenter(iBase, vh.paramModel, null, setRecord(param), listener_send_change);
                             break;
                         case CLICK_SEND :
-                            selectViewHandler = vh;
-                            param = workWithRecordsAndViews.ViewToRecord(viewComponent, vh.paramModel.param);
-                            Record rec = setRecord(param);
-                            ComponGlob.getInstance().setParam(rec);
-                            new BasePresenter(iBase, vh.paramModel, null, rec, listener_send_back_screen);
+                            boolean valid = true;
+                            for (int i : vh.mustValid) {
+                                View vv = viewComponent.findViewById(i);
+                                if (vv instanceof IValidate) {
+                                    boolean validI = ((IValidate) vv).isValid();
+                                    if ( ! validI) {
+                                        valid = false;
+                                    }
+                                }
+                            }
+                            if (valid) {
+                                selectViewHandler = vh;
+                                param = workWithRecordsAndViews.ViewToRecord(viewComponent, vh.paramModel.param);
+                                Record rec = setRecord(param);
+                                ComponGlob.getInstance().setParam(rec);
+                                new BasePresenter(iBase, vh.paramModel, null, rec, listener_send_back_screen);
+                            }
                             break;
                         default:
                             specificComponentClick(vh);

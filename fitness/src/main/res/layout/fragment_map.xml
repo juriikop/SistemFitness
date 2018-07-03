@@ -5,20 +5,31 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <fitness.sistem.sistemfitness.tools.views.ToolBar
+    <fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient
+        android:id="@+id/tool"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:textSize="18dp"
-        android:textAllCaps="true"
-        android:text="MAP">
+        app:color_1="darkPrimary"
+        app:color_2="primary">
 
-    </fitness.sistem.sistemfitness.tools.views.ToolBar>
+        <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/title_map"
+            android:textAllCaps="true"
+            android:textSize="18dp"
+            app:colorText="textOnPrimary"/>
+
+    </fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient>
+
     <com.google.android.gms.maps.MapView
-        xmlns:map="http://schemas.android.com/apk/res-auto"
         android:id="@+id/map"
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        map:uiZoomControls="true"/>
+        android:layout_below="@+id/tool"
+        app:uiZoomControls="true"/>
 
 </RelativeLayout>

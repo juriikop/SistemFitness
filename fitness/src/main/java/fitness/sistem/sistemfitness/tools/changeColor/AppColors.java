@@ -2,6 +2,7 @@ package fitness.sistem.sistemfitness.tools.changeColor;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -10,7 +11,11 @@ import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Build;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.widget.AppCompatEditText;
 import android.util.DisplayMetrics;
+import android.widget.TextView;
+
+import java.lang.reflect.Field;
 
 public class AppColors {
     public static int primary = 0xFFff9600;
@@ -22,15 +27,17 @@ public class AppColors {
     public static int textOnPrimary = 0xffffffff;
     public static int textOnAccent = 0xffffffff;
     public static int gray = 0xffaaaaaa;
+    public static int[] colors = {primary, accent, primaryDark, accentDark,
+            textOnPrimary, textOnAccent, primaryLight, accentLight};
 
-    public static StateListDrawable selectorButton(Context context) {
+    public static StateListDrawable selectorButton(Context context, int color1, int color2) {
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
         float r = 24 * dm.density;
         float[] outR = new float[] {r, r, r, r, r, r, r, r };
         ShapeDrawable shapeAccent = new ShapeDrawable (new RoundRectShape(outR, null, null));
-        shapeAccent.getPaint().setColor(AppColors.accent);
+        shapeAccent.getPaint().setColor(color1);
         ShapeDrawable shapeAccentLight = new ShapeDrawable (new RoundRectShape(outR, null, null));
-        shapeAccentLight.getPaint().setColor(AppColors.accentLight);
+        shapeAccentLight.getPaint().setColor(color2);
         ShapeDrawable shapeEnabled = new ShapeDrawable (new RoundRectShape(outR, null, null));
         shapeEnabled.getPaint().setColor(AppColors.gray);
         StateListDrawable selectorButton = new StateListDrawable();
@@ -48,30 +55,61 @@ public class AppColors {
         return drawable;
     }
 
-    public static ColorStateList selectorText() {
+    public static GradientDrawable gradient(int gradient1, int gradient2) {
+        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
+                new int[] { gradient1, gradient2});
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
+        return drawable;
+    }
+
+    public static ColorStateList selectorText(int color1, int color2) {
         int[][] states = new int[][] {
                 new int[] { android.R.attr.state_selected},
                 new int[] {}
         };
         int[] colors = new int[] {
-                AppColors.primary,
-                AppColors.primaryLight
+                color1,
+                color2
         };
         return new ColorStateList(states, colors);
     }
 
-    public static ColorStateList selectorImage() {
+    public static ColorStateList selectorImage(int color1, int color2) {
         ColorStateList selectorImage = new ColorStateList(
                 new int[][]{
                         new int[]{android.R.attr.state_selected},
                         new int[]{}
                 },
                 new int[] {
-                        AppColors.primary,
-                        AppColors.primaryLight
+                        color1,
+                        color2
                 }
         );
         return selectorImage;
+    }
+
+    public static void setCursorDrawableColor(AppCompatEditText editText, int color) {
+        try {
+            Field fCursorDrawableRes =
+                    TextView.class.getDeclaredField("mCursorDrawableRes");
+            fCursorDrawableRes.setAccessible(true);
+            int mCursorDrawableRes = fCursorDrawableRes.getInt(editText);
+            Field fEditor = TextView.class.getDeclaredField("mEditor");
+            fEditor.setAccessible(true);
+            Object editor = fEditor.get(editText);
+            Class<?> clazz = editor.getClass();
+            Field fCursorDrawable = clazz.getDeclaredField("mCursorDrawable");
+            fCursorDrawable.setAccessible(true);
+            Drawable[] drawables = new Drawable[2];
+            Resources res = editText.getContext().getResources();
+            drawables[0] = res.getDrawable(mCursorDrawableRes);
+            drawables[1] = res.getDrawable(mCursorDrawableRes);
+            drawables[0].setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            drawables[1].setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            fCursorDrawable.set(editor, drawables);
+        } catch (final Throwable ignored) {
+        }
     }
 
 }

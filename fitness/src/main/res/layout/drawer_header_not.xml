@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        app:color_1="darkPrimary"
+        app:color_2="primary">
+        <fitness.sistem.sistemfitness.tools.changeColor.ImageViewColor
+            android:id="@+id/img"
+            android:layout_width="@dimen/diam_photo"
+            android:layout_height="@dimen/diam_photo"
+            android:cropToPadding="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/avatar_null"
+            app:riv_corner_radius="@dimen/radius_photo"
+            android:layout_marginLeft="@dimen/pad_24"
+            android:layout_centerVertical="true"
+            app:colorText="textOnPrimary"/>
+
+        <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor
+            android:id="@+id/enter"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/pad_24"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/pad_12"
+            android:layout_toRightOf="@+id/img"
+            android:text="@string/sign_in"
+            android:textSize="@dimen/pad_18"
+            app:colorText="textOnPrimary"/>
+    </fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient>
 
 </LinearLayout>

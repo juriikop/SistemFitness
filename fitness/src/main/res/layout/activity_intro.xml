@@ -28,7 +28,7 @@
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
-        <fitness.sistem.sistemfitness.tools.changeColor.ButtonAccent
+        <fitness.sistem.sistemfitness.tools.changeColor.ButtonColor
             android:id="@+id/contin"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/h_bottom"
@@ -42,7 +42,7 @@
             android:textAllCaps="true"
             android:visibility="gone" />
 
-        <fitness.sistem.sistemfitness.tools.changeColor.ButtonAccent
+        <fitness.sistem.sistemfitness.tools.changeColor.ButtonColor
             android:id="@+id/start"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/h_bottom"

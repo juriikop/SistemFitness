@@ -19,14 +19,17 @@
             android:id="@+id/back"
             android:layout_width="@dimen/d_icon"
             android:layout_height="@dimen/d_icon"
-            app:colorText="textOnPrimary"/>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/pad_16"
+            android:src="@drawable/back"
+            app:colorText="textOnPrimary" />
 
         <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/title_ayth_phone"
+            android:text="@string/title_register"
             android:textAllCaps="true"
             android:textSize="18dp"
             app:colorText="textOnPrimary"/>
@@ -37,6 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:id="@+id/panel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -44,73 +48,78 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/_black_50"
+                android:layout_marginTop="@dimen/pad_24"
+                android:layout_marginLeft="@dimen/pad_32"
+                android:layout_marginRight="@dimen/pad_32"
+                android:textColorHint="@color/black_50"
                 app:errorEnabled="true"
-                app:hintTextAppearance="@style/st_12_black_50"
-                android:layout_marginLeft="@dimen/_pad_72"
-                android:layout_marginRight="@dimen/_pad_32"
-                android:layout_marginTop="@dimen/_pad_20">
+                app:hintTextAppearance="@style/st_12_black_50">
 
-                <ua.brander.aura.tools.text.MaskedEditText
-                    android:id="@+id/phone_number"
-                    style="@style/st_16_black"
-                    android:theme="@style/phoneTheme"
+                <fitness.sistem.sistemfitness.tools.changeColor.EditTextMaskColor
+                    android:id="@+id/phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textColorHint="@color/_black_50"
+                    android:inputType="phone"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/pad_18"
+                    android:textColorHint="@color/black_50"
                     android:hint="@string/phone"
                     android:imeOptions="actionNext"
-                    android:inputType="phone" />
+                    app:mask="+380 __ ___ __ __"/>
             </android.support.design.widget.TextInputLayout>
 
-            <ua.brander.aura.tools.text.CustomTextView
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_pad_12"
-                android:layout_marginLeft="@dimen/_pad_80"
-                android:layout_marginRight="@dimen/_pad_32"
+                android:layout_marginLeft="@dimen/pad_32"
+                android:layout_marginRight="@dimen/pad_32"
                 style="@style/st_14_black_50"
                 android:text="@string/used"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/_black_50"
+                android:textColorHint="@color/black_50"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@style/st_12_black_50"
-                android:layout_marginTop="@dimen/_pad_24"
-                android:layout_marginLeft="@dimen/_pad_72"
-                android:layout_marginRight="@dimen/_pad_32">
+                android:layout_marginLeft="@dimen/pad_32"
+                android:layout_marginRight="@dimen/pad_32">
 
-                <EditText
-                    android:id="@+id/name"
+                <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
+                    android:id="@+id/surname"
                     style="@style/st_16_black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/first_name"
+                    android:textColorHint="@color/black_50"
+                    android:hint="@string/surname"
                     android:imeOptions="actionNext"
                     android:maxLength="50"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    app:typeValidate="filled"
+                    app:textError="@string/er_filled"
+                    app:colorCursor="primary"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/_black_50"
+                android:textColorHint="@color/black_50"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@style/st_12_black_50"
-                android:layout_marginTop="@dimen/_pad_24"
-                android:layout_marginLeft="@dimen/_pad_72"
-                android:layout_marginRight="@dimen/_pad_32">
-                <EditText
-                    android:id="@+id/name1"
+                android:layout_marginLeft="@dimen/pad_32"
+                android:layout_marginRight="@dimen/pad_32">
+                <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
+                    android:id="@+id/name"
                     style="@style/st_16_black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
                     android:hint="@string/name"
+                    android:textColorHint="@color/black_50"
+                    app:colorCursor="primary"
+                    app:typeValidate="filled"
+                    app:textError="@string/er_filled"
                     android:maxLength="50"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -119,19 +128,22 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/_black_50"
+                android:textColorHint="@color/black_50"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@style/st_12_black_50"
-                android:layout_marginTop="@dimen/_pad_24"
-                android:layout_marginLeft="@dimen/_pad_72"
-                android:layout_marginRight="@dimen/_pad_32">
-                <EditText
-                    android:id="@+id/name2"
+                android:layout_marginLeft="@dimen/pad_32"
+                android:layout_marginRight="@dimen/pad_32">
+                <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
+                    android:id="@+id/patronymic"
                     style="@style/st_16_black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:hint="@string/name2"
+                    android:hint="@string/patronymic"
+                    android:textColorHint="@color/black_50"
+                    app:colorCursor="primary"
+                    app:typeValidate="filled"
+                    app:textError="@string/er_filled"
                     android:maxLength="50"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -140,69 +152,66 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/_black_50"
+                android:textColorHint="@color/black_50"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@style/st_12_black_50"
-                android:layout_marginTop="@dimen/_pad_24"
-                android:layout_marginLeft="@dimen/_pad_72"
-                android:layout_marginRight="@dimen/_pad_32">
-                <EditText
+                android:layout_marginLeft="@dimen/pad_32"
+                android:layout_marginRight="@dimen/pad_32">
+                <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
                     android:id="@+id/email"
                     style="@style/st_16_black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/adr_email"
+                    android:hint="@string/email"
                     android:imeOptions="actionDone"
+                    android:textColorHint="@color/black_50"
                     android:inputType="textEmailAddress"
+                    app:colorCursor="primary"
+                    app:typeValidate="email"
+                    app:textError="@string/er_email"
                     android:maxLength="50"
                     android:maxLines="1"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
-            <ua.brander.aura.tools.text.CustomTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/st_20_black"
-                android:layout_marginTop="@dimen/_pad_32"
-                android:layout_marginLeft="@dimen/_pad_72"
-                android:layout_marginRight="@dimen/_pad_32"
-                android:text="@string/i_want_become_member"/>
+            <!--<RadioGroup-->
+                <!--android:id="@+id/gender"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/pad_24"-->
+                <!--android:layout_marginLeft="@dimen/pad_32"-->
+                <!--android:layout_marginRight="@dimen/pad_32">-->
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
+                <!--<RadioButton-->
+                    <!--android:id="@+id/radio0"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:button="@drawable/club_selector"-->
+                    <!--android:checked="true"/>-->
+
+                <!--<RadioButton-->
+                    <!--android:id="@+id/radio1"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:button="@drawable/club_selector"-->
+                    <!--android:layout_marginTop="@dimen/pad_24"/>-->
+            <!--</RadioGroup>-->
+
+
+            <fitness.sistem.sistemfitness.tools.changeColor.ButtonColor
+                android:id="@+id/done_register"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_pad_24"
-                android:layout_marginLeft="@dimen/_pad_72"
-                android:layout_marginRight="@dimen/_pad_32">
-
-                <RadioButton
-                    android:id="@+id/radio0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/club_selector"
-                    android:checked="true"/>
-
-                <RadioButton
-                    android:id="@+id/radio1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/club_selector"
-                    android:layout_marginTop="@dimen/_pad_24"/>
-            </RadioGroup>
-
-            <ua.brander.aura.tools.text.CustomTextView
-                android:id="@+id/done"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_pad_50"
-                android:layout_marginRight="@dimen/_pad_72"
-                android:layout_marginLeft="@dimen/_pad_72"
-                style="@style/st_14_white"
+                android:layout_height="@dimen/h_button"
+                android:layout_marginTop="@dimen/pad_24"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:paddingLeft="@dimen/pad_24"
+                android:paddingRight="@dimen/pad_24"
+                android:textAllCaps="true"
                 android:text="@string/contin"
-                android:background="@drawable/shape_rect_r_accent"
-                android:layout_marginTop="@dimen/_pad_40"
-                android:layout_marginBottom="@dimen/_pad_24"
-                android:gravity="center" />
+                app:colorText="textOnAccent"
+                app:color_1="accent"
+                app:color_2="lightAccent"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

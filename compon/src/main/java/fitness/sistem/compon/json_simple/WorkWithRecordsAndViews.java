@@ -1,7 +1,6 @@
 package fitness.sistem.compon.json_simple;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,9 +15,6 @@ import fitness.sistem.compon.interfaces_classes.IComponent;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.interfaces_classes.Visibility;
-//import fitness.sistem.compon.json_simple.Field;
-//import fitness.sistem.compon.json_simple.ListRecords;
-//import fitness.sistem.compon.json_simple.Record;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -218,7 +214,7 @@ public class WorkWithRecordsAndViews {
                     ((ImageView) v).setImageDrawable(view.getContext()
                             .getResources().getDrawable(((SimpleImageView) v).getPlaceholder()));
                 } else {
-                    ((ImageView) v).setBackgroundResource(view.getContext().getResources()
+                    ((ImageView) v).setImageResource(view.getContext().getResources()
                             .getIdentifier(st, "drawable", view.getContext().getPackageName()));
                 }
             }

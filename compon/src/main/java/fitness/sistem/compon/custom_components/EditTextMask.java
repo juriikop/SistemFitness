@@ -1,8 +1,8 @@
 package fitness.sistem.compon.custom_components;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -18,7 +18,7 @@ import fitness.sistem.compon.interfaces_classes.OnChangeStatusListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditTextMask extends android.support.v7.widget.AppCompatEditText implements IComponent {
+public class EditTextMask extends AppCompatEditText implements IComponent {
     private String mask;
     private int lenOriginText;
     private int textColor, hintColor;
@@ -68,30 +68,9 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
         }
     }
 
-//    private View.OnFocusChangeListener focus = new View.OnFocusChangeListener() {
-//        @Override
-//        public void onFocusChange(View v, boolean hasFocus) {
-//            Log.d("QWERT","focus hasFocus="+hasFocus+" LLL="+getText());
-//            if (hasFocus && getText().length() == 0) {
-//                noFocus = false;
-//                maskProcessing();
-//                oldStr = formText("");
-//                Log.d("QWERT","focus oldStr="+oldStr);
-//                setSpan(oldStr);
-//                setSelection(oldStr.length());
-//                addTextChangedListener(new MaskTextWatcher());
-//            }
-//        }
-//    };
-
     public void setMask(String mask) {
         this.mask = mask;
         setMask();
-//        maskProcessing();
-//        oldStr = formText(stripText(getText().toString()));
-//        setSpan(oldStr);
-//        setSelection(oldStr.length());
-//        addTextChangedListener(new MaskTextWatcher());
     }
 
     public void setMask() {
@@ -282,12 +261,10 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
                 if (selN > lenSt) {
                     selN = lenSt;
                 }
-                Log.d("QWERT","onTextChanged selN="+selN);
                 setSelection(selN);
                 return;
             }
             String origin = stripText(st);
-            Log.d("QWERT","onTextChanged origin="+origin);
             if (origin.length() == 0) {
                 if (isNoBlank) {
                     isNoBlank = false;

@@ -23,7 +23,10 @@ public class DrawerComponent extends BaseComponent{
             return;
         }
         iBase.setFragmentsContainerId(paramMV.paramView.layoutTypeId[0]);
-        iBase.startScreen(paramMV.paramView.nameFragment[0], true);
+        String st = paramMV.paramView.nameFragment[0];
+        if (st != null && st.length() > 0) {
+            iBase.startScreen(st, true);
+        }
         iBase.startDrawerFragment(paramMV.paramView.nameFragment[1], paramMV.paramView.layoutTypeId[1]);
     }
 
