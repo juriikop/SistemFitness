@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <fitness.sistem.sistemfitness.tools.changeColor.LinearLayoutGradient
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        app:color_1="darkPrimary"
+        app:color_2="primary"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/PictureUrl"
+            android:layout_width="@dimen/diam_photo"
+            android:layout_height="@dimen/diam_photo"
+            android:cropToPadding="true"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="@dimen/radius_photo"
+            app:riv_oval="true"
+            android:layout_marginLeft="@dimen/pad_24" />
+
+        <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/pad_18"
+            android:id="@+id/FirstName"
+            android:layout_marginLeft="@dimen/pad_12"
+            app:colorText="textOnPrimary"/>
+
+        <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/pad_18"
+            android:id="@+id/LastName"
+            android:layout_marginLeft="@dimen/pad_6"
+            app:colorText="textOnPrimary"/>
+    </fitness.sistem.sistemfitness.tools.changeColor.LinearLayoutGradient>
+</LinearLayout>

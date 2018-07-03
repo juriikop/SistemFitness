@@ -44,7 +44,6 @@ public class MenuComponent extends BaseComponent {
                 break;
             }
         }
-        Log.d("QWERT","selectViewHandler="+selectViewHandler);
         listData = new ListRecords();
         listPresenter = new ListPresenter(this);
         provider = new BaseProvider(listData);
@@ -80,7 +79,10 @@ public class MenuComponent extends BaseComponent {
             ((BaseActivity) activity).closeDrawer();
             Record record = listData.get(position);
             ComponGlob.getInstance().setParam(record);
-            iBase.startScreen(record.getString(selectViewHandler.nameFragment), true);
+            String st = record.getString(selectViewHandler.nameFragment);
+            if (st != null && st.length() > 0) {
+                iBase.startScreen(st, true);
+            }
         }
     }
 

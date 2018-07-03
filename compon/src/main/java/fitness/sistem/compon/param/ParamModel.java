@@ -52,6 +52,7 @@ public class ParamModel <T> {
     public ParamModel(int method, String urlOrNameParent) {
         this(method, urlOrNameParent, "", -1);
     }
+
     public ParamModel(Field field) {
         this(FIELD, "", "", -1);
         this.field = field;

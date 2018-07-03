@@ -3,11 +3,11 @@
     <dimen name="toolBarH">56dp</dimen>
     <dimen name="h_header">50dp</dimen>
     <dimen name="h_button">50dp</dimen>
-    <dimen name="d_icon">40dp</dimen>
-    <dimen name="d_icon_g">62dp</dimen>
-    <dimen name="d_icon_azs">50dp</dimen>
+    <dimen name="d_icon">24dp</dimen>
     <dimen name="h_bottom">50dp</dimen>
     <dimen name="intro_img_h">282dp</dimen>
+    <dimen name="diam_photo">80dp</dimen>
+    <dimen name="radius_photo">40dp</dimen>
 
     <dimen name="pad_1">1dp</dimen>
     <dimen name="pad_3">3dp</dimen>

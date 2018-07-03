@@ -83,7 +83,7 @@ public class ComponEditText extends AppCompatEditText implements IComponent, IVa
         textInputLayout = null;
         if (viewParent instanceof TextInputLayout) {
             textInputLayout = (TextInputLayout) viewParent;
-        } else {
+        } else if (viewParent != null) {
             ViewParent vp = viewParent.getParent();
             if (vp instanceof TextInputLayout) {
                 textInputLayout = (TextInputLayout) vp;
@@ -159,7 +159,23 @@ public class ComponEditText extends AppCompatEditText implements IComponent, IVa
         return result;
     }
 
+    private void getTextInputLayout() {
+        ViewParent viewParent = getParent();
+        textInputLayout = null;
+        if (viewParent instanceof TextInputLayout) {
+            textInputLayout = (TextInputLayout) viewParent;
+        } else if (viewParent != null) {
+            ViewParent vp = viewParent.getParent();
+            if (vp instanceof TextInputLayout) {
+                textInputLayout = (TextInputLayout) vp;
+            }
+        }
+    }
+
     public void setErrorValid(String textError) {
+        if (textInputLayout == null) {
+            getTextInputLayout();
+        }
         if (textInputLayout != null) {
             textInputLayout.setError(textError);
         }

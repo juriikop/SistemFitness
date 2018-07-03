@@ -2,39 +2,60 @@ package fitness.sistem.sistemfitness.tools.changeColor;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.util.Log;
 
-public class ImageViewOnPrimary extends AppCompatImageView {
+import fitness.sistem.sistemfitness.R;
 
-    public ImageViewOnPrimary(Context context) {
+public class ImageViewColor extends AppCompatImageView {
+
+    private int colorText = AppColors.primary;
+    private int[] colors = {AppColors.primary, AppColors.accent, AppColors.primaryDark,
+            AppColors.accentDark, AppColors.textOnPrimary, AppColors.textOnAccent,
+            AppColors.primaryLight, AppColors.accentLight};
+
+    public ImageViewColor(Context context) {
         super(context);
         init(context, null);
     }
 
-    public ImageViewOnPrimary(Context context, @Nullable AttributeSet attrs) {
+    public ImageViewColor(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public ImageViewOnPrimary(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ImageViewColor(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
     private void init(Context context, @Nullable AttributeSet attrs) {
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ChangeColor);
+        try {
+            int i = a.getInt(R.styleable.ChangeColor_colorText, 0);
+            colorText = colors[i];
+        } finally {
+            a.recycle();
+        }
+        setColors();
+    }
+
+    private void setColors() {
         ColorStateList stateList = new ColorStateList(
-            new int[][]{
+                new int[][]{
                     new int[]{}
-            },
-            new int[] {
-                    AppColors.textOnPrimary
-            }
+                },
+                new int[] {
+                    colorText
+                }
         );
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setImageTintList(stateList);

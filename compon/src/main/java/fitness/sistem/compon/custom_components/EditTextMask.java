@@ -1,8 +1,8 @@
 package fitness.sistem.compon.custom_components;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -10,7 +10,6 @@ import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 
 import fitness.sistem.compon.R;
 import fitness.sistem.compon.interfaces_classes.IComponent;
@@ -19,7 +18,7 @@ import fitness.sistem.compon.interfaces_classes.OnChangeStatusListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditTextMask extends android.support.v7.widget.AppCompatEditText implements IComponent {
+public class EditTextMask extends AppCompatEditText implements IComponent {
     private String mask;
     private int lenOriginText;
     private int textColor, hintColor;
@@ -66,38 +65,12 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
             mask = "";
         } else {
             maskProcessing();
-//            oldStr = formText("");
-//            setSpan(oldStr);
-//            setSelection(oldStr.length());
-//            oldStr = "";
-//            addTextChangedListener(new MaskTextWatcher());
         }
     }
-
-//    private View.OnFocusChangeListener focus = new View.OnFocusChangeListener() {
-//        @Override
-//        public void onFocusChange(View v, boolean hasFocus) {
-//            Log.d("QWERT","focus hasFocus="+hasFocus+" LLL="+getText());
-//            if (hasFocus && getText().length() == 0) {
-//                noFocus = false;
-//                maskProcessing();
-//                oldStr = formText("");
-//                Log.d("QWERT","focus oldStr="+oldStr);
-//                setSpan(oldStr);
-//                setSelection(oldStr.length());
-//                addTextChangedListener(new MaskTextWatcher());
-//            }
-//        }
-//    };
 
     public void setMask(String mask) {
         this.mask = mask;
         setMask();
-//        maskProcessing();
-//        oldStr = formText(stripText(getText().toString()));
-//        setSpan(oldStr);
-//        setSelection(oldStr.length());
-//        addTextChangedListener(new MaskTextWatcher());
     }
 
     public void setMask() {
@@ -281,9 +254,14 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
             if (sel > oldStr.length()) {
                 isEnd = true;
             }
-            if (lenPref > 0 && sel < lenPref && st.length() > 0) {
+            int lenSt = st.length();
+            if (lenPref > 0 && sel < lenPref && lenSt > 0) {
                 setSpan(oldStr);
-                setSelection(lenPref);
+                int selN = lenPref;
+                if (selN > lenSt) {
+                    selN = lenSt;
+                }
+                setSelection(selN);
                 return;
             }
             String origin = stripText(st);
@@ -345,7 +323,7 @@ public class EditTextMask extends android.support.v7.widget.AppCompatEditText im
     }
 
     private void setSpan(String text) {
-        if (lenPref > 0) {
+        if (lenPref > 0 && text.length() >= lenPref) {
             SpannableString ss;
             ss = new SpannableString(text);
             ss.setSpan(new ForegroundColorSpan(hintColor), 0, lenPref, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);

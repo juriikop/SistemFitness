@@ -30,49 +30,24 @@ public class EditPhone extends EditTextMask{
 
     public EditPhone(Context context) {
         super(context);
-        init(context, null);
+        setAttrs(context, null);
     }
 
     public EditPhone(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
+        setAttrs(context, attrs);
     }
 
     public EditPhone(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        setAttrs(context, attrs);
     }
 
-    private void init(Context context, AttributeSet attrs) {
+    private void setAttrs(Context context, AttributeSet attrs) {
         onFocusChangeListener = null;
         super.setOnFocusChangeListener(focus);
         LINE_ACTIVE = AppColors.primary;
         LINE_PASSIVE = AppColors.gray;
-        setBackgroundColor(BG_COLOR);
-        setCursorDrawableColor(this, AppColors.primary);
-    }
-
-    private void setCursorDrawableColor(AppCompatEditText editText, int color) {
-        try {
-            Field fCursorDrawableRes =
-                    TextView.class.getDeclaredField("mCursorDrawableRes");
-            fCursorDrawableRes.setAccessible(true);
-            int mCursorDrawableRes = fCursorDrawableRes.getInt(editText);
-            Field fEditor = TextView.class.getDeclaredField("mEditor");
-            fEditor.setAccessible(true);
-            Object editor = fEditor.get(editText);
-            Class<?> clazz = editor.getClass();
-            Field fCursorDrawable = clazz.getDeclaredField("mCursorDrawable");
-            fCursorDrawable.setAccessible(true);
-            Drawable[] drawables = new Drawable[2];
-            Resources res = editText.getContext().getResources();
-            drawables[0] = res.getDrawable(mCursorDrawableRes);
-            drawables[1] = res.getDrawable(mCursorDrawableRes);
-            drawables[0].setColorFilter(color, PorterDuff.Mode.SRC_IN);
-            drawables[1].setColorFilter(color, PorterDuff.Mode.SRC_IN);
-            fCursorDrawable.set(editor, drawables);
-        } catch (final Throwable ignored) {
-        }
     }
 
     @Override
@@ -99,20 +74,5 @@ public class EditPhone extends EditTextMask{
         canvasW = w;
         canvasH = h;
         super.onSizeChanged(w, h, oldw, oldh);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        if (isFocus) {
-            paint.setColor(LINE_ACTIVE);
-            paint.setStrokeWidth(dp2);
-        } else {
-            paint.setColor(LINE_PASSIVE);
-            paint.setStrokeWidth(dp1);
-        }
-        canvas.drawLine(2, canvasH - offsetY, canvasW - 2, canvasH - offsetY, paint);
     }
 }

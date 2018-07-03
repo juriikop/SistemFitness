@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.transition.Slide;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -41,8 +43,6 @@ import static android.view.View.inflate;
 
 public abstract class BaseActivity extends FragmentActivity implements IBase {
 
-    public abstract MultiComponents getScreen();
-
     public Map<String, MultiComponents> mapFragment;
     private DialogFragment progressDialog;
     private int countProgressStart;
@@ -70,13 +70,14 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         listInternetProvider = new ArrayList<>();
         listEvent = new ArrayList<>();
 //        PreferenceTool.setUserKey("3d496f249f157fdea7681704abf2b4d74b20c619a3e979dc790c43dc27c26aa6");
-        mComponent = getScreen();
-        if (mComponent == null) {
+        String nameScreen = getNameScreen();
+        if (nameScreen == null) {
             Intent intent = getIntent();
-            String nameMVP = intent.getStringExtra(Constants.NAME_MVP);
-            mComponent = getComponent(nameMVP);
+            nameScreen = intent.getStringExtra(Constants.NAME_MVP);
         }
-        if (mComponent != null) {
+
+        if (nameScreen != null && nameScreen.length() > 0) {
+            mComponent = getComponent(nameScreen);
             parentLayout = inflate(this, mComponent.fragmentLayoutId, null);
             setContentView(parentLayout);
             if (mComponent.navigator != null) {
@@ -102,6 +103,14 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     @Override
     public Bundle getSavedInstanceState() {
         return savedInstanceState;
+    }
+//
+//    public MultiComponents getScreen() {
+//        return null;
+//    }
+
+    public String getNameScreen() {
+        return null;
     }
 
     public int getLayoutId() {
@@ -242,7 +251,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() > 0) {
+        if (fm.getBackStackEntryCount() > 1) {
             List<Fragment> fragmentList = fm.getFragments();
             Fragment fragment = null;
             for (Fragment fragm : fragmentList) {
@@ -442,15 +451,16 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 //        } else {
 //            startFragment(nameMVP, startFlag);
 //        }
-        if (mComponent == null) {
+        if (mComponent == null || mComponent.typeView == null) {
             Log.d("SMPL", "Нет Screens с именем " + nameMVP);
+            return;
         }
         switch (mComponent.typeView) {
             case ACTIVITY:
                 startActivitySimple(nameMVP, mComponent, object);
                 break;
             case FRAGMENT:
-                startFragment(nameMVP, startFlag, object);
+                startFragment(nameMVP, mComponent, startFlag, object);
                 break;
             case CUSTOM_FRAGMENT:
                 startCustomFragment(nameMVP, object);
@@ -477,7 +487,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         }
     }
 
-    public void startFragment(String nameMVP, boolean startFlag, Object object) {
+    public void startFragment(String nameMVP, MultiComponents mComponent, boolean startFlag, Object object) {
         BaseFragment fr = (BaseFragment) getSupportFragmentManager().findFragmentByTag(nameMVP);
         int count = (fr == null) ? 0 : 1;
         if (startFlag) {
@@ -502,10 +512,31 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             }
             fragment.setArguments(bundle);
         }
-        fragment.setModel(mapFragment.get(nameMVP));
+        fragment.setModel(mComponent);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (mComponent.animateScreen != null
+                && mComponent.animateScreen != Constants.AnimateScreen.NO) {
+            switch (mComponent.animateScreen) {
+                case RL:
+                    transaction.setCustomAnimations(R.anim.rl_in, R.anim.rl_out,
+                            R.anim.lr_in, R.anim.lr_out);
+                    break;
+                case LR :
+                    transaction.setCustomAnimations(R.anim.lr_in, R.anim.lr_out,
+                            R.anim.rl_in, R.anim.rl_out);
+                    break;
+                case TB :
+                    transaction.setCustomAnimations(R.anim.tb_in, R.anim.tb_out,
+                            R.anim.bt_in, R.anim.bt_out);
+                    break;
+                case BT :
+                    transaction.setCustomAnimations(R.anim.bt_in, R.anim.bt_out,
+                            R.anim.tb_in, R.anim.tb_out);
+                    break;
+            }
+        }
         transaction.replace(containerFragmentId, fragment, nameMVP)
-//                .addToBackStack(nameMVP)
+                .addToBackStack(nameMVP)
                 .commit();
     }
 
