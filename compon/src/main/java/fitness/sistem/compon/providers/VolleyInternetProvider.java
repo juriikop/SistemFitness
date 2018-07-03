@@ -35,7 +35,7 @@ public class VolleyInternetProvider extends BaseInternetProvider {
 //        }
 
 
-//        String nameToken = ComponGlob.getInstance().networkParams.nameTokenInHeader;
+//        String nameToken = ComponGlob.getInstance().appParams.nameTokenInHeader;
 //        if (nameToken.length() > 0) {
 //            if (headers == null) {
 //                headers = new HashMap<>();

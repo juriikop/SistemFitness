@@ -53,7 +53,7 @@ public class ModelClassToView {
                     if (st != null) {
                         if (st.contains("/")) {
                             if (!st.contains("http")) {
-                                st = ComponGlob.getInstance().networkParams.baseUrl + st;
+                                st = ComponGlob.getInstance().appParams.baseUrl + st;
                             }
                             Glide.with(view.getContext())
                                     .load(st)

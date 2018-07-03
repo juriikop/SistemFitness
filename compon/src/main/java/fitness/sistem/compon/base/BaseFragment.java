@@ -359,11 +359,11 @@ public abstract class BaseFragment extends Fragment implements IBase {
 
     @Override
     public void progressStart() {
-        if (ComponGlob.getInstance().networkParams.classProgress != null) {
+        if (ComponGlob.getInstance().appParams.classProgress != null) {
             if (progressDialog == null) {
 //            progressDialog = new ProgressDialog();
                 try {
-                    progressDialog = (DialogFragment) ComponGlob.getInstance().networkParams.classProgress.newInstance();
+                    progressDialog = (DialogFragment) ComponGlob.getInstance().appParams.classProgress.newInstance();
                 } catch (java.lang.InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {

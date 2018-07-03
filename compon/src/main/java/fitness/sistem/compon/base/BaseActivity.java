@@ -369,7 +369,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     }
 
     public void showDialog(String title, String message, View.OnClickListener click) {
-        int id = ComponGlob.getInstance().networkParams.errorDialogViewId;
+        int id = ComponGlob.getInstance().appParams.errorDialogViewId;
         if (id != 0) {
             Record rec = new Record();
             rec.add(new Field("title", Field.TYPE_STRING, title));
@@ -393,10 +393,10 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     @Override
     public void progressStart() {
-        if (ComponGlob.getInstance().networkParams.classProgress != null) {
+        if (ComponGlob.getInstance().appParams.classProgress != null) {
             if (progressDialog == null) {
                 try {
-                    progressDialog = (DialogFragment) ComponGlob.getInstance().networkParams.classProgress.newInstance();
+                    progressDialog = (DialogFragment) ComponGlob.getInstance().appParams.classProgress.newInstance();
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {

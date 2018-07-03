@@ -1,7 +1,6 @@
 package fitness.sistem.sistemfitness.network;
 
 import android.os.Handler;
-import android.util.Log;
 
 //import fitness.sistem.ComponGlob;
 //import fitness.sistem.base.BaseInternetProvider;
@@ -16,8 +15,6 @@ import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.json_simple.SimpleRecordToJson;
-import fitness.sistem.compon.tools.Constants;
-import fitness.sistem.sistemfitness.network.Api;
 
 import java.util.Map;
 
@@ -35,7 +32,7 @@ public class TestInternetProvider extends BaseInternetProvider {
     Runnable result = new Runnable() {
         @Override
         public void run() {
-            String request = url.replace(ComponGlob.getInstance().networkParams.baseUrl, "");
+            String request = url.replace(ComponGlob.getInstance().appParams.baseUrl, "");
             int i = request.indexOf("?");
             if (i > -1) {
                 request = request.substring(0, i);

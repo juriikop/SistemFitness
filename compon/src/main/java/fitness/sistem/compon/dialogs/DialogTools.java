@@ -21,10 +21,10 @@ public class DialogTools {
 
     public static void  showDialog(Activity activity, String title, String msg,
                                    View.OnClickListener clickPositive) {
-        if (ComponGlob.getInstance().networkParams.classErrorDialog != null) {
+        if (ComponGlob.getInstance().appParams.classErrorDialog != null) {
             DialogFragment errorDialog = null;
             try {
-                errorDialog = (DialogFragment) ComponGlob.getInstance().networkParams.classErrorDialog.newInstance();
+                errorDialog = (DialogFragment) ComponGlob.getInstance().appParams.classErrorDialog.newInstance();
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
@@ -41,10 +41,10 @@ public class DialogTools {
 
     public static void  showDialog(Activity activity, int statusCode, String msg,
                                    View.OnClickListener clickPositive) {
-        if (ComponGlob.getInstance().networkParams.classErrorDialog != null) {
+        if (ComponGlob.getInstance().appParams.classErrorDialog != null) {
             DialogFragment errorDialog = null;
             try {
-                errorDialog = (DialogFragment) ComponGlob.getInstance().networkParams.classErrorDialog.newInstance();
+                errorDialog = (DialogFragment) ComponGlob.getInstance().appParams.classErrorDialog.newInstance();
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {

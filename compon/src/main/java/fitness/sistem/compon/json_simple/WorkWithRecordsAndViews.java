@@ -1,7 +1,6 @@
 package fitness.sistem.compon.json_simple;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -208,7 +207,7 @@ public class WorkWithRecordsAndViews {
             if (st.length() == 0) return;
             if (st.contains("/")) {
                 if (!st.contains("http")) {
-                    st = ComponGlob.getInstance().networkParams.baseUrl + st;
+                    st = ComponGlob.getInstance().appParams.baseUrl + st;
                 }
                 Glide.with(view.getContext())
                         .load(st)

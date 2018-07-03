@@ -1,11 +1,10 @@
 package fitness.sistem.sistemfitness.network;
 
-import fitness.sistem.compon.network.NetworkParams;
-import fitness.sistem.sistemfitness.R;
+import fitness.sistem.compon.param.AppParams;
 import fitness.sistem.sistemfitness.dialogs.ErrorDialog;
 import fitness.sistem.sistemfitness.dialogs.ProgressDialog;
 
-public class MyNetworkParams extends NetworkParams {
+public class MyAppParams extends AppParams {
     @Override
     public void setParams() {
         baseUrl =  "http://stage.toplivo.branderstudio.com:8086/api/v1/";

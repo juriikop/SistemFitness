@@ -77,7 +77,7 @@ public class ParamModel <T> {
             if (url.startsWith("http")) {
                 this.url = url;
             } else {
-                this.url = ComponGlob.getInstance().networkParams.baseUrl + url;
+                this.url = ComponGlob.getInstance().appParams.baseUrl + url;
             }
 //            if (method == POST) {
 //                this.url = url;
@@ -85,7 +85,7 @@ public class ParamModel <T> {
 //                if (url.startsWith("http")) {
 //                    this.url = url;
 //                } else {
-//                    this.url = ComponGlob.getInstance().networkParams.baseUrl + url;
+//                    this.url = ComponGlob.getInstance().appParams.baseUrl + url;
 //                }
 //            }
         }
@@ -134,9 +134,9 @@ public class ParamModel <T> {
 
     public ParamModel pagination() {
         isPagination = true;
-        paginationPerPage = ComponGlob.getInstance().networkParams.paginationPerPage;
-        paginationNameParamPerPage = ComponGlob.getInstance().networkParams.paginationNameParamPerPage;
-        paginationNameParamNumberPage = ComponGlob.getInstance().networkParams.paginationNameParamNumberPage;
+        paginationPerPage = ComponGlob.getInstance().appParams.paginationPerPage;
+        paginationNameParamPerPage = ComponGlob.getInstance().appParams.paginationNameParamPerPage;
+        paginationNameParamNumberPage = ComponGlob.getInstance().appParams.paginationNameParamNumberPage;
         return this;
     }
 

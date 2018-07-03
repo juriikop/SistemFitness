@@ -1,15 +1,14 @@
 package fitness.sistem.compon;
 
 import android.content.Context;
-import android.util.Log;
 
 import fitness.sistem.compon.components.MultiComponents;
+import fitness.sistem.compon.param.AppParams;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.FieldBroadcaster;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.network.CacheWork;
-import fitness.sistem.compon.network.NetworkParams;
 import fitness.sistem.compon.tools.Constants;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class ComponGlob {
     public Context context;
     public CacheWork cacheWork;
     public Map<String, MultiComponents> MapScreen;
-    public NetworkParams networkParams;
+    public AppParams appParams;
     public List<String> namesParams = new ArrayList<>();
     public List<String> valuesParams = new ArrayList<>();
     public String token;

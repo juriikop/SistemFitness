@@ -42,13 +42,13 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
             headers = new HashMap<>();
         }
 
-        String nameToken = ComponGlob.getInstance().networkParams.nameTokenInHeader;
+        String nameToken = ComponGlob.getInstance().appParams.nameTokenInHeader;
         String token = PreferenceTool.getSessionToken();
         if (nameToken.length() > 0 && token.length() > 0) {
 //            headers.put(nameToken, "bceee76d3c7d761c9ec92c286fb8bebcefb4225c311bb87e");
             headers.put(nameToken, token);
         }
-        String nameLanguage = ComponGlob.getInstance().networkParams.nameLanguageInHeader;
+        String nameLanguage = ComponGlob.getInstance().appParams.nameLanguageInHeader;
         if (nameLanguage.length() > 0) {
             headers.put(nameLanguage, ComponGlob.getInstance().language);
         }

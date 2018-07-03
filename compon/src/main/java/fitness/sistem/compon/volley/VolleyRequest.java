@@ -14,10 +14,9 @@ import com.android.volley.toolbox.HttpHeaderParser;
 
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.interfaces_classes.IVolleyListener;
-import fitness.sistem.compon.network.NetworkParams;
+import fitness.sistem.compon.param.AppParams;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Map;
 
 public class VolleyRequest <T> extends Request<T> {
@@ -27,18 +26,18 @@ public class VolleyRequest <T> extends Request<T> {
     private IVolleyListener listener;
     private Map<String, String> headers;
     private byte[] data;
-    private NetworkParams networkParams;
+    private AppParams appParams;
 
     public VolleyRequest(int method, String url, IVolleyListener listener,
                          Map<String, String> headers, byte[] data) {
         super(method, url, listener);
-        networkParams = ComponGlob.getInstance().networkParams;
-        if (networkParams.LOG_LEVEL > 1) Log.d(networkParams.NAME_LOG, "method=" + method + " url=" + url);
+        appParams = ComponGlob.getInstance().appParams;
+        if (appParams.LOG_LEVEL > 1) Log.d(appParams.NAME_LOG, "method=" + method + " url=" + url);
         this.headers = headers;
         this.listener = listener;
         this.data = data;
-        setRetryPolicy(new DefaultRetryPolicy(networkParams.NETWORK_TIMEOUT_LIMIT,
-                networkParams.RETRY_COUNT, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        setRetryPolicy(new DefaultRetryPolicy(appParams.NETWORK_TIMEOUT_LIMIT,
+                appParams.RETRY_COUNT, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     @Override
@@ -46,13 +45,13 @@ public class VolleyRequest <T> extends Request<T> {
         try {
             String jsonSt = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers));
-            if (networkParams.LOG_LEVEL > 2) Log.d(networkParams.NAME_LOG, "Respons json=" + jsonSt);
+            if (appParams.LOG_LEVEL > 2) Log.d(appParams.NAME_LOG, "Respons json=" + jsonSt);
             CookieManager.checkAndSaveSessionCookie(response.headers);
             return Response.success( (T) Html.fromHtml(jsonSt).toString(),
                     HttpHeaderParser.parseCacheHeaders(response));
 
         } catch (UnsupportedEncodingException e) {
-            if (networkParams.LOG_LEVEL > 0) Log.d(networkParams.NAME_LOG, "UnsupportedEncodingException="+e);
+            if (appParams.LOG_LEVEL > 0) Log.d(appParams.NAME_LOG, "UnsupportedEncodingException="+e);
             return Response.error(new ParseError(e));
         }
     }
@@ -69,7 +68,7 @@ public class VolleyRequest <T> extends Request<T> {
 
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
-        Log.d(networkParams.NAME_LOG,"VolleyRequest headers="+headers);
+        Log.d(appParams.NAME_LOG,"VolleyRequest headers="+headers);
         return headers;
     }
 
@@ -91,7 +90,7 @@ public class VolleyRequest <T> extends Request<T> {
 
     @Override
     public byte[] getBody() throws AuthFailureError {
-        Log.d(networkParams.NAME_LOG,"VolleyRequest getBody data="+new String(data));
+        Log.d(appParams.NAME_LOG,"VolleyRequest getBody data="+new String(data));
         return data;
     }
 }
