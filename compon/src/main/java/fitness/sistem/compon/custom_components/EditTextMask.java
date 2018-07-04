@@ -2,6 +2,7 @@ package fitness.sistem.compon.custom_components;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -10,15 +11,17 @@ import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.ViewParent;
 
 import fitness.sistem.compon.R;
 import fitness.sistem.compon.interfaces_classes.IComponent;
+import fitness.sistem.compon.interfaces_classes.IValidate;
 import fitness.sistem.compon.interfaces_classes.OnChangeStatusListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditTextMask extends AppCompatEditText implements IComponent {
+public class EditTextMask extends AppCompatEditText implements IComponent, IValidate {
     private String mask;
     private int lenOriginText;
     private int textColor, hintColor;
@@ -31,6 +34,9 @@ public class EditTextMask extends AppCompatEditText implements IComponent {
     private Integer status = new Integer(-1);
     private boolean isNoBlank, isValid, isTimeOut;
     private boolean noFocus = true;
+    protected TextInputLayout textInputLayout;
+    protected String textError = "";
+    private String alias;
 
     public EditTextMask(Context context) {
         super(context);
@@ -53,6 +59,11 @@ public class EditTextMask extends AppCompatEditText implements IComponent {
                 0, 0);
         try {
             mask = a.getString(R.styleable.Simple_mask);
+            textError = a.getString(R.styleable.Simple_textError);
+            if (textError == null) {
+                textError = "";
+            }
+            alias = a.getString(R.styleable.Simple_alias);
         } finally {
             a.recycle();
         }
@@ -66,6 +77,7 @@ public class EditTextMask extends AppCompatEditText implements IComponent {
         } else {
             maskProcessing();
         }
+        getTextInputLayout();
     }
 
     public void setMask(String mask) {
@@ -232,6 +244,41 @@ public class EditTextMask extends AppCompatEditText implements IComponent {
     public Object getData() {
         String st = stripNumber(getText().toString());
         return st;
+    }
+
+    @Override
+    public boolean isValid() {
+        boolean result = false;
+        String origin = stripText(getText().toString());
+        result = origin.length() >= lenOriginText;
+        if (result) {
+            setErrorValid("");
+        } else {
+            setErrorValid(textError);
+        }
+        return result;
+    }
+
+    private void getTextInputLayout() {
+        ViewParent viewParent = getParent();
+        textInputLayout = null;
+        if (viewParent instanceof TextInputLayout) {
+            textInputLayout = (TextInputLayout) viewParent;
+        } else if (viewParent != null) {
+            ViewParent vp = viewParent.getParent();
+            if (vp instanceof TextInputLayout) {
+                textInputLayout = (TextInputLayout) vp;
+            }
+        }
+    }
+
+    public void setErrorValid(String textError) {
+        if (textInputLayout == null) {
+            getTextInputLayout();
+        }
+        if (textInputLayout != null) {
+            textInputLayout.setError(textError);
+        }
     }
 
     private class MaskTextWatcher implements TextWatcher {

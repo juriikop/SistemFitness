@@ -78,17 +78,7 @@ public class ComponEditText extends AppCompatEditText implements IComponent, IVa
         if (minValue != Double.MIN_VALUE || maxValue != Double.MAX_VALUE) {
             typeValidate = DIAPASON;
         }
-
-        ViewParent viewParent = getParent();
-        textInputLayout = null;
-        if (viewParent instanceof TextInputLayout) {
-            textInputLayout = (TextInputLayout) viewParent;
-        } else if (viewParent != null) {
-            ViewParent vp = viewParent.getParent();
-            if (vp instanceof TextInputLayout) {
-                textInputLayout = (TextInputLayout) vp;
-            }
-        }
+        getTextInputLayout();
     }
 
     private void errorParam(String st) {

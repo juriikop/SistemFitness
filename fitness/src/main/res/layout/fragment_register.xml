@@ -65,6 +65,7 @@
                     android:textColorHint="@color/black_50"
                     android:hint="@string/phone"
                     android:imeOptions="actionNext"
+                    app:textError="@string/er_phone"
                     app:mask="+380 __ ___ __ __"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -80,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/black_50"
+                android:layout_marginTop="@dimen/pad_16"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@style/st_12_black_50"
                 android:layout_marginLeft="@dimen/pad_32"
