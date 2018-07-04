@@ -22,13 +22,14 @@
     // Error text
     <string name="er_filled">Треба заповнити</string>
     <string name="er_email">Неправильна адреса email</string>
+    <string name="er_phone">Неправильний номер телефону</string>
 
     <!--// Auth-->
     <!--<string name="code_uk">+380</string>-->
     <string name="phone">Телефон</string>
     <string name="contin">Продовжити</string>
     <string name="register">Зареєструватися</string>
-    <string name="used">Используется для входа. Укажите актуальный мобильный номер</string>
+    <string name="used">Використовується для входу. Укажіть актуальний номер</string>
     <string name="surname">Прізвище</string>
     <string name="name">І\'мя</string>
     <string name="patronymic">По батькові</string>
