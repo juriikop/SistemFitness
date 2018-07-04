@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import fitness.sistem.compon.custom_components.ComponEditText;
@@ -23,6 +24,7 @@ public class EditTextColor extends ComponEditText {
 
     private int colorCursor = AppColors.primary;
     private int colorText = AppColors.textOnPrimary;
+    private OnFocusChangeListener superOnFocusChangeListener;
 
     public EditTextColor(Context context) {
         this(context, null);
@@ -41,7 +43,7 @@ public class EditTextColor extends ComponEditText {
 
     private void setAttributes(Context context, AttributeSet attrs) {
         onFocusChangeListener = null;
-        super.setOnFocusChangeListener(focus);
+        super.setFocusChangeListenerInheritor(focus);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ChangeColor);
         try {
             int i = a.getInt(R.styleable.ChangeColor_colorCursor, 0);
@@ -60,9 +62,8 @@ public class EditTextColor extends ComponEditText {
         AppColors.setCursorDrawableColor(this, colorCursor);
     }
 
-    @Override
-    public void setOnFocusChangeListener(OnFocusChangeListener l) {
-        onFocusChangeListener = l;
+    public void setFocusChangeListenerInheritor(OnFocusChangeListener listener) {
+        onFocusChangeListener = listener;
     }
 
     private View.OnFocusChangeListener focus = new View.OnFocusChangeListener() {

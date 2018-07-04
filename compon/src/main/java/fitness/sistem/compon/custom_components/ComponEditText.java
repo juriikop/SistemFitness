@@ -6,12 +6,14 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewParent;
 
 import fitness.sistem.compon.R;
 import fitness.sistem.compon.interfaces_classes.IComponent;
 import fitness.sistem.compon.interfaces_classes.IValidate;
 import fitness.sistem.compon.interfaces_classes.OnChangeStatusListener;
+import fitness.sistem.compon.param.AppParams;
 
 public class ComponEditText extends AppCompatEditText implements IComponent, IValidate {
 
@@ -25,6 +27,7 @@ public class ComponEditText extends AppCompatEditText implements IComponent, IVa
     protected TextInputLayout textInputLayout;
     private String minValueText, maxValueText;
     private double minValue, maxValue;
+    private OnFocusChangeListener focusChangeListenerInheritor = null;
 
     public ComponEditText(Context context) {
         super(context);
@@ -78,14 +81,33 @@ public class ComponEditText extends AppCompatEditText implements IComponent, IVa
         if (minValue != Double.MIN_VALUE || maxValue != Double.MAX_VALUE) {
             typeValidate = DIAPASON;
         }
+//        setFocusable(true);
+//        setFocusableInTouchMode(true);
         getTextInputLayout();
+        setOnFocusChangeListener(noFocus);
+    }
+
+    public void setFocusChangeListenerInheritor(OnFocusChangeListener listener) {
+        focusChangeListenerInheritor = listener;
     }
 
     private void errorParam(String st) {
         int i = getId();
         String name = getResources().getResourceEntryName(i);
-        Log.i("SMPL", "error in attribute "+st+" for elemet "+name);
+        Log.i(AppParams.NAME_LOG_APP, "error in attribute "+st+" for elemet "+name);
     }
+
+    private View.OnFocusChangeListener noFocus = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (!hasFocus) {
+                isValid();
+            }
+            if (focusChangeListenerInheritor != null) {
+                focusChangeListenerInheritor.onFocusChange(v, hasFocus);
+            }
+        }
+    };
 
     @Override
     public void setData(Object data) {

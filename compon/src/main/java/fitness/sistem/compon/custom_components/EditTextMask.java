@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewParent;
 
 import fitness.sistem.compon.R;
@@ -37,6 +38,7 @@ public class EditTextMask extends AppCompatEditText implements IComponent, IVali
     protected TextInputLayout textInputLayout;
     protected String textError = "";
     private String alias;
+    private OnFocusChangeListener focusChangeListenerInheritor = null;
 
     public EditTextMask(Context context) {
         super(context);
@@ -78,7 +80,26 @@ public class EditTextMask extends AppCompatEditText implements IComponent, IVali
             maskProcessing();
         }
         getTextInputLayout();
+//        setFocusable(true);
+//        setFocusableInTouchMode(true);
+        setOnFocusChangeListener(focusChange);
     }
+
+    public void setFocusChangeListenerInheritor(OnFocusChangeListener listener) {
+        focusChangeListenerInheritor = listener;
+    }
+
+    private View.OnFocusChangeListener focusChange = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (!hasFocus) {
+                isValid();
+            }
+            if (focusChangeListenerInheritor != null) {
+                focusChangeListenerInheritor.onFocusChange(v, hasFocus);
+            }
+        }
+    };
 
     public void setMask(String mask) {
         this.mask = mask;

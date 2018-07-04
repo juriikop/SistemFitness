@@ -32,7 +32,7 @@ public class VolleyRequest <T> extends Request<T> {
                          Map<String, String> headers, byte[] data) {
         super(method, url, listener);
         appParams = ComponGlob.getInstance().appParams;
-        if (appParams.LOG_LEVEL > 1) Log.d(appParams.NAME_LOG, "method=" + method + " url=" + url);
+        if (appParams.LOG_LEVEL > 1) Log.d(appParams.NAME_LOG_NET, "method=" + method + " url=" + url);
         this.headers = headers;
         this.listener = listener;
         this.data = data;
@@ -45,13 +45,13 @@ public class VolleyRequest <T> extends Request<T> {
         try {
             String jsonSt = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers));
-            if (appParams.LOG_LEVEL > 2) Log.d(appParams.NAME_LOG, "Respons json=" + jsonSt);
+            if (appParams.LOG_LEVEL > 2) Log.d(appParams.NAME_LOG_NET, "Respons json=" + jsonSt);
             CookieManager.checkAndSaveSessionCookie(response.headers);
             return Response.success( (T) Html.fromHtml(jsonSt).toString(),
                     HttpHeaderParser.parseCacheHeaders(response));
 
         } catch (UnsupportedEncodingException e) {
-            if (appParams.LOG_LEVEL > 0) Log.d(appParams.NAME_LOG, "UnsupportedEncodingException="+e);
+            if (appParams.LOG_LEVEL > 0) Log.d(appParams.NAME_LOG_NET, "UnsupportedEncodingException="+e);
             return Response.error(new ParseError(e));
         }
     }
@@ -68,7 +68,7 @@ public class VolleyRequest <T> extends Request<T> {
 
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
-        Log.d(appParams.NAME_LOG,"VolleyRequest headers="+headers);
+        Log.d(appParams.NAME_LOG_NET,"VolleyRequest headers="+headers);
         return headers;
     }
 
@@ -90,7 +90,7 @@ public class VolleyRequest <T> extends Request<T> {
 
     @Override
     public byte[] getBody() throws AuthFailureError {
-        Log.d(appParams.NAME_LOG,"VolleyRequest getBody data="+new String(data));
+        Log.d(appParams.NAME_LOG_NET,"VolleyRequest getBody data="+new String(data));
         return data;
     }
 }

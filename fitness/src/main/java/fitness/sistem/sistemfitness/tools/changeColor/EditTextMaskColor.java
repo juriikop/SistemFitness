@@ -47,7 +47,7 @@ public class EditTextMaskColor extends EditTextMask {
 
     private void setAttributes(Context context, AttributeSet attrs) {
         onFocusChangeListener = null;
-        super.setOnFocusChangeListener(focus);
+        super.setFocusChangeListenerInheritor(focus);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ChangeColor);
         try {
             int i = a.getInt(R.styleable.ChangeColor_colorCursor, 0);
@@ -60,26 +60,14 @@ public class EditTextMaskColor extends EditTextMask {
         } finally {
             a.recycle();
         }
-//        LINE_ACTIVE = colorCursor;
         LINE_PASSIVE = AppColors.gray;
         setBackgroundColor(BG_COLOR);
         AppColors.setCursorDrawableColor(this, AppColors.primary);
     }
 
-    @Override
-    public void setOnFocusChangeListener(OnFocusChangeListener listener) {
+    public void setFocusChangeListenerInheritor(OnFocusChangeListener listener) {
         onFocusChangeListener = listener;
     }
-
-//    private View.OnFocusChangeListener focus = new View.OnFocusChangeListener() {
-//        @Override
-//        public void onFocusChange(View v, boolean hasFocus) {
-//            isFocus = hasFocus;
-//            if (onFocusChangeListener != null) {
-//                onFocusChangeListener.onFocusChange(v, hasFocus);
-//            }
-//        }
-//    };
 
     private View.OnFocusChangeListener focus = new View.OnFocusChangeListener() {
         @Override
