@@ -13,6 +13,16 @@
     <color name="accent_30">#5017d3ff</color>
 
 
+    <color name="primary1">#51b7ff</color>
+    <color name="primary_dark1">#3095dc</color>
+    <color name="primaryLight1">#84ccff</color>
+    <color name="accent1">#fad74c</color>
+    <color name="accentDark1">#edc62c</color>
+    <color name="accentLight1">#fce380</color>
+    <color name="txtPr">#fff</color>
+    <color name="txtAcc">#777</color>
+
+
     <color name="black">#000</color>
     <color name="black_10">#2000</color>
     <color name="black_15">#3000</color>

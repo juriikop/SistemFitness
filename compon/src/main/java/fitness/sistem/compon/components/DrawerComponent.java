@@ -22,6 +22,7 @@ public class DrawerComponent extends BaseComponent{
             Log.i("SMPL", "Не найден DrawerLayout в " + paramMV.nameParentComponent);
             return;
         }
+        activity.drawer = drawer;
         iBase.setFragmentsContainerId(paramMV.paramView.layoutTypeId[0]);
         String st = paramMV.paramView.nameFragment[0];
         if (st != null && st.length() > 0) {

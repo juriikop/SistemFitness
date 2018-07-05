@@ -80,7 +80,7 @@ public class MyListScreens extends ListScreens {
                 .addItem("targets", "Мои цели", "")
                 .addItem("icon_lil_phone", "Услуги", getString(R.string.map), true)
                 .addDivider()
-                .addItem("icon_lil_phone", "Money clouds", "");
+                .addItem("icon_lil_phone", context.getString(R.string.m_clubs), context.getString(R.string.clubs));
 
         fragment(context.getString(R.string.drawer), R.layout.fragment_drawer)
                 .addComponent(TC.PANEL_MULTI, new ParamModel(getProfile()),
@@ -91,6 +91,10 @@ public class MyListScreens extends ListScreens {
                         new ParamView(R.id.recycler, "select",
                                 new int[]{R.layout.item_menu_divider, R.layout.item_menu, R.layout.item_menu_select}),
                         new Navigator().add("nameFunc"));
+
+        fragment(context.getString(R.string.clubs), R.layout.fragment_clubs)
+                .addComponent(TC.RECYCLER, new ParamModel(Api.CLUBS)
+                        .internetProvider(TestInternetProvider.class), new ParamView(R.id.recycler, R.layout.item_clubs));
 
 
 //        fragment(context.getString(R.string.tickets), R.layout.fragment_tickets, context.getString(R.string.my_tickets))

@@ -11,6 +11,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -58,6 +60,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     private GoogleApiClient googleApiClient;
     private MapComponent mapComponent;
     private List<AnimatePanel> animatePanelList;
+    public DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -361,7 +364,9 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     }
 
     public void closeDrawer() {
-
+        if (drawer != null) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
     }
 
     public ParentModel getParentModel(String name) {

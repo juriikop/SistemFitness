@@ -1,6 +1,7 @@
 package fitness.sistem.sistemfitness.network;
 
 import android.os.Handler;
+import android.util.Log;
 
 //import fitness.sistem.ComponGlob;
 //import fitness.sistem.base.BaseInternetProvider;
@@ -42,11 +43,76 @@ public class TestInternetProvider extends BaseInternetProvider {
     };
 
     private String jsonResult(String request) {
+        Log.d("QWERT","TestInternetProvider request="+request+"<< Api.CLUBS="+Api.CLUBS);
         switch (request) {
-             case Api.INTRO:
-                return setIntro();
+             case Api.INTRO: return setIntro();
+             case Api.CLUBS: return setClubs();
         }
         return null;
+    }
+
+    private String setClubs() {
+        Log.d("QWERT","setClubs");
+        Record rec = new Record();
+        ListRecords lr = new ListRecords();
+        Field fil = new Field("", Field.TYPE_RECORD, rec);
+        rec.add(new Field("data", Field.TYPE_LIST_RECORD, lr));
+
+        Record colors;
+
+        Record record;
+        record = new Record();
+        record.add(new Field("city", Field.TYPE_STRING, "Харьков"));
+        record.add(new Field("title", Field.TYPE_STRING, "клуб Аура"));
+        record.add(new Field("imgClub", Field.TYPE_STRING, "club_1"));
+            colors = new Record();
+            colors.add(new Field("primary", Field.TYPE_STRING, "#ff9600"));
+            colors.add(new Field("primaryDark", Field.TYPE_STRING, "#ef9000"));
+            colors.add(new Field("primaryLight", Field.TYPE_STRING, "#ffbf63"));
+            colors.add(new Field("accent", Field.TYPE_STRING, "#17d3ff"));
+            colors.add(new Field("accentDark", Field.TYPE_STRING, "#0da3c7"));
+            colors.add(new Field("accentLight", Field.TYPE_STRING, "#bef0fc"));
+            colors.add(new Field("textOnPrimary", Field.TYPE_STRING, "#fff"));
+            colors.add(new Field("textOnAccent", Field.TYPE_STRING, "#fff"));
+        record.add(new Field("colors", Field.TYPE_RECORD, colors));
+        lr.add(record);
+
+        record = new Record();
+        record.add(new Field("city", Field.TYPE_STRING, "Одеса"));
+        record.add(new Field("title", Field.TYPE_STRING, "клуб Вертикаль"));
+        record.add(new Field("imgClub", Field.TYPE_STRING, "club_2"));
+            colors = new Record();
+            colors.add(new Field("primary", Field.TYPE_STRING, "#1fe76e"));
+            colors.add(new Field("primaryDark", Field.TYPE_STRING, "#1bbf81"));
+            colors.add(new Field("primaryLight", Field.TYPE_STRING, "#83fdb4"));
+            colors.add(new Field("accent", Field.TYPE_STRING, "#fad74c"));
+            colors.add(new Field("accentDark", Field.TYPE_STRING, "#edc62c"));
+            colors.add(new Field("accentLight", Field.TYPE_STRING, "#fce380"));
+            colors.add(new Field("textOnPrimary", Field.TYPE_STRING, "#777"));
+            colors.add(new Field("textOnAccent", Field.TYPE_STRING, "#777"));
+        record.add(new Field("colors", Field.TYPE_RECORD, colors));
+        lr.add(record);
+
+        record = new Record();
+        record.add(new Field("city", Field.TYPE_STRING, "Київ"));
+        record.add(new Field("title", Field.TYPE_STRING, "клуб FitSila"));
+        record.add(new Field("imgClub", Field.TYPE_STRING, "club_3"));
+            colors = new Record();
+            colors.add(new Field("primary", Field.TYPE_STRING, "#51b7ff"));
+            colors.add(new Field("primaryDark", Field.TYPE_STRING, "#3095dc"));
+            colors.add(new Field("primaryLight", Field.TYPE_STRING, "#84ccff"));
+            colors.add(new Field("accent", Field.TYPE_STRING, "#fad74c"));
+            colors.add(new Field("accentDark", Field.TYPE_STRING, "#edc62c"));
+            colors.add(new Field("accentLight", Field.TYPE_STRING, "#fce380"));
+            colors.add(new Field("textOnPrimary", Field.TYPE_STRING, "#fff"));
+            colors.add(new Field("textOnAccent", Field.TYPE_STRING, "#777"));
+        record.add(new Field("colors", Field.TYPE_RECORD, colors));
+        lr.add(record);
+
+        SimpleRecordToJson recordToJson = new SimpleRecordToJson();
+        String st = recordToJson.modelToJson(fil);
+        Log.d("QWERT","setClubs st="+st);
+        return st;
     }
 
     private String setIntro() {
