@@ -61,6 +61,7 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
         } else {
             url = paramModel.url;
         }
+        Log.d("QWERT","BasePresenter BasePresenter");
         if (duration > 0) {
             nameJson = url;
             json = ComponGlob.getInstance().cacheWork.getJson(nameJson);
@@ -75,6 +76,7 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
     }
 
     public void startInternetProvider() {
+        Log.d("QWERT","BasePresenter startInternetProvider +++++");
         isCanceled = false;
         if (paramModel.internetProvider == null) {
             internetProvider = new VolleyInternetProvider();
@@ -97,6 +99,7 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
                 Log.i("SMPL", "Ошибка создания internetProvider");
             }
         }
+        Log.d("QWERT","BasePresenter startInternetProvider *********************");
         iBase.addInternetProvider(internetProvider);
         iBase.progressStart();
     }

@@ -27,16 +27,12 @@ import fitness.sistem.compon.tools.StaticVM;
 import java.util.ArrayList;
 import java.util.List;
 
-//import fitness.sistem.compon.dialogs.ProgressDialog;
-
 public abstract class BaseFragment extends Fragment implements IBase {
     public abstract void initView(Bundle savedInstanceState);
-//    public abstract int getLayoutId();
     protected View parentLayout;
     private Object mObject;
     private int countProgressStart;
     private DialogFragment progressDialog;
-//    public List<Request> listRequests;
     public List<BaseInternetProvider> listInternetProvider;
     public MultiComponents mComponent;
     public List<EventComponent> listEvent;
@@ -47,7 +43,6 @@ public abstract class BaseFragment extends Fragment implements IBase {
 
     public BaseFragment() {
         mObject = null;
-//        listRequests = new ArrayList<>();
         listInternetProvider = new ArrayList<>();
         listEvent = new ArrayList<>();
         parentModelList = new ArrayList<>();
@@ -60,6 +55,7 @@ public abstract class BaseFragment extends Fragment implements IBase {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.savedInstanceState = savedInstanceState;
+        Log.d("QWERT","BaseFragment onCreateView mComponent="+mComponent.nameComponent);
         if (mComponent == null || mComponent.typeView == MultiComponents.TYPE_VIEW.CUSTOM_FRAGMENT) {
             parentLayout = inflater.inflate(getLayoutId(), null, false);
         } else {

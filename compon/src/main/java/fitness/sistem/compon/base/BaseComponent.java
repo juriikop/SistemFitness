@@ -90,6 +90,7 @@ public abstract class BaseComponent {
         }
         if (paramMV.eventComponent == 0) {
             if (paramMV.startActual) {
+                Log.d("QWERT","BaseComponent init actual();");
                 actual();
             }
         } else {
@@ -98,6 +99,7 @@ public abstract class BaseComponent {
     }
 
     public void actualEvent(int sender, Object paramEvent) {
+        Log.d("QWERT","BaseComponent actualEvent actual();");
         actual();
     }
 
@@ -128,6 +130,7 @@ public abstract class BaseComponent {
                     changeDataBase(argument);
                     break;
                 default:
+                    Log.d("QWERT","BaseComponent actual");
                     new BasePresenter(iBase, paramMV.paramModel, null, null, listener);
 //                    new VolleyPresenter<String>(this, vl);
             }
@@ -189,6 +192,7 @@ public abstract class BaseComponent {
                 }
                 response.value = lr;
             }
+            Log.d("QWERT","BaseComponent listener");
             if (paramMV.paramModel.nameTakeField == null) {
                 changeDataBase((Field) response);
             } else {
@@ -204,6 +208,7 @@ public abstract class BaseComponent {
                 && ((ListRecords) field.value).size() > 0) {
             ((ListRecords) field.value).addAll(0, paramMV.paramModel.addRecordBegining);
         }
+        Log.d("QWERT","BaseComponent changeData");
         changeData(field);
     }
 
@@ -224,6 +229,7 @@ public abstract class BaseComponent {
                     switch (vh.type) {
                         case SEND_CHANGE_BACK :
                             Record param = workWithRecordsAndViews.ViewToRecord(viewComponent, vh.paramModel.param);
+                            Log.d("QWERT","BaseComponent clickView SEND_CHANGE_BACK");
                             new BasePresenter(iBase, vh.paramModel, null, setRecord(param), listener_send_change);
                             break;
                         case CLICK_SEND :
@@ -242,6 +248,7 @@ public abstract class BaseComponent {
                                 param = workWithRecordsAndViews.ViewToRecord(viewComponent, vh.paramModel.param);
                                 Record rec = setRecord(param);
                                 ComponGlob.getInstance().setParam(rec);
+                                Log.d("QWERT","BaseComponent clickView CLICK_SEND");
                                 new BasePresenter(iBase, vh.paramModel, null, rec, listener_send_back_screen);
                             }
                             break;

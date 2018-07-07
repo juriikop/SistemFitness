@@ -1,5 +1,6 @@
 package fitness.sistem.sistemfitness.more_work;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ public class FitnessProcessing extends MoreWork {
     @Override
     public void clickView(View viewClick, View parentView,
                           BaseComponent baseComponent, Record rec, int position) {
+
+        Log.d("QWERT","ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
 //        int id = viewClick.getId();
 //        Field ff = rec.getField("count");
 //        Long count = (Long) ff.value;

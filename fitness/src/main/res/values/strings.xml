@@ -13,11 +13,16 @@
     <string name="auth_register">auth_register</string>
     <string name="map">map</string>
     <string name="drawer">drawer</string>
+    <string name="clubs">clubs</string>
 
+    // Menu
+    <string name="m_clubs">Клуби</string>
 
     // Title screen
     <string name="title_ayth_phone">Авторизація</string>
     <string name="title_register">Реєстрація</string>
+    <string name="title_clubs">Клуби</string>
+    <string name="title_map">MAP</string>
     <string name="title_SMS">Код СМС</string>
 
     // Error text
@@ -40,9 +45,9 @@
     <string name="sms_cometo">SMS прийде на вказаний номер телефону</string>
     <string name="no_sms">SMS не приходить</string>
 
+
     // Drawer
     <string name="sign_in">ВОЙТИ</string>
 
-    <string name="title_map">MAP</string>
 
 </resources>

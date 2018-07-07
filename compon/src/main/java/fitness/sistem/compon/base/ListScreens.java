@@ -58,6 +58,14 @@ public class ListScreens <T>{
         return mc;
     }
 
+    protected MultiComponents fragment(String name, int layoutId, Class<T> additionalWork) {
+        MultiComponents mc = new MultiComponents(name, layoutId);
+        mc.typeView = MultiComponents.TYPE_VIEW.FRAGMENT;
+        mc.additionalWork = additionalWork;
+        MapScreen.put(name, mc);
+        return mc;
+    }
+
     protected MultiComponents fragment(String name, int layoutId) {
         MultiComponents mc = new MultiComponents(name, layoutId);
         mc.typeView = MultiComponents.TYPE_VIEW.FRAGMENT;
