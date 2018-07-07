@@ -27,7 +27,8 @@ public class TestInternetProvider extends BaseInternetProvider {
                          String data, InternetProviderListener listener) {
         super.setParam(method, url, headers, data, listener);
         handler = new Handler();
-        handler.postDelayed(result, 1000);
+//        handler.postDelayed(result, 1000);
+        result.run();
     }
 
     Runnable result = new Runnable() {
@@ -43,7 +44,6 @@ public class TestInternetProvider extends BaseInternetProvider {
     };
 
     private String jsonResult(String request) {
-        Log.d("QWERT","TestInternetProvider request="+request+"<< Api.CLUBS="+Api.CLUBS);
         switch (request) {
              case Api.INTRO: return setIntro();
              case Api.CLUBS: return setClubs();
@@ -52,7 +52,6 @@ public class TestInternetProvider extends BaseInternetProvider {
     }
 
     private String setClubs() {
-        Log.d("QWERT","setClubs");
         Record rec = new Record();
         ListRecords lr = new ListRecords();
         Field fil = new Field("", Field.TYPE_RECORD, rec);
@@ -111,7 +110,8 @@ public class TestInternetProvider extends BaseInternetProvider {
 
         SimpleRecordToJson recordToJson = new SimpleRecordToJson();
         String st = recordToJson.modelToJson(fil);
-        Log.d("QWERT","setClubs st="+st);
+        Log.d("QWERT","setClubs st=QQQQQQQQQQQQQQQQQQQQQ");
+//        Log.d("QWERT","setClubs st="+st);
         return st;
     }
 

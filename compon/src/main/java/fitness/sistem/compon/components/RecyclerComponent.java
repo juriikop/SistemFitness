@@ -51,10 +51,12 @@ public class RecyclerComponent extends BaseComponent {
         recycler.setLayoutManager(layoutManager);
         adapter = new BaseProviderAdapter(this);
         recycler.setAdapter(adapter);
+        Log.d("QWERT","RecyclerComponent initView");
     }
 
     @Override
     public void changeData(Field field) {
+        Log.d("QWERT","RecyclerComponent changeData");
         listData.clear();
         listData.addAll((ListRecords) field.value);
         provider.setData(listData);

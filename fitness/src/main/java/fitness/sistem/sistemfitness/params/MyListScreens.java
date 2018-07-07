@@ -10,6 +10,7 @@ import fitness.sistem.compon.param.ParamMap;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.param.ParamView;
 import fitness.sistem.sistemfitness.R;
+import fitness.sistem.sistemfitness.more_work.FitnessProcessing;
 import fitness.sistem.sistemfitness.network.Api;
 import fitness.sistem.sistemfitness.network.TestInternetProvider;
 
@@ -94,7 +95,8 @@ public class MyListScreens extends ListScreens {
 
         fragment(context.getString(R.string.clubs), R.layout.fragment_clubs)
                 .addComponent(TC.RECYCLER, new ParamModel(Api.CLUBS)
-                        .internetProvider(TestInternetProvider.class), new ParamView(R.id.recycler, R.layout.item_clubs));
+                        .internetProvider(TestInternetProvider.class), new ParamView(R.id.recycler, R.layout.item_clubs),
+                        new Navigator().add(0, ViewHandler.TYPE.CLICK_VIEW), 0, FitnessProcessing.class);
 
 
 //        fragment(context.getString(R.string.tickets), R.layout.fragment_tickets, context.getString(R.string.my_tickets))
