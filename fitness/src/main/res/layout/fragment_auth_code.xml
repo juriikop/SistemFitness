@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/white">
+
+    <fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient
+        android:id="@+id/tool"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:color_1="darkPrimary"
+        app:color_2="primary">
+
+        <fitness.sistem.sistemfitness.tools.changeColor.ImageViewColor
+            android:id="@+id/back"
+            android:layout_width="@dimen/d_icon"
+            android:layout_height="@dimen/d_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/pad_16"
+            android:src="@drawable/back"
+            app:colorText="textOnPrimary" />
+
+        <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/title_SMS"
+            android:textAllCaps="true"
+            android:textSize="18dp"
+            app:colorText="textOnPrimary"/>
+
+    </fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pad_40"
+        android:layout_marginLeft="@dimen/pad_30"
+        android:layout_marginRight="@dimen/pad_30"
+        style="@style/st_16_black"
+        android:text="@string/code_sms"/>
+
+    <LinearLayout
+        android:id="@+id/panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad_24"
+            android:layout_marginLeft="@dimen/pad_32"
+            android:layout_marginRight="@dimen/pad_32"
+            android:textColorHint="@color/black_50"
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/st_12_black_50">
+
+            <fitness.sistem.sistemfitness.tools.changeColor.EditTextMaskColor
+                android:id="@+id/code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:textColor="@color/black"
+                android:textSize="@dimen/pad_18"
+                android:textColorHint="@color/black_50"
+                android:hint="@string/title_SMS"
+                android:imeOptions="actionDone"
+                app:textError="@string/er_lenght"
+                app:mask="___ ___"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad_10"
+            android:layout_marginLeft="@dimen/pad_30"
+            android:layout_marginRight="@dimen/pad_30"
+            style="@style/st_14_black_50"
+            android:text="@string/sms_cometo"/>
+
+        <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor
+            android:id="@+id/no_sms"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pad_40"
+            android:layout_marginTop="@dimen/pad_18"
+            android:textSize="@dimen/pad_16"
+            android:text="@string/no_sms"
+            android:gravity="center"/>
+
+        <fitness.sistem.sistemfitness.tools.changeColor.ButtonColor
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/h_button"
+            android:layout_marginTop="@dimen/pad_24"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:paddingLeft="@dimen/pad_24"
+            android:paddingRight="@dimen/pad_24"
+            android:textAllCaps="true"
+            android:text="@string/contin"
+            app:colorText="textOnAccent"
+            app:color_1="accent"
+            app:color_2="lightAccent"/>
+    </LinearLayout>
+
+</LinearLayout>

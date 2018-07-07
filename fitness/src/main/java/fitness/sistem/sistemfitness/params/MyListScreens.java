@@ -34,7 +34,7 @@ public class MyListScreens extends ListScreens {
                                 .setFurtherBtn(R.id.skip, R.id.contin, R.id.start),
                         new Navigator().add(context.getString(R.string.auth)));
 
-        activity(context.getString(R.string.auth), R.layout.activity_auth).animate(AS.LR)
+        activity(context.getString(R.string.auth), R.layout.activity_auth).animate(AS.RL)
                 .fragmentsContainer(R.id.content_frame, context.getString(R.string.auth_phone));
 
         fragment(context.getString(R.string.auth_phone), R.layout.fragment_auth_phone)
@@ -47,30 +47,28 @@ public class MyListScreens extends ListScreens {
                                         actionsAfterResponse().startScreen(context.getString(R.string.auth_code)),
                                         true, R.id.phone));
 
-        fragment(context.getString(R.string.auth_register), R.layout.fragment_register).animate(AS.TB)
+        fragment(context.getString(R.string.auth_register), R.layout.fragment_register).animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
                 .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
                         new Navigator()
                                 .add(R.id.done_register, ViewHandler.TYPE.CLICK_SEND,
                                         new ParamModel(ParamModel.POST, Api.REGISTER,
                                                 "phone,surname,name,patronymic,email"),
-                                        actionsAfterResponse().startScreen(context.getString(R.string.auth_code)),
-                                        false, R.id.phone, R.id.surname, R.id.name, R.id.patronymic, R.id.email))
-//                .addButtonComponent(R.id.done_register, new Navigator(), R.id.phone, R.id.surname, R.id.name, R.id.patronymic, R.id.email)
-        ;
+                                        actionsAfterResponse().startScreen(context.getString(R.string.auth_code)),false,
+                                        R.id.phone, R.id.surname, R.id.name, R.id.patronymic, R.id.email));
 
 
-//
-//        fragment(context.getString(R.string.auth_code), R.layout.fragment_auth_code)
-//                .addComponent(ParamComponent.TC.PANEL_ENTER, null, new ParamView(R.id.panel),
-//                        new Navigator().add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
-//                                new ParamModel(ParamModel.POST, Api.LOGIN_CODE, "phone,code"),
-//                                actionsAfterResponse()
-//                                        .preferenceSetToken("token")
-////                                        .preferenceSetName("phone")
-//                                        .startScreen(context.getString(R.string.main))
-//                                        .back(),
-//                                true, R.id.code));
+
+        fragment(context.getString(R.string.auth_code), R.layout.fragment_auth_code)
+                .addComponent(ParamComponent.TC.PANEL_ENTER, null, new ParamView(R.id.panel),
+                        new Navigator().add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
+                                new ParamModel(ParamModel.POST, Api.LOGIN_CODE, "phone,code"),
+                                actionsAfterResponse()
+                                        .preferenceSetToken("token")
+//                                        .preferenceSetName("phone")
+                                        .startScreen(context.getString(R.string.main))
+                                        .back(),
+                                true, R.id.code));
 
         activity(context.getString(R.string.main), R.layout.activity_main)
                 .addDrawer(R.id.drawer, new int[] {R.id.content_frame, R.id.left_drawer},

@@ -18,9 +18,11 @@
     // Title screen
     <string name="title_ayth_phone">Авторизація</string>
     <string name="title_register">Реєстрація</string>
+    <string name="title_SMS">Код СМС</string>
 
     // Error text
     <string name="er_filled">Треба заповнити</string>
+    <string name="er_lenght">Кількість знаків в полі\u0020</string>
     <string name="er_email">Неправильна адреса email</string>
     <string name="er_phone">Неправильний номер телефону</string>
 
@@ -34,6 +36,9 @@
     <string name="name">І\'мя</string>
     <string name="patronymic">По батькові</string>
     <string name="email">Email</string>
+    <string name="code_sms">Код підтвердження з SMS</string>
+    <string name="sms_cometo">SMS прийде на вказаний номер телефону</string>
+    <string name="no_sms">SMS не приходить</string>
 
     // Drawer
     <string name="sign_in">ВОЙТИ</string>
