@@ -1,5 +1,6 @@
 package fitness.sistem.sistemfitness.more_work;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import fitness.sistem.compon.interfaces_classes.MoreWork;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.sistemfitness.R;
+import fitness.sistem.sistemfitness.tools.changeColor.AppColors;
 
 public class FitnessProcessing extends MoreWork {
 
@@ -17,7 +19,19 @@ public class FitnessProcessing extends MoreWork {
     public void clickView(View viewClick, View parentView,
                           BaseComponent baseComponent, Record rec, int position) {
 
-        Log.d("QWERT","ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+        Record color = (Record)rec.getValue("colors");
+        AppColors.accent = Color.parseColor(color.getString("accent"));
+        AppColors.accentDark = Color.parseColor(color.getString("accentDark"));
+        AppColors.accentLight = Color.parseColor(color.getString("accentLight"));
+        AppColors.primary = Color.parseColor(color.getString("primary"));
+        AppColors.primaryDark = Color.parseColor(color.getString("primaryDark"));
+        AppColors.primaryLight = Color.parseColor(color.getString("primaryLight"));
+        AppColors.textOnAccent = Color.parseColor(color.getString("textOnAccent"));
+        AppColors.textOnPrimary = Color.parseColor(color.getString("textOnPrimary"));
+        baseComponent.activity.setStatusColor(AppColors.primaryLight);
+        baseComponent.activity.recreate();
+
+
 //        int id = viewClick.getId();
 //        Field ff = rec.getField("count");
 //        Long count = (Long) ff.value;

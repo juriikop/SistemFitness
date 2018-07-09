@@ -12,6 +12,15 @@ public class PreferenceTool {
     private static final String USER_KEY = "user_key";
     private static final String COOKIE = "cookie";
     private static final String TOKEN = "token";
+    private static final String STATUS_COLOR = "STATUS_COLOR";
+
+    public static void setStatusBarColor(int value) {
+        getEditor().putInt(STATUS_COLOR, value).commit();
+    }
+
+    public static int getStatusBarColor() {
+        return getSharedPreferences().getInt(STATUS_COLOR, 0);
+    }
 
     public static void setNameBoolean(String name, boolean value) {
         getEditor().putBoolean(name, value).commit();

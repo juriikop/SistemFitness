@@ -140,6 +140,16 @@ public class MultiComponents <T>{
         return this;
     }
 
+    public MultiComponents addMenu(ParamModel paramModel, ParamView paramView) {
+        ParamComponent paramComponent = new ParamComponent();
+        paramComponent.type = ParamComponent.TC.MENU;
+        paramComponent.paramModel = paramModel;
+        paramComponent.paramView = paramView;
+        paramComponent.navigator = new Navigator().add("nameFunc");
+        listComponents.add(paramComponent);
+        return this;
+    }
+
     public MultiComponents addComponentMap(int viewId, ParamModel paramModel, ParamMap paramMap,
                                            Navigator navigator, int eventComponent) {
         ParamComponent paramComponent = new ParamComponent();

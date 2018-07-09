@@ -31,7 +31,7 @@ public class RecyclerComponent extends BaseComponent {
             recycler = (RecyclerView) parentLayout.findViewById(paramMV.paramView.viewId);
         }
         if (recycler == null) {
-            Log.i("SMPL", "Не найден RecyclerView в " + paramMV.nameParentComponent);
+            Log.i(TAG, "Не найден RecyclerView в " + paramMV.nameParentComponent);
             return;
         }
         listData = new ListRecords();
@@ -51,12 +51,10 @@ public class RecyclerComponent extends BaseComponent {
         recycler.setLayoutManager(layoutManager);
         adapter = new BaseProviderAdapter(this);
         recycler.setAdapter(adapter);
-        Log.d("QWERT","RecyclerComponent initView");
     }
 
     @Override
     public void changeData(Field field) {
-        Log.d("QWERT","RecyclerComponent changeData");
         listData.clear();
         listData.addAll((ListRecords) field.value);
         provider.setData(listData);
@@ -71,7 +69,7 @@ public class RecyclerComponent extends BaseComponent {
                     v_splash.setVisibility(View.VISIBLE);
                 }
             } else {
-                Log.i("SMPL", "Не найден SplashView в " + paramMV.nameParentComponent);
+                Log.i(TAG, "Не найден SplashView в " + paramMV.nameParentComponent);
             }
         }
         iBase.sendEvent(paramMV.paramView.viewId);

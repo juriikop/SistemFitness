@@ -32,6 +32,10 @@ public class ParamView {
         this(viewId, "", new int[] {layoutItemId}, new int[] {layoutFurtherId});
     }
 
+    public ParamView(int viewId, int[] layoutTypeId) {
+        this(viewId, "select", layoutTypeId, null);
+    }
+
     public ParamView(int viewId, String fieldType, int[] layoutTypeId) {
         this(viewId, fieldType, layoutTypeId, null);
     }

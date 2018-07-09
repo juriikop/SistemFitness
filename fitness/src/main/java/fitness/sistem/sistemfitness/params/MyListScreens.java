@@ -61,7 +61,7 @@ public class MyListScreens extends ListScreens {
 
 
         fragment(context.getString(R.string.auth_code), R.layout.fragment_auth_code)
-                .addComponent(ParamComponent.TC.PANEL_ENTER, null, new ParamView(R.id.panel),
+                .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
                         new Navigator().add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
                                 new ParamModel(ParamModel.POST, Api.LOGIN_CODE, "phone,code"),
                                 actionsAfterResponse()
@@ -86,10 +86,8 @@ public class MyListScreens extends ListScreens {
                         new ParamView(R.id.panel, R.layout.drawer_header_main, R.layout.drawer_header_not),
                         new Navigator().add(R.id.enter, context.getString(R.string.auth))
                                 .add(R.id.enter, ViewHandler.TYPE.CLOSE_DRAWER))
-                .addComponent(ParamComponent.TC.MENU, new ParamModel(menu),
-                        new ParamView(R.id.recycler, "select",
-                                new int[]{R.layout.item_menu_divider, R.layout.item_menu, R.layout.item_menu_select}),
-                        new Navigator().add("nameFunc"));
+                .addMenu(new ParamModel(menu), new ParamView(R.id.recycler,
+                        new int[]{R.layout.item_menu_divider, R.layout.item_menu, R.layout.item_menu_select}));
 
         fragment(context.getString(R.string.clubs), R.layout.fragment_clubs)
                 .addComponent(TC.RECYCLER, new ParamModel(Api.CLUBS)

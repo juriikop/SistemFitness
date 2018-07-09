@@ -50,12 +50,14 @@ public abstract class BaseComponent {
     public Field argument;
     public MultiComponents multiComponent;
     public WorkWithRecordsAndViews workWithRecordsAndViews = new WorkWithRecordsAndViews();
+    public String TAG = ComponGlob.getInstance().appParams.NAME_LOG_APP;
 
     public BaseComponent(IBase iBase, ParamComponent paramMV, MultiComponents multiComponent){
         this.paramMV = paramMV;
         this.multiComponent = multiComponent;
         navigator = paramMV.navigator;
         paramMV.baseComponent = this;
+        TAG = ComponGlob.getInstance().appParams.NAME_LOG_APP;
         this.iBase = iBase;
         activity = iBase.getBaseActivity();
         this.parentLayout = iBase.getParentLayout();
@@ -90,7 +92,6 @@ public abstract class BaseComponent {
         }
         if (paramMV.eventComponent == 0) {
             if (paramMV.startActual) {
-                Log.d("QWERT","BaseComponent init actual();");
                 actual();
             }
         } else {
@@ -99,7 +100,6 @@ public abstract class BaseComponent {
     }
 
     public void actualEvent(int sender, Object paramEvent) {
-        Log.d("QWERT","BaseComponent actualEvent actual();");
         actual();
     }
 
@@ -130,7 +130,6 @@ public abstract class BaseComponent {
                     changeDataBase(argument);
                     break;
                 default:
-                    Log.d("QWERT","BaseComponent actual");
                     new BasePresenter(iBase, paramMV.paramModel, null, null, listener);
 //                    new VolleyPresenter<String>(this, vl);
             }
@@ -192,7 +191,6 @@ public abstract class BaseComponent {
                 }
                 response.value = lr;
             }
-            Log.d("QWERT","BaseComponent listener");
             if (paramMV.paramModel.nameTakeField == null) {
                 changeDataBase((Field) response);
             } else {
@@ -208,7 +206,6 @@ public abstract class BaseComponent {
                 && ((ListRecords) field.value).size() > 0) {
             ((ListRecords) field.value).addAll(0, paramMV.paramModel.addRecordBegining);
         }
-        Log.d("QWERT","BaseComponent changeData");
         changeData(field);
     }
 
@@ -229,7 +226,6 @@ public abstract class BaseComponent {
                     switch (vh.type) {
                         case SEND_CHANGE_BACK :
                             Record param = workWithRecordsAndViews.ViewToRecord(viewComponent, vh.paramModel.param);
-                            Log.d("QWERT","BaseComponent clickView SEND_CHANGE_BACK");
                             new BasePresenter(iBase, vh.paramModel, null, setRecord(param), listener_send_change);
                             break;
                         case CLICK_SEND :
@@ -248,7 +244,6 @@ public abstract class BaseComponent {
                                 param = workWithRecordsAndViews.ViewToRecord(viewComponent, vh.paramModel.param);
                                 Record rec = setRecord(param);
                                 ComponGlob.getInstance().setParam(rec);
-                                Log.d("QWERT","BaseComponent clickView CLICK_SEND");
                                 new BasePresenter(iBase, vh.paramModel, null, rec, listener_send_back_screen);
                             }
                             break;
@@ -276,9 +271,10 @@ public abstract class BaseComponent {
                             if (listPresenter != null) {
                                 listPresenter.ranCommand(ListPresenter.Command.SELECT,
                                         position, null);
+                            } else {
+                                ComponGlob.getInstance().setParam(record);
+                                iBase.startScreen((String) record.getValue(vh.nameFragment), false);
                             }
-                            ComponGlob.getInstance().setParam(record);
-                            iBase.startScreen((String) record.getValue(vh.nameFragment), false);
                             break;
                         case NAME_FRAGMENT:
                             ComponGlob.getInstance().setParam(record);
@@ -289,8 +285,8 @@ public abstract class BaseComponent {
                             }
                             break;
                         case CLICK_VIEW:
-                            if (multiComponent.moreWork != null) {
-                                multiComponent.moreWork.clickView(view, holder.itemView, this, record, position);
+                            if (moreWork != null) {
+                                moreWork.clickView(view, holder.itemView, this, record, position);
                             }
                             break;
                     }

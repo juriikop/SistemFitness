@@ -35,14 +35,17 @@ public class MenuComponent extends BaseComponent {
             recycler = (RecyclerView) parentLayout.findViewById(paramMV.paramView.viewId);
         }
         if (recycler == null) {
-            Log.i("SMPL", "Не найден RecyclerView для Menu в " + paramMV.nameParentComponent);
+            Log.i(TAG,"Не найден RecyclerView для Menu в " + paramMV.nameParentComponent);
         }
-
-        for (ViewHandler vh : navigator.viewHandlers) {
-            if (vh.viewId == 0 && vh.type == ViewHandler.TYPE.FIELD_WITH_NAME_FRAGMENT) {
-                selectViewHandler = vh;
-                break;
+        if (navigator != null) {
+            for (ViewHandler vh : navigator.viewHandlers) {
+                if (vh.viewId == 0 && vh.type == ViewHandler.TYPE.FIELD_WITH_NAME_FRAGMENT) {
+                    selectViewHandler = vh;
+                    break;
+                }
             }
+        } else {
+            Log.i(TAG, "Нет навигатора для Menu в " + paramMV.nameParentComponent);
         }
         listData = new ListRecords();
         listPresenter = new ListPresenter(this);
@@ -75,8 +78,8 @@ public class MenuComponent extends BaseComponent {
     @Override
     public void changeDataPosition(int position, boolean select) {
         adapter.notifyItemChanged(position);
+        ((BaseActivity) activity).closeDrawer();
         if (select && selectViewHandler != null) {
-            ((BaseActivity) activity).closeDrawer();
             Record record = listData.get(position);
             ComponGlob.getInstance().setParam(record);
             String st = record.getString(selectViewHandler.nameFragment);

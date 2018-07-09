@@ -12,6 +12,7 @@ public class Constants {
     public final static String TYPE_PAGER_SIMPLE = "PagerSimple";
     public final static String FIELD_VALUE = "field_value";
     public final static String ITEM = "_item";
+    public static String STATUS_COLOR = "STATUS_COLOR";
     public static String SEPARATOR_LIST = ",";
     public static String SIMPLE_ViewId = "SIMPLE_ViewId";
     public static String NAME_MVP = "NAME_MVP";

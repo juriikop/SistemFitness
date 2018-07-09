@@ -21,6 +21,7 @@ import fitness.sistem.compon.interfaces_classes.SetData;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.components.MultiComponents;
+import fitness.sistem.compon.tools.Constants;
 import fitness.sistem.compon.tools.PreferenceTool;
 import fitness.sistem.compon.tools.StaticVM;
 
@@ -40,6 +41,8 @@ public abstract class BaseFragment extends Fragment implements IBase {
     private Bundle savedInstanceState;
     private GoogleApiClient googleApiClient;
     private List<AnimatePanel> animatePanelList;
+    protected BaseActivity activity;
+    private String nameMvp = null;
 
     public BaseFragment() {
         mObject = null;
@@ -55,7 +58,18 @@ public abstract class BaseFragment extends Fragment implements IBase {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         this.savedInstanceState = savedInstanceState;
-        Log.d("QWERT","BaseFragment onCreateView mComponent="+mComponent.nameComponent);
+        activity = getBaseActivity();
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            nameMvp = bundle.getString(Constants.NAME_MVP);
+        } else if (savedInstanceState != null) {
+            nameMvp = savedInstanceState.getString(Constants.NAME_MVP);
+        }
+        if (mComponent == null) {
+            if (nameMvp != null && nameMvp.length() > 0) {
+                mComponent = activity.getComponent(nameMvp);
+            }
+        }
         if (mComponent == null || mComponent.typeView == MultiComponents.TYPE_VIEW.CUSTOM_FRAGMENT) {
             parentLayout = inflater.inflate(getLayoutId(), null, false);
         } else {
@@ -100,6 +114,12 @@ public abstract class BaseFragment extends Fragment implements IBase {
         initView(savedInstanceState);
         animatePanelList = new ArrayList<>();
         return parentLayout;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Constants.NAME_MVP, nameMvp);
     }
 
     @Override

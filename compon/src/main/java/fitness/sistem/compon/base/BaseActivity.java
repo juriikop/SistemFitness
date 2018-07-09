@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 //import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.transition.Slide;
@@ -16,6 +17,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
@@ -36,6 +39,7 @@ import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.json_simple.SimpleRecordToJson;
 import fitness.sistem.compon.json_simple.WorkWithRecordsAndViews;
 import fitness.sistem.compon.tools.Constants;
+import fitness.sistem.compon.tools.PreferenceTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +65,8 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     private MapComponent mapComponent;
     private List<AnimatePanel> animatePanelList;
     public DrawerLayout drawer;
+    public String TAG = ComponGlob.getInstance().appParams.NAME_LOG_APP;
+//    private int statusBarColor = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +108,18 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     public void setGoogleApiClient(GoogleApiClient googleApiClient) {
         this.googleApiClient = googleApiClient;
     }
+
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putInt(Constants.STATUS_COLOR, statusBarColor);
+//    }
+//
+//    @Override
+//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+//        super.onRestoreInstanceState(savedInstanceState);
+//        statusBarColor = savedInstanceState.getInt(Constants.STATUS_COLOR, 0);
+//    }
 
     @Override
     public Bundle getSavedInstanceState() {
@@ -167,7 +185,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                             onBackPressed();
                             break;
                         case SHOW:
-                            Log.d("QWERT","navigatorClick SHOW");
                             View showView = parentLayout.findViewById(vh.showViewId);
                             if (showView instanceof AnimatePanel) {
                                 ((AnimatePanel) showView).show(BaseActivity.this);
@@ -217,13 +234,19 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         super.onStop();
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-////        if (googleApiClient != null) {
-////            googleApiClient.connect();
-////        }
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        int statusBarColor = PreferenceTool.getStatusBarColor();
+        if (statusBarColor != 0) {
+            setStatusBarColor(statusBarColor);
+        }
+    }
+
+    public void setStatusColor(int color) {
+        PreferenceTool.setStatusBarColor(color);
+//        statusBarColor = color;
+    }
 //
 //    @Override
 //    public void onPause() {
@@ -326,7 +349,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         if (mc != null) {
             startActivitySimple(nameMVP, mc, object);
         } else {
-            Log.d("SMPL", "Нет Screens с именем " + nameMVP);
+            Log.d(TAG, "Нет Screens с именем " + nameMVP);
         }
     }
     public void startActivitySimple(String nameMVP, MultiComponents mc, Object object) {
@@ -438,6 +461,9 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         MultiComponents model = mapFragment.get(nameMVP);
         BaseFragment fragment = new ComponentsFragment();
         fragment.setModel(model);
+        Bundle bundle =new Bundle();
+        bundle.putString(Constants.NAME_MVP, nameMVP);
+        fragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(containerFragmentId, fragment, nameMVP);
         transaction.commit();
@@ -446,6 +472,14 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     @Override
     public void startScreen(String nameMVP, boolean startFlag) {
         startScreen(nameMVP, startFlag, null);
+    }
+
+    public void setStatusBarColor(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(color);
+        }
     }
 
     @Override
@@ -457,7 +491,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 //            startFragment(nameMVP, startFlag);
 //        }
         if (mComponent == null || mComponent.typeView == null) {
-            Log.d("SMPL", "Нет Screens с именем " + nameMVP);
+            Log.d(TAG, "Нет Screens с именем " + nameMVP);
             return;
         }
         switch (mComponent.typeView) {
@@ -502,9 +536,9 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 //        for (String key : mapFragment.keySet()) {
 //            System.out.println("Key: " + key);
 //        }
-        Bundle bundle;
+        Bundle bundle =new Bundle();
+        bundle.putString(Constants.NAME_MVP, nameMVP);
         if (object != null) {
-            bundle = new Bundle();
             SimpleRecordToJson recordToJson = new SimpleRecordToJson();
             Field f = new Field();
             f.value = object;
@@ -515,8 +549,8 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                 f.type = Field.TYPE_LIST_RECORD;
                 bundle.putString(Constants.NAME_PARAM_FOR_SCREEN, recordToJson.modelToJson(f));
             }
-            fragment.setArguments(bundle);
         }
+        fragment.setArguments(bundle);
         fragment.setModel(mComponent);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (mComponent.animateScreen != null

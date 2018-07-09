@@ -71,8 +71,8 @@ public class TestInternetProvider extends BaseInternetProvider {
             colors.add(new Field("accent", Field.TYPE_STRING, "#17d3ff"));
             colors.add(new Field("accentDark", Field.TYPE_STRING, "#0da3c7"));
             colors.add(new Field("accentLight", Field.TYPE_STRING, "#bef0fc"));
-            colors.add(new Field("textOnPrimary", Field.TYPE_STRING, "#fff"));
-            colors.add(new Field("textOnAccent", Field.TYPE_STRING, "#fff"));
+            colors.add(new Field("textOnPrimary", Field.TYPE_STRING, "#ffffff"));
+            colors.add(new Field("textOnAccent", Field.TYPE_STRING, "#ffffff"));
         record.add(new Field("colors", Field.TYPE_RECORD, colors));
         lr.add(record);
 
@@ -87,8 +87,8 @@ public class TestInternetProvider extends BaseInternetProvider {
             colors.add(new Field("accent", Field.TYPE_STRING, "#fad74c"));
             colors.add(new Field("accentDark", Field.TYPE_STRING, "#edc62c"));
             colors.add(new Field("accentLight", Field.TYPE_STRING, "#fce380"));
-            colors.add(new Field("textOnPrimary", Field.TYPE_STRING, "#777"));
-            colors.add(new Field("textOnAccent", Field.TYPE_STRING, "#777"));
+            colors.add(new Field("textOnPrimary", Field.TYPE_STRING, "#777777"));
+            colors.add(new Field("textOnAccent", Field.TYPE_STRING, "#777777"));
         record.add(new Field("colors", Field.TYPE_RECORD, colors));
         lr.add(record);
 
@@ -103,14 +103,13 @@ public class TestInternetProvider extends BaseInternetProvider {
             colors.add(new Field("accent", Field.TYPE_STRING, "#fad74c"));
             colors.add(new Field("accentDark", Field.TYPE_STRING, "#edc62c"));
             colors.add(new Field("accentLight", Field.TYPE_STRING, "#fce380"));
-            colors.add(new Field("textOnPrimary", Field.TYPE_STRING, "#fff"));
-            colors.add(new Field("textOnAccent", Field.TYPE_STRING, "#777"));
+            colors.add(new Field("textOnPrimary", Field.TYPE_STRING, "#ffffff"));
+            colors.add(new Field("textOnAccent", Field.TYPE_STRING, "#777777"));
         record.add(new Field("colors", Field.TYPE_RECORD, colors));
         lr.add(record);
 
         SimpleRecordToJson recordToJson = new SimpleRecordToJson();
         String st = recordToJson.modelToJson(fil);
-        Log.d("QWERT","setClubs st=QQQQQQQQQQQQQQQQQQQQQ");
 //        Log.d("QWERT","setClubs st="+st);
         return st;
     }
