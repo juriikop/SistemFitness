@@ -87,24 +87,19 @@ public abstract class BaseComponent {
             iBase.addEvent(paramMV.mustValid, this);
         }
         if (paramMV.eventComponent == 0) {
-            Log.d("QWERT","BaseComponent init eventComponent == 0");
             if (paramMV.startActual) {
-                Log.d("QWERT","BaseComponent init");
                 actual();
             }
         } else {
-            Log.d("QWERT","BaseComponent init eventComponent !!! = 0");
             iBase.addEvent(paramMV.eventComponent, this);
         }
     }
 
     public void actualEvent(int sender, Object paramEvent) {
-        Log.d("QWERT","BaseComponent actualEvent");
         actual();
     }
 
     public void actual() {
-        Log.d("QWERT","BaseComponent actual");
         if (paramMV.paramModel != null) {
             switch (paramMV.paramModel.method) {
                 case ParamModel.PARENT :
@@ -131,12 +126,10 @@ public abstract class BaseComponent {
                     changeDataBase(argument);
                     break;
                 default: {
-                    Log.d("QWERT","BaseComponent actual default BasePresenter");
                     new BasePresenter(iBase, paramMV.paramModel, null, null, listener);
                 }
             }
         } else {
-            Log.d("QWERT","BaseComponent actual paramModel=null");
             changeDataBase(null);
         }
     }
@@ -165,7 +158,6 @@ public abstract class BaseComponent {
     IPresenterListener listener = new IPresenterListener() {
         @Override
         public void onResponse(Field response) {
-            Log.d("QWERT","BaseComponent listener");
             if (moreWork != null) {
                 moreWork.beforeProcessingResponse(response, getThis());
             }

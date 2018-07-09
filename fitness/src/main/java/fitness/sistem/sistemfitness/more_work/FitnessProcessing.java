@@ -1,5 +1,6 @@
 package fitness.sistem.sistemfitness.more_work;
 
+import android.util.Log;
 import android.view.View;
 
 import fitness.sistem.compon.base.BaseComponent;
@@ -14,7 +15,6 @@ public class FitnessProcessing extends MoreWork {
     @Override
     public void clickView(View viewClick, View parentView,
                           BaseComponent baseComponent, Record rec, int position) {
-
         Record color = (Record)rec.getValue("colors");
         AppColors.recordToColor(color);
         SimpleRecordToJson rj = new SimpleRecordToJson();

@@ -1,6 +1,8 @@
 package fitness.sistem.sistemfitness.network;
 
 import android.os.Handler;
+import android.util.Log;
+
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.base.BaseInternetProvider;
 import fitness.sistem.compon.json_simple.Field;
