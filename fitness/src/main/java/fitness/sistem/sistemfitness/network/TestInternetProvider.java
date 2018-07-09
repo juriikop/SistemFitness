@@ -1,15 +1,6 @@
 package fitness.sistem.sistemfitness.network;
 
 import android.os.Handler;
-import android.util.Log;
-
-//import fitness.sistem.ComponGlob;
-//import fitness.sistem.base.BaseInternetProvider;
-//import fitness.sistem.json_simple.Field;
-//import fitness.sistem.json_simple.ListRecords;
-//import fitness.sistem.json_simple.Record;
-//import fitness.sistem.json_simple.SimpleRecordToJson;
-//import fitness.sistem.tools.Constants;
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.base.BaseInternetProvider;
 import fitness.sistem.compon.json_simple.Field;
@@ -27,8 +18,8 @@ public class TestInternetProvider extends BaseInternetProvider {
                          String data, InternetProviderListener listener) {
         super.setParam(method, url, headers, data, listener);
         handler = new Handler();
-//        handler.postDelayed(result, 1000);
-        result.run();
+        handler.postDelayed(result, 1000);
+//        result.run();
     }
 
     Runnable result = new Runnable() {

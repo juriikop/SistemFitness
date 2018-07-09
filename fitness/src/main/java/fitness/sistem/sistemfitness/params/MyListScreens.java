@@ -5,7 +5,6 @@ import fitness.sistem.compon.base.ListScreens;
 import fitness.sistem.compon.components.Menu;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
-import fitness.sistem.compon.param.ParamComponent;
 import fitness.sistem.compon.param.ParamMap;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.param.ParamView;

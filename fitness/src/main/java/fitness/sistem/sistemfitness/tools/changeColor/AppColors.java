@@ -3,19 +3,23 @@ package fitness.sistem.sistemfitness.tools.changeColor;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
-import android.os.Build;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
+
+import fitness.sistem.compon.json_simple.JsonSimple;
+import fitness.sistem.compon.json_simple.Record;
+import fitness.sistem.sistemfitness.tools.PreferenceTool;
 
 public class AppColors {
     public static int primary = 0xFFff9600;
@@ -45,6 +49,28 @@ public class AppColors {
         selectorButton.addState(new int[]{android.R.attr.state_pressed}, shapeAccentLight);
         selectorButton.addState(new int[]{}, shapeAccent);
         return selectorButton;
+    }
+
+    public static void recordToColor(Record color) {
+        accent = Color.parseColor(color.getString("accent"));
+        accentDark = Color.parseColor(color.getString("accentDark"));
+        accentLight = Color.parseColor(color.getString("accentLight"));
+        primary = Color.parseColor(color.getString("primary"));
+        primaryDark = Color.parseColor(color.getString("primaryDark"));
+        primaryLight = Color.parseColor(color.getString("primaryLight"));
+        textOnAccent = Color.parseColor(color.getString("textOnAccent"));
+        textOnPrimary = Color.parseColor(color.getString("textOnPrimary"));
+        setColors();
+    }
+
+    public static void jsonToColor(String json) {
+        JsonSimple rj = new JsonSimple();
+        recordToColor((Record) rj.jsonToModel(json).value);
+    }
+
+    public static void setColors() {
+        colors = new int[] {primary, accent, primaryDark, accentDark,
+                textOnPrimary, textOnAccent, primaryLight, accentLight};
     }
 
     public static GradientDrawable gradient() {
@@ -109,6 +135,7 @@ public class AppColors {
             drawables[1].setColorFilter(color, PorterDuff.Mode.SRC_IN);
             fCursorDrawable.set(editor, drawables);
         } catch (final Throwable ignored) {
+            Log.d("QWERT","Throwable="+ignored);
         }
     }
 

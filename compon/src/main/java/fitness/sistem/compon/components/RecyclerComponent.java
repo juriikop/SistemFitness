@@ -55,6 +55,7 @@ public class RecyclerComponent extends BaseComponent {
 
     @Override
     public void changeData(Field field) {
+        Log.d("QWERT","RecyclerComponent changeData");
         listData.clear();
         listData.addAll((ListRecords) field.value);
         provider.setData(listData);

@@ -74,10 +74,6 @@ public abstract class BaseComponent {
         }
     }
 
-//    public void setMultiComponent(MultiComponents multiComponent) {
-//        this.multiComponent = multiComponent;
-//    }
-
     public void init() {
         initView();
         if (paramMV.paramModel != null
@@ -91,19 +87,24 @@ public abstract class BaseComponent {
             iBase.addEvent(paramMV.mustValid, this);
         }
         if (paramMV.eventComponent == 0) {
+            Log.d("QWERT","BaseComponent init eventComponent == 0");
             if (paramMV.startActual) {
+                Log.d("QWERT","BaseComponent init");
                 actual();
             }
         } else {
+            Log.d("QWERT","BaseComponent init eventComponent !!! = 0");
             iBase.addEvent(paramMV.eventComponent, this);
         }
     }
 
     public void actualEvent(int sender, Object paramEvent) {
+        Log.d("QWERT","BaseComponent actualEvent");
         actual();
     }
 
     public void actual() {
+        Log.d("QWERT","BaseComponent actual");
         if (paramMV.paramModel != null) {
             switch (paramMV.paramModel.method) {
                 case ParamModel.PARENT :
@@ -129,11 +130,13 @@ public abstract class BaseComponent {
                     argument = jsonSimple.jsonToModel(st);
                     changeDataBase(argument);
                     break;
-                default:
+                default: {
+                    Log.d("QWERT","BaseComponent actual default BasePresenter");
                     new BasePresenter(iBase, paramMV.paramModel, null, null, listener);
-//                    new VolleyPresenter<String>(this, vl);
+                }
             }
         } else {
+            Log.d("QWERT","BaseComponent actual paramModel=null");
             changeDataBase(null);
         }
     }
@@ -162,6 +165,7 @@ public abstract class BaseComponent {
     IPresenterListener listener = new IPresenterListener() {
         @Override
         public void onResponse(Field response) {
+            Log.d("QWERT","BaseComponent listener");
             if (moreWork != null) {
                 moreWork.beforeProcessingResponse(response, getThis());
             }
@@ -330,7 +334,6 @@ public abstract class BaseComponent {
                         case PREFERENCE_SET_TOKEN:
                             Record rec = ((Record) response.value);
                             String st = rec.getString(vh.nameFieldWithValue);
-//                            String st = "bceee76d3c7d761c9ec92c286fb8bebcefb4225c311bb87e";
                             if (st != null) {
                                 PreferenceTool.setSessionToken(st);
                             }
@@ -338,7 +341,6 @@ public abstract class BaseComponent {
                         case PREFERENCE_SET_NAME:
                             rec = ((Record) response.value);
                             st = rec.getString(vh.nameFieldWithValue);
-//                            String st = "bceee76d3c7d761c9ec92c286fb8bebcefb4225c311bb87e";
                             if (st != null) {
                                 PreferenceTool.setNameString(vh.nameFieldWithValue, st);
                             }
@@ -355,7 +357,6 @@ public abstract class BaseComponent {
     IPresenterListener listener_send_change =new IPresenterListener() {
         @Override
         public void onResponse(Field response) {
-//            Field f = (Field) response;
             if (paramMV.paramModel.nameTakeField == null) {
                 paramMV.paramModel.field.value = response.value;
             } else {

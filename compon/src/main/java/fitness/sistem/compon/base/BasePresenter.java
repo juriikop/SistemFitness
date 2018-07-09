@@ -33,6 +33,7 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
 
     public BasePresenter(IBase iBase, ParamModel paramModel,
                          Map<String, String> headersPar, Record data, IPresenterListener listener) {
+        Log.d("QWERT","BasePresenter BasePresenter");
         this.iBase = iBase;
         this.paramModel = paramModel;
         this.data = data;

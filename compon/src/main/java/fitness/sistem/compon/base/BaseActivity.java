@@ -1,13 +1,11 @@
 package fitness.sistem.compon.base;
 
 import android.app.DialogFragment;
-//import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.transition.Slide;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -15,7 +13,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -66,7 +63,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     private List<AnimatePanel> animatePanelList;
     public DrawerLayout drawer;
     public String TAG = ComponGlob.getInstance().appParams.NAME_LOG_APP;
-//    private int statusBarColor = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +74,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         countProgressStart = 0;
         listInternetProvider = new ArrayList<>();
         listEvent = new ArrayList<>();
-//        PreferenceTool.setUserKey("3d496f249f157fdea7681704abf2b4d74b20c619a3e979dc790c43dc27c26aa6");
         String nameScreen = getNameScreen();
         if (nameScreen == null) {
             Intent intent = getIntent();
@@ -109,26 +104,10 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         this.googleApiClient = googleApiClient;
     }
 
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putInt(Constants.STATUS_COLOR, statusBarColor);
-//    }
-//
-//    @Override
-//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-//        statusBarColor = savedInstanceState.getInt(Constants.STATUS_COLOR, 0);
-//    }
-
     @Override
     public Bundle getSavedInstanceState() {
         return savedInstanceState;
     }
-//
-//    public MultiComponents getScreen() {
-//        return null;
-//    }
 
     public String getNameScreen() {
         return null;
@@ -177,9 +156,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                 if (vh.viewId == id) {
                     switch (vh.type) {
                         case NAME_FRAGMENT:
-//                            ComponGlob.getInstance().setParam(record);
                             startScreen(vh.nameFragment, false);
-//                            startFragment(vh.nameFragment, false);
                             break;
                         case BACK:
                             onBackPressed();
@@ -207,15 +184,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     public void setFragmentsContainerId(int id) {
         containerFragmentId = id;
     }
-
-//    protected View getContentView(Bundle savedInstanceState) {
-//        View view = inflate(this, R.layout.activity_drawer, null);
-//        return view;
-//    }
-
-//    protected String startFragment() {
-//        return null;
-//    }
 
     @Override
     protected void onStart() {
@@ -245,16 +213,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     public void setStatusColor(int color) {
         PreferenceTool.setStatusBarColor(color);
-//        statusBarColor = color;
     }
-//
-//    @Override
-//    public void onPause() {
-////        if (googleApiClient != null) {
-////            googleApiClient.disconnect();
-////        }
-//        super.onPause();
-//    }
 
     @Override
     protected void onDestroy() {
@@ -313,12 +272,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                 }
             }
         }
-//        if (fm.getBackStackEntryCount() == 1) {
-//            fm.popBackStack();
-//            finish();
-//        } else {
-//            super.onBackPressed();
-//        }
     }
 
     @Override
@@ -485,11 +438,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     @Override
     public void startScreen(String nameMVP, boolean startFlag, Object object) {
         MultiComponents mComponent = mapFragment.get(nameMVP);
-//        if (mComponent.typeView == MultiComponents.TYPE_VIEW.Activity) {
-//            startActivitySimple(nameMVP);
-//        } else {
-//            startFragment(nameMVP, startFlag);
-//        }
         if (mComponent == null || mComponent.typeView == null) {
             Log.d(TAG, "Нет Screens с именем " + nameMVP);
             return;
@@ -533,9 +481,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             clearBackStack(count);
         }
         BaseFragment fragment = (fr != null) ? fr : new ComponentsFragment();
-//        for (String key : mapFragment.keySet()) {
-//            System.out.println("Key: " + key);
-//        }
         Bundle bundle =new Bundle();
         bundle.putString(Constants.NAME_MVP, nameMVP);
         if (object != null) {

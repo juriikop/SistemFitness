@@ -54,13 +54,14 @@
             android:paddingRight="@dimen/pad_24"
             android:text="Начать"
             android:textAllCaps="true" />
-        <fitness.sistem.sistemfitness.tools.changeColor.TextViewPrimary
+        <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor
             android:id="@+id/skip"
             android:layout_width="match_parent"
             android:layout_height="@dimen/h_button"
             android:layout_marginTop="@dimen/pad_90"
             android:textAllCaps="true"
             android:gravity="center"
+            app:colorText="primary"
             android:text="Пропустить"
             android:textSize="@dimen/pad_16"/>
     </RelativeLayout>
