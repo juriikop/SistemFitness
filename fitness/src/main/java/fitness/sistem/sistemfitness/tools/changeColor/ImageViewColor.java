@@ -48,7 +48,7 @@ public class ImageViewColor extends AppCompatImageView {
         setColors();
     }
 
-    private void setColors() {
+    public void setColors() {
         ColorStateList stateList = new ColorStateList(
                 new int[][]{
                     new int[]{}

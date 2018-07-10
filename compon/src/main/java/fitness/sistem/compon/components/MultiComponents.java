@@ -175,8 +175,8 @@ public class MultiComponents <T>{
                                               Navigator navigator) {
         ParamComponent paramComponent = new ParamComponent();
         paramComponent.type = ParamComponent.TC.SEARCH;
-        paramComponent.paramView = new ParamView(viewIdEdit);
         paramComponent.paramModel = paramModel;
+        paramComponent.viewSearchId = viewIdEdit;
         paramComponent.paramView = paramView;
         paramComponent.navigator = navigator;
         listComponents.add(paramComponent);

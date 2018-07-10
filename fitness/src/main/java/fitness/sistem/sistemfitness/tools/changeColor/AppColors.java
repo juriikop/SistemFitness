@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.DisplayMetrics;
@@ -43,6 +44,23 @@ public class AppColors {
         ShapeDrawable shapeAccentLight = new ShapeDrawable (new RoundRectShape(outR, null, null));
         shapeAccentLight.getPaint().setColor(color2);
         ShapeDrawable shapeEnabled = new ShapeDrawable (new RoundRectShape(outR, null, null));
+        shapeEnabled.getPaint().setColor(AppColors.gray);
+        StateListDrawable selectorButton = new StateListDrawable();
+        selectorButton.addState(new int[]{ - android.R.attr.state_enabled}, shapeEnabled);
+        selectorButton.addState(new int[]{android.R.attr.state_pressed}, shapeAccentLight);
+        selectorButton.addState(new int[]{}, shapeAccent);
+        return selectorButton;
+    }
+
+    public static StateListDrawable selectorOval(Context context, int color1, int color2) {
+//        DisplayMetrics dm = context.getResources().getDisplayMetrics();
+//        float r = 24 * dm.density;
+//        float[] outR = new float[] {r, r, r, r, r, r, r, r };
+        ShapeDrawable shapeAccent = new ShapeDrawable (new OvalShape());
+        shapeAccent.getPaint().setColor(color1);
+        ShapeDrawable shapeAccentLight = new ShapeDrawable (new OvalShape());
+        shapeAccentLight.getPaint().setColor(color2);
+        ShapeDrawable shapeEnabled = new ShapeDrawable (new OvalShape());
         shapeEnabled.getPaint().setColor(AppColors.gray);
         StateListDrawable selectorButton = new StateListDrawable();
         selectorButton.addState(new int[]{ - android.R.attr.state_enabled}, shapeEnabled);

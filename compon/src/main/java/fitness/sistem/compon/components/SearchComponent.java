@@ -41,9 +41,9 @@ public class SearchComponent extends BaseComponent {
         if (viewSearch instanceof IComponent) {
 
         } else if (viewSearch instanceof EditText){
-            ((EditText) viewSearch).addTextChangedListener(watcher);
+            ((EditText) viewSearch).addTextChangedListener(new Watcher());
         } else {
-            Log.i("SMPL", "View для поиска должно быть IComponent или EditText в " + paramMV.nameParentComponent);
+            Log.i(TAG, "View для поиска должно быть IComponent или EditText в " + paramMV.nameParentComponent);
             return;
         }
         if (paramMV.paramView == null || paramMV.paramView.viewId == 0) {
@@ -52,7 +52,7 @@ public class SearchComponent extends BaseComponent {
             recycler = (RecyclerView) parentLayout.findViewById(paramMV.paramView.viewId);
         }
         if (recycler == null) {
-            Log.i("SMPL", "Не найден RecyclerView в " + paramMV.nameParentComponent);
+            Log.i(TAG, "Не найден RecyclerView в " + paramMV.nameParentComponent);
             return;
         }
         listData = new ListRecords();
@@ -67,7 +67,7 @@ public class SearchComponent extends BaseComponent {
     public void changeData(Field field) {
         listData.clear();
         listData.addAll((ListRecords) field.value);
-        provider.setData(listData);
+//        provider.setData(listData);
         adapter.notifyDataSetChanged();
         int splash = paramMV.paramView.splashScreenViewId;
         if (splash != 0) {
@@ -79,30 +79,21 @@ public class SearchComponent extends BaseComponent {
                     v_splash.setVisibility(VISIBLE);
                 }
             } else {
-                Log.i("SMPL", "Не найден SplashView в " + paramMV.nameParentComponent);
+                Log.i(TAG, "Не найден SplashView в " + paramMV.nameParentComponent);
             }
         }
         iBase.sendEvent(paramMV.paramView.viewId);
     }
 
-    private TextWatcher watcher = new TextWatcher() {
+    public class Watcher implements TextWatcher{
 
-        //        private boolean validEdit;
+        private String searchString = "";
         private Runnable task;
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            final String st = s.toString();
-            if(task != null) {
-                handler.removeCallbacks(task);
-            }
-            task = new Runnable() {
-                @Override
-                public void run() {
-                    String[] stAr = paramMV.paramModel.param.split(",");
-                    String nameParam = stAr[0];
-                    ComponGlob.getInstance().addParamValue(nameParam, st);
-                    actual();
+        private Runnable task1 = new Runnable() {
+            @Override
+            public void run() {
+                ComponGlob.getInstance().addParamValue(nameParam, searchString);
+                actual();
 //                    if(changeSearchText != null) {
 ////                        if (validEdit) {
 //                        changeSearchText.onChange(st);
@@ -110,19 +101,91 @@ public class SearchComponent extends BaseComponent {
 ////                            changeSearchText.onChange("");
 ////                        }
 //                    }
-                }
-            };
-            handler.postDelayed(task, 700);
+            }
+        };
+        String nameParam;
+
+        public Watcher() {
+            String[] stAr = paramMV.paramModel.param.split(",");
+            nameParam = stAr[0];
         }
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//            validEdit = after > 0;
+
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
         }
-    };
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            searchString = s.toString();
+            if(task != null) {
+                handler.removeCallbacks(task);
+            }
+            task = task1;
+//            task = new Runnable() {
+//                @Override
+//                public void run() {
+//                    ComponGlob.getInstance().addParamValue(nameParam, st);
+//                    actual();
+////                    if(changeSearchText != null) {
+//////                        if (validEdit) {
+////                        changeSearchText.onChange(st);
+//////                        } else {
+//////                            changeSearchText.onChange("");
+//////                        }
+////                    }
+//                }
+//            };
+            handler.postDelayed(task, 700);
+        }
+    }
+
+//    private TextWatcher watcher = new TextWatcher() {
+//
+//        //        private boolean validEdit;
+//        private Runnable task;
+//
+//        public TextWatcher() {
+//            String[] stAr = paramMV.paramModel.param.split(",");
+//            String nameParam = stAr[0];
+//        }
+//
+//        @Override
+//        public void afterTextChanged(Editable s) {
+//            final String st = s.toString();
+//            if(task != null) {
+//                handler.removeCallbacks(task);
+//            }
+//            task = new Runnable() {
+//                @Override
+//                public void run() {
+//                    ComponGlob.getInstance().addParamValue(nameParam, st);
+//                    actual();
+////                    if(changeSearchText != null) {
+//////                        if (validEdit) {
+////                        changeSearchText.onChange(st);
+//////                        } else {
+//////                            changeSearchText.onChange("");
+//////                        }
+////                    }
+//                }
+//            };
+//            handler.postDelayed(task, 700);
+//        }
+//
+//        @Override
+//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+////            validEdit = after > 0;
+//        }
+//
+//        @Override
+//        public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//        }
+//    };
 }
