@@ -1,7 +1,5 @@
 package fitness.sistem.compon.components;
 
-import android.util.Log;
-
 import fitness.sistem.compon.adapters.StaticListAdapter;
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.base.BaseProvider;
@@ -14,8 +12,6 @@ import fitness.sistem.compon.tools.StaticVM;
 
 public class StaticListComponent extends BaseComponent {
     StaticList staticList;
-//    ListRecords listData;
-//    BaseProvider provider;
     StaticListAdapter adapter;
 
     public StaticListComponent(IBase iBase, ParamComponent paramMV, MultiComponents multiComponent) {
@@ -30,13 +26,11 @@ public class StaticListComponent extends BaseComponent {
             staticList = (StaticList) parentLayout.findViewById(paramMV.paramView.viewId);
         }
         if (staticList == null) {
-            Log.i("SMPL", "Не найден StaticList в " + paramMV.nameParentComponent);
+            iBase.log("Не найден StaticList в " + paramMV.nameParentComponent);
             return;
         }
         listData = new ListRecords();
         provider = new BaseProvider(listData);
-//        provider.setData(listData);
-//        provider.setNavigator(paramMV.navigator);
         adapter = new StaticListAdapter(this);
         staticList.setAdapter(adapter, false);
     }

@@ -19,7 +19,7 @@ public class DrawerComponent extends BaseComponent{
     public void initView() {
         drawer = (DrawerLayout)parentLayout.findViewById(paramMV.paramView.viewId);
         if (drawer == null) {
-            Log.i("SMPL", "Не найден DrawerLayout в " + paramMV.nameParentComponent);
+            iBase.log( "Не найден DrawerLayout в " + paramMV.nameParentComponent);
             return;
         }
         activity.drawer = drawer;

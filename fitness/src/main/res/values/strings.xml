@@ -14,6 +14,7 @@
     <string name="map">map</string>
     <string name="drawer">drawer</string>
     <string name="clubs">clubs</string>
+    <string name="addClub">addClub</string>
 
     // Menu
     <string name="m_clubs">Клуби</string>
@@ -48,6 +49,10 @@
 
     // Drawer
     <string name="sign_in">ВОЙТИ</string>
+
+    // AddClub
+    <string name="city">Город</string>
+    <string name="club">Клуб</string>
 
 
 </resources>

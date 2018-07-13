@@ -50,14 +50,12 @@ public abstract class BaseComponent {
     public Field argument;
     public MultiComponents multiComponent;
     public WorkWithRecordsAndViews workWithRecordsAndViews = new WorkWithRecordsAndViews();
-    public String TAG = ComponGlob.getInstance().appParams.NAME_LOG_APP;
 
     public BaseComponent(IBase iBase, ParamComponent paramMV, MultiComponents multiComponent){
         this.paramMV = paramMV;
         this.multiComponent = multiComponent;
         navigator = paramMV.navigator;
         paramMV.baseComponent = this;
-        TAG = ComponGlob.getInstance().appParams.NAME_LOG_APP;
         this.iBase = iBase;
         activity = iBase.getBaseActivity();
         this.parentLayout = iBase.getParentLayout();
@@ -285,8 +283,11 @@ public abstract class BaseComponent {
                                 moreWork.clickView(view, holder.itemView, this, record, position);
                             }
                             break;
+                        case BACK:
+                            iBase.backPressed();
+                            break;
                     }
-                    break;
+//                    break;
                 }
             }
         }

@@ -3,7 +3,6 @@ package fitness.sistem.compon.components;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,7 @@ public class PagerVComponent extends BaseComponent {
             pager = (ViewPager) parentLayout.findViewById(paramMV.paramView.viewId);
         }
         if (pager == null) {
-            Log.i("SMPL", "Не найден ViewPager в " + paramMV.nameParentComponent);
+            iBase.log("Не найден ViewPager в " + paramMV.nameParentComponent);
         }
         listData = new ListRecords();
     }

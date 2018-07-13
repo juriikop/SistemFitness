@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.interfaces_classes.Visibility;
@@ -29,6 +30,7 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private boolean isClickItem;
     private Visibility[] visibilityManager;
     private LayoutInflater inflater;
+    private IBase iBase;
 
 //    public void setStartFlag(boolean b) {
 //        startFlag = b;
@@ -36,6 +38,7 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public BaseProviderAdapter(BaseComponent baseComponent) {
         context = baseComponent.activity;
+        iBase = baseComponent.iBase;
         inflater = LayoutInflater.from(context);
         this.baseComponent = baseComponent;
         this.provider = baseComponent.provider;
@@ -49,6 +52,7 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             }
         }
+        Log.d("QWERT","BaseProviderAdapter isClickItem="+isClickItem);
         ParamView paramView = baseComponent.paramMV.paramView;
         if (paramView != null) {
             layoutItemId = paramView.layoutTypeId;
@@ -101,7 +105,7 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (layoutItemId == null) {
             int resurceId = context.getResources().getIdentifier(layout, "layout", context.getPackageName());
             if (resurceId == 0) {
-                Log.i("SMPL", "Не найден " + layout);
+                iBase.log("Не найден " + layout);
             }
             view = inflater.inflate(resurceId, parent, false);
         } else {

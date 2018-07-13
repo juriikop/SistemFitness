@@ -1,5 +1,7 @@
 package fitness.sistem.compon.components;
 
+import android.util.Log;
+
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.json_simple.Field;
@@ -17,12 +19,13 @@ public class SplashComponent extends BaseComponent {
                 && ! PreferenceTool.getTutorial()) {
             iBase.startScreen(paramMV.tutorial, false);
         }
-        else if  (paramMV.auth != null && paramMV.auth.length() > 0
-                && PreferenceTool.getSessionToken().length() == 0) {
-            iBase.startScreen(paramMV.auth, false);
-        }
         else {
-            iBase.startScreen(paramMV.main, false);
+            if (paramMV.auth != null && paramMV.auth.length() > 0
+                    && PreferenceTool.getSessionToken().length() == 0) {
+                iBase.startScreen(paramMV.auth, false);
+            } else {
+                iBase.startScreen(paramMV.main, false);
+            }
         }
         iBase.backPressed();
     }

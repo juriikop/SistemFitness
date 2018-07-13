@@ -1,6 +1,5 @@
 package fitness.sistem.compon.components;
 
-import android.util.Log;
 import android.view.View;
 
 import fitness.sistem.compon.base.BaseComponent;
@@ -22,7 +21,7 @@ public class EnterPanelComponent extends BaseComponent {
     public void initView() {
         viewComponent = (View) parentLayout.findViewById(paramMV.paramView.viewId);
         if (viewComponent == null) {
-            Log.i("SMPL", "Не найдена панель в " + paramMV.nameParentComponent);
+            iBase.log("Не найдена панель в " + paramMV.nameParentComponent);
         } else {
             if (paramMV.paramModel != null && paramMV.paramModel.method == paramMV.paramModel.FIELD) {
                 workWithRecordsAndViews.RecordToView((Record) paramMV.paramModel.field.value,

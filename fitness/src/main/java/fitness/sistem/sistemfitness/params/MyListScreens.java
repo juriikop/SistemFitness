@@ -89,10 +89,20 @@ public class MyListScreens extends ListScreens {
                         new int[]{R.layout.item_menu_divider, R.layout.item_menu, R.layout.item_menu_select}));
 
         fragment(context.getString(R.string.clubs), R.layout.fragment_clubs)
+                .addNavigator(new Navigator().add(R.id.addclub, context.getString(R.string.addClub))
+                        .add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER))
                 .addComponent(TC.RECYCLER, new ParamModel(Api.CLUBS)
                         .internetProvider(TestInternetProvider.class), new ParamView(R.id.recycler, R.layout.item_clubs),
                         new Navigator().add(0, ViewHandler.TYPE.CLICK_VIEW), 0, FitnessProcessing.class);
 
+        activity(context.getString(R.string.addClub), R.layout.activity_add_club).animate(AS.RL)
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
+                .addSearchComponent(R.id.city,
+                        new ParamModel(Api.SEARCH_CITY).internetProvider(TestInternetProvider.class),
+                        new ParamView(R.id.recycler, R.layout.item_search_city), null, true)
+                .addSearchComponent(R.id.club,
+                        new ParamModel(Api.SEARCH_CLUB).internetProvider(TestInternetProvider.class),
+                        new ParamView(R.id.recyclerClub, R.layout.item_search_club), new Navigator().add(0, ViewHandler.TYPE.BACK), false);
 
 //        fragment(context.getString(R.string.tickets), R.layout.fragment_tickets, context.getString(R.string.my_tickets))
 //                .addNavigator(new Navigator().add(R.id.question, context.getString(R.string.help)))

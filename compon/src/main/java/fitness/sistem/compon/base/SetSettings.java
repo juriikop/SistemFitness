@@ -13,4 +13,8 @@ public class SetSettings {
         listScreens.setMapScreen(ComponGlob.getInstance().MapScreen);
         listScreens.initScreen();
     }
+
+    public static void addParam(String name, String value) {
+        ComponGlob.getInstance().addParamValue(name, value);
+    }
 }

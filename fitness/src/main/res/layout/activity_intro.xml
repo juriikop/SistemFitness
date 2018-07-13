@@ -38,6 +38,9 @@
             android:gravity="center"
             android:paddingLeft="@dimen/pad_24"
             android:paddingRight="@dimen/pad_24"
+            app:color_1="primary"
+            app:color_2="lightPrimary"
+            app:colorText="textOnPrimary"
             android:text="Продолжить"
             android:textAllCaps="true"
             android:visibility="gone" />
@@ -52,6 +55,9 @@
             android:gravity="center"
             android:paddingLeft="@dimen/pad_24"
             android:paddingRight="@dimen/pad_24"
+            app:color_1="primary"
+            app:color_2="lightPrimary"
+            app:colorText="textOnPrimary"
             android:text="Начать"
             android:textAllCaps="true" />
         <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor

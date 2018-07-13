@@ -1,7 +1,5 @@
 package fitness.sistem.compon.components;
 
-import android.util.Log;
-
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.json_simple.Field;
@@ -22,7 +20,7 @@ public class PanelComponent extends BaseComponent {
 //        WorkWithRecordsAndViews rv = new WorkWithRecordsAndViews();
             workWithRecordsAndViews.RecordToView(rec, viewComponent);
         } else {
-            Log.d("SMPL", "Тип данных не Record в " + paramMV.nameParentComponent);
+            iBase.log("Тип данных не Record в " + paramMV.nameParentComponent);
         }
     }
 

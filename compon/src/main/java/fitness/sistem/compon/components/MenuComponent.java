@@ -2,8 +2,6 @@ package fitness.sistem.compon.components;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.base.BaseActivity;
 import fitness.sistem.compon.base.BaseComponent;
@@ -35,7 +33,7 @@ public class MenuComponent extends BaseComponent {
             recycler = (RecyclerView) parentLayout.findViewById(paramMV.paramView.viewId);
         }
         if (recycler == null) {
-            Log.i(TAG,"Не найден RecyclerView для Menu в " + paramMV.nameParentComponent);
+            iBase.log("Не найден RecyclerView для Menu в " + paramMV.nameParentComponent);
         }
         if (navigator != null) {
             for (ViewHandler vh : navigator.viewHandlers) {
@@ -45,7 +43,7 @@ public class MenuComponent extends BaseComponent {
                 }
             }
         } else {
-            Log.i(TAG, "Нет навигатора для Menu в " + paramMV.nameParentComponent);
+            iBase.log("Нет навигатора для Menu в " + paramMV.nameParentComponent);
         }
         listData = new ListRecords();
         listPresenter = new ListPresenter(this);

@@ -1,6 +1,5 @@
 package fitness.sistem.compon.components;
 
-import android.util.Log;
 import android.view.View;
 
 import fitness.sistem.compon.base.BaseComponent;
@@ -22,7 +21,7 @@ public class EditPhoneComponent extends BaseComponent {
     public void initView() {
         editPhone = (EditPhone) parentLayout.findViewById(paramMV.paramView.viewId);
         if (editPhone == null) {
-            Log.i("SMPL", "Не найден EditPhone в " + paramMV.nameParentComponent);
+            iBase.log( "Не найден EditPhone в " + paramMV.nameParentComponent);
             return;
         }
         editPhone.setOnChangeStatusListener(statusListener);

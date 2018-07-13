@@ -1,6 +1,5 @@
 package fitness.sistem.compon.components;
 
-import android.util.Log;
 import android.view.View;
 
 import fitness.sistem.compon.base.BaseComponent;
@@ -22,7 +21,7 @@ public class ButtonComponent extends BaseComponent{
     public void initView() {
         buttonView = (View) parentLayout.findViewById(paramMV.paramView.viewId);
         if (buttonView == null) {
-            Log.i("SMPL", "Не найден Button(View) в " + paramMV.nameParentComponent);
+            iBase.log( "Не найден Button(View) в " + paramMV.nameParentComponent);
             return;
         }
         buttonView.setOnClickListener(clickListener);

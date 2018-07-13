@@ -42,4 +42,5 @@ public interface IBase {
     public void addAnimatePanel(AnimatePanel animatePanel);
     public void delAnimatePanel(AnimatePanel animatePanel);
     public boolean isHideAnimatePanel();
+    public void log(String msg);
 }

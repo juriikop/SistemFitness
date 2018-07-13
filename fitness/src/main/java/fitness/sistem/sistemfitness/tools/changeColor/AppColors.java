@@ -14,12 +14,14 @@ import android.graphics.drawable.shapes.RoundRectShape;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
 
 import fitness.sistem.compon.json_simple.JsonSimple;
 import fitness.sistem.compon.json_simple.Record;
+import fitness.sistem.sistemfitness.R;
 import fitness.sistem.sistemfitness.tools.PreferenceTool;
 
 public class AppColors {
@@ -53,9 +55,6 @@ public class AppColors {
     }
 
     public static StateListDrawable selectorOval(Context context, int color1, int color2) {
-//        DisplayMetrics dm = context.getResources().getDisplayMetrics();
-//        float r = 24 * dm.density;
-//        float[] outR = new float[] {r, r, r, r, r, r, r, r };
         ShapeDrawable shapeAccent = new ShapeDrawable (new OvalShape());
         shapeAccent.getPaint().setColor(color1);
         ShapeDrawable shapeAccentLight = new ShapeDrawable (new OvalShape());

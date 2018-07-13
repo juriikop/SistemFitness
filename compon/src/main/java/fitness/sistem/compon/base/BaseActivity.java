@@ -54,7 +54,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     private View parentLayout;
     public MultiComponents mComponent;
     public int containerFragmentId;
-    protected String nameDrawer;
+//    protected String nameDrawer;
     private boolean isActive;
     public List<ParentModel> parentModelList;
     private Bundle savedInstanceState;
@@ -211,6 +211,11 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         }
     }
 
+    @Override
+    public void log(String msg) {
+        Log.i(TAG, msg);
+    }
+
     public void setStatusColor(int color) {
         PreferenceTool.setStatusBarColor(color);
     }
@@ -302,7 +307,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         if (mc != null) {
             startActivitySimple(nameMVP, mc, object);
         } else {
-            Log.d(TAG, "Нет Screens с именем " + nameMVP);
+            log("Нет Screens с именем " + nameMVP);
         }
     }
     public void startActivitySimple(String nameMVP, MultiComponents mc, Object object) {
@@ -342,6 +347,12 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     public void closeDrawer() {
         if (drawer != null) {
             drawer.closeDrawer(GravityCompat.START);
+        }
+    }
+
+    public void openDrawer() {
+        if (drawer != null) {
+            drawer.openDrawer(GravityCompat.START);
         }
     }
 
@@ -439,7 +450,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     public void startScreen(String nameMVP, boolean startFlag, Object object) {
         MultiComponents mComponent = mapFragment.get(nameMVP);
         if (mComponent == null || mComponent.typeView == null) {
-            Log.d(TAG, "Нет Screens с именем " + nameMVP);
+            log("Нет Screens с именем " + nameMVP);
             return;
         }
         switch (mComponent.typeView) {

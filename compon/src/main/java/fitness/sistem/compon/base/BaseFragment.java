@@ -16,6 +16,7 @@ import fitness.sistem.compon.components.MapComponent;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.EventComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
+import fitness.sistem.compon.interfaces_classes.Param;
 import fitness.sistem.compon.interfaces_classes.ParentModel;
 import fitness.sistem.compon.interfaces_classes.SetData;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
@@ -43,6 +44,7 @@ public abstract class BaseFragment extends Fragment implements IBase {
     private List<AnimatePanel> animatePanelList;
     protected BaseActivity activity;
     private String nameMvp = null;
+    public String TAG = ComponGlob.getInstance().appParams.NAME_LOG_APP;
 
     public BaseFragment() {
         mObject = null;
@@ -136,6 +138,11 @@ public abstract class BaseFragment extends Fragment implements IBase {
     }
 
     @Override
+    public void log(String msg) {
+        Log.i(TAG, msg);
+    }
+
+    @Override
     public void setMapComponent(MapComponent mapComponent) {
         getBaseActivity().setMapComponent(mapComponent);
     }
@@ -161,6 +168,9 @@ public abstract class BaseFragment extends Fragment implements IBase {
                         case BACK:
                             backPressed();
                             break;
+                        case OPEN_DRAWER:
+                            activity.openDrawer();
+                            break;
                     }
                     break;
                 }
@@ -175,15 +185,16 @@ public abstract class BaseFragment extends Fragment implements IBase {
     public String setFormatParam(String[] args) {
         String st = "";
         BaseActivity ba = (BaseActivity) getActivity();
-        List<String> namesParams = ComponGlob.getInstance().namesParams;
-        List<String> valuesParams = ComponGlob.getInstance().valuesParams;
+        List<Param> paramValues = ComponGlob.getInstance().paramValues;
+//        List<String> namesParams = ComponGlob.getInstance().namesParams;
+//        List<String> valuesParams = ComponGlob.getInstance().valuesParams;
         String sep = "";
-        int ik = namesParams.size();
+//        int ik = namesParams.size();
         for (String arg : args) {
             String value = "";
-            for (int i = 0; i < ik; i++) {
-                if (arg.equals(namesParams.get(i))) {
-                    st = sep + valuesParams.get(i);
+            for (Param paramV : paramValues) {
+                if (arg.equals(paramV.name)) {
+                    st = sep + paramV.value;
                     sep = ",";
                     break;
                 }

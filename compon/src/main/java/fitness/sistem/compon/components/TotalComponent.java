@@ -1,6 +1,5 @@
 package fitness.sistem.compon.components;
 
-import android.util.Log;
 import android.view.View;
 
 import fitness.sistem.compon.base.BaseComponent;
@@ -29,7 +28,7 @@ public class TotalComponent extends BaseComponent {
             totalView = parentLayout.findViewById(paramMV.paramView.viewId);
         }
         if (totalView == null) {
-            Log.i("SMPL", "Не найден TotalView в " + paramMV.nameParentComponent);
+            iBase.log("Не найден TotalView в " + paramMV.nameParentComponent);
             return;
         }
         record = new Record();
@@ -38,10 +37,10 @@ public class TotalComponent extends BaseComponent {
         if (listData != null) {
            total();
         } else {
-            Log.i("SMPL", "Нет данных для TotalView в " + paramMV.nameParentComponent);
+            iBase.log("Нет данных для TotalView в " + paramMV.nameParentComponent);
         }
         for (Visibility vis : paramMV.paramView.visibilityArray) {
-            Log.d("QWERT","Visibility id="+vis.viewId+" tt="+vis.typeShow+" NN="+vis.nameField);
+            iBase.log("Visibility id="+vis.viewId+" tt="+vis.typeShow+" NN="+vis.nameField);
         }
     }
 
@@ -84,7 +83,7 @@ public class TotalComponent extends BaseComponent {
                     }
                 }
             }
-            Log.d("QWERT","total record="+record.toString());
+            iBase.log("total record="+record.toString());
             workWithRecordsAndViews.RecordToView(record, totalView, null, null, paramMV.paramView.visibilityArray);
         }
     }

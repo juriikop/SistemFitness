@@ -172,13 +172,15 @@ public class MultiComponents <T>{
     }
 
     public MultiComponents addSearchComponent(int viewIdEdit, ParamModel paramModel, ParamView paramView,
-                                              Navigator navigator) {
+                                              Navigator navigator, boolean hideRecycler) {
         ParamComponent paramComponent = new ParamComponent();
         paramComponent.type = ParamComponent.TC.SEARCH;
         paramComponent.paramModel = paramModel;
         paramComponent.viewSearchId = viewIdEdit;
         paramComponent.paramView = paramView;
+        paramComponent.eventComponent = viewIdEdit;
         paramComponent.navigator = navigator;
+        paramComponent.hide = hideRecycler;
         listComponents.add(paramComponent);
         return this;
     }

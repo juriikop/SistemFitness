@@ -40,8 +40,59 @@ public class TestInternetProvider extends BaseInternetProvider {
         switch (request) {
              case Api.INTRO: return setIntro();
              case Api.CLUBS: return setClubs();
+             case Api.SEARCH_CITY: return setSearchCity();
+            case Api.SEARCH_CLUB: return setSearchClub();
         }
         return null;
+    }
+
+    private String setSearchClub() {
+        Record rec = new Record();
+        ListRecords lr = new ListRecords();
+        Field fil = new Field("", Field.TYPE_RECORD, rec);
+        rec.add(new Field("data", Field.TYPE_LIST_RECORD, lr));
+        Record record;
+        record = new Record();
+        record.add(new Field("club", Field.TYPE_STRING, "Aura"));
+        record.add(new Field("id_club", Field.TYPE_STRING, "11"));
+        record.add(new Field("id_city", Field.TYPE_STRING, "11"));
+        lr.add(record);
+        record = new Record();
+        record.add(new Field("club", Field.TYPE_STRING, "Вертикаль"));
+        record.add(new Field("id_club", Field.TYPE_STRING, "22"));
+        record.add(new Field("id_city", Field.TYPE_STRING, "11"));
+        lr.add(record);
+        record = new Record();
+        record.add(new Field("club", Field.TYPE_STRING, "Локомотив"));
+        record.add(new Field("id_club", Field.TYPE_STRING, "33"));
+        record.add(new Field("id_city", Field.TYPE_STRING, "11"));
+        lr.add(record);
+
+        SimpleRecordToJson recordToJson = new SimpleRecordToJson();
+        return recordToJson.modelToJson(fil);
+    }
+
+    private String setSearchCity() {
+        Record rec = new Record();
+        ListRecords lr = new ListRecords();
+        Field fil = new Field("", Field.TYPE_RECORD, rec);
+        rec.add(new Field("data", Field.TYPE_LIST_RECORD, lr));
+        Record record;
+        record = new Record();
+        record.add(new Field("city", Field.TYPE_STRING, "Харьков"));
+        record.add(new Field("id_city", Field.TYPE_STRING, "11"));
+        lr.add(record);
+        record = new Record();
+        record.add(new Field("city", Field.TYPE_STRING, "Киев"));
+        record.add(new Field("id_city", Field.TYPE_STRING, "22"));
+        lr.add(record);
+        record = new Record();
+        record.add(new Field("city", Field.TYPE_STRING, "Днепр"));
+        record.add(new Field("id_city", Field.TYPE_STRING, "33"));
+        lr.add(record);
+
+        SimpleRecordToJson recordToJson = new SimpleRecordToJson();
+        return recordToJson.modelToJson(fil);
     }
 
     private String setClubs() {

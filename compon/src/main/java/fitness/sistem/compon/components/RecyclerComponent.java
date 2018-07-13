@@ -3,7 +3,6 @@ package fitness.sistem.compon.components;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import fitness.sistem.compon.base.BaseComponent;
@@ -31,7 +30,7 @@ public class RecyclerComponent extends BaseComponent {
             recycler = (RecyclerView) parentLayout.findViewById(paramMV.paramView.viewId);
         }
         if (recycler == null) {
-            Log.i(TAG, "Не найден RecyclerView в " + paramMV.nameParentComponent);
+            iBase.log("Не найден RecyclerView в " + paramMV.nameParentComponent);
             return;
         }
         listData = new ListRecords();
@@ -69,7 +68,7 @@ public class RecyclerComponent extends BaseComponent {
                     v_splash.setVisibility(View.VISIBLE);
                 }
             } else {
-                Log.i(TAG, "Не найден SplashView в " + paramMV.nameParentComponent);
+                iBase.log("Не найден SplashView в " + paramMV.nameParentComponent);
             }
         }
         iBase.sendEvent(paramMV.paramView.viewId);

@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -82,7 +81,7 @@ public class MapComponent extends BaseComponent {
             mapView = (MapView) parentLayout.findViewById(paramMV.paramView.viewId);
         }
         if (mapView == null) {
-            Log.i("SMPL", "Не найден MapView в " + paramMV.nameParentComponent);
+            iBase.log("Не найден MapView в " + paramMV.nameParentComponent);
         }
         baseActivity = iBase.getBaseActivity();
         baseActivity.setMapComponent(this);
@@ -153,7 +152,7 @@ public class MapComponent extends BaseComponent {
             if (paramMap.clickInfoWindowId != 0) {
                 clickInfoWindow = parentLayout.findViewById(paramMap.clickInfoWindowId);
                 if (clickInfoWindow == null) {
-                    Log.i("SMPL", "Не найден clickInfoWindow в " + paramMV.nameParentComponent);
+                    iBase.log("Не найден clickInfoWindow в " + paramMV.nameParentComponent);
                 } else {
                     googleMap.setOnMarkerClickListener(markerClickListener);
                 }

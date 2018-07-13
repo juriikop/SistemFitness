@@ -1,7 +1,6 @@
 package fitness.sistem.compon.components;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,7 @@ public class MultiPanelComponent extends BaseComponent {
         mInflater = (LayoutInflater) (iBase.getBaseActivity()).getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewComponent = (ViewGroup) parentLayout.findViewById(paramMV.paramView.viewId);
         if (viewComponent == null) {
-            Log.i("SMPL", "Не найдена панель в " + paramMV.nameParentComponent);
+            iBase.log("Не найдена панель в " + paramMV.nameParentComponent);
         }
     }
 

@@ -16,8 +16,11 @@ import fitness.sistem.compon.base.BaseProvider;
 import fitness.sistem.compon.base.BaseProviderAdapter;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.IComponent;
+import fitness.sistem.compon.interfaces_classes.Navigator;
+import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.ListRecords;
+import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamComponent;
 import fitness.sistem.compon.tools.StaticVM;
 
@@ -30,6 +33,8 @@ public class SearchComponent extends BaseComponent {
     RecyclerView recycler;
     BaseProviderAdapter adapter;
     Handler handler = new Handler();
+    public String nameSearch;
+    private boolean isChangeText;
 
     public SearchComponent(IBase iBase, ParamComponent paramMV, MultiComponents multiComponent) {
         super(iBase, paramMV, multiComponent);
@@ -38,12 +43,12 @@ public class SearchComponent extends BaseComponent {
     @Override
     public void initView() {
         viewSearch = parentLayout.findViewById(paramMV.viewSearchId);
-        if (viewSearch instanceof IComponent) {
-
-        } else if (viewSearch instanceof EditText){
+        nameSearch = activity.getResources().getResourceEntryName(paramMV.viewSearchId);
+        isChangeText = true;
+        if (viewSearch instanceof EditText){
             ((EditText) viewSearch).addTextChangedListener(new Watcher());
         } else {
-            Log.i(TAG, "View для поиска должно быть IComponent или EditText в " + paramMV.nameParentComponent);
+            iBase.log("View для поиска должно быть IComponent или EditText в " + paramMV.nameParentComponent);
             return;
         }
         if (paramMV.paramView == null || paramMV.paramView.viewId == 0) {
@@ -52,9 +57,13 @@ public class SearchComponent extends BaseComponent {
             recycler = (RecyclerView) parentLayout.findViewById(paramMV.paramView.viewId);
         }
         if (recycler == null) {
-            Log.i(TAG, "Не найден RecyclerView в " + paramMV.nameParentComponent);
+            iBase.log("Не найден RecyclerView в " + paramMV.nameParentComponent);
             return;
         }
+        if (navigator == null) {
+            navigator = new Navigator();
+        }
+        navigator.viewHandlers.add(0, new ViewHandler(0, ViewHandler.TYPE.SELECT));
         listData = new ListRecords();
         provider = new BaseProvider(listData);
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
@@ -67,7 +76,6 @@ public class SearchComponent extends BaseComponent {
     public void changeData(Field field) {
         listData.clear();
         listData.addAll((ListRecords) field.value);
-//        provider.setData(listData);
         adapter.notifyDataSetChanged();
         int splash = paramMV.paramView.splashScreenViewId;
         if (splash != 0) {
@@ -79,31 +87,48 @@ public class SearchComponent extends BaseComponent {
                     v_splash.setVisibility(VISIBLE);
                 }
             } else {
-                Log.i(TAG, "Не найден SplashView в " + paramMV.nameParentComponent);
+                iBase.log("Не найден SplashView в " + paramMV.nameParentComponent);
             }
         }
         iBase.sendEvent(paramMV.paramView.viewId);
     }
 
+    @Override
+    public void actual() {
+        listData.clear();
+        adapter.notifyDataSetChanged();
+        super.actual();
+    }
+
+    public void clickAdapter(RecyclerView.ViewHolder holder, View view, int position) {
+        Record record = provider.get(position);
+        String st = record.getString(nameSearch);
+        isChangeText = false;
+        ((EditText) viewSearch).setText(st);
+        isChangeText = true;
+        if (paramMV.hide) {
+            recycler.setVisibility(GONE);
+        }
+        if (navigator.viewHandlers.size() > 1) {
+            super.clickAdapter(holder, view, position);
+        }
+    }
+
     public class Watcher implements TextWatcher{
 
         private String searchString = "";
-        private Runnable task;
-        private Runnable task1 = new Runnable() {
+        String nameParam;
+
+        private Runnable task = new Runnable() {
             @Override
             public void run() {
                 ComponGlob.getInstance().addParamValue(nameParam, searchString);
+                if (recycler.getVisibility() == GONE) {
+                    recycler.setVisibility(VISIBLE);
+                }
                 actual();
-//                    if(changeSearchText != null) {
-////                        if (validEdit) {
-//                        changeSearchText.onChange(st);
-////                        } else {
-////                            changeSearchText.onChange("");
-////                        }
-//                    }
             }
         };
-        String nameParam;
 
         public Watcher() {
             String[] stAr = paramMV.paramModel.param.split(",");
@@ -112,80 +137,20 @@ public class SearchComponent extends BaseComponent {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-            searchString = s.toString();
-            if(task != null) {
+            if (isChangeText) {
+                searchString = s.toString();
                 handler.removeCallbacks(task);
+                handler.postDelayed(task, 700);
             }
-            task = task1;
-//            task = new Runnable() {
-//                @Override
-//                public void run() {
-//                    ComponGlob.getInstance().addParamValue(nameParam, st);
-//                    actual();
-////                    if(changeSearchText != null) {
-//////                        if (validEdit) {
-////                        changeSearchText.onChange(st);
-//////                        } else {
-//////                            changeSearchText.onChange("");
-//////                        }
-////                    }
-//                }
-//            };
-            handler.postDelayed(task, 700);
         }
     }
 
-//    private TextWatcher watcher = new TextWatcher() {
-//
-//        //        private boolean validEdit;
-//        private Runnable task;
-//
-//        public TextWatcher() {
-//            String[] stAr = paramMV.paramModel.param.split(",");
-//            String nameParam = stAr[0];
-//        }
-//
-//        @Override
-//        public void afterTextChanged(Editable s) {
-//            final String st = s.toString();
-//            if(task != null) {
-//                handler.removeCallbacks(task);
-//            }
-//            task = new Runnable() {
-//                @Override
-//                public void run() {
-//                    ComponGlob.getInstance().addParamValue(nameParam, st);
-//                    actual();
-////                    if(changeSearchText != null) {
-//////                        if (validEdit) {
-////                        changeSearchText.onChange(st);
-//////                        } else {
-//////                            changeSearchText.onChange("");
-//////                        }
-////                    }
-//                }
-//            };
-//            handler.postDelayed(task, 700);
-//        }
-//
-//        @Override
-//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-////            validEdit = after > 0;
-//        }
-//
-//        @Override
-//        public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//        }
-//    };
 }

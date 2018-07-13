@@ -29,4 +29,5 @@ public class ParamComponent <T>{
     public int[] mustValid;
     public int viewSearchId;
     public boolean startActual = true;
+    public boolean hide = false;
 }

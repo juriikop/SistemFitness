@@ -3,7 +3,6 @@ package fitness.sistem.compon.components;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,7 @@ public class IntroComponent extends BaseComponent {
     public void initView() {
         pager = (ViewPager) parentLayout.findViewById(paramMV.paramView.viewId);
         if (pager == null) {
-            Log.i("SMPL", "Не найден ViewPager в " + paramMV.nameParentComponent);
+            iBase.log("Не найден ViewPager в " + paramMV.nameParentComponent);
         }
         listData = new ListRecords();
     }
@@ -163,8 +162,8 @@ public class IntroComponent extends BaseComponent {
         public void onClick(View v) {
             if (navigator != null && navigator.viewHandlers.size() > 0) {
                 ViewHandler vh = navigator.viewHandlers.get(0);
-                iBase.startScreen(vh.nameFragment, false);
                 PreferenceTool.setTutorial(true);
+                iBase.startScreen(vh.nameFragment, false);
                 iBase.backPressed();
             }
         }

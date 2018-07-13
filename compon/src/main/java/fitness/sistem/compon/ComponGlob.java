@@ -3,6 +3,7 @@ package fitness.sistem.compon;
 import android.content.Context;
 
 import fitness.sistem.compon.components.MultiComponents;
+import fitness.sistem.compon.interfaces_classes.Param;
 import fitness.sistem.compon.param.AppParams;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.json_simple.Field;
@@ -23,8 +24,7 @@ public class ComponGlob {
     public CacheWork cacheWork;
     public Map<String, MultiComponents> MapScreen;
     public AppParams appParams;
-    public List<String> namesParams = new ArrayList<>();
-    public List<String> valuesParams = new ArrayList<>();
+    public List<Param> paramValues = new ArrayList<>();
     public String token;
     public String language;
 
@@ -49,31 +49,31 @@ public class ComponGlob {
     }
 
     public void setParam(Record fields) {
-        int ik = namesParams.size();
+        int ik = paramValues.size();
         for (Field f: fields) {
             String name = f.name;
 
             for (int i = 0; i < ik; i++) {
-                String nameParam = namesParams.get(i);
-                if (nameParam.equals(name)) {
+                Param param = paramValues.get(i);
+                if (param.name.equals(name)) {
                     switch (f.type) {
                         case Field.TYPE_STRING :
-                            valuesParams.set(i, new String((String) f.value));
+                            param.value = new String((String) f.value);
                             break;
                         case Field.TYPE_INTEGER :
-                            valuesParams.set(i, String.valueOf((Integer) f.value));
+                            param.value = String.valueOf((Integer) f.value);
                             break;
                         case Field.TYPE_LONG :
-                            valuesParams.set(i, String.valueOf((Long) f.value));
+                            param.value = String.valueOf((Long) f.value);
                             break;
                         case Field.TYPE_FLOAT :
-                            valuesParams.set(i, String.valueOf((Float) f.value));
+                            param.value = String.valueOf((Float) f.value);
                             break;
                         case Field.TYPE_DOUBLE :
-                            valuesParams.set(i, String.valueOf((Double) f.value));
+                            param.value = String.valueOf((Double) f.value);
                             break;
                         case Field.TYPE_BOOLEAN :
-                            valuesParams.set(i, String.valueOf((Boolean) f.value));
+                            param.value = String.valueOf((Boolean) f.value);
                             break;
                     }
                     break;
@@ -83,33 +83,21 @@ public class ComponGlob {
     }
 
     public void addParam(String paramName) {
-        for (String st : namesParams) {
-            if (paramName.equals(st)) {
+        for (Param param : paramValues) {
+            if (paramName.equals(param.name)) {
                 return;
             }
         }
-        namesParams.add(paramName);
-        valuesParams.add("");
+        paramValues.add(new Param(paramName, ""));
     }
 
     public void addParamValue(String paramName, String paramValue) {
-        int ik = namesParams.size();
-        for (int i = 0; i < ik; i++) {
-            if (paramName.equals(namesParams.get(i))) {
-                valuesParams.set(i, paramValue);
+        for (Param param : paramValues) {
+            if (paramName.equals(param.name)) {
                 return;
             }
         }
-        namesParams.add(paramName);
-        valuesParams.add(paramValue);
-    }
-
-    public String installParam(String param, ParamModel.TypeParam typeParam, String url) {
-        switch (typeParam) {
-            case NAME: return installParamName(param, url);
-            case SLASH: return installParamSlash(param);
-            default: return "";
-        }
+        paramValues.add(new Param(paramName, paramValue));
     }
 
     public String installParamName(String param, String url) {
@@ -121,14 +109,13 @@ public class ComponGlob {
                 st = "?";
             }
             String[] paramArray = param.split(Constants.SEPARATOR_LIST);
-            int ik = namesParams.size();
             String sep = "";
-            for (String par : paramArray) {
-                for (int i = 0; i < ik; i++) {
-                    if (par.equals(namesParams.get(i))) {
-                        String valuePar = valuesParams.get(i);
+            for (String paramOne : paramArray) {
+                for (Param paramV : paramValues) {
+                    if (param.equals(paramV.name)) {
+                        String valuePar = paramV.value;
                         if (valuePar != null && valuePar.length() > 0) {
-                            st = st + sep + par + "=" + valuesParams.get(i);
+                            st = st + sep + paramOne + "=" + paramV.value;
                             sep = "&";
                         }
                         break;
@@ -146,11 +133,12 @@ public class ComponGlob {
         String st = "";
         if (param != null && param.length() > 0) {
             String[] paramArray = param.split(Constants.SEPARATOR_LIST);
-            int ik = namesParams.size();
             for (String par : paramArray) {
-                for (int i = 0; i < ik; i++) {
-                    if (par.equals(namesParams.get(i))) {
-                        st = st + "/" + valuesParams.get(i);
+                for (Param paramV : paramValues) {
+                    if (param.equals(paramV.name)) {
+                        if (paramV.value != null && paramV.value.length() > 0) {
+                            st = st + "/" + paramV.value;
+                        }
                         break;
                     }
                 }
@@ -160,12 +148,19 @@ public class ComponGlob {
     }
 
     public String getParamValue(String nameParam) {
-        int ik = namesParams.size();
-        for (int i = 0; i < ik; i++) {
-            if (nameParam.equals(namesParams.get(i))) {
-                return valuesParams.get(i);
+        for (Param paramV : paramValues) {
+            if (nameParam.equals(paramV.name)) {
+                return paramV.value;
             }
         }
         return "";
+    }
+
+    public String installParam(String param, ParamModel.TypeParam typeParam, String url) {
+        switch (typeParam) {
+            case NAME: return installParamName(param, url);
+            case SLASH: return installParamSlash(param);
+            default: return "";
+        }
     }
 }

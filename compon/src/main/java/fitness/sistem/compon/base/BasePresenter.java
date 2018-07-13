@@ -1,7 +1,6 @@
 package fitness.sistem.compon.base;
 
 import android.text.Html;
-import android.util.Log;
 
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.interfaces_classes.IBase;
@@ -94,8 +93,7 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
                 internetProvider.setParam(paramModel.method,
                         url, headers, jsonSimple.ModelToJson(data), this);
             } else {
-                Log.i(ComponGlob.getInstance().appParams.NAME_LOG_APP,
-                        "Ошибка создания internetProvider");
+                iBase.log("Ошибка создания internetProvider");
             }
         }
         iBase.addInternetProvider(internetProvider);
@@ -124,20 +122,24 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
                 listener.onResponse(new Field("", TYPE_STRING, ""));
             } else {
                 Field f = jsonSimple.jsonToModel(response);
-                Field f1 = ((Record) f.value).getField("data");
-                if (f1 != null) {
-                    if (f1.type == TYPE_CLASS) {
-                        Field f2 = ((Record) f1.value).getField("items");
-                        if (f2 != null) {
-                            listener.onResponse(f2);
+                if (f != null && f.value != null) {
+                    Field f1 = ((Record) f.value).getField("data");
+                    if (f1 != null) {
+                        if (f1.type == TYPE_CLASS) {
+                            Field f2 = ((Record) f1.value).getField("items");
+                            if (f2 != null) {
+                                listener.onResponse(f2);
+                            } else {
+                                listener.onResponse(f1);
+                            }
                         } else {
                             listener.onResponse(f1);
                         }
                     } else {
-                        listener.onResponse(f1);
+                        iBase.showDialog("", "no response 11111111111", null);
                     }
                 } else {
-                    iBase.showDialog("", "no response 11111111111", null);
+                    iBase.log("Ошибка данных");
                 }
             }
         }

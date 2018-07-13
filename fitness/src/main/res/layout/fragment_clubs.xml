@@ -17,7 +17,7 @@
             android:layout_height="@dimen/d_icon"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/pad_16"
-            android:src="@drawable/back"
+            android:src="@drawable/hamburger"
             app:colorText="textOnPrimary" />
 
         <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor
@@ -30,6 +30,7 @@
             android:textSize="18dp"
             app:colorText="textOnPrimary"/>
     </fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
@@ -37,6 +38,7 @@
         android:layout_below="@+id/tool"/>
 
     <fitness.sistem.sistemfitness.tools.changeColor.FloatingButtonColor
+        android:id="@+id/addclub"
         android:layout_width="@dimen/pad_56"
         android:layout_height="@dimen/pad_56"
         android:layout_alignParentBottom="true"

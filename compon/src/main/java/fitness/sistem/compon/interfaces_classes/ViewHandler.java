@@ -4,7 +4,7 @@ import fitness.sistem.compon.param.ParamModel;
 
 public class ViewHandler {
     public int viewId;
-    public enum TYPE {NAME_FRAGMENT, CLOSE_DRAWER, MODEL_PARAM,
+    public enum TYPE {NAME_FRAGMENT, CLOSE_DRAWER, OPEN_DRAWER, MODEL_PARAM,
         BACK, PREFERENCE_SET_VALUE, PAGER_PLUS, PREFERENCE_SET_TOKEN, PREFERENCE_SET_NAME,
         FIELD_WITH_NAME_FRAGMENT, SELECT, // SEND_BACK_SCREEN,
         CLICK_VIEW, MAP_ROUTE, SHOW,
