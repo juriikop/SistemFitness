@@ -107,7 +107,7 @@ public class TestInternetProvider extends BaseInternetProvider {
         record = new Record();
         record.add(new Field("city", Field.TYPE_STRING, "Харьков"));
         record.add(new Field("title", Field.TYPE_STRING, "клуб Аура"));
-        record.add(new Field("imgClub", Field.TYPE_STRING, "club_1"));
+        record.add(new Field("imgClub", Field.TYPE_STRING, "https://static8.depositphotos.com/1053932/851/i/950/depositphotos_8511050-stock-photo-group-with-weight-training-equipment.jpg"));
             colors = new Record();
             colors.add(new Field("primary", Field.TYPE_STRING, "#ff9600"));
             colors.add(new Field("primaryDark", Field.TYPE_STRING, "#ef9000"));
@@ -123,7 +123,7 @@ public class TestInternetProvider extends BaseInternetProvider {
         record = new Record();
         record.add(new Field("city", Field.TYPE_STRING, "Одеса"));
         record.add(new Field("title", Field.TYPE_STRING, "клуб Вертикаль"));
-        record.add(new Field("imgClub", Field.TYPE_STRING, "club_2"));
+        record.add(new Field("imgClub", Field.TYPE_STRING, "https://st.depositphotos.com/1158045/2361/i/950/depositphotos_23610209-stock-photo-running-on-treadmills.jpg"));
             colors = new Record();
             colors.add(new Field("primary", Field.TYPE_STRING, "#1fe76e"));
             colors.add(new Field("primaryDark", Field.TYPE_STRING, "#1bbf81"));

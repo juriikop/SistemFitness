@@ -9,7 +9,8 @@
         android:id="@+id/imgClub"
         android:layout_width="@dimen/w_img_midle"
         android:layout_height="@dimen/h_img_midle"
-        android:layout_margin="@dimen/pad_block"/>
+        android:layout_margin="@dimen/pad_block"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/title"
@@ -29,5 +30,11 @@
         android:layout_marginTop="@dimen/pad_block"
         android:layout_marginRight="@dimen/pad_block"
         android:layout_toRightOf="@+id/imgClub"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pad_1"
+        android:layout_below="@+id/imgClub"
+        android:background="@color/black_15"/>
 
 </RelativeLayout>

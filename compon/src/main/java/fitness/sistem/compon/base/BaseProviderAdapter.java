@@ -52,7 +52,6 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             }
         }
-        Log.d("QWERT","BaseProviderAdapter isClickItem="+isClickItem);
         ParamView paramView = baseComponent.paramMV.paramView;
         if (paramView != null) {
             layoutItemId = paramView.layoutTypeId;

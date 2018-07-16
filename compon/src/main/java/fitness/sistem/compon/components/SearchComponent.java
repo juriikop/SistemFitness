@@ -106,6 +106,7 @@ public class SearchComponent extends BaseComponent {
         isChangeText = false;
         ((EditText) viewSearch).setText(st);
         isChangeText = true;
+        ComponGlob.getInstance().setParam(record);
         if (paramMV.hide) {
             recycler.setVisibility(GONE);
         }

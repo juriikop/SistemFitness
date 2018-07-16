@@ -75,10 +75,12 @@ public class MyListScreens extends ListScreens {
                         new String[] {"", context.getString(R.string.drawer)});
 
         Menu menu = new Menu()
-                .addItem("targets", "Мои цели", "")
-                .addItem("icon_lil_phone", "Услуги", getString(R.string.map), true)
+                .addItem(R.drawable.targets, "Мои цели", "")
+//                .addItem("icon_lil_phone", "Услуги", getString(R.string.map), true)
                 .addDivider()
-                .addItem("icon_lil_phone", context.getString(R.string.m_clubs), context.getString(R.string.clubs));
+                .addItem(R.drawable.menu_clubs, context.getString(R.string.m_clubs), context.getString(R.string.clubs), true)
+                .addDivider()
+                .addItem(R.drawable.menu_settings, context.getString(R.string.m_settings), context.getString(R.string.settings));
 
         fragment(context.getString(R.string.drawer), R.layout.fragment_drawer)
                 .addComponent(TC.PANEL_MULTI, new ParamModel(getProfile()),
@@ -94,6 +96,15 @@ public class MyListScreens extends ListScreens {
                 .addComponent(TC.RECYCLER, new ParamModel(Api.CLUBS)
                         .internetProvider(TestInternetProvider.class), new ParamView(R.id.recycler, R.layout.item_clubs),
                         new Navigator().add(0, ViewHandler.TYPE.CLICK_VIEW), 0, FitnessProcessing.class);
+
+        fragment(context.getString(R.string.settings), R.layout.fragment_settings)
+                .addNavigator(new Navigator()
+                        .add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER)
+                        .add(R.id.language, context.getString(R.string.f_language)));
+
+        fragment(context.getString(R.string.f_language), R.layout.fragment_language).animate(AS.RL)
+                .addNavigator(new Navigator()
+                        .add(R.id.back, ViewHandler.TYPE.BACK));
 
         activity(context.getString(R.string.addClub), R.layout.activity_add_club).animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))

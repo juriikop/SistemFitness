@@ -20,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Formatter;
 
+import static fitness.sistem.compon.json_simple.Field.TYPE_STRING;
+
 public class WorkWithRecordsAndViews {
     protected Record model;
     protected View view;
@@ -54,7 +56,7 @@ public class WorkWithRecordsAndViews {
         recordResult = new Record();
         param = par.split(",");
         for (String st : param) {
-            recordResult.add(new Field(st, Field.TYPE_STRING, null));
+            recordResult.add(new Field(st, TYPE_STRING, null));
         }
         setParam = true;
         enumViewChild(view);
@@ -193,30 +195,31 @@ public class WorkWithRecordsAndViews {
         }
 
         if (v instanceof ImageView) {
-            if (field != null) {
+            if (field == null) return;
+            if (field.type == TYPE_STRING) {
                 st = (String) field.value;
                 if (st == null) {
                     st = "";
                 }
-            } else {
-                st = "";
-            }
-            if (st.length() == 0) return;
-            if (st.contains("/")) {
-                if (!st.contains("http")) {
-                    st = ComponGlob.getInstance().appParams.baseUrl + st;
-                }
-                Glide.with(view.getContext())
-                        .load(st)
-                        .into((ImageView) v);
-            } else {
-                if (v instanceof SimpleImageView) {
-                    ((ImageView) v).setImageDrawable(view.getContext()
-                            .getResources().getDrawable(((SimpleImageView) v).getPlaceholder()));
+                 if (st.length() == 0) return;
+                if (st.contains("/")) {
+                    if (!st.contains("http")) {
+                        st = ComponGlob.getInstance().appParams.baseUrl + st;
+                    }
+                    Glide.with(view.getContext())
+                            .load(st)
+                            .into((ImageView) v);
                 } else {
-                    ((ImageView) v).setImageResource(view.getContext().getResources()
-                            .getIdentifier(st, "drawable", view.getContext().getPackageName()));
+                    if (v instanceof SimpleImageView) {
+                        ((ImageView) v).setImageDrawable(view.getContext()
+                                .getResources().getDrawable(((SimpleImageView) v).getPlaceholder()));
+                    } else {
+                        ((ImageView) v).setImageResource(view.getContext().getResources()
+                                .getIdentifier(st, "drawable", view.getContext().getPackageName()));
+                    }
                 }
+            } else {
+                ((ImageView) v).setImageResource((Integer)field.value);
             }
         }
     }

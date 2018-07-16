@@ -40,6 +40,7 @@ import fitness.sistem.compon.tools.PreferenceTool;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static android.view.View.inflate;
@@ -74,6 +75,9 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         countProgressStart = 0;
         listInternetProvider = new ArrayList<>();
         listEvent = new ArrayList<>();
+        if (ComponGlob.getInstance().appParams.nameLanguageInHeader.length() > 0) {
+            setLocale();
+        }
         String nameScreen = getNameScreen();
         if (nameScreen == null) {
             Intent intent = getIntent();
@@ -97,6 +101,22 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             parentLayout = inflate(this, getLayoutId(), null);
         }
         initView();
+    }
+
+    public void setLocale() {
+        String loc = "";
+        if (loc == null) {
+            loc = Constants.localeNameRu;
+        }
+        if ( ! loc.equals(Constants.localeNameRu) && ! loc.equals(Constants.localeNameUk)) {
+            loc = Constants.localeNameRu;
+        }
+        if (loc.equals(Locale.getDefault().getLanguage())) return;
+        Locale myLocale = new Locale(loc);
+        Locale.setDefault(myLocale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = myLocale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
 
     @Override

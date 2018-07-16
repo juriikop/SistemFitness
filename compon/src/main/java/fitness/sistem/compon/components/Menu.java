@@ -17,16 +17,16 @@ public class Menu extends Field{
         menuStart = -1;
     }
 
-    public Menu addItem(String icon, String title, String nameFragment) {
+    public Menu addItem(int icon, String title, String nameFragment) {
         return addItem(icon, title, nameFragment, -1, false);
     }
 
-    public Menu addItem(String icon, String title, String nameFragment, int badge) {
+    public Menu addItem(int icon, String title, String nameFragment, int badge) {
         addItem(icon, title, nameFragment, badge, false);
         return this;
     }
 
-    public Menu addItem(String icon, String title, String nameFragment, boolean start) {
+    public Menu addItem(int icon, String title, String nameFragment, boolean start) {
         return addItem(icon, title, nameFragment, -1, start);
     }
 
@@ -37,9 +37,9 @@ public class Menu extends Field{
         return this;
     }
 
-    public Menu addItem(String icon, String title, String nameFragment, int badge, boolean start) {
+    public Menu addItem(int icon, String title, String nameFragment, int badge, boolean start) {
         Record item = new Record();
-        item.add(new Field("icon", Field.TYPE_STRING, icon));
+        item.add(new Field("icon", Field.TYPE_INTEGER, icon));
         item.add(new Field("name", Field.TYPE_STRING, title));
         item.add(new Field("nameFunc", Field.TYPE_STRING, nameFragment));
         item.add(new Field("badge", Field.TYPE_INTEGER, badge));

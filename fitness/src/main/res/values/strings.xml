@@ -15,9 +15,12 @@
     <string name="drawer">drawer</string>
     <string name="clubs">clubs</string>
     <string name="addClub">addClub</string>
+    <string name="settings">settings</string>
+    <string name="f_language">language</string>
 
     // Menu
     <string name="m_clubs">Клуби</string>
+    <string name="m_settings">Налаштування</string>
 
     // Title screen
     <string name="title_ayth_phone">Авторизація</string>
@@ -25,6 +28,8 @@
     <string name="title_clubs">Клуби</string>
     <string name="title_map">MAP</string>
     <string name="title_SMS">Код СМС</string>
+    <string name="title_settings">Налаштування</string>
+    <string name="title_language">Мова</string>
 
     // Error text
     <string name="er_filled">Треба заповнити</string>
@@ -53,6 +58,10 @@
     // AddClub
     <string name="city">Город</string>
     <string name="club">Клуб</string>
+
+    // Setting
+    <string name="profile">Профіль</string>
+    <string name="language">Мова</string>
 
 
 </resources>

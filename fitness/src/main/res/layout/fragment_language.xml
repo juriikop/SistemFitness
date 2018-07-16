@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
+
     <fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient
         android:id="@+id/tool"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/pad_56"
         app:color_1="darkPrimary"
         app:color_2="primary">
         <fitness.sistem.sistemfitness.tools.changeColor.ImageViewColor
@@ -17,7 +17,7 @@
             android:layout_height="@dimen/pad_56"
             android:layout_centerVertical="true"
             android:padding="@dimen/pad_16"
-            android:src="@drawable/hamburger"
+            android:src="@drawable/back"
             app:colorText="textOnPrimary" />
 
         <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor
@@ -25,31 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/title_clubs"
+            android:text="@string/title_language"
             android:textAllCaps="true"
             android:textSize="18dp"
             app:colorText="textOnPrimary"/>
     </fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tool"/>
-
-    <fitness.sistem.sistemfitness.tools.changeColor.FloatingButtonColor
-        android:id="@+id/addclub"
-        android:layout_width="@dimen/pad_56"
-        android:layout_height="@dimen/pad_56"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="@dimen/pad_20"
-        android:layout_marginRight="@dimen/pad_20"
-        app:color_1="accent"
-        app:color_2="lightAccent"
-        app:colorText="textOnAccent"
-        android:elevation="@dimen/pad_6"
-        android:padding="@dimen/pad_16"
-        android:src="@drawable/plus"/>
-
-</RelativeLayout>
+</LinearLayout>

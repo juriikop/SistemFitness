@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient
+        android:id="@+id/tool"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pad_56"
+        app:color_1="darkPrimary"
+        app:color_2="primary">
+        <fitness.sistem.sistemfitness.tools.changeColor.ImageViewColor
+            android:id="@+id/back"
+            android:layout_width="@dimen/pad_56"
+            android:layout_height="@dimen/pad_56"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/pad_16"
+            android:src="@drawable/hamburger"
+            app:colorText="textOnPrimary" />
+
+        <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/title_settings"
+            android:textAllCaps="true"
+            android:textSize="18dp"
+            app:colorText="textOnPrimary"/>
+    </fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient>
+
+    <RelativeLayout
+        android:id="@+id/profile"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pad_56"
+        android:layout_marginLeft="@dimen/pad_32"
+        android:layout_marginRight="@dimen/pad_32">
+
+        <TextView
+            style="@style/st_14_black_70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/profile" />
+
+        <ImageView
+            android:layout_width="@dimen/d_icon"
+            android:layout_height="@dimen/d_icon"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pad_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/black_15" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/language"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pad_56"
+        android:layout_marginLeft="@dimen/pad_32"
+        android:layout_marginRight="@dimen/pad_32">
+
+        <TextView
+            style="@style/st_14_black_70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/language" />
+
+        <ImageView
+            android:layout_width="@dimen/d_icon"
+            android:layout_height="@dimen/d_icon"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pad_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/black_15" />
+    </RelativeLayout>
+
+</LinearLayout>
