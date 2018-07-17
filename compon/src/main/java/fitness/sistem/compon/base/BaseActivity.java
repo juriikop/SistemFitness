@@ -1,7 +1,10 @@
 package fitness.sistem.compon.base;
 
 import android.app.DialogFragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -35,8 +39,8 @@ import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.json_simple.SimpleRecordToJson;
 import fitness.sistem.compon.json_simple.WorkWithRecordsAndViews;
+import fitness.sistem.compon.tools.ComponPrefTool;
 import fitness.sistem.compon.tools.Constants;
-import fitness.sistem.compon.tools.PreferenceTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +101,9 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                 }
             }
             mComponent.initComponents(this);
+            if (mComponent.moreWork != null) {
+                mComponent.moreWork.startScreen();
+            }
         } else {
             parentLayout = inflate(this, getLayoutId(), null);
         }
@@ -104,13 +111,17 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     }
 
     public void setLocale() {
-        String loc = "";
-        if (loc == null) {
-            loc = Constants.localeNameRu;
+        String loc = ComponPrefTool.getLocale();
+        if (loc.length() == 0) {
+            loc = "uk";
         }
-        if ( ! loc.equals(Constants.localeNameRu) && ! loc.equals(Constants.localeNameUk)) {
-            loc = Constants.localeNameRu;
-        }
+//        if (loc == null) {
+//            loc = Constants.localeNameRu;
+//        }
+//        if ( ! loc.equals(Constants.localeNameRu) && ! loc.equals(Constants.localeNameUk)) {
+//            loc = Constants.localeNameRu;
+//        }
+
         if (loc.equals(Locale.getDefault().getLanguage())) return;
         Locale myLocale = new Locale(loc);
         Locale.setDefault(myLocale);
@@ -189,10 +200,24 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                                 showView.setVisibility(View.VISIBLE);
                             }
                             break;
+                        case RECEIVER:
+                            LocalBroadcastManager.getInstance(BaseActivity.this).registerReceiver(broadcastReceiver,
+                                    new IntentFilter(vh.nameFieldWithValue));
+                            break;
                     }
-                    break;
+//                    break;
                 }
             }
+        }
+    };
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (mComponent.moreWork != null) {
+                mComponent.moreWork.receiverWork(intent);
+            }
+            LocalBroadcastManager.getInstance(BaseActivity.this).unregisterReceiver(broadcastReceiver);
         }
     };
 
@@ -225,7 +250,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     @Override
     public void onResume() {
         super.onResume();
-        int statusBarColor = PreferenceTool.getStatusBarColor();
+        int statusBarColor = ComponPrefTool.getStatusBarColor();
         if (statusBarColor != 0) {
             setStatusBarColor(statusBarColor);
         }
@@ -237,7 +262,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     }
 
     public void setStatusColor(int color) {
-        PreferenceTool.setStatusBarColor(color);
+        ComponPrefTool.setStatusBarColor(color);
     }
 
     @Override

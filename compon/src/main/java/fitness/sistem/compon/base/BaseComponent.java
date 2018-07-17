@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,7 +30,7 @@ import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.presenter.ListPresenter;
 import fitness.sistem.compon.tools.Constants;
-import fitness.sistem.compon.tools.PreferenceTool;
+import fitness.sistem.compon.tools.ComponPrefTool;
 
 import java.util.List;
 
@@ -74,6 +75,10 @@ public abstract class BaseComponent {
 
     public void init() {
         initView();
+        if (paramMV.nameReceiver != null) {
+            LocalBroadcastManager.getInstance(iBase.getBaseActivity())
+                    .registerReceiver(atartActual, new IntentFilter(paramMV.nameReceiver));
+        }
         if (paramMV.paramModel != null
                 && paramMV.paramModel.method == ParamModel.FIELD) {
             if (paramMV.paramModel.field instanceof FieldBroadcaster) {
@@ -92,6 +97,23 @@ public abstract class BaseComponent {
             iBase.addEvent(paramMV.eventComponent, this);
         }
     }
+
+    private BroadcastReceiver atartActual = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (iBase.isViewActive()) {
+                        actual();
+                    } else {
+                        handler.postDelayed(this, 5);
+                    }
+                }
+            }, 5);
+        }
+    };
 
     public void actualEvent(int sender, Object paramEvent) {
         actual();
@@ -122,6 +144,11 @@ public abstract class BaseComponent {
                     JsonSimple jsonSimple = new JsonSimple();
                     argument = jsonSimple.jsonToModel(st);
                     changeDataBase(argument);
+                    break;
+                case ParamModel.DATAFIELD :
+                    if (paramMV.paramModel.dataFieldGet != null) {
+                        changeDataBase(paramMV.paramModel.dataFieldGet.getField(this));
+                    }
                     break;
                 default: {
                     new BasePresenter(iBase, paramMV.paramModel, null, null, listener);
@@ -286,6 +313,11 @@ public abstract class BaseComponent {
                         case BACK:
                             iBase.backPressed();
                             break;
+                        case BROADCAST:
+                            Intent intentBroad = new Intent(vh.nameFieldWithValue);
+                            intentBroad.putExtra(Constants.RECORD, record.toString());
+                            LocalBroadcastManager.getInstance(activity).sendBroadcast(intentBroad);
+                            break;
                     }
 //                    break;
                 }
@@ -328,14 +360,14 @@ public abstract class BaseComponent {
                             Record rec = ((Record) response.value);
                             String st = rec.getString(vh.nameFieldWithValue);
                             if (st != null) {
-                                PreferenceTool.setSessionToken(st);
+                                ComponPrefTool.setSessionToken(st);
                             }
                             break;
                         case PREFERENCE_SET_NAME:
                             rec = ((Record) response.value);
                             st = rec.getString(vh.nameFieldWithValue);
                             if (st != null) {
-                                PreferenceTool.setNameString(vh.nameFieldWithValue, st);
+                                ComponPrefTool.setNameString(vh.nameFieldWithValue, st);
                             }
                             break;
                         case BACK:

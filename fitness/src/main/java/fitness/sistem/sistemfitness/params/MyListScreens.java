@@ -8,9 +8,11 @@ import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.param.ParamMap;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.param.ParamView;
+import fitness.sistem.compon.tools.Constants;
 import fitness.sistem.sistemfitness.R;
 import fitness.sistem.sistemfitness.more_work.FitnessProcessing;
 import fitness.sistem.sistemfitness.network.Api;
+import fitness.sistem.sistemfitness.network.GetData;
 import fitness.sistem.sistemfitness.network.TestInternetProvider;
 
 public class MyListScreens extends ListScreens {
@@ -19,101 +21,107 @@ public class MyListScreens extends ListScreens {
         super(context);
     }
 
+    public final static String LANGUAGE = "language", SETTINGS = "settings", DRAWER = "drawer",
+            SPLASH = "splash", MAIN = "main", INTRO = "intro", AUTH = "auth",
+            AUTH_PHONE = "auth_phone", AUTH_CODE = "auth_code", AUTH_REGISTER = "auth_register",
+            CLUBS = "clubs", ADD_CLUB = "addClub", MAP = "map";
+
+    public static String ACTUAL_CLUB = "actual_club";
+
     @Override
     public void initScreen() {
-        activity(context.getString(R.string.splash), R.layout.activity_splash)
-                .addComponentSplash(context.getString(R.string.tutorial),
-//                        context.getString(R.string.auth), context.getString(R.string.main));
-                        null, context.getString(R.string.main));
+        activity(SPLASH, R.layout.activity_splash)
+                .addComponentSplash(INTRO,
+//                        AUTH,
+                        null, MAIN);
 
-        activity(context.getString(R.string.tutorial), R.layout.activity_intro)
-                .addComponent(TC.INTRO, new ParamModel(Api.INTRO)
-                                .internetProvider(TestInternetProvider.class),
+        activity(INTRO, R.layout.activity_intro)
+                .addComponent(TC.INTRO, new ParamModel(new GetData()),
+//                .addComponent(TC.INTRO, new ParamModel(Api.INTRO)
+//                                .internetProvider(TestInternetProvider.class),
                         new ParamView(R.id.pager, R.layout.item_intro)
                                 .setIndicator(R.id.indicator)
                                 .setFurtherBtn(R.id.skip, R.id.contin, R.id.start),
-                        new Navigator().add(context.getString(R.string.auth)));
+                        new Navigator().add(AUTH));
 
-        activity(context.getString(R.string.auth), R.layout.activity_auth).animate(AS.RL)
-                .fragmentsContainer(R.id.content_frame, context.getString(R.string.auth_phone));
+        activity(AUTH, R.layout.activity_auth).animate(AS.RL)
+                .fragmentsContainer(R.id.content_frame, AUTH_PHONE);
 
-        fragment(context.getString(R.string.auth_phone), R.layout.fragment_auth_phone)
-                .addNavigator(new Navigator().add(R.id.register, context.getString(R.string.auth_register))
+        fragment(AUTH_PHONE, R.layout.fragment_auth_phone)
+                .addNavigator(new Navigator().add(R.id.register, AUTH_REGISTER)
                         .add(R.id.back, ViewHandler.TYPE.BACK))
                 .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
                         new Navigator()
                                 .add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
                                         new ParamModel(ParamModel.POST, Api.LOGIN_PHONE, "phone"),
-                                        actionsAfterResponse().startScreen(context.getString(R.string.auth_code)),
+                                        actionsAfterResponse().startScreen(AUTH_CODE),
                                         true, R.id.phone));
 
-        fragment(context.getString(R.string.auth_register), R.layout.fragment_register).animate(AS.RL)
+        fragment(AUTH_REGISTER, R.layout.fragment_register).animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
                 .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
                         new Navigator()
                                 .add(R.id.done_register, ViewHandler.TYPE.CLICK_SEND,
                                         new ParamModel(ParamModel.POST, Api.REGISTER,
                                                 "phone,surname,name,patronymic,email"),
-                                        actionsAfterResponse().startScreen(context.getString(R.string.auth_code)),false,
+                                        actionsAfterResponse().startScreen(AUTH_CODE),false,
                                         R.id.phone, R.id.surname, R.id.name, R.id.patronymic, R.id.email));
 
 
 
-        fragment(context.getString(R.string.auth_code), R.layout.fragment_auth_code)
+        fragment(AUTH_CODE, R.layout.fragment_auth_code)
                 .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
                         new Navigator().add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
                                 new ParamModel(ParamModel.POST, Api.LOGIN_CODE, "phone,code"),
                                 actionsAfterResponse()
                                         .preferenceSetToken("token")
 //                                        .preferenceSetName("phone")
-                                        .startScreen(context.getString(R.string.main))
+                                        .startScreen(MAIN)
                                         .back(),
                                 true, R.id.code));
 
-        activity(context.getString(R.string.main), R.layout.activity_main)
+        activity(MAIN, R.layout.activity_main)
                 .addDrawer(R.id.drawer, new int[] {R.id.content_frame, R.id.left_drawer},
-                        new String[] {"", context.getString(R.string.drawer)});
+                        new String[] {"", DRAWER});
 
-        Menu menu = new Menu()
-                .addItem(R.drawable.targets, "Мои цели", "")
-//                .addItem("icon_lil_phone", "Услуги", getString(R.string.map), true)
-                .addDivider()
-                .addItem(R.drawable.menu_clubs, context.getString(R.string.m_clubs), context.getString(R.string.clubs), true)
-                .addDivider()
-                .addItem(R.drawable.menu_settings, context.getString(R.string.m_settings), context.getString(R.string.settings));
-
-        fragment(context.getString(R.string.drawer), R.layout.fragment_drawer)
+        fragment(DRAWER, R.layout.fragment_drawer)
                 .addComponent(TC.PANEL_MULTI, new ParamModel(getProfile()),
                         new ParamView(R.id.panel, R.layout.drawer_header_main, R.layout.drawer_header_not),
-                        new Navigator().add(R.id.enter, context.getString(R.string.auth))
+                        new Navigator().add(R.id.enter, AUTH)
                                 .add(R.id.enter, ViewHandler.TYPE.CLOSE_DRAWER))
-                .addMenu(new ParamModel(menu), new ParamView(R.id.recycler,
+                .addMenu(new ParamModel(new GetData()), new ParamView(R.id.recycler,
                         new int[]{R.layout.item_menu_divider, R.layout.item_menu, R.layout.item_menu_select}));
 
-        fragment(context.getString(R.string.clubs), R.layout.fragment_clubs)
-                .addNavigator(new Navigator().add(R.id.addclub, context.getString(R.string.addClub))
+        fragment(CLUBS, R.layout.fragment_clubs)
+                .addNavigator(new Navigator().add(R.id.addclub, ADD_CLUB)
                         .add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER))
                 .addComponent(TC.RECYCLER, new ParamModel(Api.CLUBS)
                         .internetProvider(TestInternetProvider.class), new ParamView(R.id.recycler, R.layout.item_clubs),
-                        new Navigator().add(0, ViewHandler.TYPE.CLICK_VIEW), 0, FitnessProcessing.class);
+                        new Navigator().add(0, ViewHandler.TYPE.CLICK_VIEW),
+                        0, FitnessProcessing.class).actualReceiver(ACTUAL_CLUB);
 
-        fragment(context.getString(R.string.settings), R.layout.fragment_settings)
+        fragment(SETTINGS, R.layout.fragment_settings, FitnessProcessing.class)
                 .addNavigator(new Navigator()
                         .add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER)
-                        .add(R.id.language, context.getString(R.string.f_language)));
+                        .add(R.id.language, LANGUAGE)
+                        .add(R.id.language, ViewHandler.TYPE.RECEIVER, Constants.CHANGE_LOCALE));
 
-        fragment(context.getString(R.string.f_language), R.layout.fragment_language).animate(AS.RL)
-                .addNavigator(new Navigator()
-                        .add(R.id.back, ViewHandler.TYPE.BACK));
+        fragment(LANGUAGE, R.layout.fragment_language).animate(AS.RL)
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
+                .addComponent(TC.RECYCLER, new ParamModel(new GetData()), new ParamView(R.id.recycler, R.layout.item_language),
+                        new Navigator().add(0, ViewHandler.TYPE.BROADCAST, Constants.CHANGE_LOCALE)
+                                .add(0, ViewHandler.TYPE.BACK));
 
-        activity(context.getString(R.string.addClub), R.layout.activity_add_club).animate(AS.RL)
+        activity(ADD_CLUB, R.layout.activity_add_club).animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
                 .addSearchComponent(R.id.city,
                         new ParamModel(Api.SEARCH_CITY).internetProvider(TestInternetProvider.class),
                         new ParamView(R.id.recycler, R.layout.item_search_city), null, true)
                 .addSearchComponent(R.id.club,
                         new ParamModel(Api.SEARCH_CLUB).internetProvider(TestInternetProvider.class),
-                        new ParamView(R.id.recyclerClub, R.layout.item_search_club), new Navigator().add(0, ViewHandler.TYPE.BACK), false);
+                        new ParamView(R.id.recyclerClub, R.layout.item_search_club),
+                        new Navigator().add(0, ViewHandler.TYPE.BROADCAST, ACTUAL_CLUB)
+                                .add(0, ViewHandler.TYPE.BACK), false);
 
 //        fragment(context.getString(R.string.tickets), R.layout.fragment_tickets, context.getString(R.string.my_tickets))
 //                .addNavigator(new Navigator().add(R.id.question, context.getString(R.string.help)))
@@ -145,7 +153,7 @@ public class MyListScreens extends ListScreens {
 //        fragment(context.getString(R.string.profile), R.layout.fragment_profile)
 //                .setDataParam(R.id.phone, "phone", 1);
 //
-        fragment(context.getString(R.string.map), R.layout.fragment_map)
+        fragment(MAP, R.layout.fragment_map)
                 .addComponentMap(R.id.map, new ParamModel(),
                         new ParamMap(true)
                                 .coordinateValue(50.0276271, 36.2237879), null, 0);

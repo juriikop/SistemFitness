@@ -24,10 +24,11 @@ public class ParamComponent <T>{
     public ParamView paramView;
     public ParamMap paramMap;
     public Navigator navigator;
-    public String tutorial, auth, main;
+    public String intro, auth, main;
     public Class<T> additionalWork;
     public int[] mustValid;
     public int viewSearchId;
     public boolean startActual = true;
     public boolean hide = false;
+    public String nameReceiver;
 }

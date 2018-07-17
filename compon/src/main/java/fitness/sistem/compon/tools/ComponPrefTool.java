@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 import fitness.sistem.compon.ComponGlob;
 
-public class PreferenceTool {
+public class ComponPrefTool {
     private static final String PREFERENCES_NAME = "simple_app_prefs";
     private static final String TUTORIAL = "tutorial";
     private static final String AUTH = "auth";
@@ -13,6 +13,15 @@ public class PreferenceTool {
     private static final String COOKIE = "cookie";
     private static final String TOKEN = "token";
     private static final String STATUS_COLOR = "STATUS_COLOR";
+    private static final String LOCALE = "locale";
+
+    public static void setLocale(String value) {
+        getEditor().putString(LOCALE, value).commit();
+    }
+
+    public static String getLocale() {
+        return getSharedPreferences().getString(LOCALE, "");
+    }
 
     public static void setStatusBarColor(int value) {
         getEditor().putInt(STATUS_COLOR, value).commit();
@@ -30,12 +39,20 @@ public class PreferenceTool {
         getEditor().putString(name, value).commit();
     }
 
+    public static void setNameInt(String name, int value) {
+        getEditor().putInt(name, value).commit();
+    }
+
     public static boolean getNameBoolean(String name) {
         return getSharedPreferences().getBoolean(name, false);
     }
 
     public static String getNameString(String name) {
         return getSharedPreferences().getString(name, "");
+    }
+
+    public static int getNameInt(String name, int def) {
+        return getSharedPreferences().getInt(name, def);
     }
 
     public static void setTutorial(boolean value) {

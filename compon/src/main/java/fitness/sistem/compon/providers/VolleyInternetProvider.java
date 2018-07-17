@@ -4,14 +4,11 @@ import android.util.Log;
 
 import com.android.volley.VolleyError;
 
-import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.base.BaseInternetProvider;
 import fitness.sistem.compon.interfaces_classes.IVolleyListener;
-import fitness.sistem.compon.tools.PreferenceTool;
 import fitness.sistem.compon.volley.VolleyProvider;
 import fitness.sistem.compon.volley.VolleyRequest;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class VolleyInternetProvider extends BaseInternetProvider {
@@ -25,7 +22,7 @@ public class VolleyInternetProvider extends BaseInternetProvider {
         if (data != null) {
             dataBytes = data.getBytes();
         }
-//        String st = PreferenceTool.getUserKey();
+//        String st = ComponPrefTool.getUserKey();
 //        if (st.length() > 0) {
 //            if (headers == null) {
 //                headers = new HashMap<>();

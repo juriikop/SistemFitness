@@ -1,6 +1,7 @@
 package fitness.sistem.compon.base;
 
 import android.text.Html;
+import android.util.Log;
 
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.interfaces_classes.IBase;
@@ -10,7 +11,7 @@ import fitness.sistem.compon.json_simple.JsonSimple;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.providers.VolleyInternetProvider;
-import fitness.sistem.compon.tools.PreferenceTool;
+import fitness.sistem.compon.tools.ComponPrefTool;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
         }
 
         String nameToken = ComponGlob.getInstance().appParams.nameTokenInHeader;
-        String token = PreferenceTool.getSessionToken();
+        String token = ComponPrefTool.getSessionToken();
         if (nameToken.length() > 0 && token.length() > 0) {
 //            headers.put(nameToken, "bceee76d3c7d761c9ec92c286fb8bebcefb4225c311bb87e");
             headers.put(nameToken, token);

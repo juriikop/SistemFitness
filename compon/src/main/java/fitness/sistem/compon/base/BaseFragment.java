@@ -1,8 +1,13 @@
 package fitness.sistem.compon.base;
 
 import android.app.DialogFragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +27,8 @@ import fitness.sistem.compon.interfaces_classes.SetData;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.components.MultiComponents;
+import fitness.sistem.compon.tools.ComponPrefTool;
 import fitness.sistem.compon.tools.Constants;
-import fitness.sistem.compon.tools.PreferenceTool;
 import fitness.sistem.compon.tools.StaticVM;
 
 import java.util.ArrayList;
@@ -100,7 +105,7 @@ public abstract class BaseFragment extends Fragment implements IBase {
                     SetData sd = (SetData) mComponent.listSetData.get(i);
                     String value;
                     if (sd.source == 0) {
-                        value = PreferenceTool.getNameString(sd.nameParam);
+                        value = ComponPrefTool.getNameString(sd.nameParam);
                     } else {
                         value = ComponGlob.getInstance().getParamValue(sd.nameParam);
                     }
@@ -114,6 +119,9 @@ public abstract class BaseFragment extends Fragment implements IBase {
             }
         }
         initView(savedInstanceState);
+        if (mComponent != null && mComponent.moreWork != null) {
+            mComponent.moreWork.startScreen();
+        }
         animatePanelList = new ArrayList<>();
         return parentLayout;
     }
@@ -171,10 +179,24 @@ public abstract class BaseFragment extends Fragment implements IBase {
                         case OPEN_DRAWER:
                             activity.openDrawer();
                             break;
+                        case RECEIVER:
+                            LocalBroadcastManager.getInstance(activity)
+                                    .registerReceiver(broadcastReceiver, new IntentFilter(vh.nameFieldWithValue));
+                            break;
                     }
-                    break;
+//                    break;
                 }
             }
+        }
+    };
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (mComponent.moreWork != null) {
+                mComponent.moreWork.receiverWork(intent);
+            }
+            LocalBroadcastManager.getInstance(activity).unregisterReceiver(broadcastReceiver);
         }
     };
 
@@ -208,6 +230,10 @@ public abstract class BaseFragment extends Fragment implements IBase {
 //        for (Request request : listRequests) {
 //            request.cancel();
 //        }
+
+        if (mComponent != null && mComponent.moreWork != null) {
+            mComponent.moreWork.stopScreen();
+        }
         if (listInternetProvider != null) {
             for (BaseInternetProvider provider : listInternetProvider) {
                 provider.cancel();
@@ -434,7 +460,7 @@ public abstract class BaseFragment extends Fragment implements IBase {
 
     @Override
     public boolean isViewActive() {
-        return false;
+        return activity.isViewActive();
     }
 
     @Override

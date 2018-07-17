@@ -18,7 +18,7 @@ import fitness.sistem.compon.json_simple.JsonSimple;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.network.SimpleRequest;
-import fitness.sistem.compon.tools.PreferenceTool;
+import fitness.sistem.compon.tools.ComponPrefTool;
 import fitness.sistem.compon.volley.VolleyProvider;
 
 import java.io.UnsupportedEncodingException;
@@ -156,7 +156,7 @@ public class VolleyPresenter<T> implements Response.Listener<T>, Response.ErrorL
         if (headers == null) {
             headers = new HashMap<>();
         }
-        String st = PreferenceTool.getUserKey();
+        String st = ComponPrefTool.getUserKey();
         if (st.length() > 0) {
             headers.put("authorization", "key=" + st);
         }
@@ -193,7 +193,7 @@ public class VolleyPresenter<T> implements Response.Listener<T>, Response.ErrorL
 //        }
 //        BaseActivity context = iBase.getBaseActivity();
 //        if (context == null) return;
-//        String st = PreferenceTool.getUserKey();
+//        String st = ComponPrefTool.getUserKey();
 //        if (st.length() > 0) {
 //            headers.put("authorization", "key=" + st);
 //        }

@@ -1,6 +1,6 @@
 package fitness.sistem.compon.volley;
 
-import fitness.sistem.compon.tools.PreferenceTool;
+import fitness.sistem.compon.tools.ComponPrefTool;
 
 import java.util.Map;
 
@@ -24,13 +24,13 @@ public class CookieManager {
                         break;
                     }
                 }
-                PreferenceTool.setSessionToken(cookies);
+                ComponPrefTool.setSessionToken(cookies);
             }
         }
     }
 
     public static final void checkAndAddSessionCookie(Map<String, String> headers) {
-        String cookie = PreferenceTool.getSessionToken();
+        String cookie = ComponPrefTool.getSessionToken();
         if (cookie != null && cookie.length() > 0) {
             StringBuilder builder = new StringBuilder();
             builder.append(SESSION_COOKIE);

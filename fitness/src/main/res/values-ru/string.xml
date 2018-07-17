@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    // INTRO
+    <string name="intro_0">"Более 120 индивидуальных\nи групповых услуг"</string>
+    <string name="intro_1">Удобный планировщик\nс возможностью отмены занятий</string>
+    <string name="intro_2">Поставь перед собой цель\nи иди к ней, а мы поможем</string>
+    <string name="intro_3">Ни одна акция или новость\nне пройдет мимо</string>
+    <string name="intro_t_0">Заказывай услуги</string>
+    <string name="intro_t_1">Составляй расписание</string>
+    <string name="intro_t_2">Достигай целей</string>
+    <string name="intro_t_3">Будь в курсе событий</string>
+
+    // Menu
+    <string name="m_goals">Мои цели</string>
+    <string name="m_clubs">Клубы</string>
+    <string name="m_settings">Настройки</string>
+
+    // Title screen
+    <string name="title_ayth_phone">Авторизация</string>
+    <string name="title_register">Регистрация</string>
+    <string name="title_clubs">Клубы</string>
+    <string name="title_map">MAP</string>
+    <string name="title_SMS">Код СМС</string>
+    <string name="title_settings">Настройки</string>
+    <string name="title_language">Язык</string>
+
+    // Error text
+    <string name="er_filled">Нужно заполнить</string>
+    <string name="er_lenght">Количество знаков в поле\u0020</string>
+    <string name="er_email">Неправильный адрес email</string>
+    <string name="er_phone">Неправильный номер телефона</string>
+
+    <!--// Auth-->
+    <!--<string name="code_uk">+380</string>-->
+    <string name="phone">Телефон</string>
+    <string name="contin">Продолжить</string>
+    <string name="register">Зарегестрироваться</string>
+    <string name="used">Используэтся для входа. Укажите актуальный номер</string>
+    <string name="surname">Фамилия</string>
+    <string name="name">Имя</string>
+    <string name="patronymic">Отчество</string>
+    <string name="email">Email</string>
+    <string name="code_sms">Код подтверждения з SMS</string>
+    <string name="sms_cometo">SMS прийдет на указанный номер телефона</string>
+    <string name="no_sms">SMS не приходит</string>
+
+
+    // Drawer
+    <string name="sign_in">ВОЙТИ</string>
+
+    // AddClub
+    <string name="city">Город</string>
+    <string name="club">Клуб</string>
+
+    // Setting
+    <string name="profile">Профиль</string>
+    <string name="language">Язык</string>
+    <string name="uk">Украинский</string>
+    <string name="ru">Русский</string>
+</resources>

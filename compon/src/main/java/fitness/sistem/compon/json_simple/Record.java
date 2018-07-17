@@ -4,6 +4,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class Record extends ArrayList<Field>{
+
     public Object getValue(String name) {
         Field f = getField(name);
         if (f == null) {

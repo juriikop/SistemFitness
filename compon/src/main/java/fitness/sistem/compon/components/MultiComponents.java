@@ -211,10 +211,10 @@ public class MultiComponents <T>{
         return this;
     }
 
-    public MultiComponents addComponentSplash(String tutorial, String auth, String main) {
+    public MultiComponents addComponentSplash(String intro, String auth, String main) {
         ParamComponent paramComponent = new ParamComponent();
         paramComponent.type = ParamComponent.TC.SPLASH;
-        paramComponent.tutorial = tutorial;
+        paramComponent.intro = intro;
         paramComponent.auth = auth;
         paramComponent.main = main;
         listComponents.add(paramComponent);
@@ -270,6 +270,17 @@ public class MultiComponents <T>{
             listSetData = new ArrayList<>();
         }
         listSetData.add(new SetData(viewId, nameParam, source));
+        return this;
+    }
+
+    public MultiComponents actualReceiver(String name) {
+        int i = listComponents.size();
+        if (i > 0) {
+            ParamComponent pc = listComponents.get(i - 1);
+            if (pc != null) {
+                pc.nameReceiver = name;
+            }
+        }
         return this;
     }
 

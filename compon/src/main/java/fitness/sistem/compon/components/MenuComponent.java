@@ -14,12 +14,14 @@ import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamComponent;
 import fitness.sistem.compon.presenter.ListPresenter;
+import fitness.sistem.compon.tools.ComponPrefTool;
 import fitness.sistem.compon.tools.StaticVM;
 
 public class MenuComponent extends BaseComponent {
     RecyclerView recycler;
     ListRecords listData;
     BaseProviderAdapter adapter;
+    private String componentTag = "MENU_";
 
     public MenuComponent(IBase iBase, ParamComponent paramMV, MultiComponents multiComponent) {
         super(iBase, paramMV, multiComponent);
@@ -59,14 +61,26 @@ public class MenuComponent extends BaseComponent {
         listData.clear();
         listData.addAll((ListRecords) field.value);
         provider.setData(listData);
-        int selectStart = -1;
+        int selectStart = ComponPrefTool.getNameInt(componentTag + multiComponent.nameComponent, -1);
         int ik = listData.size();
-        for (int i = 0; i < ik; i++) {
-            Record r = listData.get(i);
-            int j = (Integer) r.getValue("select");
-            if (j > 1) {
-                selectStart = i;
-                break;
+        if (selectStart == -1) {
+            for (int i = 0; i < ik; i++) {
+                Record r = listData.get(i);
+                int j = (Integer) r.getValue("select");
+                if (j > 1) {
+                    selectStart = i;
+                    break;
+                }
+            }
+        } else {
+            for (int i = 0; i < ik; i++) {
+                Record r = listData.get(i);
+                Field f = r.getField("select");
+                if (i == selectStart) {
+                    f.value = 2;
+                } else {
+                    f.value = 1;
+                }
             }
         }
         listPresenter.changeData(listData, selectStart);
@@ -77,6 +91,7 @@ public class MenuComponent extends BaseComponent {
     public void changeDataPosition(int position, boolean select) {
         adapter.notifyItemChanged(position);
         ((BaseActivity) activity).closeDrawer();
+        ComponPrefTool.setNameInt(componentTag + multiComponent.nameComponent, position);
         if (select && selectViewHandler != null) {
             Record record = listData.get(position);
             ComponGlob.getInstance().setParam(record);

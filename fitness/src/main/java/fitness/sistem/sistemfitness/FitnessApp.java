@@ -33,7 +33,8 @@ public class FitnessApp extends MultiDexApplication {
         }
         SetSettings.setNetworkParams(new MyAppParams());
         SetSettings.setListScreens(new MyListScreens(context));
-//        String country = PreferenceTool.getCountry();
+        SetSettings.setLocale("uk");
+//        String country = ComponPrefTool.getCountry();
 //        if (country == null || country.length() == 0) {
 //            country = context.getResources().getConfiguration().locale.getCountry();
 //        }

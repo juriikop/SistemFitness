@@ -3,6 +3,7 @@ package fitness.sistem.compon.components;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import fitness.sistem.compon.base.BaseComponent;
@@ -54,6 +55,7 @@ public class RecyclerComponent extends BaseComponent {
 
     @Override
     public void changeData(Field field) {
+        if (listData == null) return;
         listData.clear();
         listData.addAll((ListRecords) field.value);
         provider.setData(listData);

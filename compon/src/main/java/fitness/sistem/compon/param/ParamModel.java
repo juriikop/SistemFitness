@@ -1,6 +1,7 @@
 package fitness.sistem.compon.param;
 
 import fitness.sistem.compon.ComponGlob;
+import fitness.sistem.compon.interfaces_classes.DataFieldGet;
 import fitness.sistem.compon.interfaces_classes.Filters;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.Record;
@@ -19,8 +20,11 @@ public class ParamModel <T> {
     public static final int PARENT = 100;
     public static final int FIELD = 101;
     public static final int ARGUMENTS = 102;
+    public static final int STRINGARRAY = 103;
+    public static final int DATAFIELD = 104;
     public static int defaultMethod = GET;
     public String nameField, nameFieldTo;
+    public DataFieldGet dataFieldGet;
     public String nameTakeField;
     public List<Record> addRecordBegining;
     public Field field;
@@ -29,6 +33,7 @@ public class ParamModel <T> {
     public TypeParam typeParam = TypeParam.NAME;
     public boolean isPagination;
     public int paginationPerPage;
+    public int stringArray;
     public String paginationNameParamPerPage;
     public String paginationNameParamNumberPage;
     public Filters filters;
@@ -42,6 +47,7 @@ public class ParamModel <T> {
     public ParamModel() {
         this(PARENT, PARENT_MODEL, "", -1);
     }
+
     public ParamModel(int method) {
         this.method = method;
         param = "";
@@ -49,6 +55,7 @@ public class ParamModel <T> {
     public ParamModel(String url) {
         this(url, "", -1);
     }
+
     public ParamModel(int method, String urlOrNameParent) {
         this(method, urlOrNameParent, "", -1);
     }
@@ -57,6 +64,12 @@ public class ParamModel <T> {
         this(FIELD, "", "", -1);
         this.field = field;
     }
+
+    public ParamModel(DataFieldGet dataFieldGet) {
+        this(DATAFIELD, "", "", -1);
+        this.dataFieldGet = dataFieldGet;
+    }
+
     public ParamModel(String url, String param) {
         this(url, param, -1);
     }
@@ -154,4 +167,5 @@ public class ParamModel <T> {
         this.filters = filters;
         return this;
     }
+
 }

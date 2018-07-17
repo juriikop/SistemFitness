@@ -2,6 +2,7 @@ package fitness.sistem.compon.base;
 
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.param.AppParams;
+import fitness.sistem.compon.tools.ComponPrefTool;
 
 public class SetSettings {
     public static void setNetworkParams(AppParams params) {
@@ -16,5 +17,9 @@ public class SetSettings {
 
     public static void addParam(String name, String value) {
         ComponGlob.getInstance().addParamValue(name, value);
+    }
+
+    public static void setLocale(String locale) {
+        ComponPrefTool.setLocale(locale);
     }
 }

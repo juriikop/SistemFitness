@@ -16,7 +16,7 @@ import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.json_simple.WorkWithRecordsAndViews;
 import fitness.sistem.compon.param.ParamComponent;
-import fitness.sistem.compon.tools.PreferenceTool;
+import fitness.sistem.compon.tools.ComponPrefTool;
 import fitness.sistem.compon.tools.StaticVM;
 
 public class PagerVComponent extends BaseComponent {
@@ -136,10 +136,10 @@ public class PagerVComponent extends BaseComponent {
                             case PREFERENCE_SET_VALUE:
                                 switch (vh.typePref) {
                                     case STRING:
-                                        PreferenceTool.setNameString(vh.namePreference, vh.pref_value_string);
+                                        ComponPrefTool.setNameString(vh.namePreference, vh.pref_value_string);
                                         break;
                                     case BOOLEAN:
-                                        PreferenceTool.setNameBoolean(vh.namePreference, vh.pref_value_boolean);
+                                        ComponPrefTool.setNameBoolean(vh.namePreference, vh.pref_value_boolean);
                                         break;
                                 }
                                 break;

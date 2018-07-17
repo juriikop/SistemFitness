@@ -16,7 +16,7 @@ import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.json_simple.WorkWithRecordsAndViews;
 import fitness.sistem.compon.param.ParamComponent;
-import fitness.sistem.compon.tools.PreferenceTool;
+import fitness.sistem.compon.tools.ComponPrefTool;
 
 public class IntroComponent extends BaseComponent {
     ViewPager pager;
@@ -162,7 +162,7 @@ public class IntroComponent extends BaseComponent {
         public void onClick(View v) {
             if (navigator != null && navigator.viewHandlers.size() > 0) {
                 ViewHandler vh = navigator.viewHandlers.get(0);
-                PreferenceTool.setTutorial(true);
+                ComponPrefTool.setTutorial(true);
                 iBase.startScreen(vh.nameFragment, false);
                 iBase.backPressed();
             }
