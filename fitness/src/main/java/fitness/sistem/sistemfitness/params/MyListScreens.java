@@ -90,7 +90,7 @@ public class MyListScreens extends ListScreens {
                         new Navigator().add(R.id.enter, AUTH)
                                 .add(R.id.enter, ViewHandler.TYPE.CLOSE_DRAWER))
                 .addMenu(new ParamModel(new GetData()), new ParamView(R.id.recycler,
-                        new int[]{R.layout.item_menu_divider, R.layout.item_menu, R.layout.item_menu_select}));
+                        new int[]{R.layout.item_menu, R.layout.item_menu_select, R.layout.item_menu_divider, R.layout.item_menu_enabled}));
 
         fragment(CLUBS, R.layout.fragment_clubs)
                 .addNavigator(new Navigator().add(R.id.addclub, ADD_CLUB)

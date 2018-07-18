@@ -77,9 +77,11 @@ public class MenuComponent extends BaseComponent {
                 Record r = listData.get(i);
                 Field f = r.getField("select");
                 if (i == selectStart) {
-                    f.value = 2;
-                } else {
                     f.value = 1;
+                } else {
+                    if (((Integer) f.value) == 1 ) {
+                        f.value = 0;
+                    }
                 }
             }
         }

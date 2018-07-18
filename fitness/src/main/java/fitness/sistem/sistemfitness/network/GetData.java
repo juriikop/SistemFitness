@@ -30,6 +30,7 @@ public class GetData extends DataFieldGet {
     private Field setMenu() {
         Menu menu = new Menu()
                 .addItem(R.drawable.targets, activity.getString(R.string.m_goals), "")
+                .addItem(R.drawable.targets, activity.getString(R.string.m_goals), "", Menu.TYPE.ENABLED)
                 .addDivider()
                 .addItem(R.drawable.menu_clubs, activity.getString(R.string.m_clubs), MyListScreens.CLUBS, true)
                 .addDivider()

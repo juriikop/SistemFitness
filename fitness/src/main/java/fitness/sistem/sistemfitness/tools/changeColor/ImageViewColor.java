@@ -20,7 +20,7 @@ public class ImageViewColor extends AppCompatImageView {
     private int colorText = AppColors.primary;
     private int[] colors = {AppColors.primary, AppColors.accent, AppColors.primaryDark,
             AppColors.accentDark, AppColors.textOnPrimary, AppColors.textOnAccent,
-            AppColors.primaryLight, AppColors.accentLight};
+            AppColors.primaryLight, AppColors.accentLight, AppColors.gray};
 
     public ImageViewColor(Context context) {
         super(context);

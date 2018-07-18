@@ -24,17 +24,11 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private WorkWithRecordsAndViews modelToView;
     private String layout;
     private Navigator navigator;
-//    private boolean startFlag;
-//    private MoreWork moreWork;
     private BaseComponent baseComponent;
     private boolean isClickItem;
     private Visibility[] visibilityManager;
     private LayoutInflater inflater;
     private IBase iBase;
-
-//    public void setStartFlag(boolean b) {
-//        startFlag = b;
-//    }
 
     public BaseProviderAdapter(BaseComponent baseComponent) {
         context = baseComponent.activity;
@@ -60,21 +54,11 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             layoutItemId = null;
             fieldType = "";
         }
+        Log.d("QWERT","BaseProviderAdapter NAME="+baseComponent.multiComponent.nameComponent+"<< fieldType="+fieldType);
         visibilityManager = paramView.visibilityArray;
         modelToView = new WorkWithRecordsAndViews();
-        layout = "";
-//        moreWork = null;
+//        layout = "";
         layout = "item_recycler_" + baseComponent.paramMV.nameParentComponent;
-//        moreWork = baseComponent.paramMV.moreWork;
-//        if (baseComponent.paramMV.additionalWork != null) {
-//            try {
-//                moreWork = (MoreWork) baseComponent.paramMV.additionalWork.newInstance();
-//            } catch (InstantiationException e) {
-//                e.printStackTrace();
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
     @Override
@@ -89,6 +73,7 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             if (f.type == Field.TYPE_STRING) {
                 return Integer.valueOf((String) f.value);
             } else {
+                Log.d("QWERT","getItemViewType position="+position+" TYPE="+provider.get(position).getValue(fieldType));
                 if (f.type == Field.TYPE_INTEGER) {
                     return (int) provider.get(position).getValue(fieldType);
                 } else {

@@ -28,6 +28,7 @@
             <enum name="textOnAccent" value="5"/>
             <enum name="lightPrimary" value="6"/>
             <enum name="lightAccent" value="7"/>
+            <enum name="enabled" value="8"/>
         </attr>
         <attr name="colorCursor" format="enum">
             <enum name="primary" value="0"/>

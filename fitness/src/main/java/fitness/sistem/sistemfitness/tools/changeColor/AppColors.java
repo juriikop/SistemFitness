@@ -35,7 +35,7 @@ public class AppColors {
     public static int textOnAccent = 0xffffffff;
     public static int gray = 0xffaaaaaa;
     public static int[] colors = {primary, accent, primaryDark, accentDark,
-            textOnPrimary, textOnAccent, primaryLight, accentLight};
+            textOnPrimary, textOnAccent, primaryLight, accentLight, AppColors.gray};
 
     public static StateListDrawable selectorButton(Context context, int color1, int color2) {
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
@@ -87,7 +87,7 @@ public class AppColors {
 
     public static void setColors() {
         colors = new int[] {primary, accent, primaryDark, accentDark,
-                textOnPrimary, textOnAccent, primaryLight, accentLight};
+                textOnPrimary, textOnAccent, primaryLight, accentLight, AppColors.gray};
     }
 
     public static GradientDrawable gradient() {
