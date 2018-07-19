@@ -17,7 +17,7 @@ public class ListPresenter {
 
     public ListPresenter(BaseComponent baseComponent) {
         this.baseComponent = baseComponent;
-        nameSelectField = "select";
+        nameSelectField = baseComponent.paramMV.paramView.fieldType;
     }
 
     public void setNameSelectField(String name) {
@@ -30,7 +30,7 @@ public class ListPresenter {
         if (selectStart > -1) {
             Record record = listData.get(selectStart);
             Field ff = record.getField(nameSelectField);
-            ff.value = new Integer(2);
+            ff.value = new Integer(1);
             baseComponent.changeDataPosition(selectStart, true);
         }
     }
@@ -40,17 +40,17 @@ public class ListPresenter {
             case SELECT:
                 Record record = listData.get(position);
                 Field ff = record.getField(nameSelectField);
-                if ((Integer) ff.value != 0) {
+                if ((Integer) ff.value < 2) {
                     if (selectOld > -1) {
                         record = listData.get(selectOld);
                         ff = record.getField(nameSelectField);
-                        ff.value = new Integer(1);
+                        ff.value = new Integer(0);
                         baseComponent.changeDataPosition(selectOld, false);
                     }
                     selectOld = position;
                     record = listData.get(selectOld);
                     ff = record.getField(nameSelectField);
-                    ff.value = new Integer(2);
+                    ff.value = new Integer(1);
                     baseComponent.changeDataPosition(selectOld, true);
                 }
                 break;

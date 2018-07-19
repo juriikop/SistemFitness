@@ -2,6 +2,8 @@ package fitness.sistem.compon.components;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.base.BaseActivity;
 import fitness.sistem.compon.base.BaseComponent;
@@ -22,6 +24,7 @@ public class MenuComponent extends BaseComponent {
     ListRecords listData;
     BaseProviderAdapter adapter;
     private String componentTag = "MENU_";
+    private String fieldType = "select";
 
     public MenuComponent(IBase iBase, ParamComponent paramMV, MultiComponents multiComponent) {
         super(iBase, paramMV, multiComponent);
@@ -47,6 +50,8 @@ public class MenuComponent extends BaseComponent {
         } else {
             iBase.log("Нет навигатора для Menu в " + paramMV.nameParentComponent);
         }
+        paramMV.paramView.fieldType = fieldType;
+        ComponPrefTool.setNameInt(componentTag + multiComponent.nameComponent, -1);
         listData = new ListRecords();
         listPresenter = new ListPresenter(this);
         provider = new BaseProvider(listData);
@@ -66,8 +71,8 @@ public class MenuComponent extends BaseComponent {
         if (selectStart == -1) {
             for (int i = 0; i < ik; i++) {
                 Record r = listData.get(i);
-                int j = (Integer) r.getValue("select");
-                if (j > 1) {
+                int j = (Integer) r.getValue(fieldType);
+                if (j == 1) {
                     selectStart = i;
                     break;
                 }
@@ -75,7 +80,7 @@ public class MenuComponent extends BaseComponent {
         } else {
             for (int i = 0; i < ik; i++) {
                 Record r = listData.get(i);
-                Field f = r.getField("select");
+                Field f = r.getField(fieldType);
                 if (i == selectStart) {
                     f.value = 1;
                 } else {

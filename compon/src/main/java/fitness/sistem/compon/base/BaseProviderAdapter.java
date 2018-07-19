@@ -54,7 +54,6 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             layoutItemId = null;
             fieldType = "";
         }
-        Log.d("QWERT","BaseProviderAdapter NAME="+baseComponent.multiComponent.nameComponent+"<< fieldType="+fieldType);
         visibilityManager = paramView.visibilityArray;
         modelToView = new WorkWithRecordsAndViews();
 //        layout = "";
@@ -73,7 +72,6 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             if (f.type == Field.TYPE_STRING) {
                 return Integer.valueOf((String) f.value);
             } else {
-                Log.d("QWERT","getItemViewType position="+position+" TYPE="+provider.get(position).getValue(fieldType));
                 if (f.type == Field.TYPE_INTEGER) {
                     return (int) provider.get(position).getValue(fieldType);
                 } else {
