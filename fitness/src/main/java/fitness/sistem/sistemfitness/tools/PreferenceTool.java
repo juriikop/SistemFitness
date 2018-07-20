@@ -8,6 +8,7 @@ public class PreferenceTool {
     private static final String PREFERENCES_NAME = "fitness_app_prefs";
     private static final String APP_COLOR = "APP_COLOR";
     private static final String COUNTRY = "COUNTRY";
+    private static final String SELECT_CLUB = "SELECT_CLUB";
 
     public static void setCountry(String value) {
         getEditor().putString(COUNTRY, value).commit();
@@ -15,6 +16,14 @@ public class PreferenceTool {
 
     public static String getCountry() {
         return getSharedPreferences().getString(COUNTRY, "");
+    }
+
+    public static void setSelectClub(int value) {
+        getEditor().putInt(SELECT_CLUB, value).commit();
+    }
+
+    public static int getSelectClub() {
+        return getSharedPreferences().getInt(SELECT_CLUB, -1);
     }
 
     public static void setAppColors(String value) {

@@ -51,7 +51,7 @@ public class MenuComponent extends BaseComponent {
             iBase.log("Нет навигатора для Menu в " + paramMV.nameParentComponent);
         }
         paramMV.paramView.fieldType = fieldType;
-        ComponPrefTool.setNameInt(componentTag + multiComponent.nameComponent, -1);
+//        ComponPrefTool.setNameInt(componentTag + multiComponent.nameComponent, -1);
         listData = new ListRecords();
         listPresenter = new ListPresenter(this);
         provider = new BaseProvider(listData);

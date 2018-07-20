@@ -11,7 +11,18 @@
     <dimen name="w_img_midle">140dp</dimen>
     <dimen name="h_img_midle">90dp</dimen>
     <dimen name="pad_block">12dp</dimen>
+    <dimen name="wh_add_content">64dp</dimen>
+    <dimen name="cont_left">24dp</dimen>
+    <dimen name="cont_right">24dp</dimen>
+    <dimen name="cont_top">12dp</dimen>
+    <dimen name="cont_bottom">12dp</dimen>
+    <dimen name="photo_h">236dp</dimen>
+    <dimen name="photo_exp">360dp</dimen>
+    <dimen name="icon_user_d">64dp</dimen>
+    <dimen name="icon_user_r">36dp</dimen>
+    <dimen name="icon_wh">24dp</dimen>
 
+    <dimen name="pad_1px">1px</dimen>
     <dimen name="pad_1">1dp</dimen>
     <dimen name="pad_3">3dp</dimen>
     <dimen name="pad_4">4dp</dimen>
@@ -32,6 +43,7 @@
     <dimen name="pad_36">36dp</dimen>
     <dimen name="pad_38">38dp</dimen>
     <dimen name="pad_40">40dp</dimen>
+    <dimen name="pad_44">44dp</dimen>
     <dimen name="pad_48">48dp</dimen>
     <dimen name="pad_50">50dp</dimen>
     <dimen name="pad_52">52dp</dimen>

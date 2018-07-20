@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/cont_left"
+    android:layout_marginTop="@dimen/cont_top"
+    android:layout_marginRight="@dimen/cont_right"
+    android:layout_marginBottom="@dimen/cont_bottom">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="@dimen/icon_wh"
+            android:layout_height="@dimen/icon_wh"
+            android:id="@+id/img"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/title"
+            android:inputType="textMultiLine|textCapSentences"
+            style="@style/st_cont_descr"
+            android:layout_marginLeft="@dimen/pad_12" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_1_2"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="@dimen/pad_80"
+                android:layout_height="wrap_content"
+                android:text="@string/latitude"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt1"
+                style="@style/st_cont_paragraph" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="@dimen/pad_80"
+                android:layout_height="wrap_content"
+                android:text="@string/longitude"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt2"
+                style="@style/st_cont_paragraph" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="@dimen/pad_80"
+                android:layout_height="wrap_content"
+                android:text="@string/marker_txt"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt3"
+                style="@style/st_cont_paragraph" />
+        </LinearLayout>
+    </LinearLayout>
+    <Spinner
+        android:id="@+id/spinner_icon"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_marginLeft="@dimen/cont_left"
+        android:layout_marginBottom="@dimen/cont_bottom" />
+</LinearLayout>

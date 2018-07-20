@@ -10,6 +10,7 @@ import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.param.ParamView;
 import fitness.sistem.compon.tools.Constants;
 import fitness.sistem.sistemfitness.R;
+import fitness.sistem.sistemfitness.fragment.CreateContentFragment;
 import fitness.sistem.sistemfitness.more_work.FitnessProcessing;
 import fitness.sistem.sistemfitness.network.Api;
 import fitness.sistem.sistemfitness.network.GetData;
@@ -24,9 +25,9 @@ public class MyListScreens extends ListScreens {
     public final static String LANGUAGE = "language", SETTINGS = "settings", DRAWER = "drawer",
             SPLASH = "splash", MAIN = "main", INTRO = "intro", AUTH = "auth",
             AUTH_PHONE = "auth_phone", AUTH_CODE = "auth_code", AUTH_REGISTER = "auth_register",
-            CLUBS = "clubs", ADD_CLUB = "addClub", MAP = "map";
+            CLUBS = "clubs", ADD_CLUB = "addClub", MAP = "map", CREATE_CONTENT = "create_content";
 
-    public static String ACTUAL_CLUB = "actual_club";
+    public static String ACTUAL_CLUB = "actual_club", SELECT = "select";
 
     @Override
     public void initScreen() {
@@ -96,7 +97,8 @@ public class MyListScreens extends ListScreens {
                 .addNavigator(new Navigator().add(R.id.addclub, ADD_CLUB)
                         .add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER))
                 .addComponent(TC.RECYCLER, new ParamModel(Api.CLUBS)
-                        .internetProvider(TestInternetProvider.class), new ParamView(R.id.recycler, R.layout.item_clubs),
+                        .internetProvider(TestInternetProvider.class), new ParamView(R.id.recycler, SELECT,
+                                new int[] {R.layout.item_clubs, R.layout.item_clubs_select}).selected(),
                         new Navigator().add(0, ViewHandler.TYPE.CLICK_VIEW),
                         0, FitnessProcessing.class).actualReceiver(ACTUAL_CLUB);
 
@@ -122,6 +124,8 @@ public class MyListScreens extends ListScreens {
                         new ParamView(R.id.recyclerClub, R.layout.item_search_club),
                         new Navigator().add(0, ViewHandler.TYPE.BROADCAST, ACTUAL_CLUB)
                                 .add(0, ViewHandler.TYPE.BACK), false);
+
+        fragment(CREATE_CONTENT, CreateContentFragment.class);
 
 //        fragment(context.getString(R.string.tickets), R.layout.fragment_tickets, context.getString(R.string.my_tickets))
 //                .addNavigator(new Navigator().add(R.id.question, context.getString(R.string.help)))

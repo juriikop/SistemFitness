@@ -12,6 +12,7 @@ import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.json_simple.SimpleRecordToJson;
 import fitness.sistem.sistemfitness.FitnessApp;
 import fitness.sistem.sistemfitness.R;
+import fitness.sistem.sistemfitness.tools.PreferenceTool;
 
 import java.util.Map;
 
@@ -41,34 +42,12 @@ public class TestInternetProvider extends BaseInternetProvider {
 
     private String jsonResult(String request) {
         switch (request) {
-//            case Api.INTRO: return setIntro();
             case Api.CLUBS: return setClubs();
             case Api.SEARCH_CITY: return setSearchCity();
             case Api.SEARCH_CLUB: return setSearchClub();
-//            case Api.LANGUAGE: return setLanguage();
         }
         return null;
     }
-
-//    private String setLanguage() {
-//        Context context = FitnessApp.getInstance().getApplicationContext();
-//        Record rec = new Record();
-//        ListRecords lr = new ListRecords();
-//        Field fil = new Field("", Field.TYPE_RECORD, rec);
-//        rec.add(new Field("data", Field.TYPE_LIST_RECORD, lr));
-//        Record record;
-//        record = new Record();
-//        record.add(new Field("name_language", Field.TYPE_STRING, context.getResources().getString(R.string.uk)));
-//        record.add(new Field("id_language", Field.TYPE_STRING, "uk"));
-//        lr.add(record);
-//        record = new Record();
-//        record.add(new Field("name_language", Field.TYPE_STRING, context.getResources().getString(R.string.ru)));
-//        record.add(new Field("id_language", Field.TYPE_STRING, "ru"));
-//        lr.add(record);
-//
-//        SimpleRecordToJson recordToJson = new SimpleRecordToJson();
-//        return recordToJson.modelToJson(fil);
-//    }
 
     private String setSearchClub() {
         Record rec = new Record();
@@ -124,11 +103,17 @@ public class TestInternetProvider extends BaseInternetProvider {
         ListRecords lr = new ListRecords();
         Field fil = new Field("", Field.TYPE_RECORD, rec);
         rec.add(new Field("data", Field.TYPE_LIST_RECORD, lr));
-
+        int iSel = PreferenceTool.getSelectClub();
+        if (iSel < 0) iSel = 0;
         Record colors;
 
         Record record;
         record = new Record();
+        if (iSel == 0) {
+            record.add(new Field("select", Field.TYPE_LONG, 1));
+        } else {
+            record.add(new Field("select", Field.TYPE_LONG, 0));
+        }
         record.add(new Field("city", Field.TYPE_STRING, "Харьков"));
         record.add(new Field("title", Field.TYPE_STRING, "клуб Аура"));
         record.add(new Field("imgClub", Field.TYPE_STRING, "https://static8.depositphotos.com/1053932/851/i/950/depositphotos_8511050-stock-photo-group-with-weight-training-equipment.jpg"));
@@ -145,6 +130,11 @@ public class TestInternetProvider extends BaseInternetProvider {
         lr.add(record);
 
         record = new Record();
+        if (iSel == 1) {
+            record.add(new Field("select", Field.TYPE_LONG, 1));
+        } else {
+            record.add(new Field("select", Field.TYPE_LONG, 0));
+        }
         record.add(new Field("city", Field.TYPE_STRING, "Одеса"));
         record.add(new Field("title", Field.TYPE_STRING, "клуб Вертикаль"));
         record.add(new Field("imgClub", Field.TYPE_STRING, "https://st.depositphotos.com/1158045/2361/i/950/depositphotos_23610209-stock-photo-running-on-treadmills.jpg"));
@@ -161,9 +151,14 @@ public class TestInternetProvider extends BaseInternetProvider {
         lr.add(record);
 
         record = new Record();
+        if (iSel == 2) {
+            record.add(new Field("select", Field.TYPE_LONG, 1));
+        } else {
+            record.add(new Field("select", Field.TYPE_LONG, 0));
+        }
         record.add(new Field("city", Field.TYPE_STRING, "Київ"));
         record.add(new Field("title", Field.TYPE_STRING, "клуб FitSila"));
-        record.add(new Field("imgClub", Field.TYPE_STRING, "club_3"));
+        record.add(new Field("imgClub", Field.TYPE_STRING, "https://st2.depositphotos.com/1003697/6756/i/950/depositphotos_67563907-stock-photo-group-of-people-on-treadmills.jpg"));
             colors = new Record();
             colors.add(new Field("primary", Field.TYPE_STRING, "#51b7ff"));
             colors.add(new Field("primaryDark", Field.TYPE_STRING, "#3095dc"));

@@ -35,7 +35,7 @@ public class ListPresenter {
         }
     }
 
-    public void ranCommand(Command com, int position, Field f) {
+    public void ranCommand(Command com, int position, Field field) {
         switch (com) {
             case SELECT:
                 Record record = listData.get(position);

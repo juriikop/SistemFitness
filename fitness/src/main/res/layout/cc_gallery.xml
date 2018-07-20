@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/st_cont_paragraph"
+        android:text="@string/gallery"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/photo_h"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        style="@style/st_cont_paragraph"
+        android:textColorHint="@color/black_50"
+        android:hint="@string/title_gallery"
+        android:inputType="textMultiLine|textCapSentences"
+        android:layout_marginLeft="@dimen/cont_left"
+        android:layout_marginTop="@dimen/cont_top"
+        android:layout_marginRight="@dimen/cont_right"
+        android:layout_marginBottom="@dimen/cont_bottom" />
+
+</LinearLayout>

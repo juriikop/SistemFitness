@@ -27,6 +27,7 @@ public class FitnessProcessing extends MoreWork {
     @Override
     public void clickView(View viewClick, View parentView,
                           BaseComponent baseComponent, Record rec, int position) {
+        PreferenceTool.setSelectClub(position);
         Record color = (Record)rec.getValue("colors");
         AppColors.recordToColor(color);
         SimpleRecordToJson rj = new SimpleRecordToJson();

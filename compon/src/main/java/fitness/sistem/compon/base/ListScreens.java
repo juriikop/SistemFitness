@@ -80,11 +80,11 @@ public class ListScreens <T>{
         return mc;
     }
 
-    protected MultiComponents addCustomFragment(String name) {
-        MultiComponents mc = new MultiComponents(name);
-        MapScreen.put(name, mc);
-        return mc;
-    }
+//    protected MultiComponents customFragment(String name) {
+//        MultiComponents mc = new MultiComponents(name);
+//        MapScreen.put(name, mc);
+//        return mc;
+//    }
 
     protected MultiComponents activity(String name, int layoutId, String title, String... args) {
         MultiComponents mc = new MultiComponents(name, layoutId, title, args);

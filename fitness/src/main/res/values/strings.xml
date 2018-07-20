@@ -26,6 +26,7 @@
     <string name="title_ayth_phone">Авторизація</string>
     <string name="title_register">Реєстрація</string>
     <string name="title_clubs">Клуби</string>
+    <string name="title_create_content">Формування контенту</string>
     <string name="title_map">MAP</string>
     <string name="title_SMS">Код СМС</string>
     <string name="title_settings">Налаштування</string>
@@ -64,5 +65,67 @@
     <string name="language">Мова</string>
     <string name="uk">Українська</string>
     <string name="ru">Російська</string>
+
+    // CONTENT
+    <string name="gallery">Галерея </string>
+    <string name="title_gallery">Название галереи</string>
+    <string name="descr_content">Описание</string>
+    <string name="position">Должность</string>
+    <string name="header">Заголовок</string>
+    <string name="title_photo">Название фото</string>
+    <string name="type_icon">Тип иконки</string>
+
+    <string name="marker">&#8226;</string>
+    <string name="latitude">Широта</string>
+    <string name="longitude">Долгота</string>
+    <string name="marker_txt">Маркер</string>
+
+    <string-array name="icon_type">
+        <item>null</item>
+        <item>icon_mail</item>
+        <item>icon_phone</item>
+        <item>icon_pin</item>
+        <item>icon_metro</item>
+    </string-array>
+
+    <string-array name="icon_name">
+        <item>Выберите иконку</item>
+        <item>Е-мейл</item>
+        <item>Телефон</item>
+        <item>Адрес</item>
+        <item>Метро</item>
+    </string-array>
+
+    <string-array name="menu_create_content">
+        <item>Заглавный блок</item>
+        <item>Заголовок</item>
+        <item>Подзаголовок</item>
+        <item>Абзац</item>
+        <item>Комментарий</item>
+        <item>Маркер</item>
+        <item>Фото</item>
+        <item>Видео</item>
+        <item>Галерея</item>
+        <item>Тэги</item>
+        <item>Персона</item>
+        <item>Строка с иконкой</item>
+        <item>Линия</item>
+    </string-array>
+
+    <string-array name="type_content">
+        <item>header</item>
+        <item>title</item>
+        <item>subtitle</item>
+        <item>text</item>
+        <item>comment</item>
+        <item>marker</item>
+        <item>photo</item>
+        <item>video</item>
+        <item>gallery</item>
+        <item>tags</item>
+        <item>persone</item>
+        <item>st_icon</item>
+        <item>line</item>
+    </string-array>
 
 </resources>

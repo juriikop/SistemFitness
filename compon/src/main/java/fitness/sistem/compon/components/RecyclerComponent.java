@@ -12,7 +12,9 @@ import fitness.sistem.compon.base.BaseProviderAdapter;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.ListRecords;
+import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamComponent;
+import fitness.sistem.compon.presenter.ListPresenter;
 import fitness.sistem.compon.tools.StaticVM;
 
 public class RecyclerComponent extends BaseComponent {
@@ -35,6 +37,9 @@ public class RecyclerComponent extends BaseComponent {
             return;
         }
         listData = new ListRecords();
+        if (paramMV.paramView.selected) {
+            listPresenter = new ListPresenter(this);
+        }
         provider = new BaseProvider(listData);
         LinearLayoutManager layoutManager;
         switch (paramMV.type) {
@@ -72,6 +77,19 @@ public class RecyclerComponent extends BaseComponent {
             } else {
                 iBase.log("Не найден SplashView в " + paramMV.nameParentComponent);
             }
+        }
+        if (listPresenter != null) {
+            int selectStart = -1;
+            int ik = listData.size();
+            for (int i = 0; i < ik; i++) {
+                Record r = listData.get(i);
+                long j = (Long) r.getValue(paramMV.paramView.fieldType);
+                if (j == 1) {
+                    selectStart = i;
+                    break;
+                }
+            }
+            listPresenter.changeData(listData, selectStart);
         }
         iBase.sendEvent(paramMV.paramView.viewId);
     }

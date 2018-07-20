@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/photo_exp"
+            android:id="@+id/img"
+            android:scaleType="centerCrop" />
+        <ImageView
+            android:layout_width="@dimen/toolBarH"
+            android:layout_height="@dimen/toolBarH"
+            android:id="@+id/camera"
+            android:layout_centerInParent="true"
+            android:src="@android:drawable/ic_menu_camera"
+            android:padding="@dimen/pad_12" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_rect_transp_black"
+        android:layout_alignBottom="@+id/img" >
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        style="@style/st_cont_header"
+        android:textColorHint="@color/white_50"
+        android:hint="@string/header"
+        android:imeOptions="actionNext"
+        android:inputType="textMultiLine|textCapSentences"
+        android:layout_marginLeft="@dimen/cont_left"
+        android:layout_marginTop="@dimen/cont_top"
+        android:layout_marginRight="@dimen/cont_right"
+        android:layout_marginBottom="@dimen/cont_bottom" />
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt1"
+        style="@style/st_cont_descr"
+        android:textColorHint="@color/black_50"
+        android:hint="@string/descr_content"
+        android:inputType="textMultiLine|textCapSentences"
+        android:imeOptions="actionDone"
+        android:layout_marginLeft="@dimen/cont_left"
+        android:layout_marginTop="@dimen/cont_top"
+        android:layout_marginRight="@dimen/cont_right"
+        android:layout_marginBottom="@dimen/cont_bottom" />
+</LinearLayout>

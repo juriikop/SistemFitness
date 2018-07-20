@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:id="@+id/recycler">
+    </android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolBarH"
+        android:orientation="horizontal"
+        android:background="@drawable/gradient_rect_black_transp"
+        android:id="@+id/linearLayout" />
+    <fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient
+        android:id="@+id/tool"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolBarH"
+        app:color_1="darkPrimary"
+        app:color_2="primary">
+        <fitness.sistem.sistemfitness.tools.changeColor.ImageViewColor
+            android:id="@+id/back"
+            android:layout_width="@dimen/pad_56"
+            android:layout_height="@dimen/pad_56"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/pad_16"
+            android:src="@drawable/hamburger"
+            app:colorText="textOnPrimary" />
+
+        <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/title_create_content"
+            android:textAllCaps="true"
+            android:textSize="18dp"
+            app:colorText="textOnPrimary"/>
+    </fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/root" />
+
+    <fitness.sistem.sistemfitness.tools.changeColor.FloatingButtonColor
+        android:id="@+id/add_content"
+        android:layout_width="@dimen/pad_64"
+        android:layout_height="@dimen/pad_64"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/pad_20"
+        android:layout_marginRight="@dimen/pad_20"
+        app:color_1="accent"
+        app:color_2="lightAccent"
+        app:colorText="textOnAccent"
+        android:elevation="@dimen/pad_6"
+        android:padding="@dimen/pad_16"
+        android:src="@drawable/plus"/>
+</RelativeLayout>

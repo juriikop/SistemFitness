@@ -19,6 +19,7 @@ public class ParamView {
     public String[] nameFields;
     public int furtherSkip, furtherNext, furtherStart;
     public Visibility[] visibilityArray;
+    public boolean selected = false;
 
     public ParamView(int viewId) {
         this(viewId, "", null, null);
@@ -116,6 +117,11 @@ public class ParamView {
 
     public ParamView setSplashScreen(int splashScreenViewId) {
         this.splashScreenViewId = splashScreenViewId;
+        return this;
+    }
+
+    public ParamView selected() {
+        selected = true;
         return this;
     }
 

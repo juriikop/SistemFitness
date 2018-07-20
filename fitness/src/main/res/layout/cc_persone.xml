@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/cont_left"
+        android:layout_marginTop="@dimen/cont_top"
+        android:layout_marginRight="@dimen/cont_right"
+        android:layout_marginBottom="@dimen/cont_bottom">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <com.makeramen.roundedimageview.RoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/img"
+                android:layout_width="@dimen/icon_user_d"
+                android:layout_height="@dimen/icon_user_d"
+                android:cropToPadding="true"
+                android:scaleType="centerCrop"
+                app:riv_oval="true"
+                android:src="@drawable/avatar_null" />
+            <ImageView
+                android:layout_width="@dimen/toolBarH"
+                android:layout_height="@dimen/toolBarH"
+                android:id="@+id/camera"
+                android:layout_centerInParent="true"
+                android:src="@android:drawable/ic_menu_camera"
+                android:padding="@dimen/pad_12" />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/pad_12">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/black_50"
+                android:inputType="textCapSentences"
+                android:hint="@string/position"
+                style="@style/st_cont_paragraph"
+                android:id="@+id/txt1" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"
+                android:textColorHint="@color/black_50"
+                android:hint="@string/name"
+                style="@style/st_cont_descr"
+                android:inputType="textCapWords" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
