@@ -25,6 +25,7 @@ public class Constants {
     public static int MAP_REQUEST_CHECK_SETTINGS = 11;
     public static enum AnimateScreen {TB, BT, LR, RL, NO}
     public static String CHANGE_LOCALE = "CHANGE_LOCALE";
+    public static int REQUEST_CODE_PHOTO = 5001;
 
 
 //    public static String SEPARATOR_NAV = ":";

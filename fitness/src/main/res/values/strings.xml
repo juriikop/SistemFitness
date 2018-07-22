@@ -82,10 +82,10 @@
 
     <string-array name="icon_type">
         <item>null</item>
-        <item>icon_mail</item>
-        <item>icon_phone</item>
-        <item>icon_pin</item>
-        <item>icon_metro</item>
+        <item>mail</item>
+        <item>phone</item>
+        <item>pin</item>
+        <item>metro</item>
     </string-array>
 
     <string-array name="icon_name">

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,13 +17,14 @@
             android:layout_width="@dimen/icon_wh"
             android:layout_height="@dimen/icon_wh"
             android:id="@+id/img"/>
-        <EditText
+        <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/title"
             android:inputType="textMultiLine|textCapSentences"
             style="@style/st_cont_descr"
-            android:layout_marginLeft="@dimen/pad_12" />
+            android:layout_marginLeft="@dimen/pad_12"
+            app:colorCursor="accent"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,12 +38,14 @@
             <TextView
                 android:layout_width="@dimen/pad_80"
                 android:layout_height="wrap_content"
+                style="@style/st_12_black_50"
                 android:text="@string/latitude"/>
-            <EditText
+            <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt1"
-                style="@style/st_cont_paragraph" />
+                style="@style/st_cont_paragraph"
+                app:colorCursor="accent"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,12 +54,14 @@
             <TextView
                 android:layout_width="@dimen/pad_80"
                 android:layout_height="wrap_content"
+                style="@style/st_12_black_50"
                 android:text="@string/longitude"/>
-            <EditText
+            <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt2"
-                style="@style/st_cont_paragraph" />
+                style="@style/st_cont_paragraph"
+                app:colorCursor="accent"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,18 +70,21 @@
             <TextView
                 android:layout_width="@dimen/pad_80"
                 android:layout_height="wrap_content"
+                style="@style/st_12_black_50"
                 android:text="@string/marker_txt"/>
-            <EditText
+            <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt3"
-                style="@style/st_cont_paragraph" />
+                style="@style/st_cont_paragraph"
+                app:colorCursor="accent"/>
         </LinearLayout>
     </LinearLayout>
     <Spinner
         android:id="@+id/spinner_icon"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
+        style="@style/popupMenuStyle"
         android:background="@null"
         android:layout_marginLeft="@dimen/cont_left"
         android:layout_marginBottom="@dimen/cont_bottom" />

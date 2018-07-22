@@ -9,6 +9,16 @@ public class PreferenceTool {
     private static final String APP_COLOR = "APP_COLOR";
     private static final String COUNTRY = "COUNTRY";
     private static final String SELECT_CLUB = "SELECT_CLUB";
+    private static final String CONTENT = "CONTENT";
+
+
+    public static void setContent(String value) {
+        getEditor().putString(CONTENT, value).commit();
+    }
+
+    public static String getContent() {
+        return getSharedPreferences().getString(CONTENT, "");
+    }
 
     public static void setCountry(String value) {
         getEditor().putString(COUNTRY, value).commit();

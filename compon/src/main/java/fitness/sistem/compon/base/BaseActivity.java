@@ -28,10 +28,12 @@ import fitness.sistem.compon.R;
 import fitness.sistem.compon.components.MapComponent;
 import fitness.sistem.compon.dialogs.DialogTools;
 import fitness.sistem.compon.functions_fragment.ComponentsFragment;
+import fitness.sistem.compon.interfaces_classes.ActivityResult;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.EventComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.ParentModel;
+import fitness.sistem.compon.interfaces_classes.RequestActivityResult;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.components.MultiComponents;
@@ -68,6 +70,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     private List<AnimatePanel> animatePanelList;
     public DrawerLayout drawer;
     public String TAG = ComponGlob.getInstance().appParams.NAME_LOG_APP;
+    public List<RequestActivityResult> activityResultList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         parentModelList = new ArrayList<>();
         mapFragment = ComponGlob.getInstance().MapScreen;
         animatePanelList = new ArrayList<>();
+        activityResultList = null;
         countProgressStart = 0;
         listInternetProvider = new ArrayList<>();
         listEvent = new ArrayList<>();
@@ -169,9 +173,34 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    public void addForResult(int requestCode, ActivityResult activityResult) {
+        if (activityResultList == null) {
+            activityResultList = new ArrayList<>();
+        }
+        activityResultList.add(new RequestActivityResult(requestCode, activityResult));
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (activityResultList != null) {
+            int ik = activityResultList.size();
+            int j = -1;
+            for (int i = 0; i < ik; i++) {
+                RequestActivityResult rar = activityResultList.get(i);
+                if (requestCode == rar.request) {
+                    rar.activityResult.onActivityResult(requestCode, resultCode, data);
+                    j = i;
+                    break;
+                }
+            }
+            if (j > -1) {
+                activityResultList.remove(j);
+            }
+        }
+
+
+
         if (requestCode == Constants.MAP_REQUEST_CHECK_SETTINGS) {
             if (resultCode == RESULT_OK) {
                 mapComponent.setLocationServices();
@@ -522,6 +551,33 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             e.printStackTrace();
         }
         if (bf != null) {
+            multiComponents.initComponents(bf);
+            Bundle bundle = null;
+            if (object != null) {
+                if (object instanceof Bundle) {
+                    bundle= (Bundle) object;
+                }
+            }
+            if (bundle == null){
+                bundle = new Bundle();
+            }
+            bundle.putString(Constants.NAME_MVP, nameMVP);
+            if (object != null) {
+                if (object instanceof Record || object instanceof ListRecords) {
+                    SimpleRecordToJson recordToJson = new SimpleRecordToJson();
+                    Field f = new Field();
+                    f.value = object;
+                    if (object instanceof Record) {
+                        f.type = Field.TYPE_RECORD;
+                    } else {
+                        f.type = Field.TYPE_LIST_RECORD;
+                    }
+                    bundle.putString(Constants.NAME_PARAM_FOR_SCREEN, recordToJson.modelToJson(f));
+                } else {
+                    bf.setObject(object);
+                }
+            }
+            bf.setArguments(bundle);
             bf.setModel(multiComponents);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(containerFragmentId, bf.getThis(), nameMVP)

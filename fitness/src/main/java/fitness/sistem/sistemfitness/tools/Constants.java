@@ -6,4 +6,5 @@ public class Constants {
     public static final String TYPE_GALLERY = "gallery";
     public final static String POSITION = "position";
     public static final String TYPE_LINE = "line";
+    public static final String TYPE_HEADER = "header";
 }

@@ -11,7 +11,7 @@
     <dimen name="w_img_midle">140dp</dimen>
     <dimen name="h_img_midle">90dp</dimen>
     <dimen name="pad_block">12dp</dimen>
-    <dimen name="wh_add_content">64dp</dimen>
+    <dimen name="floating_d">64dp</dimen>
     <dimen name="cont_left">24dp</dimen>
     <dimen name="cont_right">24dp</dimen>
     <dimen name="cont_top">12dp</dimen>

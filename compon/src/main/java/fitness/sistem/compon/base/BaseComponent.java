@@ -74,6 +74,7 @@ public abstract class BaseComponent {
     }
 
     public void init() {
+        Log.d("QWERT","INIT NAME="+paramMV.nameParentComponent);
         initView();
         if (paramMV.nameReceiver != null) {
             LocalBroadcastManager.getInstance(iBase.getBaseActivity())

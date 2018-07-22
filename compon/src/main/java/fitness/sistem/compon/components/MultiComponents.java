@@ -185,6 +185,14 @@ public class MultiComponents <T>{
         return this;
     }
 
+//    public MultiComponents photoComponent(int viewClick, int imageView) {
+//        ParamComponent paramComponent = new ParamComponent();
+//        paramComponent.type = ParamComponent.TC.PHOTO;
+//        paramComponent.paramView = new ParamView(viewClick, imageView);
+//        listComponents.add(paramComponent);
+//        return this;
+//    }
+
     public MultiComponents addModel(String nameModel, ParamModel paramModel) {
         ParamComponent paramComponent = new ParamComponent();
         paramComponent.type = ParamComponent.TC.MODEL;
@@ -362,6 +370,9 @@ public class MultiComponents <T>{
                     break;
                 case DRAWER:
                     new DrawerComponent(iBase, cMV, this);
+                    break;
+                case PHOTO:
+                    new PhotoComponent(iBase, cMV, this);
                     break;
 //                case PHONE:
 //                    new EditPhoneComponent(iBase, cMV);

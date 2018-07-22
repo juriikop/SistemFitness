@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
@@ -27,29 +28,32 @@
                 android:id="@+id/camera"
                 android:layout_centerInParent="true"
                 android:src="@android:drawable/ic_menu_camera"
-                android:padding="@dimen/pad_12" />
+                android:padding="@dimen/pad_12"
+                />
         </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginLeft="@dimen/pad_12">
-            <EditText
+            <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/black_50"
                 android:inputType="textCapSentences"
                 android:hint="@string/position"
                 style="@style/st_cont_paragraph"
-                android:id="@+id/txt1" />
-            <EditText
+                android:id="@+id/txt1"
+                app:colorCursor="accent"/>
+            <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/title"
                 android:textColorHint="@color/black_50"
                 android:hint="@string/name"
                 style="@style/st_cont_descr"
-                android:inputType="textCapWords" />
+                android:inputType="textCapWords"
+                app:colorCursor="accent"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

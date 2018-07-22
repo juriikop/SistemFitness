@@ -2,7 +2,6 @@ package fitness.sistem.sistemfitness.params;
 
 import android.content.Context;
 import fitness.sistem.compon.base.ListScreens;
-import fitness.sistem.compon.components.Menu;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.param.ParamMap;
@@ -125,7 +124,8 @@ public class MyListScreens extends ListScreens {
                         new Navigator().add(0, ViewHandler.TYPE.BROADCAST, ACTUAL_CLUB)
                                 .add(0, ViewHandler.TYPE.BACK), false);
 
-        fragment(CREATE_CONTENT, CreateContentFragment.class);
+        fragment(CREATE_CONTENT, CreateContentFragment.class)
+                .addComponent(TC.PHOTO, null, new ParamView(R.id.camera, R.id.img));
 
 //        fragment(context.getString(R.string.tickets), R.layout.fragment_tickets, context.getString(R.string.my_tickets))
 //                .addNavigator(new Navigator().add(R.id.question, context.getString(R.string.help)))
