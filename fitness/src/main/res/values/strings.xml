@@ -31,6 +31,7 @@
     <string name="title_SMS">Код СМС</string>
     <string name="title_settings">Налаштування</string>
     <string name="title_language">Мова</string>
+    <string name="title_profile">Профіль</string>
 
     // Error text
     <string name="er_filled">Треба заповнити</string>
@@ -65,6 +66,9 @@
     <string name="language">Мова</string>
     <string name="uk">Українська</string>
     <string name="ru">Російська</string>
+
+    //PROFILE
+    <string name="chooser_title">Відкрити за допомогою</string>
 
     // CONTENT
     <string name="gallery">Галерея </string>

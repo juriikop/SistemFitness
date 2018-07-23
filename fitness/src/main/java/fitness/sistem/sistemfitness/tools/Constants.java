@@ -7,4 +7,5 @@ public class Constants {
     public final static String POSITION = "position";
     public static final String TYPE_LINE = "line";
     public static final String TYPE_HEADER = "header";
+    public static final String TYPE_PHOTO = "photo";
 }

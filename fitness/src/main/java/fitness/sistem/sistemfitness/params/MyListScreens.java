@@ -24,7 +24,8 @@ public class MyListScreens extends ListScreens {
     public final static String LANGUAGE = "language", SETTINGS = "settings", DRAWER = "drawer",
             SPLASH = "splash", MAIN = "main", INTRO = "intro", AUTH = "auth",
             AUTH_PHONE = "auth_phone", AUTH_CODE = "auth_code", AUTH_REGISTER = "auth_register",
-            CLUBS = "clubs", ADD_CLUB = "addClub", MAP = "map", CREATE_CONTENT = "create_content";
+            CLUBS = "clubs", ADD_CLUB = "addClub", MAP = "map", CREATE_CONTENT = "create_content",
+            PROFILE = "profile";
 
     public static String ACTUAL_CLUB = "actual_club", SELECT = "select";
 
@@ -104,6 +105,7 @@ public class MyListScreens extends ListScreens {
         fragment(SETTINGS, R.layout.fragment_settings, FitnessProcessing.class)
                 .addNavigator(new Navigator()
                         .add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER)
+                        .add(R.id.profile, PROFILE)
                         .add(R.id.language, LANGUAGE)
                         .add(R.id.language, ViewHandler.TYPE.RECEIVER, Constants.CHANGE_LOCALE));
 
@@ -124,8 +126,10 @@ public class MyListScreens extends ListScreens {
                         new Navigator().add(0, ViewHandler.TYPE.BROADCAST, ACTUAL_CLUB)
                                 .add(0, ViewHandler.TYPE.BACK), false);
 
+        fragment(PROFILE, R.layout.fragment_profile)
+                .addComponent(TC.PHOTO, null, new ParamView(R.id.camera, R.id.img, R.string.chooser_title));
         fragment(CREATE_CONTENT, CreateContentFragment.class)
-                .addComponent(TC.PHOTO, null, new ParamView(R.id.camera, R.id.img));
+                .addComponent(TC.PHOTO, null, new ParamView(R.id.camera, R.id.img, R.string.chooser_title));
 
 //        fragment(context.getString(R.string.tickets), R.layout.fragment_tickets, context.getString(R.string.my_tickets))
 //                .addNavigator(new Navigator().add(R.id.question, context.getString(R.string.help)))

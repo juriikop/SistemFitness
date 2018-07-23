@@ -30,7 +30,7 @@ public class GetData extends DataFieldGet {
     private Field setMenu() {
         Menu menu = new Menu()
                 .addItem(R.drawable.targets, activity.getString(R.string.m_goals), MyListScreens.CREATE_CONTENT)
-                .addItem(R.drawable.targets, "Qwerty Asdfg", "", Menu.TYPE.ENABLED)
+                .addItem(R.drawable.targets, "Qwerty Asdfg", MyListScreens.MAP)
                 .addDivider()
                 .addItem(R.drawable.menu_clubs, activity.getString(R.string.m_clubs), MyListScreens.CLUBS, true)
                 .addDivider()

@@ -59,4 +59,7 @@
     <string name="language">Язык</string>
     <string name="uk">Украинский</string>
     <string name="ru">Русский</string>
+
+    //PROFILE
+    <string name="chooser_title">Открыть с помощью</string>
 </resources>

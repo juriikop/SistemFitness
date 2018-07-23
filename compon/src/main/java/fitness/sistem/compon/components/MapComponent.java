@@ -38,8 +38,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.base.BaseActivity;
 import fitness.sistem.compon.base.BaseComponent;
+import fitness.sistem.compon.interfaces_classes.ActivityResult;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.IBase;
+import fitness.sistem.compon.interfaces_classes.PermissionsResult;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.ListRecords;
@@ -59,7 +61,7 @@ public class MapComponent extends BaseComponent {
     private ParamMap paramMap;
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
-    private BaseActivity baseActivity;
+//    private BaseActivity baseActivity;
     private Double latOrigin = null;
     private Double lonOrigin = null;
     private String nameApiParamLat, nameApiParamLon;
@@ -83,8 +85,8 @@ public class MapComponent extends BaseComponent {
         if (mapView == null) {
             iBase.log("Не найден MapView в " + paramMV.nameParentComponent);
         }
-        baseActivity = iBase.getBaseActivity();
-        baseActivity.setMapComponent(this);
+//        baseActivity = iBase.getBaseActivity();
+//        baseActivity.setMapComponent(this);
         listData = new ListRecords();
         paramMap = paramMV.paramMap;
         if (paramMap.locationService) {
@@ -102,11 +104,11 @@ public class MapComponent extends BaseComponent {
         mapView.onResume();
         mapView.getMapAsync(onMapReadyCallback);
         try {
-            MapsInitializer.initialize(baseActivity.getApplicationContext());
+            MapsInitializer.initialize(activity.getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        LocationManager locationManager = (LocationManager) baseActivity.getSystemService(LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) activity.getSystemService(LOCATION_SERVICE);
     }
 
     @Override
@@ -205,9 +207,9 @@ public class MapComponent extends BaseComponent {
     };
 
     private void initLocation() {
-        if (ActivityCompat.checkSelfPermission(baseActivity, Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED
-                || ActivityCompat.checkSelfPermission(baseActivity, Manifest.permission.ACCESS_COARSE_LOCATION)
+                || ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             locationSettings();
         } else {
@@ -216,14 +218,26 @@ public class MapComponent extends BaseComponent {
     }
 
     public void requestMultiplePermissions() {
-        ActivityCompat.requestPermissions(baseActivity,
+        activity.addPermissionsResult(Constants.MAP_PERMISSION_REQUEST_CODE, permissionsResult);
+        ActivityCompat.requestPermissions(activity,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 Constants.MAP_PERMISSION_REQUEST_CODE);
     }
 
+    public PermissionsResult permissionsResult = new PermissionsResult() {
+        @Override
+        public void onPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+            if (requestCode == Constants.MAP_PERMISSION_REQUEST_CODE && grantResults.length > 0) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    locationSettings();
+                }
+            }
+        }
+    };
+
     public void locationSettings() {
         if (googleApiClient == null) {
-            googleApiClient = new GoogleApiClient.Builder(baseActivity)
+            googleApiClient = new GoogleApiClient.Builder(activity)
                     .addConnectionCallbacks(connectionCallbacks)
                     .addOnConnectionFailedListener(connectionFailedListener)
                     .addApi(LocationServices.API)
@@ -272,7 +286,8 @@ public class MapComponent extends BaseComponent {
                     try {
                         // Show the dialog by calling startResolutionForResult(), and check the result
                         // in onActivityResult().
-                        status.startResolutionForResult(baseActivity, Constants.MAP_REQUEST_CHECK_SETTINGS);
+                        activity.addForResult(Constants.MAP_REQUEST_CHECK_SETTINGS, activityResult);
+                        status.startResolutionForResult(activity, Constants.MAP_REQUEST_CHECK_SETTINGS);
 
                     } catch (IntentSender.SendIntentException e) {
                         //failed to show
@@ -285,8 +300,15 @@ public class MapComponent extends BaseComponent {
         }
     };
 
+    public ActivityResult activityResult = new ActivityResult() {
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            setLocationServices();
+        }
+    };
+
     public void setLocationServices() {
-        if (ActivityCompat.checkSelfPermission(baseActivity, Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             googleMap.setMyLocationEnabled(true);
             googleMap.getUiSettings().setMyLocationButtonEnabled(true);
@@ -345,7 +367,7 @@ public class MapComponent extends BaseComponent {
                     Uri gmmIntentUri = Uri.parse("google.navigation:q="+loc.latitude+","+loc.longitude);
                     Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                     mapIntent.setPackage("com.google.android.apps.maps");
-                    iBase.getBaseActivity().startActivity(mapIntent);
+                    activity.startActivity(mapIntent);
                 }
                 break;
         }

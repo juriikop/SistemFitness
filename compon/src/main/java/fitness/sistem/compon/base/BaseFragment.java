@@ -81,8 +81,10 @@ public abstract class BaseFragment extends Fragment implements IBase {
             parentLayout = inflater.inflate(getLayoutId(), null, false);
         } else {
             parentLayout = inflater.inflate(mComponent.fragmentLayoutId, null, false);
+        }
+        if (mComponent != null) {
             TextView title = (TextView) StaticVM.findViewByName(parentLayout, "title");
-            if (title != null) {
+            if (title != null && mComponent.title != null) {
                 if (mComponent.args != null && mComponent.args.length > 0) {
                     title.setText(String.format(mComponent.title, setFormatParam(mComponent.args)));
                 } else {
@@ -117,11 +119,15 @@ public abstract class BaseFragment extends Fragment implements IBase {
                     }
                 }
             }
+            if (mComponent.moreWork != null) {
+                mComponent.moreWork.startScreen();
+            }
+            mComponent.initComponents(this);
         }
         initView(savedInstanceState);
-        if (mComponent != null && mComponent.moreWork != null) {
-            mComponent.moreWork.startScreen();
-        }
+//        if (mComponent != null && mComponent.moreWork != null) {
+//            mComponent.moreWork.startScreen();
+//        }
         animatePanelList = new ArrayList<>();
         return parentLayout;
     }
@@ -150,10 +156,10 @@ public abstract class BaseFragment extends Fragment implements IBase {
         Log.i(TAG, msg);
     }
 
-    @Override
-    public void setMapComponent(MapComponent mapComponent) {
-        getBaseActivity().setMapComponent(mapComponent);
-    }
+//    @Override
+//    public void setMapComponent(MapComponent mapComponent) {
+//        getBaseActivity().setMapComponent(mapComponent);
+//    }
 
     View.OnClickListener navigatorClick = new View.OnClickListener() {
         @Override

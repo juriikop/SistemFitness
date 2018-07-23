@@ -74,7 +74,6 @@ public abstract class BaseComponent {
     }
 
     public void init() {
-        Log.d("QWERT","INIT NAME="+paramMV.nameParentComponent);
         initView();
         if (paramMV.nameReceiver != null) {
             LocalBroadcastManager.getInstance(iBase.getBaseActivity())
@@ -189,7 +188,6 @@ public abstract class BaseComponent {
             }
             String fName = paramMV.paramModel.nameField;
             if (fName != null) {
-//                Field field = response;
                 String fNameTo = paramMV.paramModel.nameFieldTo;
                 if (response.type == Field.TYPE_LIST_RECORD) {
                     ListRecords listRecords = (ListRecords) response.value;
@@ -320,7 +318,6 @@ public abstract class BaseComponent {
                             LocalBroadcastManager.getInstance(activity).sendBroadcast(intentBroad);
                             break;
                     }
-//                    break;
                 }
             }
         }

@@ -34,8 +34,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fitness.sistem.compon.base.BaseFragment;
+import fitness.sistem.compon.components.PhotoComponent;
 import fitness.sistem.compon.interfaces_classes.OnClickItemRecycler;
 import fitness.sistem.compon.interfaces_classes.VolleyListener;
+import fitness.sistem.compon.tools.ComponPrefTool;
 import fitness.sistem.sistemfitness.R;
 import fitness.sistem.sistemfitness.adapters.CreateContentAdapter;
 import fitness.sistem.sistemfitness.adapters.CreateElementSpinnerIconAdapter;
@@ -84,6 +86,7 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
     private String filePath, typeIcon;
     private String titleScreen;
     private String type;
+    private PhotoComponent photoComponent;
 
     @Override
     public int getLayoutId() {
@@ -93,6 +96,7 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
     @Override
     public void initView(Bundle savedInstanceState) {
         ButterKnife.bind(this, parentLayout);
+        photoComponent = (PhotoComponent) mComponent.getComponent(R.id.camera);
         titleScreen = title.getText().toString();
         show_menu.setBackground(AppColors.selectorOval(activity, AppColors.accentDark, AppColors.accent));
         LinearLayoutManager llm = new LinearLayoutManager(activity);
@@ -165,6 +169,13 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
 
     @OnClick(R.id.add_content)
     public void add_content() {
+        Log.d("QWERT","add_content add_content add_content filePath="+filePath);
+        if (type.equals(Constants.TYPE_PHOTO)) {
+            if (photoComponent != null) {
+                filePath = photoComponent.getFilePath();
+                Log.d("QWERT","add_content filePath="+filePath);
+            }
+        }
         if (typeIcon.length() > 0
                 && filePath.length() == 0) {
             filePath = typeIcon;
@@ -172,7 +183,7 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
         if (positionEdit > -1) {
             valueEdit.setValue(0, type,
                     viewToStr(viewContent.title),
-                    filePath,
+                    new String(filePath.getBytes()),
                     viewToStr(viewContent.txt1),
                     viewToStr(viewContent.txt2),
                     viewToStr(viewContent.txt3));
@@ -180,7 +191,7 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
         } else {
             ContentTotal ct = new ContentTotal(0, type,
                     viewToStr(viewContent.title),
-                    filePath,
+                    new String(filePath.getBytes()),
                     viewToStr(viewContent.txt1),
                     viewToStr(viewContent.txt2),
                     viewToStr(viewContent.txt3));
@@ -252,13 +263,19 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
         if (v == null) return;
         viewContent = new ViewContent(v);
         filePath = typeIcon = "";
-        if (viewContent.camera != null) {
-            viewContent.camera.setOnClickListener(clickPhoto);
-        }
+//        if (viewContent.camera != null) {
+//            viewContent.camera.setOnClickListener(clickPhoto);
+//        }
         if (viewContent.spinner != null) {
             setSpinner();
         }
         content_edit.addView(v);
+
+        if (type.equals(Constants.TYPE_PHOTO)) {
+            if (photoComponent != null) {
+                photoComponent.initView();
+            }
+        }
 //        viewContent.title.setText("QWWEEEERRER");
         if (positionEdit > -1) {
             valueEdit = contentList.get(positionEdit);
@@ -430,19 +447,19 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
         mItemTouchHelper.startDrag(viewHolder);
     }
 
-    View.OnClickListener clickPhoto = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-//            photoCaptureTool.getUserPhoto(CreateElementContentFragment.this,
-//                    new PhotoCaptureTool.PhotoReceivingCompleteListener() {
-//                        @Override
-//                        public void onPhotoReceived(String photoPath) {
-//                            filePath = photoPath;
-//                            setPhotoMem(filePath);
-//                        }
-//                    });
-        }
-    };
+//    View.OnClickListener clickPhoto = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+////            photoCaptureTool.getUserPhoto(CreateElementContentFragment.this,
+////                    new PhotoCaptureTool.PhotoReceivingCompleteListener() {
+////                        @Override
+////                        public void onPhotoReceived(String photoPath) {
+////                            filePath = photoPath;
+////                            setPhotoMem(filePath);
+////                        }
+////                    });
+//        }
+//    };
 
     private void setPhotoMem(String filePath) {
         if (filePath != null

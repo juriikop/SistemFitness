@@ -33,7 +33,9 @@ import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.EventComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.ParentModel;
+import fitness.sistem.compon.interfaces_classes.PermissionsResult;
 import fitness.sistem.compon.interfaces_classes.RequestActivityResult;
+import fitness.sistem.compon.interfaces_classes.RequestPermissionsResult;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.components.MultiComponents;
@@ -61,16 +63,15 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     private View parentLayout;
     public MultiComponents mComponent;
     public int containerFragmentId;
-//    protected String nameDrawer;
     private boolean isActive;
     public List<ParentModel> parentModelList;
     private Bundle savedInstanceState;
     private GoogleApiClient googleApiClient;
-    private MapComponent mapComponent;
     private List<AnimatePanel> animatePanelList;
     public DrawerLayout drawer;
     public String TAG = ComponGlob.getInstance().appParams.NAME_LOG_APP;
     public List<RequestActivityResult> activityResultList;
+    public List<RequestPermissionsResult> permissionsResultList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         mapFragment = ComponGlob.getInstance().MapScreen;
         animatePanelList = new ArrayList<>();
         activityResultList = null;
+        permissionsResultList = null;
         countProgressStart = 0;
         listInternetProvider = new ArrayList<>();
         listEvent = new ArrayList<>();
@@ -119,13 +121,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         if (loc.length() == 0) {
             loc = "uk";
         }
-//        if (loc == null) {
-//            loc = Constants.localeNameRu;
-//        }
-//        if ( ! loc.equals(Constants.localeNameRu) && ! loc.equals(Constants.localeNameUk)) {
-//            loc = Constants.localeNameRu;
-//        }
-
         if (loc.equals(Locale.getDefault().getLanguage())) return;
         Locale myLocale = new Locale(loc);
         Locale.setDefault(myLocale);
@@ -156,21 +151,11 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     }
 
-    @Override
-    public void setMapComponent(MapComponent mapComponent) {
-        this.mapComponent = mapComponent;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode == Constants.MAP_PERMISSION_REQUEST_CODE && grantResults.length > 0) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    && mapComponent != null) {
-                mapComponent.locationSettings();
-            }
+    public void addPermissionsResult(int requestCode, PermissionsResult permissionsResult) {
+        if (permissionsResultList == null) {
+            permissionsResultList = new ArrayList<>();
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        permissionsResultList.add(new RequestPermissionsResult(requestCode, permissionsResult));
     }
 
     public void addForResult(int requestCode, ActivityResult activityResult) {
@@ -178,6 +163,27 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             activityResultList = new ArrayList<>();
         }
         activityResultList.add(new RequestActivityResult(requestCode, activityResult));
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (permissionsResultList != null) {
+            int ik = permissionsResultList.size();
+            int j = -1;
+            for (int i = 0; i < ik; i++) {
+                RequestPermissionsResult rpr = permissionsResultList.get(i);
+                if (requestCode == rpr.request) {
+                    rpr.permissionsResult.onPermissionsResult(requestCode, permissions, grantResults);
+                    j = i;
+                    break;
+                }
+                if (j > -1) {
+                    permissionsResultList.remove(j);
+                }
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -196,14 +202,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             }
             if (j > -1) {
                 activityResultList.remove(j);
-            }
-        }
-
-
-
-        if (requestCode == Constants.MAP_REQUEST_CHECK_SETTINGS) {
-            if (resultCode == RESULT_OK) {
-                mapComponent.setLocationServices();
             }
         }
     }
@@ -535,23 +533,22 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                 startFragment(nameMVP, mComponent, startFlag, object);
                 break;
             case CUSTOM_FRAGMENT:
-                startCustomFragment(nameMVP, object);
+                startCustomFragment(nameMVP, mComponent, object);
                 break;
         }
     }
 
-    public void startCustomFragment(String nameMVP, Object object) {
-        MultiComponents multiComponents = mapFragment.get(nameMVP);
+    public void startCustomFragment(String nameMVP, MultiComponents mComponent, Object object) {
+//        MultiComponents multiComponents = mapFragment.get(nameMVP);
         BaseFragment bf = null;
         try {
-            bf = (BaseFragment)multiComponents.customFragment.newInstance();
+            bf = (BaseFragment)mComponent.customFragment.newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
         if (bf != null) {
-            multiComponents.initComponents(bf);
             Bundle bundle = null;
             if (object != null) {
                 if (object instanceof Bundle) {
@@ -578,7 +575,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                 }
             }
             bf.setArguments(bundle);
-            bf.setModel(multiComponents);
+            bf.setModel(mComponent);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(containerFragmentId, bf.getThis(), nameMVP)
 //                .addToBackStack(nameMVP)
