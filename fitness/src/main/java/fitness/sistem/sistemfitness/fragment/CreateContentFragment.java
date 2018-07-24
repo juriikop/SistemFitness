@@ -37,7 +37,6 @@ import fitness.sistem.compon.base.BaseFragment;
 import fitness.sistem.compon.components.PhotoComponent;
 import fitness.sistem.compon.interfaces_classes.OnClickItemRecycler;
 import fitness.sistem.compon.interfaces_classes.VolleyListener;
-import fitness.sistem.compon.tools.ComponPrefTool;
 import fitness.sistem.sistemfitness.R;
 import fitness.sistem.sistemfitness.adapters.CreateContentAdapter;
 import fitness.sistem.sistemfitness.adapters.CreateElementSpinnerIconAdapter;
@@ -69,7 +68,6 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
     private ContentList contentList;
     private PopupMenu popupMenu;
     private int offsetY;
-//    private int colorTool, colorR, colorG, colorB;
     private int offset_x = 0;
     private int offset_y = 0;
     private int click_x, click_y;
