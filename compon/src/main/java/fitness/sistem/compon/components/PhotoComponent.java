@@ -55,7 +55,7 @@ public class PhotoComponent extends BaseComponent{
     }
 
     public String getFilePath() {
-        return imgPath;
+        return imgPath + "";
     }
 
     View.OnClickListener clickListener = new View.OnClickListener() {
@@ -104,7 +104,12 @@ public class PhotoComponent extends BaseComponent{
         @Override
         public void onActivityResult(int requestCode, int resultCode, Intent data) {
             if(resultCode == activity.RESULT_OK) {
-                Uri selectedImage = data.getData();
+                Uri selectedImage;
+                if (data == null) {
+                    selectedImage = null;
+                } else {
+                    selectedImage = data.getData();
+                }
                 if (selectedImage != null) {
                     imgPath = selectedImage.toString();
                     img.setImageURI(selectedImage);

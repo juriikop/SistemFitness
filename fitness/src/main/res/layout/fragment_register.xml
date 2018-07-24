@@ -176,30 +176,6 @@
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
-            <!--<RadioGroup-->
-                <!--android:id="@+id/gender"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="@dimen/pad_24"-->
-                <!--android:layout_marginLeft="@dimen/pad_32"-->
-                <!--android:layout_marginRight="@dimen/pad_32">-->
-
-                <!--<RadioButton-->
-                    <!--android:id="@+id/radio0"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:button="@drawable/club_selector"-->
-                    <!--android:checked="true"/>-->
-
-                <!--<RadioButton-->
-                    <!--android:id="@+id/radio1"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:button="@drawable/club_selector"-->
-                    <!--android:layout_marginTop="@dimen/pad_24"/>-->
-            <!--</RadioGroup>-->
-
-
             <fitness.sistem.sistemfitness.tools.changeColor.ButtonColor
                 android:id="@+id/done_register"
                 android:layout_width="wrap_content"
