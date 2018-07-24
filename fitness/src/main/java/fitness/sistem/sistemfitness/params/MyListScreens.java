@@ -68,8 +68,6 @@ public class MyListScreens extends ListScreens {
                                         actionsAfterResponse().startScreen(AUTH_CODE),false,
                                         R.id.phone, R.id.surname, R.id.name, R.id.patronymic, R.id.email));
 
-
-
         fragment(AUTH_CODE, R.layout.fragment_auth_code)
                 .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
                         new Navigator().add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
@@ -126,8 +124,17 @@ public class MyListScreens extends ListScreens {
                         new Navigator().add(0, ViewHandler.TYPE.BROADCAST, ACTUAL_CLUB)
                                 .add(0, ViewHandler.TYPE.BACK), false);
 
-        fragment(PROFILE, R.layout.fragment_profile)
-                .addComponent(TC.PHOTO, null, new ParamView(R.id.camera, R.id.img, R.string.chooser_title));
+        fragment(PROFILE, R.layout.fragment_profile).animate(AS.RL)
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
+                .addComponent(TC.PHOTO, null, new ParamView(R.id.camera, R.id.img, R.string.chooser_title))
+                .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
+                        new Navigator()
+                                .add(R.id.done_register, ViewHandler.TYPE.CLICK_SEND,
+                                        new ParamModel(ParamModel.POST, Api.EDIT_PROFILE,
+                                                "phone,surname,name,patronymic,email"),
+                                        actionsAfterResponse().startScreen(AUTH_CODE),false,
+                                        R.id.phone, R.id.surname, R.id.name, R.id.patronymic, R.id.email));
+
         fragment(CREATE_CONTENT, CreateContentFragment.class)
                 .addComponent(TC.PHOTO, null, new ParamView(R.id.camera, R.id.img, R.string.chooser_title));
 

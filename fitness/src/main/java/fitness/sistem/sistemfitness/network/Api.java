@@ -10,4 +10,5 @@ public class Api {
     public static final String SEARCH_CLUB = "SEARCH_CLUB";
     public static final String LANGUAGE = "LANGUAGE";
     public static String LOGIN_CODE = "client/login";
+    public static String EDIT_PROFILE = "editProfile";
 }

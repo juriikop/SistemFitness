@@ -107,7 +107,7 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
 
         recycler.setHasFixedSize(true);
         recycler.setAdapter(adapter);
-        recycler.setOnScrollListener(scroll);
+//        recycler.setOnScrollListener(scroll);
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(recycler);
@@ -169,11 +169,9 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
 
     @OnClick(R.id.add_content)
     public void add_content() {
-        Log.d("QWERT","add_content add_content add_content filePath="+filePath);
         if (type.equals(Constants.TYPE_PHOTO)) {
             if (photoComponent != null) {
                 filePath = photoComponent.getFilePath();
-                Log.d("QWERT","add_content filePath="+filePath);
             }
         }
         if (typeIcon.length() > 0
@@ -183,7 +181,7 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
         if (positionEdit > -1) {
             valueEdit.setValue(0, type,
                     viewToStr(viewContent.title),
-                    new String(filePath.getBytes()),
+                    filePath,
                     viewToStr(viewContent.txt1),
                     viewToStr(viewContent.txt2),
                     viewToStr(viewContent.txt3));
@@ -191,7 +189,7 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
         } else {
             ContentTotal ct = new ContentTotal(0, type,
                     viewToStr(viewContent.title),
-                    new String(filePath.getBytes()),
+                    filePath,
                     viewToStr(viewContent.txt1),
                     viewToStr(viewContent.txt2),
                     viewToStr(viewContent.txt3));
@@ -200,7 +198,8 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
                 adapter.notifyItemChanged(0);
             } else {
                 contentList.add(ct);
-                adapter.notifyItemInserted(contentList.size() - 1);
+                adapter.notifyDataSetChanged();
+//                adapter.notifyItemInserted(contentList.size() - 1);
             }
         }
         title.setText(titleScreen);
@@ -344,27 +343,27 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
         }
     }
 
-    RecyclerView.OnScrollListener scroll = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-        }
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            offsetY +=dy;
-            if (offsetY < 0) {
-                offsetY = 0;
-            }
-            int alfa = offsetY / 5 * 2;
-            if (alfa < 0) alfa = 0;
-            if (alfa > 255) {
-                alfa = 255;
-            }
-            tool.setAlpha(alfa);
-        }
-    };
+//    RecyclerView.OnScrollListener scroll = new RecyclerView.OnScrollListener() {
+//        @Override
+//        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//            super.onScrollStateChanged(recyclerView, newState);
+//        }
+//
+//        @Override
+//        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//            super.onScrolled(recyclerView, dx, dy);
+//            offsetY +=dy;
+//            if (offsetY < 0) {
+//                offsetY = 0;
+//            }
+//            int alfa = offsetY / 5 * 2;
+//            if (alfa < 0) alfa = 0;
+//            if (alfa > 255) {
+//                alfa = 255;
+//            }
+//            tool.setAlpha(alfa);
+//        }
+//    };
 
     OnClickItemRecycler onClickItemRecycler = new OnClickItemRecycler() {
         @Override
