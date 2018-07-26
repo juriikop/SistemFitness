@@ -19,7 +19,7 @@ import fitness.sistem.compon.tools.StaticVM;
 
 public class RecyclerComponent extends BaseComponent {
     RecyclerView recycler;
-    BaseProviderAdapter adapter;
+    public BaseProviderAdapter adapter;
 
     public RecyclerComponent(IBase iBase, ParamComponent paramMV, MultiComponents multiComponent) {
         super(iBase, paramMV, multiComponent);

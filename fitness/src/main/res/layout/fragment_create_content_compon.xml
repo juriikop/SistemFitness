@@ -41,6 +41,7 @@
             app:colorText="textOnPrimary"
             android:visibility="gone"/>
     </fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
@@ -48,54 +49,25 @@
         android:scrollbars="vertical"
         android:layout_below="@+id/tool"/>
 
-    <RelativeLayout
-        android:id="@+id/root"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <!--<fitness.sistem.sistemfitness.tools.changeColor.FloatingButtonColor-->
-        <!--android:id="@+id/show_menu"-->
-        <!--android:layout_width="@dimen/pad_64"-->
-        <!--android:layout_height="@dimen/pad_64"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_marginBottom="@dimen/pad_20"-->
-        <!--android:layout_marginRight="@dimen/pad_20"-->
-        <!--app:color_1="accent"-->
-        <!--app:color_2="lightAccent"-->
-        <!--app:colorText="textOnAccent"-->
-        <!--android:elevation="@dimen/pad_6"-->
-        <!--android:padding="@dimen/pad_16"-->
-        <!--android:src="@drawable/plus"/>-->
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/show_menu"-->
-        <!--android:layout_width="@dimen/pad_64"-->
-        <!--android:layout_height="@dimen/pad_64"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_marginBottom="@dimen/pad_20"-->
-        <!--android:layout_marginRight="@dimen/pad_20"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:background="@color/accent"/>-->
-
-    <LinearLayout
+    <fitness.sistem.sistemfitness.tools.changeColor.LinearOvalColor
         android:layout_width="@dimen/floating_d"
         android:layout_height="@dimen/floating_d"
         android:id="@+id/show_menu"
-        android:background="@color/accent"
         android:gravity="center"
         android:elevation="@dimen/pad_6"
+        app:color_1="accent"
+        app:color_2="lightAccent"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="@dimen/pad_16"
         android:layout_marginBottom="@dimen/pad_16">
+
         <fitness.sistem.sistemfitness.tools.changeColor.ImageViewColor
             android:layout_width="@dimen/icon_wh"
             android:layout_height="@dimen/icon_wh"
             app:colorText="textOnAccent"
             android:src="@drawable/plus" />
-    </LinearLayout>
+    </fitness.sistem.sistemfitness.tools.changeColor.LinearOvalColor>
 
     <LinearLayout
         android:id="@+id/content_edit"

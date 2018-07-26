@@ -11,9 +11,9 @@ import fitness.sistem.sistemfitness.R;
 public class TextViewSelected extends AppCompatTextView {
 
     private int color1 = AppColors.accent, color2 = AppColors.accentLight;
-    private int[] colors = {AppColors.primary, AppColors.accent, AppColors.primaryDark,
-            AppColors.accentDark, AppColors.textOnPrimary, AppColors.textOnAccent,
-            AppColors.primaryLight, AppColors.accentLight};
+//    private int[] colors = {AppColors.primary, AppColors.accent, AppColors.primaryDark,
+//            AppColors.accentDark, AppColors.textOnPrimary, AppColors.textOnAccent,
+//            AppColors.primaryLight, AppColors.accentLight};
 
     public TextViewSelected(Context context) {
         super(context);
@@ -34,9 +34,9 @@ public class TextViewSelected extends AppCompatTextView {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ChangeColor);
         try {
             int i = a.getInt(R.styleable.ChangeColor_color_1, 0);
-            color1 = colors[i];
+            color1 = AppColors.colors[i];
             i = a.getInt(R.styleable.ChangeColor_color_2, 0);
-            color2 = colors[i];
+            color2 = AppColors.colors[i];
         } finally {
             a.recycle();
         }

@@ -45,8 +45,22 @@ public class TestInternetProvider extends BaseInternetProvider {
             case Api.CLUBS: return setClubs();
             case Api.SEARCH_CITY: return setSearchCity();
             case Api.SEARCH_CLUB: return setSearchClub();
+            case Api.CONTENT: return setContent();
         }
         return null;
+    }
+
+    private String setContent() {
+        String st = PreferenceTool.getContent();
+        if (st.length() == 0) {
+            Record rec = new Record();
+            ListRecords lr = new ListRecords();
+            Field fil = new Field("", Field.TYPE_RECORD, rec);
+            rec.add(new Field("data", Field.TYPE_LIST_RECORD, lr));
+            SimpleRecordToJson recordToJson = new SimpleRecordToJson();
+            st = recordToJson.modelToJson(fil);
+        }
+        return st;
     }
 
     private String setSearchClub() {

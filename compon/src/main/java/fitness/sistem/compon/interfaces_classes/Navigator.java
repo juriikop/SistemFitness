@@ -69,6 +69,11 @@ public class Navigator {
         return this;
     }
 
+    public Navigator add(ViewHandler.TYPE type) {
+        viewHandlers.add(new ViewHandler(type));
+        return this;
+    }
+
     public Navigator add(int viewId, ViewHandler.TYPE type, String nameFieldWithValue) {
         viewHandlers.add(new ViewHandler(viewId, type, nameFieldWithValue));
         return this;

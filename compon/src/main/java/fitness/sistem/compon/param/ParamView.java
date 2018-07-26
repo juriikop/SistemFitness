@@ -41,6 +41,19 @@ public class ParamView {
         this(viewId, fieldType, layoutTypeId, null);
     }
 
+    public ParamView(int viewId, String fieldType, int style) {
+        this.viewId = viewId;
+        this.fieldType = fieldType;
+        layoutTypeId = null;
+        layoutFurtherTypeId = null;
+        indicatorId = 0;
+        furtherViewId = 0;
+        tabId = style;
+        paramModel = null;
+        arrayLabelId = 0;
+        nameFragment = null;
+    }
+
     public ParamView(int viewId, String[] nameFragment) {
         this.viewId = viewId;
         this.fieldType = "";

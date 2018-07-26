@@ -9,6 +9,7 @@ import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.param.ParamView;
 import fitness.sistem.compon.tools.Constants;
 import fitness.sistem.sistemfitness.R;
+import fitness.sistem.sistemfitness.fragment.CreateContentComponFragment;
 import fitness.sistem.sistemfitness.fragment.CreateContentFragment;
 import fitness.sistem.sistemfitness.more_work.FitnessProcessing;
 import fitness.sistem.sistemfitness.network.Api;
@@ -135,8 +136,21 @@ public class MyListScreens extends ListScreens {
                                         actionsAfterResponse().startScreen(AUTH_CODE),false,
                                         R.id.phone, R.id.surname, R.id.name, R.id.patronymic, R.id.email));
 
-        fragment(CREATE_CONTENT, CreateContentFragment.class)
+        fragment(CREATE_CONTENT, CreateContentComponFragment.class)
+                .addNavigator(new Navigator()
+                        .add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER))
+                .addComponent(TC.POP_UP, new ParamModel(new GetData()), new ParamView(R.id.show_menu, "title", R.style.popupMenuStyle),
+                        new Navigator().add(ViewHandler.TYPE.CLICK_CUSTOM))
+                .addComponent(TC.RECYCLER, new ParamModel(Api.CONTENT)
+                                .internetProvider(TestInternetProvider.class), new ParamView(R.id.recycler, "typeId",
+                                new int[] {R.layout.ccv_header, R.layout.ccv_title, R.layout.ccv_subtitle, R.layout.ccv_text,
+                                        R.layout.ccv_coment, R.layout.ccv_marker, R.layout.ccv_photo, R.layout.ccv_video,
+                                        R.layout.ccv_gallery, R.layout.ccv_persone, R.layout.ccv_st_icon, R.layout.ccv_line, }),
+                        new Navigator().add(ViewHandler.TYPE.CLICK_CUSTOM))
                 .addComponent(TC.PHOTO, null, new ParamView(R.id.camera, R.id.img, R.string.chooser_title));
+
+//        fragment(CREATE_CONTENT, CreateContentFragment.class)
+//                .addComponent(TC.PHOTO, null, new ParamView(R.id.camera, R.id.img, R.string.chooser_title));
 
 //        fragment(context.getString(R.string.tickets), R.layout.fragment_tickets, context.getString(R.string.my_tickets))
 //                .addNavigator(new Navigator().add(R.id.question, context.getString(R.string.help)))

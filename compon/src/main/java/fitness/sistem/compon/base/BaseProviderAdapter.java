@@ -104,12 +104,12 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        Record record = (Record) provider.get(position);
-        modelToView.RecordToView(provider.get(position),
+        final Record record = (Record) provider.get(position);
+        modelToView.RecordToView(record,
                 holder.itemView, navigator, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                baseComponent.clickItem.onClick(holder, view, holder.getAdapterPosition());
+                baseComponent.clickItem.onClick(holder, view, holder.getAdapterPosition(), record);
             }
         }, visibilityManager);
 
@@ -117,7 +117,7 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    baseComponent.clickItem.onClick(holder, null, holder.getAdapterPosition());
+                    baseComponent.clickItem.onClick(holder, null, holder.getAdapterPosition(), record);
                 }
             });
         }

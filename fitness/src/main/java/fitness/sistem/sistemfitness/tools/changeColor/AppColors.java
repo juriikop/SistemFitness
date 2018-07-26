@@ -35,7 +35,7 @@ public class AppColors {
     public static int textOnAccent = 0xffffffff;
     public static int gray = 0xffaaaaaa;
     public static int[] colors = {primary, accent, primaryDark, accentDark,
-            textOnPrimary, textOnAccent, primaryLight, accentLight, AppColors.gray};
+            textOnPrimary, textOnAccent, primaryLight, accentLight, gray};
 
     public static StateListDrawable selectorButton(Context context, int color1, int color2) {
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
@@ -46,7 +46,7 @@ public class AppColors {
         ShapeDrawable shapeAccentLight = new ShapeDrawable (new RoundRectShape(outR, null, null));
         shapeAccentLight.getPaint().setColor(color2);
         ShapeDrawable shapeEnabled = new ShapeDrawable (new RoundRectShape(outR, null, null));
-        shapeEnabled.getPaint().setColor(AppColors.gray);
+        shapeEnabled.getPaint().setColor(gray);
         StateListDrawable selectorButton = new StateListDrawable();
         selectorButton.addState(new int[]{ - android.R.attr.state_enabled}, shapeEnabled);
         selectorButton.addState(new int[]{android.R.attr.state_pressed}, shapeAccentLight);
@@ -60,7 +60,7 @@ public class AppColors {
         ShapeDrawable shapeAccentLight = new ShapeDrawable (new OvalShape());
         shapeAccentLight.getPaint().setColor(color2);
         ShapeDrawable shapeEnabled = new ShapeDrawable (new OvalShape());
-        shapeEnabled.getPaint().setColor(AppColors.gray);
+        shapeEnabled.getPaint().setColor(gray);
         StateListDrawable selectorButton = new StateListDrawable();
         selectorButton.addState(new int[]{ - android.R.attr.state_enabled}, shapeEnabled);
         selectorButton.addState(new int[]{android.R.attr.state_pressed}, shapeAccentLight);
@@ -87,7 +87,7 @@ public class AppColors {
 
     public static void setColors() {
         colors = new int[] {primary, accent, primaryDark, accentDark,
-                textOnPrimary, textOnAccent, primaryLight, accentLight, AppColors.gray};
+                textOnPrimary, textOnAccent, primaryLight, accentLight, gray};
     }
 
     public static GradientDrawable gradient() {

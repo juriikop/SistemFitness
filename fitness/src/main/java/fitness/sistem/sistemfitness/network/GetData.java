@@ -22,9 +22,29 @@ public class GetData extends DataFieldGet {
                 case MyListScreens.DRAWER: return setMenu();
                 case MyListScreens.LANGUAGE: return setLanguage();
                 case MyListScreens.INTRO: return setIntro();
+                case MyListScreens.CREATE_CONTENT: return setContentMenu();
             }
         }
         return null;
+    }
+
+    private Field setContentMenu() {
+        ListRecords records = new ListRecords();
+        Field field = new Field("", Field.TYPE_LIST_FIELD, records);
+        records.add(newMenu(0, activity.getString(R.string.menu_content_title_header), activity.getString(R.string.menu_content_type_header)));
+        records.add(newMenu(1, activity.getString(R.string.menu_content_title_title), activity.getString(R.string.menu_content_type_title)));
+        records.add(newMenu(2, activity.getString(R.string.menu_content_title_subtitle), activity.getString(R.string.menu_content_type_subtitle)));
+        records.add(newMenu(3, activity.getString(R.string.menu_content_title_text), activity.getString(R.string.menu_content_type_text)));
+        records.add(newMenu(4, activity.getString(R.string.menu_content_title_comment), activity.getString(R.string.menu_content_type_comment)));
+        records.add(newMenu(5, activity.getString(R.string.menu_content_title_marker), activity.getString(R.string.menu_content_type_marker)));
+        records.add(newMenu(6, activity.getString(R.string.menu_content_title_photo), activity.getString(R.string.menu_content_type_photo)));
+        records.add(newMenu(7, activity.getString(R.string.menu_content_title_video), activity.getString(R.string.menu_content_type_video)));
+        records.add(newMenu(8, activity.getString(R.string.menu_content_title_gallery), activity.getString(R.string.menu_content_type_gallery)));
+        records.add(newMenu(9, activity.getString(R.string.menu_content_title_persone), activity.getString(R.string.menu_content_type_persone)));
+        records.add(newMenu(10, activity.getString(R.string.menu_content_title_st_icon), activity.getString(R.string.menu_content_type_st_icon)));
+        records.add(newMenu(11, activity.getString(R.string.menu_content_title_line), activity.getString(R.string.menu_content_type_line)));
+
+        return field;
     }
 
     private Field setMenu() {
@@ -53,6 +73,14 @@ public class GetData extends DataFieldGet {
         rec.add(new Field("message", Field.TYPE_STRING, message));
         rec.add(new Field("title", Field.TYPE_STRING, title));
         rec.add(new Field("img", Field.TYPE_STRING, img));
+        return rec;
+    }
+
+    private Record newMenu(int id, String title, String type) {
+        Record rec = new Record();
+        rec.add(new Field("typeId", Field.TYPE_INTEGER, id));
+        rec.add(new Field("title", Field.TYPE_STRING, title));
+        rec.add(new Field("type", Field.TYPE_STRING, type));
         return rec;
     }
 

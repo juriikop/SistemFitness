@@ -280,8 +280,8 @@ public abstract class BaseComponent {
 
     }
 
-    public void clickAdapter(RecyclerView.ViewHolder holder, View view, int position) {
-        Record record = provider.get(position);
+    public void clickAdapter(RecyclerView.ViewHolder holder, View view, int position, Record record) {
+//        Record record = provider.get(position);
         if (navigator != null) {
             int id = view == null ? 0 : view.getId();
             for (ViewHandler vh : navigator.viewHandlers) {
@@ -312,6 +312,9 @@ public abstract class BaseComponent {
                         case BACK:
                             iBase.backPressed();
                             break;
+                        case CLICK_CUSTOM:
+                            iBase.customClickListenet(paramMV.paramView.viewId, position, record);
+                            break;
                         case BROADCAST:
                             Intent intentBroad = new Intent(vh.nameFieldWithValue);
                             intentBroad.putExtra(Constants.RECORD, record.toString());
@@ -325,8 +328,8 @@ public abstract class BaseComponent {
 
     public OnClickItemRecycler clickItem = new OnClickItemRecycler() {
         @Override
-        public void onClick(RecyclerView.ViewHolder holder, View view, int position) {
-            clickAdapter(holder, view, position);
+        public void onClick(RecyclerView.ViewHolder holder, View view, int position, Record record) {
+            clickAdapter(holder, view, position, record);
         }
     };
 

@@ -5,10 +5,11 @@
     android:foreground="?selectableItemBackground">
 
     <ImageView
+        android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="@dimen/photo_h"
-        android:id="@+id/img"
-        android:layout_marginTop="@dimen/pad_24" />
+        android:layout_marginTop="@dimen/pad_24"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:layout_width="match_parent"

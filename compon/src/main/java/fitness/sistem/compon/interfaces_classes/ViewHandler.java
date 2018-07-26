@@ -7,7 +7,7 @@ public class ViewHandler {
     public enum TYPE {NAME_FRAGMENT, CLOSE_DRAWER, OPEN_DRAWER, MODEL_PARAM,
         BACK, PREFERENCE_SET_VALUE, PAGER_PLUS, PREFERENCE_SET_TOKEN, PREFERENCE_SET_NAME,
         FIELD_WITH_NAME_FRAGMENT, SELECT, // SEND_BACK_SCREEN,
-        CLICK_VIEW, MAP_ROUTE, SHOW, BROADCAST, RECEIVER,
+        CLICK_VIEW, MAP_ROUTE, SHOW, BROADCAST, RECEIVER, CLICK_CUSTOM,
         CLICK_SEND, SEND_UPDATE, SEND_CHANGE_BACK}
     public TYPE type;
     public String nameFragment;
@@ -31,6 +31,11 @@ public class ViewHandler {
         type = TYPE.FIELD_WITH_NAME_FRAGMENT;
         this.viewId = 0;
         this.nameFragment = nameField;
+    }
+
+    public ViewHandler(TYPE type) {
+        this.type = type;
+        this.viewId = 0;
     }
 
     public ViewHandler(int viewId, String nameFragment) {

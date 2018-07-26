@@ -111,7 +111,7 @@ public class SearchComponent extends BaseComponent {
             recycler.setVisibility(GONE);
         }
         if (navigator.viewHandlers.size() > 1) {
-            super.clickAdapter(holder, view, position);
+            super.clickAdapter(holder, view, position, record);
         }
     }
 

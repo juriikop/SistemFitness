@@ -100,6 +100,32 @@
         <item>Метро</item>
     </string-array>
 
+    <string name="menu_content_title_header">Заглавный блок</string>
+    <string name="menu_content_title_title">Заголовок</string>
+    <string name="menu_content_title_subtitle">Подзаголовок</string>
+    <string name="menu_content_title_text">Абзац</string>
+    <string name="menu_content_title_comment">Комментарий</string>
+    <string name="menu_content_title_marker">Маркер</string>
+    <string name="menu_content_title_photo">Фото</string>
+    <string name="menu_content_title_video">Видео</string>
+    <string name="menu_content_title_gallery">Галерея</string>
+    <string name="menu_content_title_persone">Персона</string>
+    <string name="menu_content_title_st_icon">Строка с иконкой</string>
+    <string name="menu_content_title_line">Линия</string>
+
+    <string name="menu_content_type_header">header</string>
+    <string name="menu_content_type_title">title</string>
+    <string name="menu_content_type_subtitle">subtitle</string>
+    <string name="menu_content_type_text">text</string>
+    <string name="menu_content_type_comment">comment</string>
+    <string name="menu_content_type_marker">marker</string>
+    <string name="menu_content_type_photo">photo</string>
+    <string name="menu_content_type_video">video</string>
+    <string name="menu_content_type_gallery">gallery</string>
+    <string name="menu_content_type_persone">persone</string>
+    <string name="menu_content_type_st_icon">st_icon</string>
+    <string name="menu_content_type_line">line</string>
+
     <string-array name="menu_create_content">
         <item>Заглавный блок</item>
         <item>Заголовок</item>
@@ -126,7 +152,6 @@
         <item>photo</item>
         <item>video</item>
         <item>gallery</item>
-        <item>tags</item>
         <item>persone</item>
         <item>st_icon</item>
         <item>line</item>

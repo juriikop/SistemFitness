@@ -11,6 +11,7 @@ import fitness.sistem.compon.base.BaseFragment;
 import fitness.sistem.compon.base.BaseInternetProvider;
 import fitness.sistem.compon.components.MapComponent;
 import fitness.sistem.compon.json_simple.Field;
+import fitness.sistem.compon.json_simple.Record;
 
 public interface IBase {
     public BaseActivity getBaseActivity();
@@ -43,4 +44,5 @@ public interface IBase {
     public void delAnimatePanel(AnimatePanel animatePanel);
     public boolean isHideAnimatePanel();
     public void log(String msg);
+    public void customClickListenet(int viewId, int position, Record record);
 }

@@ -120,6 +120,26 @@ public class Record extends ArrayList<Field>{
         }
     }
 
+    public void setString(String nameField, String value) {
+        Field f = getField(nameField);
+        if (f != null) {
+            f.value = value;
+        } else {
+            f = new Field(nameField, Field.TYPE_STRING, value);
+            add(f);
+        }
+    }
+
+    public void setInteger(String nameField, Integer value) {
+        Field f = getField(nameField);
+        if (f != null) {
+            f.value = value;
+        } else {
+            f = new Field(nameField, Field.TYPE_INTEGER, value);
+            add(f);
+        }
+    }
+
     @Override
     public String toString() {
         SimpleRecordToJson recordToJson = new SimpleRecordToJson();

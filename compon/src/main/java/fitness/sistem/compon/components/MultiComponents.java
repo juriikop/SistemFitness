@@ -374,6 +374,8 @@ public class MultiComponents <T>{
                 case PHOTO:
                     new PhotoComponent(iBase, cMV, this);
                     break;
+                case POP_UP:
+                    new PopUpComponent(iBase, cMV, this);
 //                case PHONE:
 //                    new EditPhoneComponent(iBase, cMV);
 //                    break;

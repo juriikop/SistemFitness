@@ -37,6 +37,7 @@ import fitness.sistem.compon.base.BaseFragment;
 import fitness.sistem.compon.components.PhotoComponent;
 import fitness.sistem.compon.interfaces_classes.OnClickItemRecycler;
 import fitness.sistem.compon.interfaces_classes.VolleyListener;
+import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.sistemfitness.R;
 import fitness.sistem.sistemfitness.adapters.CreateContentAdapter;
 import fitness.sistem.sistemfitness.adapters.CreateElementSpinnerIconAdapter;
@@ -365,7 +366,7 @@ public class CreateContentFragment extends BaseFragment implements OnStartDragLi
 
     OnClickItemRecycler onClickItemRecycler = new OnClickItemRecycler() {
         @Override
-        public void onClick(RecyclerView.ViewHolder holder, View view, int position) {
+        public void onClick(RecyclerView.ViewHolder holder, View view, int position, Record record) {
             positionEdit = holder.getAdapterPosition();
             valueEdit = contentList.get(positionEdit);
             String type = valueEdit.type;

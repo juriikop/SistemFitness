@@ -313,23 +313,30 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() > 1) {
+        int countFragment = fm.getBackStackEntryCount();
+        Log.d("QWERT","onBackPressed mComponent.name="+mComponent.nameComponent+" countFragment="+countFragment);
+        if ( countFragment > 0) {
             List<Fragment> fragmentList = fm.getFragments();
-            Fragment fragment = null;
-            for (Fragment fragm : fragmentList) {
-                if (fragm != null) {
-                    fragment = fragm;
-                }
-            }
-            if (fragment != null && fragment instanceof IBase) {
-                if (((IBase) fragment).isHideAnimatePanel()) {
-                    super.onBackPressed();
+            Fragment fragment = topFragment(fm);
+            Log.d("QWERT","fragment="+fragment);
+            if (fragment != null && fragment instanceof BaseFragment) {
+                Log.d("QWERT","ZZZZZZZZZZZZZZZZ");
+                if (((BaseFragment) fragment).canBackPressed()) {
+                    if (countFragment == 1) {
+                        finish();
+                    } else {
+                        super.onBackPressed();
+                    }
                 }
             } else {
-                super.onBackPressed();
+                if (countFragment == 1) {
+                    finish();
+                } else {
+                    super.onBackPressed();
+                }
             }
         } else {
-            if (isHideAnimatePanel()) {
+            if (canBackPressed()) {
                 finish();
                 if (mComponent.animateScreen != null) {
                     switch (mComponent.animateScreen) {
@@ -351,6 +358,17 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         }
     }
 
+    private Fragment topFragment(FragmentManager fm) {
+        List<Fragment> fragmentList = fm.getFragments();
+        Fragment fragment = null;
+        for (Fragment fragm : fragmentList) {
+            if (fragm != null) {
+                fragment = fragm;
+            }
+        }
+        return fragment;
+    }
+
     @Override
     public boolean isHideAnimatePanel() {
         int pos = animatePanelList.size();
@@ -360,6 +378,10 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         } else {
             return true;
         }
+    }
+
+    public boolean canBackPressed() {
+        return isHideAnimatePanel();
     }
 
     @Override
@@ -507,6 +529,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     @Override
     public void startScreen(String nameMVP, boolean startFlag) {
+        Log.d("QWERT","startScreen 0000000000000000 nameMVP="+nameMVP);
         startScreen(nameMVP, startFlag, null);
     }
 
@@ -520,6 +543,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     @Override
     public void startScreen(String nameMVP, boolean startFlag, Object object) {
+        Log.d("QWERT","startScreen 11111111111111111 nameMVP="+nameMVP);
         MultiComponents mComponent = mapFragment.get(nameMVP);
         if (mComponent == null || mComponent.typeView == null) {
             log("Нет Screens с именем " + nameMVP);
@@ -533,22 +557,33 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                 startFragment(nameMVP, mComponent, startFlag, object);
                 break;
             case CUSTOM_FRAGMENT:
-                startCustomFragment(nameMVP, mComponent, object);
+                startCustomFragment(nameMVP, mComponent, startFlag, object);
                 break;
         }
     }
 
-    public void startCustomFragment(String nameMVP, MultiComponents mComponent, Object object) {
+    public void startCustomFragment(String nameMVP, MultiComponents mComponent, boolean startFlag, Object object) {
 //        MultiComponents multiComponents = mapFragment.get(nameMVP);
-        BaseFragment bf = null;
-        try {
-            bf = (BaseFragment)mComponent.customFragment.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+//        BaseFragment fragment = null;
+        Log.d("QWERT","startCustomFragment startCustomFragment name="+nameMVP);
+        BaseFragment fr = (BaseFragment) getSupportFragmentManager().findFragmentByTag(nameMVP);
+        int count = (fr == null) ? 0 : 1;
+        if (startFlag) {
+            clearBackStack(count);
         }
-        if (bf != null) {
+        BaseFragment fragment = null; // (fr != null) ? fr : new ComponentsFragment();
+        if (fr != null) {
+            fragment = fr;
+        } else {
+            try {
+                fragment = (BaseFragment) mComponent.customFragment.newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        if (fragment != null) {
             Bundle bundle = null;
             if (object != null) {
                 if (object instanceof Bundle) {
@@ -571,15 +606,16 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                     }
                     bundle.putString(Constants.NAME_PARAM_FOR_SCREEN, recordToJson.modelToJson(f));
                 } else {
-                    bf.setObject(object);
+                    fragment.setObject(object);
                 }
             }
-            bf.setArguments(bundle);
-            bf.setModel(mComponent);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(containerFragmentId, bf.getThis(), nameMVP)
-//                .addToBackStack(nameMVP)
-                    .commit();
+            fragment.setArguments(bundle);
+            fragment.setModel(mComponent);
+            startNewFragment(fragment, nameMVP);
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            transaction.replace(containerFragmentId, bf.getThis(), nameMVP)
+////                .addToBackStack(nameMVP)
+//                    .commit();
         }
     }
 
@@ -606,6 +642,36 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         }
         fragment.setArguments(bundle);
         fragment.setModel(mComponent);
+        startNewFragment(fragment, nameMVP);
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        if (mComponent.animateScreen != null
+//                && mComponent.animateScreen != Constants.AnimateScreen.NO) {
+//            switch (mComponent.animateScreen) {
+//                case RL:
+//                    transaction.setCustomAnimations(R.anim.rl_in, R.anim.rl_out,
+//                            R.anim.lr_in, R.anim.lr_out);
+//                    break;
+//                case LR :
+//                    transaction.setCustomAnimations(R.anim.lr_in, R.anim.lr_out,
+//                            R.anim.rl_in, R.anim.rl_out);
+//                    break;
+//                case TB :
+//                    transaction.setCustomAnimations(R.anim.tb_in, R.anim.tb_out,
+//                            R.anim.bt_in, R.anim.bt_out);
+//                    break;
+//                case BT :
+//                    transaction.setCustomAnimations(R.anim.bt_in, R.anim.bt_out,
+//                            R.anim.tb_in, R.anim.tb_out);
+//                    break;
+//            }
+//        }
+//        transaction.replace(containerFragmentId, fragment, nameMVP)
+//                .addToBackStack(nameMVP)
+//                .commit();
+    }
+
+    private void startNewFragment(BaseFragment fragment, String nameMVP) {
+        Log.d("QWERT","START FRAGMENT name="+nameMVP);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (mComponent.animateScreen != null
                 && mComponent.animateScreen != Constants.AnimateScreen.NO) {
@@ -699,5 +765,10 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     @Override
     public void delAnimatePanel(AnimatePanel animatePanel) {
         animatePanelList.remove(animatePanel);
+    }
+
+    @Override
+    public void customClickListenet(int viewId, int position, Record record) {
+
     }
 }

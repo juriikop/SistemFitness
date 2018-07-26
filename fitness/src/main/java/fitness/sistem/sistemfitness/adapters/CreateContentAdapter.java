@@ -96,7 +96,7 @@ public class CreateContentAdapter extends RecyclerView.Adapter<CreateContentAdap
             @Override
             public void onClick(View v) {
                 if (onClickItemRecycler != null) {
-                    onClickItemRecycler.onClick(holder, v, holder.getAdapterPosition());
+                    onClickItemRecycler.onClick(holder, v, holder.getAdapterPosition(), null);
                 }
             }
         });

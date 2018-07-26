@@ -27,6 +27,7 @@ import fitness.sistem.compon.interfaces_classes.SetData;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.components.MultiComponents;
+import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.tools.ComponPrefTool;
 import fitness.sistem.compon.tools.Constants;
 import fitness.sistem.compon.tools.StaticVM;
@@ -169,7 +170,7 @@ public abstract class BaseFragment extends Fragment implements IBase {
                 if (vh.viewId == id) {
                     switch (vh.type) {
                         case NAME_FRAGMENT:
-                            getBaseActivity().startScreen(vh.nameFragment, false);
+                            activity.startScreen(vh.nameFragment, false);
                             break;
                         case SHOW:
                             View showView = parentLayout.findViewById(vh.showViewId);
@@ -313,7 +314,12 @@ public abstract class BaseFragment extends Fragment implements IBase {
 
     @Override
     public void backPressed() {
+        Log.d("QWERT","BaseFragment BaseFragment BaseFragment");
         ((BaseActivity) getActivity()).onBackPressed();
+    }
+
+    public boolean canBackPressed() {
+        return isHideAnimatePanel();
     }
 
     @Override
@@ -386,26 +392,26 @@ public abstract class BaseFragment extends Fragment implements IBase {
 
 //    @Override
     public void startActivitySimple(String nameMVP, Object object) {
-        getBaseActivity().startActivitySimple(nameMVP, object);
+        activity.startActivitySimple(nameMVP, object);
     }
 
     @Override
     public void startScreen(String nameMVP, boolean startFlag, Object object) {
-        getBaseActivity().startScreen(nameMVP, startFlag, object);
+        activity.startScreen(nameMVP, startFlag, object);
     }
 
     @Override
     public void startScreen(String nameMVP, boolean startFlag) {
-        getBaseActivity().startScreen(nameMVP, startFlag);
+        activity.startScreen(nameMVP, startFlag);
     }
 //    @Override
     public void startFragment(String nameMVP, boolean startFlag,Object object) {
-        getBaseActivity().startFragment(nameMVP, getBaseActivity().mapFragment.get(nameMVP), startFlag, object);
+        activity.startFragment(nameMVP, activity.mapFragment.get(nameMVP), startFlag, object);
     }
 
 //    @Override
 //    public void progressStart(int progressId ) {
-////        getBaseActivity().progressStart(progressId);
+////        activity.progressStart(progressId);
 //        if (progressDialog == null) {
 //            progressDialog = new ProgressDialog();
 //        }
@@ -456,12 +462,12 @@ public abstract class BaseFragment extends Fragment implements IBase {
 
     @Override
     public void showDialog(String title, String message, View.OnClickListener click) {
-        getBaseActivity().showDialog(title, message, click);
+        activity.showDialog(title, message, click);
     }
 
     @Override
     public void showDialog(int statusCode, String message, View.OnClickListener click) {
-        getBaseActivity().showDialog(statusCode, message, click);
+        activity.showDialog(statusCode, message, click);
     }
 
     @Override
@@ -477,5 +483,10 @@ public abstract class BaseFragment extends Fragment implements IBase {
     @Override
     public void delAnimatePanel(AnimatePanel animatePanel) {
         animatePanelList.remove(animatePanel);
+    }
+
+    @Override
+    public void customClickListenet(int viewId, int position, Record record) {
+
     }
 }

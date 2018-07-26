@@ -1,6 +1,7 @@
 package fitness.sistem.compon.json_simple;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -201,21 +202,27 @@ public class WorkWithRecordsAndViews {
                 if (st == null) {
                     st = "";
                 }
-                 if (st.length() == 0) return;
-                if (st.contains("/")) {
-                    if (!st.contains("http")) {
-                        st = ComponGlob.getInstance().appParams.baseUrl + st;
-                    }
+                if (st.length() == 0) return;
+                if (st.contains("content")) {
                     Glide.with(view.getContext())
                             .load(st)
                             .into((ImageView) v);
                 } else {
-                    if (v instanceof SimpleImageView) {
-                        ((ImageView) v).setImageDrawable(view.getContext()
-                                .getResources().getDrawable(((SimpleImageView) v).getPlaceholder()));
+                    if (st.contains("/")) {
+                        if (!st.contains("http")) {
+                            st = ComponGlob.getInstance().appParams.baseUrl + st;
+                        }
+                        Glide.with(view.getContext())
+                                .load(st)
+                                .into((ImageView) v);
                     } else {
-                        ((ImageView) v).setImageResource(view.getContext().getResources()
-                                .getIdentifier(st, "drawable", view.getContext().getPackageName()));
+                        if (v instanceof SimpleImageView) {
+                            ((ImageView) v).setImageDrawable(view.getContext()
+                                    .getResources().getDrawable(((SimpleImageView) v).getPlaceholder()));
+                        } else {
+                            ((ImageView) v).setImageResource(view.getContext().getResources()
+                                    .getIdentifier(st, "drawable", view.getContext().getPackageName()));
+                        }
                     }
                 }
             } else {
