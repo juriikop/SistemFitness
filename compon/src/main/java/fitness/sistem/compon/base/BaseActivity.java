@@ -314,13 +314,10 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
         int countFragment = fm.getBackStackEntryCount();
-        Log.d("QWERT","onBackPressed mComponent.name="+mComponent.nameComponent+" countFragment="+countFragment);
         if ( countFragment > 0) {
             List<Fragment> fragmentList = fm.getFragments();
             Fragment fragment = topFragment(fm);
-            Log.d("QWERT","fragment="+fragment);
             if (fragment != null && fragment instanceof BaseFragment) {
-                Log.d("QWERT","ZZZZZZZZZZZZZZZZ");
                 if (((BaseFragment) fragment).canBackPressed()) {
                     if (countFragment == 1) {
                         finish();
@@ -529,7 +526,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     @Override
     public void startScreen(String nameMVP, boolean startFlag) {
-        Log.d("QWERT","startScreen 0000000000000000 nameMVP="+nameMVP);
         startScreen(nameMVP, startFlag, null);
     }
 
@@ -543,7 +539,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     @Override
     public void startScreen(String nameMVP, boolean startFlag, Object object) {
-        Log.d("QWERT","startScreen 11111111111111111 nameMVP="+nameMVP);
         MultiComponents mComponent = mapFragment.get(nameMVP);
         if (mComponent == null || mComponent.typeView == null) {
             log("Нет Screens с именем " + nameMVP);
@@ -565,7 +560,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     public void startCustomFragment(String nameMVP, MultiComponents mComponent, boolean startFlag, Object object) {
 //        MultiComponents multiComponents = mapFragment.get(nameMVP);
 //        BaseFragment fragment = null;
-        Log.d("QWERT","startCustomFragment startCustomFragment name="+nameMVP);
         BaseFragment fr = (BaseFragment) getSupportFragmentManager().findFragmentByTag(nameMVP);
         int count = (fr == null) ? 0 : 1;
         if (startFlag) {
@@ -577,6 +571,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         } else {
             try {
                 fragment = (BaseFragment) mComponent.customFragment.newInstance();
+                fragment.mComponent.initComponents(this);
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
@@ -671,7 +666,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     }
 
     private void startNewFragment(BaseFragment fragment, String nameMVP) {
-        Log.d("QWERT","START FRAGMENT name="+nameMVP);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (mComponent.animateScreen != null
                 && mComponent.animateScreen != Constants.AnimateScreen.NO) {

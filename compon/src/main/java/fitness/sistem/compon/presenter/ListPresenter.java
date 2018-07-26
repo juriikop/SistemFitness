@@ -26,32 +26,35 @@ public class ListPresenter {
 
     public void changeData(ListRecords listData, int selectStart) {
         this.listData = listData;
-        this.selectOld = selectStart;
+        boolean select = ! (selectOld == selectStart);
+        selectOld = selectStart;
         if (selectStart > -1) {
             Record record = listData.get(selectStart);
             Field ff = record.getField(nameSelectField);
             ff.value = new Integer(1);
-            baseComponent.changeDataPosition(selectStart, true);
+            baseComponent.changeDataPosition(selectStart, select);
         }
     }
 
     public void ranCommand(Command com, int position, Field field) {
         switch (com) {
             case SELECT:
-                Record record = listData.get(position);
-                Field ff = record.getField(nameSelectField);
-                if ((Integer) ff.value < 2) {
-                    if (selectOld > -1) {
+                if (selectOld != position) {
+                    Record record = listData.get(position);
+                    Field ff = record.getField(nameSelectField);
+                    if ((Integer) ff.value < 2) {
+                        if (selectOld > -1) {
+                            record = listData.get(selectOld);
+                            ff = record.getField(nameSelectField);
+                            ff.value = new Integer(0);
+                            baseComponent.changeDataPosition(selectOld, false);
+                        }
+                        selectOld = position;
                         record = listData.get(selectOld);
                         ff = record.getField(nameSelectField);
-                        ff.value = new Integer(0);
-                        baseComponent.changeDataPosition(selectOld, false);
+                        ff.value = new Integer(1);
+                        baseComponent.changeDataPosition(selectOld, true);
                     }
-                    selectOld = position;
-                    record = listData.get(selectOld);
-                    ff = record.getField(nameSelectField);
-                    ff.value = new Integer(1);
-                    baseComponent.changeDataPosition(selectOld, true);
                 }
                 break;
         }

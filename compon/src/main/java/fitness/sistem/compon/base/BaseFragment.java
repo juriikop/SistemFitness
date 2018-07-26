@@ -123,7 +123,9 @@ public abstract class BaseFragment extends Fragment implements IBase {
             if (mComponent.moreWork != null) {
                 mComponent.moreWork.startScreen();
             }
-            mComponent.initComponents(this);
+            if (mComponent.typeView == MultiComponents.TYPE_VIEW.CUSTOM_FRAGMENT) {
+                mComponent.initComponents(this);
+            }
         }
         initView(savedInstanceState);
 //        if (mComponent != null && mComponent.moreWork != null) {
