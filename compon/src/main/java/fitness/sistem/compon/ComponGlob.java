@@ -2,6 +2,7 @@ package fitness.sistem.compon;
 
 import android.content.Context;
 
+import fitness.sistem.compon.base.BaseDB;
 import fitness.sistem.compon.components.MultiComponents;
 import fitness.sistem.compon.interfaces_classes.Param;
 import fitness.sistem.compon.param.AppParams;
@@ -24,6 +25,7 @@ public class ComponGlob {
     public CacheWork cacheWork;
     public Map<String, MultiComponents> MapScreen;
     public AppParams appParams;
+    public BaseDB baseDB;
     public List<Param> paramValues = new ArrayList<>();
     public String token;
     public String language;

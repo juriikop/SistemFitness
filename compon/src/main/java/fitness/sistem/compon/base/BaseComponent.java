@@ -7,11 +7,11 @@ import android.content.IntentFilter;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.components.MultiComponents;
+import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.IValidate;
 import fitness.sistem.compon.param.ParamComponent;
 import fitness.sistem.compon.param.ParamModel;
@@ -46,6 +46,7 @@ public abstract class BaseComponent {
     public MoreWork moreWork;
     public ListRecords listData;
     public IBase iBase;
+    public ICustom iCustom;
     public ViewHandler selectViewHandler;
     public View viewComponent;
     public Field argument;
@@ -183,7 +184,9 @@ public abstract class BaseComponent {
     IPresenterListener listener = new IPresenterListener() {
         @Override
         public void onResponse(Field response) {
-            if (moreWork != null) {
+            if (iCustom != null) {
+                iCustom.beforeProcessingResponse(response, getThis());
+            } else if (moreWork != null) {
                 moreWork.beforeProcessingResponse(response, getThis());
             }
             String fName = paramMV.paramModel.nameField;
@@ -305,7 +308,9 @@ public abstract class BaseComponent {
                             }
                             break;
                         case CLICK_VIEW:
-                            if (moreWork != null) {
+                            if (iCustom != null) {
+                                iCustom.clickView(view, holder.itemView, this, record, position);
+                            } else if (moreWork != null) {
                                 moreWork.clickView(view, holder.itemView, this, record, position);
                             }
                             break;
@@ -313,7 +318,9 @@ public abstract class BaseComponent {
                             iBase.backPressed();
                             break;
                         case CLICK_CUSTOM:
-                            iBase.customClickListenet(paramMV.paramView.viewId, position, record);
+                            if (iCustom != null) {
+                                iCustom.customClick(paramMV.paramView.viewId, position, record);
+                            }
                             break;
                         case BROADCAST:
                             Intent intentBroad = new Intent(vh.nameFieldWithValue);

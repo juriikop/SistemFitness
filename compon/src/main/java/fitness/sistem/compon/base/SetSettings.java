@@ -22,4 +22,9 @@ public class SetSettings {
     public static void setLocale(String locale) {
         ComponPrefTool.setLocale(locale);
     }
+
+    public static void setDB(BaseDB baseDB) {
+        ComponGlob.getInstance().baseDB = baseDB;
+    }
+
 }

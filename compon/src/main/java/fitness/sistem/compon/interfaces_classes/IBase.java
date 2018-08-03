@@ -44,5 +44,5 @@ public interface IBase {
     public void delAnimatePanel(AnimatePanel animatePanel);
     public boolean isHideAnimatePanel();
     public void log(String msg);
-    public void customClickListenet(int viewId, int position, Record record);
+//    public void customClickListenet(int viewId, int position, Record record);
 }

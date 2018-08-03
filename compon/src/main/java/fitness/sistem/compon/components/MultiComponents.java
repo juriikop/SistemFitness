@@ -4,6 +4,7 @@ import android.util.Log;
 
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
+import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.MoreWork;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.SetData;
@@ -25,14 +26,21 @@ public class MultiComponents <T>{
     public String title;
     public String[] args;
     public int fragmentLayoutId;
-    public enum TYPE_VIEW {ACTIVITY, FRAGMENT, CUSTOM_FRAGMENT};
+    public enum TYPE_VIEW {ACTIVITY, FRAGMENT, CUSTOM_FRAGMENT, CUSTOM_ACTIVITY};
     public TYPE_VIEW typeView;
     public Navigator navigator;
+    public ICustom iCustom;
     public Class<T> customFragment;
     public Class<T> additionalWork;
     public MoreWork moreWork;
     public Constants.AnimateScreen animateScreen;
 
+    public void setCustom(ICustom iCustom) {
+        this.iCustom = iCustom;
+        for (ParamComponent pc : listComponents) {
+            pc.baseComponent.iCustom = iCustom;
+        }
+    }
     public MultiComponents(String name, int layoutId, String title, String... args) {
         this.title = title;
         this.args = args;

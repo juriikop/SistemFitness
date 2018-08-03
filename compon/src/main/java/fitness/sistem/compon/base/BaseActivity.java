@@ -27,7 +27,7 @@ import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.R;
 import fitness.sistem.compon.components.MapComponent;
 import fitness.sistem.compon.dialogs.DialogTools;
-import fitness.sistem.compon.functions_fragment.ComponentsFragment;
+//import fitness.sistem.compon.functions_fragment.ComponentsFragment;
 import fitness.sistem.compon.interfaces_classes.ActivityResult;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.EventComponent;
@@ -96,7 +96,15 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
         if (nameScreen != null && nameScreen.length() > 0) {
             mComponent = getComponent(nameScreen);
-            parentLayout = inflate(this, mComponent.fragmentLayoutId, null);
+            if (mComponent.typeView == MultiComponents.TYPE_VIEW.CUSTOM_ACTIVITY) {
+                parentLayout = inflate(this, getLayoutId(), null);
+            } else {
+                parentLayout = inflate(this, mComponent.fragmentLayoutId, null);
+            }
+        } else {
+            parentLayout = inflate(this, getLayoutId(), null);
+        }
+        if (nameScreen != null) {
             setContentView(parentLayout);
             if (mComponent.navigator != null) {
                 for (ViewHandler vh : mComponent.navigator.viewHandlers) {
@@ -110,9 +118,27 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             if (mComponent.moreWork != null) {
                 mComponent.moreWork.startScreen();
             }
-        } else {
-            parentLayout = inflate(this, getLayoutId(), null);
         }
+
+//        if (nameScreen != null && nameScreen.length() > 0) {
+//            mComponent = getComponent(nameScreen);
+//            parentLayout = inflate(this, mComponent.fragmentLayoutId, null);
+//            setContentView(parentLayout);
+//            if (mComponent.navigator != null) {
+//                for (ViewHandler vh : mComponent.navigator.viewHandlers) {
+//                    View v = findViewById(vh.viewId);
+//                    if (v != null) {
+//                        v.setOnClickListener(navigatorClick);
+//                    }
+//                }
+//            }
+//            mComponent.initComponents(this);
+//            if (mComponent.moreWork != null) {
+//                mComponent.moreWork.startScreen();
+//            }
+//        } else {
+//            parentLayout = inflate(this, getLayoutId(), null);
+//        }
         initView();
     }
 
@@ -401,8 +427,14 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             log("Нет Screens с именем " + nameMVP);
         }
     }
+
     public void startActivitySimple(String nameMVP, MultiComponents mc, Object object) {
-        Intent intent = new Intent(this, ComponBaseStartActivity.class);
+        Intent intent;
+        if (mc.customFragment == null) {
+            intent = new Intent(this, ComponBaseStartActivity.class);
+        } else {
+            intent = new Intent(this, mc.customFragment);
+        }
         intent.putExtra(Constants.NAME_MVP, nameMVP);
         if (object != null) {
             SimpleRecordToJson recordToJson = new SimpleRecordToJson();
@@ -514,7 +546,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     @Override
     public void startDrawerFragment(String nameMVP, int containerFragmentId) {
         MultiComponents model = mapFragment.get(nameMVP);
-        BaseFragment fragment = new ComponentsFragment();
+        BaseFragment fragment = new BaseFragment();
         fragment.setModel(model);
         Bundle bundle =new Bundle();
         bundle.putString(Constants.NAME_MVP, nameMVP);
@@ -548,6 +580,9 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             case ACTIVITY:
                 startActivitySimple(nameMVP, mComponent, object);
                 break;
+            case CUSTOM_ACTIVITY:
+                startActivitySimple(nameMVP, mComponent, object);
+                break;
             case FRAGMENT:
                 startFragment(nameMVP, mComponent, startFlag, object);
                 break;
@@ -558,8 +593,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     }
 
     public void startCustomFragment(String nameMVP, MultiComponents mComponent, boolean startFlag, Object object) {
-//        MultiComponents multiComponents = mapFragment.get(nameMVP);
-//        BaseFragment fragment = null;
         BaseFragment fr = (BaseFragment) getSupportFragmentManager().findFragmentByTag(nameMVP);
         int count = (fr == null) ? 0 : 1;
         if (startFlag) {
@@ -571,7 +604,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         } else {
             try {
                 fragment = (BaseFragment) mComponent.customFragment.newInstance();
-                fragment.mComponent.initComponents(this);
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
@@ -620,7 +652,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         if (startFlag) {
             clearBackStack(count);
         }
-        BaseFragment fragment = (fr != null) ? fr : new ComponentsFragment();
+        BaseFragment fragment = (fr != null) ? fr : new BaseFragment();
         Bundle bundle =new Bundle();
         bundle.putString(Constants.NAME_MVP, nameMVP);
         if (object != null) {
@@ -759,10 +791,5 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     @Override
     public void delAnimatePanel(AnimatePanel animatePanel) {
         animatePanelList.remove(animatePanel);
-    }
-
-    @Override
-    public void customClickListenet(int viewId, int position, Record record) {
-
     }
 }

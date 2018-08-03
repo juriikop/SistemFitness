@@ -121,8 +121,10 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             });
         }
-        if (baseComponent.moreWork != null) {
-            baseComponent.moreWork.afterBindViewHolder(record, holder);
+        if (baseComponent.iCustom != null) {
+            baseComponent.iCustom.afterBindViewHolder(baseComponent.paramMV.paramView.viewId, position, record, holder);
+        } else if (baseComponent.moreWork != null) {
+            baseComponent.moreWork.afterBindViewHolder(baseComponent.paramMV.paramView.viewId, position, record, holder);
         }
     }
 

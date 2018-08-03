@@ -9,6 +9,7 @@ import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.param.ParamView;
 import fitness.sistem.compon.tools.Constants;
 import fitness.sistem.sistemfitness.R;
+import fitness.sistem.sistemfitness.activity.SettingsActivity;
 import fitness.sistem.sistemfitness.fragment.CreateContentComponFragment;
 import fitness.sistem.sistemfitness.fragment.CreateContentFragment;
 import fitness.sistem.sistemfitness.more_work.FitnessProcessing;
@@ -26,7 +27,7 @@ public class MyListScreens extends ListScreens {
             SPLASH = "splash", MAIN = "main", INTRO = "intro", AUTH = "auth",
             AUTH_PHONE = "auth_phone", AUTH_CODE = "auth_code", AUTH_REGISTER = "auth_register",
             CLUBS = "clubs", ADD_CLUB = "addClub", MAP = "map", CREATE_CONTENT = "create_content",
-            PROFILE = "profile";
+            PROFILE = "profile", SETT = "sett";
 
     public static String ACTUAL_CLUB = "actual_club", SELECT = "select";
 
@@ -100,6 +101,8 @@ public class MyListScreens extends ListScreens {
                                 new int[] {R.layout.item_clubs, R.layout.item_clubs_select}).selected(),
                         new Navigator().add(0, ViewHandler.TYPE.CLICK_VIEW),
                         0, FitnessProcessing.class).actualReceiver(ACTUAL_CLUB);
+
+//        activity(SETT, SettingsActivity.class);
 
         fragment(SETTINGS, R.layout.fragment_settings, FitnessProcessing.class)
                 .addNavigator(new Navigator()

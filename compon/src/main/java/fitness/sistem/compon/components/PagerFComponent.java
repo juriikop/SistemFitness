@@ -11,7 +11,6 @@ import android.view.View;
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.base.BaseFragment;
 import fitness.sistem.compon.custom_components.PagerIndicator;
-import fitness.sistem.compon.functions_fragment.ComponentsFragment;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.ListRecords;
@@ -95,7 +94,7 @@ public class PagerFComponent extends BaseComponent {
         @Override
         public Fragment getItem(int position) {
             MultiComponents model = iBase.getBaseActivity().mapFragment.get(paramMV.paramView.nameFragment[position]);
-            BaseFragment fragment = new ComponentsFragment();
+            BaseFragment fragment = new BaseFragment();
             fragment.setModel((MultiComponents) model);
             return fragment;
         }

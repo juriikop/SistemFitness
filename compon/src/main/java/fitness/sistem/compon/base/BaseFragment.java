@@ -35,8 +35,8 @@ import fitness.sistem.compon.tools.StaticVM;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseFragment extends Fragment implements IBase {
-    public abstract void initView(Bundle savedInstanceState);
+public class BaseFragment extends Fragment implements IBase {
+//    public abstract void initView(Bundle savedInstanceState);
     protected View parentLayout;
     private Object mObject;
     private int countProgressStart;
@@ -123,9 +123,7 @@ public abstract class BaseFragment extends Fragment implements IBase {
             if (mComponent.moreWork != null) {
                 mComponent.moreWork.startScreen();
             }
-            if (mComponent.typeView == MultiComponents.TYPE_VIEW.CUSTOM_FRAGMENT) {
-                mComponent.initComponents(this);
-            }
+            mComponent.initComponents(this);
         }
         initView(savedInstanceState);
 //        if (mComponent != null && mComponent.moreWork != null) {
@@ -133,6 +131,10 @@ public abstract class BaseFragment extends Fragment implements IBase {
 //        }
         animatePanelList = new ArrayList<>();
         return parentLayout;
+    }
+
+    public void initView(Bundle savedInstanceState) {
+
     }
 
     @Override
@@ -487,8 +489,4 @@ public abstract class BaseFragment extends Fragment implements IBase {
         animatePanelList.remove(animatePanel);
     }
 
-    @Override
-    public void customClickListenet(int viewId, int position, Record record) {
-
-    }
 }

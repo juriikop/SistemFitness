@@ -1,6 +1,8 @@
 package fitness.sistem.sistemfitness.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,17 +18,19 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import fitness.sistem.compon.ComponGlob;
+import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.base.BaseFragment;
 import fitness.sistem.compon.components.PhotoComponent;
 import fitness.sistem.compon.components.PopUpComponent;
 import fitness.sistem.compon.components.RecyclerComponent;
+import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.json_simple.WorkWithRecordsAndViews;
 import fitness.sistem.sistemfitness.R;
 import fitness.sistem.sistemfitness.tools.Constants;
 
-public class CreateContentComponFragment extends BaseFragment {
+public class CreateContentComponFragment extends BaseFragment implements ICustom {
 
     @BindView(R.id.add_content) ImageView add_content;
     @BindView(R.id.content_edit) LinearLayout content_edit;
@@ -54,6 +58,7 @@ public class CreateContentComponFragment extends BaseFragment {
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        mComponent.setCustom(this);
         unbinder = ButterKnife.bind(this, parentLayout);
         title = titleView.getText().toString();
         inflater = LayoutInflater.from(activity);
@@ -63,7 +68,7 @@ public class CreateContentComponFragment extends BaseFragment {
     }
 
     @Override
-    public void customClickListenet(int viewId, int position, Record record) {
+    public void customClick(int viewId, int position, Record record) {
         add_content.setVisibility(View.VISIBLE);
         content_edit.setVisibility(View.VISIBLE);
         show_menu.setVisibility(View.GONE);
@@ -83,6 +88,26 @@ public class CreateContentComponFragment extends BaseFragment {
                 break;
         }
         setView();
+    }
+
+    @Override
+    public void afterBindViewHolder(int viewId, int position, Record record, RecyclerView.ViewHolder holder) {
+
+    }
+
+    @Override
+    public void beforeProcessingResponse(Field response, BaseComponent baseComponent) {
+
+    }
+
+    @Override
+    public void clickView(View viewClick, View parentView, BaseComponent baseComponent, Record rec, int position) {
+
+    }
+
+    @Override
+    public void receiverWork(Intent intent) {
+
     }
 
     private void setView() {
