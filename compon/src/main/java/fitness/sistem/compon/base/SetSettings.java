@@ -1,6 +1,9 @@
 package fitness.sistem.compon.base;
 
+import android.content.Context;
+
 import fitness.sistem.compon.ComponGlob;
+import fitness.sistem.compon.interfaces_classes.ParamDB;
 import fitness.sistem.compon.param.AppParams;
 import fitness.sistem.compon.tools.ComponPrefTool;
 
@@ -23,8 +26,11 @@ public class SetSettings {
         ComponPrefTool.setLocale(locale);
     }
 
-    public static void setDB(BaseDB baseDB) {
-        ComponGlob.getInstance().baseDB = baseDB;
+    public static void setDB(Context context, ParamDB paramDB) {
+        if (ComponGlob.getInstance().context == null) {
+            ComponGlob.getInstance().context = context;
+        }
+        ComponGlob.getInstance().baseDB = new DataBase(context, paramDB);
     }
 
 }

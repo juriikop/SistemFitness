@@ -5,6 +5,7 @@ import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import fitness.sistem.compon.base.SetSettings;
+import fitness.sistem.compon.interfaces_classes.ParamDB;
 import fitness.sistem.sistemfitness.network.MyAppParams;
 import fitness.sistem.sistemfitness.params.MyListScreens;
 import fitness.sistem.sistemfitness.tools.PreferenceTool;
@@ -34,10 +35,12 @@ public class FitnessApp extends MultiDexApplication {
         SetSettings.setNetworkParams(new MyAppParams());
         SetSettings.setListScreens(new MyListScreens(context));
         SetSettings.setLocale("uk");
-//        String country = ComponPrefTool.getCountry();
-//        if (country == null || country.length() == 0) {
-//            country = context.getResources().getConfiguration().locale.getCountry();
-//        }
-//        SetSettings.addParam("country", country);
+
+        ParamDB paramDB = new ParamDB();
+        paramDB.nameDB = "db_fitness";
+        paramDB.versionDB = 1;
+        paramDB.addTable("qqqq", "ZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+        SetSettings.setDB(context, paramDB);
+
     }
 }
