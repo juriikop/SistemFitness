@@ -21,7 +21,7 @@ public class DataBase extends BaseDB {
         this.context = context;
         this.paramDB = paramDB;
         dbHelper = new DBHelper(context);
-        db = dbHelper.getWritableDatabase();
+//        db = dbHelper.getWritableDatabase();
     }
 
     @Override

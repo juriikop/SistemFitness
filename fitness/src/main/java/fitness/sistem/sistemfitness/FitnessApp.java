@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
+import fitness.sistem.compon.base.DataBase;
 import fitness.sistem.compon.base.SetSettings;
 import fitness.sistem.compon.interfaces_classes.ParamDB;
 import fitness.sistem.sistemfitness.network.MyAppParams;
@@ -40,7 +41,7 @@ public class FitnessApp extends MultiDexApplication {
         paramDB.nameDB = "db_fitness";
         paramDB.versionDB = 1;
         paramDB.addTable("qqqq", "ZZZZZZZZZZZZZZZZZZZZZZZZZZ");
-        SetSettings.setDB(context, paramDB);
+        SetSettings.setDB(new DataBase(context, paramDB));
 
     }
 }
