@@ -8,30 +8,48 @@ import android.util.Log;
 import fitness.sistem.compon.interfaces_classes.DescriptTableDB;
 import fitness.sistem.compon.interfaces_classes.ParamDB;
 import fitness.sistem.compon.json_simple.ListRecords;
+import fitness.sistem.compon.json_simple.Record;
 
 public class DataBase extends BaseDB {
 
 
     private Context context;
     public ParamDB paramDB;
-    public SQLiteDatabase db;
     public DBHelper dbHelper;
+    private int mOpenCounter;
+    public SQLiteDatabase mDatabase;
 
     public DataBase(Context context, ParamDB paramDB) {
         this.context = context;
         this.paramDB = paramDB;
         dbHelper = new DBHelper(context);
-//        db = dbHelper.getWritableDatabase();
     }
 
     @Override
-    public void post(String sql) {
+    public void post(String sql, Record record) {
 
     }
 
     @Override
     public ListRecords get(String sql) {
         return null;
+    }
+
+    public synchronized SQLiteDatabase openDatabase() {
+        mOpenCounter++;
+        if(mOpenCounter == 1) {
+            mDatabase = dbHelper.getWritableDatabase();
+        }
+        return mDatabase;
+    }
+
+    public synchronized void closeDatabase() {
+        mOpenCounter--;
+        if(mOpenCounter == 0) {
+            if (mDatabase != null && mDatabase.isOpen()) {
+                mDatabase.close();
+            }
+        }
     }
 
     class DBHelper extends SQLiteOpenHelper {

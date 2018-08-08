@@ -1,12 +1,9 @@
 package fitness.sistem.compon.base;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fitness.sistem.compon.json_simple.ListRecords;
+import fitness.sistem.compon.json_simple.Record;
 
 public abstract class BaseDB {
-
-    public abstract void post(String sql);
+    public abstract void post(String sql, Record record);
     public abstract ListRecords get(String sql);
 }
