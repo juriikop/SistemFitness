@@ -44,30 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <!-- Phone -->
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/pad_24"
-                android:layout_marginLeft="@dimen/pad_32"
-                android:layout_marginRight="@dimen/pad_32"
-                android:textColorHint="@color/black_50"
-                app:errorEnabled="true"
-                app:hintTextAppearance="@style/st_12_black_50">
-
-                <fitness.sistem.sistemfitness.tools.changeColor.EditTextMaskColor
-                    android:id="@+id/phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/pad_18"
-                    android:textColorHint="@color/black_50"
-                    android:hint="@string/phone"
-                    android:imeOptions="actionNext"
-                    app:textError="@string/er_phone"
-                    app:mask="+380 __ ___ __ __"/>
-            </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -79,12 +55,12 @@
                 android:layout_marginRight="@dimen/pad_32">
 
                 <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
-                    android:id="@+id/surname"
+                    android:id="@+id/order_id"
                     style="@style/st_16_black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColorHint="@color/black_50"
-                    android:hint="@string/surname"
+                    android:hint="order_id"
                     android:imeOptions="actionNext"
                     android:maxLength="50"
                     android:maxLines="1"
@@ -103,65 +79,16 @@
                 android:layout_marginLeft="@dimen/pad_32"
                 android:layout_marginRight="@dimen/pad_32">
                 <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
-                    android:id="@+id/name"
+                    android:id="@+id/order_name"
                     style="@style/st_16_black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:hint="@string/name"
+                    android:hint="order_name"
                     android:textColorHint="@color/black_50"
                     app:colorCursor="primary"
                     app:typeValidate="filled"
                     app:textError="@string/er_filled"
-                    android:maxLength="50"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/black_50"
-                app:errorEnabled="true"
-                app:hintTextAppearance="@style/st_12_black_50"
-                android:layout_marginLeft="@dimen/pad_32"
-                android:layout_marginRight="@dimen/pad_32">
-                <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
-                    android:id="@+id/patronymic"
-                    style="@style/st_16_black"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:hint="@string/patronymic"
-                    android:textColorHint="@color/black_50"
-                    app:colorCursor="primary"
-                    app:typeValidate="filled"
-                    app:textError="@string/er_filled"
-                    android:maxLength="50"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/black_50"
-                app:errorEnabled="true"
-                app:hintTextAppearance="@style/st_12_black_50"
-                android:layout_marginLeft="@dimen/pad_32"
-                android:layout_marginRight="@dimen/pad_32">
-                <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
-                    android:id="@+id/email"
-                    style="@style/st_16_black"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/email"
-                    android:imeOptions="actionDone"
-                    android:textColorHint="@color/black_50"
-                    android:inputType="textEmailAddress"
-                    app:colorCursor="primary"
-                    app:typeValidate="email"
-                    app:textError="@string/er_email"
                     android:maxLength="50"
                     android:maxLines="1"
                     android:singleLine="true" />

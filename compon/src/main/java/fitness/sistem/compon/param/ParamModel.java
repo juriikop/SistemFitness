@@ -17,6 +17,8 @@ public class ParamModel <T> {
     public static String PARENT_MODEL = "PARENT_MODEL";
     public static int GET = 0;
     public static int POST = 1;
+    public static int GET_DB = 10;
+    public static int POST_DB = 11;
     public static final int PARENT = 100;
     public static final int FIELD = 101;
     public static final int ARGUMENTS = 102;
@@ -88,7 +90,7 @@ public class ParamModel <T> {
                     this.url = PARENT_MODEL;
                 }
         } else {
-            if (url.startsWith("http")) {
+            if (url.startsWith("http") || method == POST_DB) {
                 this.url = url;
             } else {
                 this.url = ComponGlob.getInstance().appParams.baseUrl + url;

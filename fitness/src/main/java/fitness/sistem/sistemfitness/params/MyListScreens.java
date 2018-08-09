@@ -75,10 +75,10 @@ public class MyListScreens extends ListScreens {
                 .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
                         new Navigator()
                                 .add(R.id.done_register, ViewHandler.TYPE.CLICK_SEND,
-                                        new ParamModel(ParamModel.POST, Api.REGISTER,
-                                                "phone,surname,name,patronymic,email"),
-                                        actionsAfterResponse().startScreen(AUTH_CODE),false,
-                                        R.id.phone, R.id.surname, R.id.name, R.id.patronymic, R.id.email));
+                                        new ParamModel(ParamModel.POST_DB, Api.ORDER,
+                                                "order_id,order_name"),
+                                        actionsAfterResponse().noActions(),false,
+                                        R.id.order_id, R.id.order_name));
 
         fragment(AUTH_CODE, R.layout.fragment_auth_code)
                 .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),

@@ -1,180 +1,87 @@
 package fitness.sistem.compon.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-
-import java.util.concurrent.ConcurrentHashMap;
 import android.database.sqlite.SQLiteOpenHelper;
-import java.util.concurrent.atomic.AtomicInteger;
+import android.util.Log;
 
-/** Extend this class and use it as an SQLiteOpenHelper class
- *
- * DO NOT distribute, sell, or present this code as your own.
- * for any distributing/selling, or whatever, see the info at the link below
- *
- * Distribution, attribution, legal stuff,
- * See https://github.com/JakarCo/databasemanager
- *
- * If you ever need help with this code, contact me at support@androidsqlitelibrary.com (or support@jakar.co )
- *
- * Do not sell this. but use it as much as you want. There are no implied or express warranties with this code.
- *
- * This is a simple database manager class which makes threading/synchronization super easy.
- *
- * Extend this class and use it like an SQLiteOpenHelper, but use it as follows:
- *  Instantiate this class once in each thread that uses the database.
- *  Make sure to call {@link #close()} on every opened instance of this class
- *  If it is closed, then call {@link #open()} before using again.
- *
- * Call {@link #getDb()} to get an instance of the underlying SQLiteDatabse class (which is synchronized)
- *
- * I also implement this system (well, it very similar) in my <a href="http://androidslitelibrary.com">Android SQLite Libray</a> at http://androidslitelibrary.com
- *
- *
- */
-abstract public class DatabaseManager {
+import fitness.sistem.compon.base.BaseDB;
+import fitness.sistem.compon.interfaces_classes.DescriptTableDB;
+import fitness.sistem.compon.interfaces_classes.ParamDB;
+import fitness.sistem.compon.json_simple.Field;
+import fitness.sistem.compon.json_simple.ListRecords;
+import fitness.sistem.compon.json_simple.Record;
 
-    /**See SQLiteOpenHelper documentation
-     */
-    abstract public void onCreate(SQLiteDatabase db);
-    /**See SQLiteOpenHelper documentation
-     */
-    abstract public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion);
-    /**Optional.
-     * *
-     */
-    public void onOpen(SQLiteDatabase db){}
-    /**Optional.
-     *
-     */
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
-    /**Optional
-     *
-     */
-    public void onConfigure(SQLiteDatabase db){}
+public class DatabaseManager extends BaseDB {
 
 
+    private Context context;
+    public ParamDB paramDB;
+    public DBHelper dbHelper;
+    private int mOpenCounter;
+    public SQLiteDatabase mDatabase;
 
-    /** The SQLiteOpenHelper class is not actually used by your application.
-     *
-     */
-    static private class DBSQLiteOpenHelper extends SQLiteOpenHelper {
+    public DatabaseManager(Context context, ParamDB paramDB) {
+        this.context = context;
+        this.paramDB = paramDB;
+        dbHelper = new DBHelper(context);
+    }
 
-        DatabaseManager databaseManager;
-        private AtomicInteger counter = new AtomicInteger(0);
+    @Override
+    public void post(String sql, Record record) {
+        openDatabase();
+        ContentValues cv = new ContentValues();
+        for (Field f : record) {
+            cv.put(f.name, (String) f.value);
+        }
+        long rowID = mDatabase.insert(sql, null, cv);
+        Log.d("QWERT", "row inserted, ID = " + rowID);
+        closeDatabase();
+    }
 
-        public DBSQLiteOpenHelper(Context context, String name, int version, DatabaseManager databaseManager) {
-            super(context, name, null, version);
-            this.databaseManager = databaseManager;
+    @Override
+    public ListRecords get(String sql) {
+        return null;
+    }
+
+    public synchronized SQLiteDatabase openDatabase() {
+        mOpenCounter++;
+        if(mOpenCounter == 1) {
+            mDatabase = dbHelper.getWritableDatabase();
+        }
+        return mDatabase;
+    }
+
+    public synchronized void closeDatabase() {
+        mOpenCounter--;
+        if(mOpenCounter == 0) {
+            if (mDatabase != null && mDatabase.isOpen()) {
+                mDatabase.close();
+            }
+        }
+    }
+
+    class DBHelper extends SQLiteOpenHelper {
+
+        public DBHelper(Context context) {
+            super(context, paramDB.nameDB, null, paramDB.versionDB);
         }
 
-        public void addConnection(){
-            counter.incrementAndGet();
-        }
-        public void removeConnection(){
-            counter.decrementAndGet();
-        }
-        public int getCounter() {
-            return counter.get();
-        }
         @Override
         public void onCreate(SQLiteDatabase db) {
-            databaseManager.onCreate(db);
+            Log.d("QWERT", "--- onCreate database ---");
+            for (DescriptTableDB dt : paramDB.listTables) {
+                db.execSQL("create table " + dt.nameTable + " (" + dt.descriptTable + ");");
+            }
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            databaseManager.onUpgrade(db, oldVersion, newVersion);
-        }
 
-        @Override
-        public void onOpen(SQLiteDatabase db) {
-            databaseManager.onOpen(db);
-        }
-
-        @Override
-        public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            databaseManager.onDowngrade(db, oldVersion, newVersion);
-        }
-
-        @Override
-        public void onConfigure(SQLiteDatabase db) {
-            databaseManager.onConfigure(db);
         }
     }
 
-    private static final ConcurrentHashMap<String,DBSQLiteOpenHelper> dbMap = new ConcurrentHashMap<String, DBSQLiteOpenHelper>();
-
-    private static final Object lockObject = new Object();
 
 
-    private DBSQLiteOpenHelper sqLiteOpenHelper;
-    private SQLiteDatabase db;
-    private Context context;
-
-    /** Instantiate a new DB Helper.
-     * <br> SQLiteOpenHelpers are statically cached so they (and their internally cached SQLiteDatabases) will be reused for concurrency
-     *
-     * @param context Any {@link android.content.Context} belonging to your package.
-     * @param name The database name. This may be anything you like. Adding a file extension is not required and any file extension you would like to use is fine.
-     * @param version the database version.
-     */
-    public DatabaseManager(Context context, String name, int version) {
-        String dbPath = context.getApplicationContext().getDatabasePath(name).getAbsolutePath();
-        synchronized (lockObject) {
-            sqLiteOpenHelper = dbMap.get(dbPath);
-            if (sqLiteOpenHelper==null) {
-                sqLiteOpenHelper = new DBSQLiteOpenHelper(context, name, version, this);
-                dbMap.put(dbPath,sqLiteOpenHelper);
-            }
-            //SQLiteOpenHelper class caches the SQLiteDatabase, so this will be the same SQLiteDatabase object every time
-            db = sqLiteOpenHelper.getWritableDatabase();
-        }
-        this.context = context.getApplicationContext();
-    }
-    /**Get the writable SQLiteDatabase
-     */
-    public SQLiteDatabase getDb(){
-        return db;
-    }
-
-    /** Check if the underlying SQLiteDatabase is open
-     *
-     * @return whether the DB is open or not
-     */
-    public boolean isOpen(){
-        return (db!=null&&db.isOpen());
-    }
-
-
-    /** Lowers the DB counter by 1 for any {@link DatabaseManager}s referencing the same DB on disk
-     *  <br />If the new counter is 0, then the database will be closed.
-     *  <br /><br />This needs to be called before application exit.
-     * <br />If the counter is 0, then the underlying SQLiteDatabase is <b>null</b> until another DatabaseManager is instantiated or you call {@link #open()}
-     *
-     * @return true if the underlying {@link android.database.sqlite.SQLiteDatabase} is closed (counter is 0), and false otherwise (counter > 0)
-     */
-    public boolean close(){
-        sqLiteOpenHelper.removeConnection();
-        if (sqLiteOpenHelper.getCounter()==0){
-            synchronized (lockObject){
-                if (db.inTransaction())db.endTransaction();
-                if (db.isOpen())db.close();
-                db = null;
-            }
-            return true;
-        }
-        return false;
-    }
-    /** Increments the internal db counter by one and opens the db if needed
-     *
-     */
-    public void open(){
-        sqLiteOpenHelper.addConnection();
-        if (db==null||!db.isOpen()){
-            synchronized (lockObject){
-                db = sqLiteOpenHelper.getWritableDatabase();
-            }
-        }
-    }
 }

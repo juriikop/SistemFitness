@@ -34,6 +34,8 @@ import fitness.sistem.compon.tools.ComponPrefTool;
 
 import java.util.List;
 
+import static fitness.sistem.compon.param.ParamModel.POST_DB;
+
 public abstract class BaseComponent {
     public abstract void initView();
     public abstract void changeData(Field field);
@@ -267,7 +269,11 @@ public abstract class BaseComponent {
                                 param = workWithRecordsAndViews.ViewToRecord(viewComponent, vh.paramModel.param);
                                 Record rec = setRecord(param);
                                 ComponGlob.getInstance().setParam(rec);
-                                new BasePresenter(iBase, vh.paramModel, null, rec, listener_send_back_screen);
+                                if (vh.paramModel.method == POST_DB) {
+                                    ComponGlob.getInstance().baseDB.post(vh.paramModel.url, rec);
+                                } else {
+                                    new BasePresenter(iBase, vh.paramModel, null, rec, listener_send_back_screen);
+                                }
                             }
                             break;
                         default:

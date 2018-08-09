@@ -12,4 +12,5 @@ public class Api {
     public static final String LANGUAGE = "LANGUAGE";
     public static String LOGIN_CODE = "client/login";
     public static String EDIT_PROFILE = "editProfile";
+    public static String ORDER = "order_tab";
 }
