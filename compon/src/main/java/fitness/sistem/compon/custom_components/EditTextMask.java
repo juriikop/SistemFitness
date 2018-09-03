@@ -76,9 +76,10 @@ public class EditTextMask extends AppCompatEditText implements IComponent, IVali
         oldStr = "";
         if (mask == null) {
             mask = "";
-        } else {
-            maskProcessing();
         }
+//        else {
+//            maskProcessing();
+//        }
         getTextInputLayout();
 //        setFocusable(true);
 //        setFocusableInTouchMode(true);
@@ -94,6 +95,11 @@ public class EditTextMask extends AppCompatEditText implements IComponent, IVali
         public void onFocusChange(View v, boolean hasFocus) {
             if (!hasFocus) {
                 isValid();
+            } else {
+                setErrorValid("");
+                if (getText().length() == 0) {
+                    setMask();
+                }
             }
             if (focusChangeListenerInheritor != null) {
                 focusChangeListenerInheritor.onFocusChange(v, hasFocus);

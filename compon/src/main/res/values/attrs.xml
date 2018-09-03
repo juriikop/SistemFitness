@@ -42,10 +42,11 @@
         <attr name="textError" format="string"/>
         <attr name="minValue" format="string"/>
         <attr name="maxValue" format="string"/>
+        <attr name="minLength" format="integer"/>
+        <attr name="fieldLength" format="integer"/>
         <attr name="typeValidate">
             <enum name="filled" value="0" />
-            <enum name="length" value="1" />
-            <enum name="email" value="2" />
+            <enum name="email" value="1" />
         </attr>
     </declare-styleable>
 </resources>
