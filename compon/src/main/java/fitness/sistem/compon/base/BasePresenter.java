@@ -124,21 +124,26 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
             } else {
                 Field f = jsonSimple.jsonToModel(response);
                 if (f != null && f.value != null) {
-                    Field f1 = ((Record) f.value).getField("data");
-                    if (f1 != null) {
-                        if (f1.type == TYPE_CLASS) {
-                            Field f2 = ((Record) f1.value).getField("items");
-                            if (f2 != null) {
-                                listener.onResponse(f2);
-                            } else {
-                                listener.onResponse(f1);
-                            }
-                        } else {
-                            listener.onResponse(f1);
-                        }
-                    } else {
-                        iBase.showDialog("", "no response 11111111111", null);
-                    }
+                    listener.onResponse(f);
+//                    if (f.type == Field.TYPE_LIST_RECORD) {
+//                        listener.onResponse(f);
+//                    } else {
+//                        Field f1 = ((Record) f.value).getField("data");
+//                        if (f1 != null) {
+//                            if (f1.type == TYPE_CLASS) {
+//                                Field f2 = ((Record) f1.value).getField("items");
+//                                if (f2 != null) {
+//                                    listener.onResponse(f2);
+//                                } else {
+//                                    listener.onResponse(f1);
+//                                }
+//                            } else {
+//                                listener.onResponse(f1);
+//                            }
+//                        } else {
+//                            iBase.showDialog("", "no response 11111111111", null);
+//                        }
+//                    }
                 } else {
                     iBase.log("Ошибка данных");
                 }

@@ -22,6 +22,7 @@
     <string name="m_clubs">Клуби</string>
     <string name="m_settings">Налаштування</string>
     <string name="order">Замовлення</string>
+    <string name="list_order">Перелік Замовлень</string>
 
     // Title screen
     <string name="title_ayth_phone">Авторизація</string>
@@ -34,6 +35,7 @@
     <string name="title_language">Мова</string>
     <string name="title_profile">Профіль</string>
     <string name="title_order">Замовлення</string>
+    <string name="title_list_order">Перелік замовлень</string>
 
     // Error text
     <string name="er_filled">Треба заповнити</string>

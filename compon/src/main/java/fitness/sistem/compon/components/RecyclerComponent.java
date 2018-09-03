@@ -61,6 +61,7 @@ public class RecyclerComponent extends BaseComponent {
     @Override
     public void changeData(Field field) {
         if (listData == null) return;
+        if (field.value == null) return;
         listData.clear();
         listData.addAll((ListRecords) field.value);
         provider.setData(listData);

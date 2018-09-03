@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_tool_bar"
+        android:background="@color/primary">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="@dimen/h_tool_bar"
+            android:layout_height="@dimen/h_tool_bar"
+            android:padding="@dimen/pad_12"
+            android:src="@drawable/menu" />
+
+        <TextView
+            android:id="@+id/bonus"
+            style="@style/st_16_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/pad_24"
+            android:text="+ 123 \u20b4"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/balance"
+            style="@style/st_16_white_40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/pad_20"
+            android:layout_toLeftOf="@+id/bonus"
+            android:text="- 456 \u20b4"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pad_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white_20" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pad_54">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pad_2"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/pad_4"
+            android:background="@color/text_color_20"
+            android:elevation="@dimen/pad_4"/>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/pad_4"
+            app:tabTextAppearance="@style/st_text_color"
+            app:tabSelectedTextColor="@color/text_color"
+            app:tabIndicatorColor="@color/text_color"
+            app:tabIndicatorHeight="@dimen/pad_2" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

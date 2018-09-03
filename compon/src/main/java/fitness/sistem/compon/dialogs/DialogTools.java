@@ -51,32 +51,33 @@ public class DialogTools {
                 e.printStackTrace();
             }
             if (errorDialog != null) {
-                String title = "Ошибка statusCode="+statusCode;
-                String description = null;
-                switch (statusCode) {
-                    case ERRORINMESSAGE :
-                        Log.d("QWERT","showDialog msg="+msg);
-                        JsonSimple jsonSimple = new JsonSimple();
-                        Field f = jsonSimple.jsonToModel(msg);
-                        Record record = (Record) f.value;
-                        title = record.getString("title");
-                        description = record.getString("message");
-                        break;
-                    case NOCONNECTIONERROR :
-                        description = "NOCONNECTIONERROR";
-                        break;
-                    case TIMEOUT :
-                        description = "TIMEOUT";
-                        break;
-                    case SERVERERROR :
-                        description = "SERVERERROR";
-                        break;
-                    case AUTHFAILURE :
-                        description = "AUTHFAILURE";
-                        break;
-                }
-                ((IErrorDialog) errorDialog).setTitle(title);
-                ((IErrorDialog) errorDialog).setMessage(description);
+//                String title = "Ошибка statusCode="+statusCode;
+//                String description = null;
+//                switch (statusCode) {
+//                    case ERRORINMESSAGE :
+//                        Log.d("QWERT","showDialog msg="+msg);
+//                        JsonSimple jsonSimple = new JsonSimple();
+//                        Field f = jsonSimple.jsonToModel(msg);
+//                        Record record = (Record) f.value;
+//                        title = record.getString("title");
+//                        description = record.getString("message");
+//                        break;
+//                    case NOCONNECTIONERROR :
+//                        description = "NOCONNECTIONERROR";
+//                        break;
+//                    case TIMEOUT :
+//                        description = "TIMEOUT";
+//                        break;
+//                    case SERVERERROR :
+//                        description = "SERVERERROR";
+//                        break;
+//                    case AUTHFAILURE :
+//                        description = "AUTHFAILURE";
+//                        break;
+//                }
+//                ((IErrorDialog) errorDialog).setTitle(title);
+//                ((IErrorDialog) errorDialog).setMessage(description);
+                ((IErrorDialog) errorDialog).setParam(statusCode, null, msg);
                 ((IErrorDialog) errorDialog).setOnClickListener(clickPositive);
                 errorDialog.show(activity.getFragmentManager(), "dialog");
             }

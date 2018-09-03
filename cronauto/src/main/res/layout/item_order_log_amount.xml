@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/pad_12"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginRight="@dimen/pad_24"
+        android:layout_marginTop="@dimen/pad_12"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/st_18_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sum" />
+
+        <TextView
+            android:id="@+id/amount"
+            style="@style/st_18_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold" />
+
+        <TextView
+            style="@style/st_18_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/currency"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pad_1"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginRight="@dimen/pad_24"
+        android:background="@color/blackb_10" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginRight="@dimen/pad_24"
+        android:layout_marginTop="@dimen/pad_20"
+        android:text="@string/recl_bonus"
+        android:textColor="@color/black_50"
+        android:textSize="13sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginRight="@dimen/pad_24"
+        android:layout_marginTop="@dimen/pad_18">
+
+        <LinearLayout
+            android:id="@+id/bon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/st_14_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bonuses" />
+
+            <TextView
+                android:id="@+id/bonus"
+                style="@style/st_14_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/st_14_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/currency"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/st_14_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bon"
+            android:text="@string/pay_bonus" />
+    </RelativeLayout>
+
+    <TextView
+        style="@style/st_14_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginTop="@dimen/pad_24"
+        android:text="@string/comment" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginRight="@dimen/pad_24"
+        android:layout_marginTop="@dimen/pad_8"
+        android:background="@drawable/rect_stroke">
+
+        <EditText
+            android:id="@+id/comment"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pad_100"
+            android:layout_marginLeft="@dimen/pad_2"
+            android:layout_marginRight="@dimen/pad_2"
+            android:background="#0000"
+            android:gravity="top" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_order"
+        android:layout_marginTop="@dimen/pad_24"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@color/gray_d9_50"
+            android:layout_weight="1">
+            <RelativeLayout
+                android:id="@+id/delete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <View
+                    android:layout_width="@dimen/pad_1"
+                    android:layout_height="match_parent"
+                    android:background="@color/c_2e_10"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/delete" />
+
+                <View
+                    android:layout_width="@dimen/pad_2"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/c_2e_10"/>
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/duplicate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/copy" />
+            </LinearLayout>
+            <!--<TextView-->
+            <!--android:id="@+id/delete"-->
+            <!--style="@style/st_14_black_70"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:text="@string/delete" />-->
+
+            <!--<TextView-->
+
+            <!--style="@style/st_14_black_70"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="@dimen/pad_block_lr"-->
+            <!--android:layout_toRightOf="@+id/delete"-->
+            <!--android:text="@string/duplicate" />-->
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/send_order"
+            style="@style/st_14_white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_button"
+            android:gravity="center"
+            android:text="@string/send_order" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pad_4"
+        android:background="@drawable/rect_gradient"/>
+</LinearLayout>

@@ -1,6 +1,8 @@
 package fitness.sistem.compon.param;
 
-import fitness.sistem.compon.interfaces_classes.RecyclerExpandedAnimate;
+import java.util.ArrayList;
+import java.util.List;
+
 import fitness.sistem.compon.interfaces_classes.Visibility;
 
 public class ParamView {
@@ -20,6 +22,7 @@ public class ParamView {
     public int furtherSkip, furtherNext, furtherStart;
     public Visibility[] visibilityArray;
     public boolean selected = false;
+    public List<Expanded> expandedList;
 
     public ParamView(int viewId) {
         this(viewId, "", null, null);
@@ -138,16 +141,30 @@ public class ParamView {
         return this;
     }
 
-    public ParamView recyclerExpanded(int viewClickId, String nameFieldDataLevel, RecyclerExpandedAnimate ... args) {
-
+    public ParamView expanded(int expandedId, int rotateId, ParamModel paramModel) {
+        if (expandedList == null) {
+            expandedList = new ArrayList<>();
+        }
+        Expanded exp = new Expanded();
+        exp.expandedId = expandedId;
+        exp.rotateId = rotateId;
+        exp.expandModel = paramModel;
+        exp.expandNameField = "";
+        expandedList.add(exp);
         return this;
     }
 
-    public static RecyclerExpandedAnimate rotate(int viewId, int valueExpanded) {
-        RecyclerExpandedAnimate rla = new RecyclerExpandedAnimate();
-        rla.type = RecyclerExpandedAnimate.TypeAnim.rotate;
-        rla.valueExpanded = valueExpanded;
-        return rla;
+    public ParamView expanded(int expandedId, int rotateId, String nameField) {
+        if (expandedList == null) {
+            expandedList = new ArrayList<>();
+        }
+        Expanded exp = new Expanded();
+        exp.expandedId = expandedId;
+        exp.rotateId = rotateId;
+        exp.expandModel = null;
+        exp.expandNameField = nameField;
+        expandedList.add(exp);
+        return this;
     }
 
     public ParamView visibilityManager(Visibility ... args) {
@@ -157,6 +174,12 @@ public class ParamView {
 
     public static Visibility visibility(int viewId, String nameField) {
         return new Visibility(0, viewId, nameField);
+    }
+
+    public class Expanded {
+        public int expandedId, rotateId;
+        public ParamModel expandModel;
+        public String expandNameField;
     }
 //
 //    public class Visibility {

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.android.volley.VolleyError;
 
+import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.base.BaseInternetProvider;
 import fitness.sistem.compon.interfaces_classes.IVolleyListener;
 import fitness.sistem.compon.volley.VolleyProvider;
@@ -59,9 +60,9 @@ public class VolleyInternetProvider extends BaseInternetProvider {
             if (error.networkResponse != null) {
                 status = error.networkResponse.statusCode;
             }
-            Log.d("QWERT","VolleyInternetProvider error.toString()="+error.toString()+"< status="
+            Log.d(ComponGlob.getInstance().appParams.NAME_LOG_NET,"VolleyInternetProvider error.toString()="+error.toString()+"< status="
                     + status
-                    +"< mes="+error.getMessage()
+                    +"< mes="+error.getMessage()+"< URL="+url
 //                    +"< DDD="+error.networkResponse.data
             );
             if (st != null) {

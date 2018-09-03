@@ -268,7 +268,14 @@ public class MultiComponents <T>{
         paramComponent.navigator = navigator;
         listComponents.add(paramComponent);
         return this;
+    }
 
+    public MultiComponents addRecognizeVoiceComponent(int clickViewId, int textViewResultId) {
+        ParamComponent paramComponent = new ParamComponent();
+        paramComponent.type = ParamComponent.TC.RECOGNIZE_VOICE;
+        paramComponent.paramView = new ParamView(clickViewId, textViewResultId);
+        listComponents.add(paramComponent);
+        return this;
     }
 
     public MultiComponents addNavigator(Navigator navigator) {
@@ -384,6 +391,10 @@ public class MultiComponents <T>{
                     break;
                 case POP_UP:
                     new PopUpComponent(iBase, cMV, this);
+                    break;
+                case RECOGNIZE_VOICE:
+                    new RecognizeVoiceComponent(iBase, cMV, this);
+                    break;
 //                case PHONE:
 //                    new EditPhoneComponent(iBase, cMV);
 //                    break;

@@ -55,6 +55,7 @@ public class GetData extends DataFieldGet {
                 .item(R.drawable.menu_clubs, activity.getString(R.string.m_clubs), MyListScreens.CLUBS, true)
                 .divider()
                 .item(R.drawable.menu_clubs, activity.getString(R.string.order), MyListScreens.ORDER)
+                .item(R.drawable.menu_clubs, activity.getString(R.string.list_order), MyListScreens.LIST_ORDER)
                 .divider()
                 .item(R.drawable.menu_settings, activity.getString(R.string.m_settings), MyListScreens.SETTINGS);
         return menu;

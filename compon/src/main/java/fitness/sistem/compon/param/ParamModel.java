@@ -17,7 +17,7 @@ public class ParamModel <T> {
     public static String PARENT_MODEL = "PARENT_MODEL";
     public static int GET = 0;
     public static int POST = 1;
-    public static int GET_DB = 10;
+    public static final int GET_DB = 10;
     public static int POST_DB = 11;
     public static final int PARENT = 100;
     public static final int FIELD = 101;
@@ -38,6 +38,8 @@ public class ParamModel <T> {
     public int stringArray;
     public String paginationNameParamPerPage;
     public String paginationNameParamNumberPage;
+    public String updateTable, updateUrl, updateAlias;
+
     public Filters filters;
 //    public FilterParam[] filterParams;
 //    public int progressId;
@@ -90,7 +92,8 @@ public class ParamModel <T> {
                     this.url = PARENT_MODEL;
                 }
         } else {
-            if (url.startsWith("http") || method == POST_DB) {
+            if (url.startsWith("http") || method == POST_DB
+                    || method == GET_DB) {
                 this.url = url;
             } else {
                 this.url = ComponGlob.getInstance().appParams.baseUrl + url;
@@ -110,6 +113,18 @@ public class ParamModel <T> {
         nameField = null;
         nameTakeField = null;
         internetProvider = null;
+    }
+
+    public ParamModel updateDB(String table, String url, long duration) {
+        return updateDB(table, url, duration, null);
+    }
+
+    public ParamModel updateDB(String table, String url, long duration, String nameAlias) {
+        updateTable = table;
+        updateUrl = url;
+        this.duration = duration;
+        updateAlias = nameAlias;
+        return this;
     }
 
     public ParamModel internetProvider(Class<T> internetProvider) {
@@ -138,6 +153,9 @@ public class ParamModel <T> {
         return addToBeginning(record);
     }
 
+    // Реализация ParamModel обеспечивает получение данных из заданных источников в форме Field.
+    // Если данные являются Record и задано nameTakeField, то результатом реализации ParamModel
+    // будет Field с именем nameTakeField из этого Record
     public ParamModel takeField(String name) {
         nameTakeField = name;
         return this;

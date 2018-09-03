@@ -1,0 +1,115 @@
+<resources>
+    <string name="app_name">Cron_auto</string>
+    <string name="hint_id">Id</string>
+    <string name="hint_name">Название</string>
+    <string name="save">Сохранить</string>
+    <string name="delete">Удалить</string>
+    <string name="duplicate">Дублировать</string>
+    <string name="send_order">Отправить заказ</string>
+    <string name="order">Заказ №\u0020</string>
+    <string name="sum">Сумма:\u0020</string>
+    <string name="bonuses">Бонусов:\u0020</string>
+    <string name="comment">Комментарий</string>
+    <string name="currency">\u0020\u20b4</string>
+
+    // MENU
+    <string name="m_catalog">Каталог</string>
+    <string name="m_profile">Профиль</string>
+    <string name="m_e_bonus">Экстра-бонус</string>
+    <string name="m_new_items">Новинки</string>
+    <string name="m_present">Подарки</string>
+    <string name="m_my_product">Мои товары</string>
+    <string name="m_log_orders">Журнал заказов</string>
+    <string name="m_mutual">Взаиморасчеты</string>
+    <string name="m_news">Новости</string>
+    <string name="m_bonus_system">Бонусная система</string>
+    <string name="m_how_to_buy">Как купить</string>
+    <string name="m_contacts">Контакты</string>
+
+    // Error text
+    <string name="er_filled">Нужно заполнить</string>
+    <string name="er_lenght">Количество знаков в поле\u0020</string>
+    <string name="er_email">Неправильный адрес email</string>
+    <string name="er_phone">Неправильный номер телефона</string>
+    <string name="er_login">Неверный логин</string>
+    <string name="er_password">Неверный пароль</string>
+    <string name="er_surname">Поле Фамилия заполненно неправильно</string>
+    <string name="er_name">Поле Имя заполненно неправильно</string>
+    <string name="er_patronymic">Поле Отчество заполненно неправильно</string>
+    <string name="er_email_r">Поле Email заполненно неправильно</string>
+    <string name="er_city">Поле Город заполненно неправильно</string>
+    <string name="er_phone_r">Поле Телефон заполненно неправильно</string>
+    <string name="attention">Внимание</string>
+    <string name="voice_recognizer_not_present">Устройство распознавания голоса отсутствует</string>
+    <string name="no_connection_error">Ошибка соединения</string>
+    <string name="timeout_error">Большое время ожибания</string>
+    <string name="servererror">Ошибка сервера</string>
+    <string name="auth_error">Ошибка авторизации</string>
+    <string name="unrecognized_error">Неопознанная ошибка</string>
+    <string name="status">Статус\u0020</string>
+
+    <!--// Auth-->
+    <string name="phone">Телефон</string>
+    <string name="contin">Продолжить</string>
+    <string name="register">Регистрация</string>
+    <string name="surname_z">Фамилия*</string>
+    <string name="name_z">Имя*</string>
+    <string name="patronymic_z">Отчество*</string>
+    <string name="your_phone_z">Ваш телефон*</string>
+    <string name="email_z">Email*</string>
+    <string name="city_z">Город*</string>
+
+    // LOGIN
+    <string name="auth">Авторизация</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="enter">Войти</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="send">Выслать</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="submitted">Ваша заявка отправлена!</string>
+    <string name="we_will_contact">Мы свяжемся с Вами\nв ближайшее время.</string>
+    <string name="you_agree1">Нажимая Зарегистрироваться Вы</string>
+    <string name="you_agree2">соглашаетесь с\u0020</string>
+    <string name="you_agree3">Условиями соглашения</string>
+    <string name="you_agree">Условия соглашения</string>
+    <string name="recovery">Восстановление пароля</string>
+    <string name="enter_login_or_email">Введите Логин или Email. Контрольная строка для смены пароля, а также ваши регистрационные данные, будут высланы вам по Email.</string>
+
+    // Profile
+    <string name="surname">Фамилия</string>
+    <string name="name">Имя</string>
+    <string name="patronymic">Отчество</string>
+    <string name="email">Email</string>
+    <string name="city">Город</string>
+
+    // INDEX
+    <string name="filter">Фильтр</string>
+    <string name="search">Поиск</string>
+
+    // LOG ORDER
+    <string name="new_ord">Новый</string>
+    <string name="accepted">Принят</string>
+    <string name="recl_bonus">Возьми на сумму 7500 получи бонус 1,5 %\nЗакажи 40 позиций получи 1 % бонусов</string>
+    <string name="pay_bonus">Оплатить бонусами</string>
+    <string name="order_log">Журнал заказов</string>
+    <string name="date">Дата</string>
+    <string name="from">От</string>
+    <string name="before">До</string>
+    <string name="close">Закрыть</string>
+    <string name="cancel">Отмена</string>
+    <string name="select_status">Выберите статус</string>
+    <string name="all">Все</string>
+    <string name="apply">Применить</string>
+
+    <string-array name="auth_tab_name">
+        <item>Вход</item>
+        <item>Регистрация</item>
+    </string-array>
+
+    <string-array name="index_tab_name">
+        <item>Новинки</item>
+        <item>Экстра-бонус</item>
+        <item>Каталог</item>
+    </string-array>
+</resources>

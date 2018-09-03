@@ -18,7 +18,9 @@ import fitness.sistem.compon.param.AppParams;
 public class ComponEditText extends AppCompatEditText implements IComponent, IValidate {
 
     protected int typeValidate;
-    protected final int FILLED = 0, LENGTH = 1, EMAIL = 2, DIAPASON = 3;
+    protected final int FILLED = 0, EMAIL = 1, LENGTH = 2, DIAPASON = 3, MIN_LENGTH = 4;
+    private int fieldLength;
+    private int minLength = -1;
     private int maxLength;
     private String alias;
     private OnChangeStatusListener statusListener;
@@ -53,13 +55,21 @@ public class ComponEditText extends AppCompatEditText implements IComponent, IVa
             if (textError == null) {
                 textError = "";
             }
-            alias = a.getString(R.styleable.Simple_alias);
             minValueText = a.getString(R.styleable.Simple_minValue);
             maxValueText = a.getString(R.styleable.Simple_maxValue);
+            minLength = a.getInt(R.styleable.Simple_minLength, -1);
+            fieldLength = a.getInt(R.styleable.Simple_fieldLength, -1);
         } finally {
             a.recycle();
         }
-        maxLength = attrs.getAttributeIntValue(nameSpace,"maxLength", -1);
+
+        if (minLength > -1) {
+            typeValidate = MIN_LENGTH;
+        } else {
+            if (fieldLength > -1) {
+                typeValidate = LENGTH;
+            }
+        }
         maxValue = Double.MAX_VALUE;
         minValue = Double.MIN_VALUE;
         if (minValueText != null) {
@@ -102,6 +112,8 @@ public class ComponEditText extends AppCompatEditText implements IComponent, IVa
         public void onFocusChange(View v, boolean hasFocus) {
             if (!hasFocus) {
                 isValid();
+            } else {
+                setErrorValid("");
             }
             if (focusChangeListenerInheritor != null) {
                 focusChangeListenerInheritor.onFocusChange(v, hasFocus);
@@ -145,10 +157,13 @@ public class ComponEditText extends AppCompatEditText implements IComponent, IVa
                 result = st != null && st.length() > 0;
                 break;
             case LENGTH :
-                result = maxLength == st.length();
+                result = fieldLength == st.length();
                 break;
             case EMAIL :
                 result = android.util.Patterns.EMAIL_ADDRESS.matcher(st).matches();
+                break;
+            case MIN_LENGTH :
+                result = st.length() >= minLength;
                 break;
             case DIAPASON :
                 double val = 0d;

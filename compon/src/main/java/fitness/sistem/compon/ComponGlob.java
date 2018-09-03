@@ -4,6 +4,7 @@ import android.content.Context;
 
 import fitness.sistem.compon.base.BaseDB;
 import fitness.sistem.compon.components.MultiComponents;
+import fitness.sistem.compon.db.UpdateDB;
 import fitness.sistem.compon.interfaces_classes.Param;
 import fitness.sistem.compon.param.AppParams;
 import fitness.sistem.compon.param.ParamModel;
@@ -24,6 +25,7 @@ public class ComponGlob {
     public Context context;
     public CacheWork cacheWork;
     public Map<String, MultiComponents> MapScreen;
+    public UpdateDB updateDB;
     public AppParams appParams;
     public BaseDB baseDB;
     public List<Param> paramValues = new ArrayList<>();
@@ -40,8 +42,9 @@ public class ComponGlob {
     public ComponGlob() {
         instance = this;
         token = "";
-        language = "ru";
+        language = "uk";
         MapScreen = new HashMap<String, MultiComponents>();
+        updateDB = new UpdateDB();
         profile = new FieldBroadcaster("profile", Field.TYPE_RECORD, null);
     }
 

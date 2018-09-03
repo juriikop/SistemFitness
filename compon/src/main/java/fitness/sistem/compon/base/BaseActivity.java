@@ -32,6 +32,7 @@ import fitness.sistem.compon.interfaces_classes.ActivityResult;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.EventComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
+import fitness.sistem.compon.interfaces_classes.IErrorDialog;
 import fitness.sistem.compon.interfaces_classes.ParentModel;
 import fitness.sistem.compon.interfaces_classes.PermissionsResult;
 import fitness.sistem.compon.interfaces_classes.RequestActivityResult;
@@ -69,7 +70,8 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     private GoogleApiClient googleApiClient;
     private List<AnimatePanel> animatePanelList;
     public DrawerLayout drawer;
-    public String TAG = ComponGlob.getInstance().appParams.NAME_LOG_APP;
+    public ComponGlob componGlob = ComponGlob.getInstance();
+    public String TAG = componGlob.appParams.NAME_LOG_APP;
     public List<RequestActivityResult> activityResultList;
     public List<RequestPermissionsResult> permissionsResultList;
 
@@ -78,14 +80,15 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         super.onCreate(savedInstanceState);
         this.savedInstanceState = savedInstanceState;
         parentModelList = new ArrayList<>();
-        mapFragment = ComponGlob.getInstance().MapScreen;
+        mapFragment = componGlob.MapScreen;
         animatePanelList = new ArrayList<>();
         activityResultList = null;
         permissionsResultList = null;
         countProgressStart = 0;
         listInternetProvider = new ArrayList<>();
         listEvent = new ArrayList<>();
-        if (ComponGlob.getInstance().appParams.nameLanguageInHeader.length() > 0) {
+        String st = componGlob.appParams.nameLanguageInHeader;
+        if (st != null && st.length() > 0) {
             setLocale();
         }
         String nameScreen = getNameScreen();
@@ -275,7 +278,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     };
 
     public MultiComponents getComponent(String name) {
-        return ComponGlob.getInstance().MapScreen.get(name);
+        return componGlob.MapScreen.get(name);
     }
 
     @Override
@@ -328,7 +331,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     @Override
     public Field getProfile() {
-        return ComponGlob.getInstance().profile;
+        return componGlob.profile;
     }
 
     @Override
@@ -493,7 +496,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     }
 
     public void showDialog(String title, String message, View.OnClickListener click) {
-        int id = ComponGlob.getInstance().appParams.errorDialogViewId;
+        int id = componGlob.appParams.errorDialogViewId;
         if (id != 0) {
             Record rec = new Record();
             rec.add(new Field("title", Field.TYPE_STRING, title));
@@ -517,10 +520,10 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     @Override
     public void progressStart() {
-        if (ComponGlob.getInstance().appParams.classProgress != null) {
+        if (componGlob.appParams.classProgress != null) {
             if (progressDialog == null) {
                 try {
-                    progressDialog = (DialogFragment) ComponGlob.getInstance().appParams.classProgress.newInstance();
+                    progressDialog = (DialogFragment) componGlob.appParams.classProgress.newInstance();
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
@@ -638,7 +641,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             }
             fragment.setArguments(bundle);
             fragment.setModel(mComponent);
-            startNewFragment(fragment, nameMVP);
+            startNewFragment(fragment, nameMVP, mComponent);
 //            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //            transaction.replace(containerFragmentId, bf.getThis(), nameMVP)
 ////                .addToBackStack(nameMVP)
@@ -669,38 +672,12 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         }
         fragment.setArguments(bundle);
         fragment.setModel(mComponent);
-        startNewFragment(fragment, nameMVP);
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        if (mComponent.animateScreen != null
-//                && mComponent.animateScreen != Constants.AnimateScreen.NO) {
-//            switch (mComponent.animateScreen) {
-//                case RL:
-//                    transaction.setCustomAnimations(R.anim.rl_in, R.anim.rl_out,
-//                            R.anim.lr_in, R.anim.lr_out);
-//                    break;
-//                case LR :
-//                    transaction.setCustomAnimations(R.anim.lr_in, R.anim.lr_out,
-//                            R.anim.rl_in, R.anim.rl_out);
-//                    break;
-//                case TB :
-//                    transaction.setCustomAnimations(R.anim.tb_in, R.anim.tb_out,
-//                            R.anim.bt_in, R.anim.bt_out);
-//                    break;
-//                case BT :
-//                    transaction.setCustomAnimations(R.anim.bt_in, R.anim.bt_out,
-//                            R.anim.tb_in, R.anim.tb_out);
-//                    break;
-//            }
-//        }
-//        transaction.replace(containerFragmentId, fragment, nameMVP)
-//                .addToBackStack(nameMVP)
-//                .commit();
+        startNewFragment(fragment, nameMVP, mComponent);
     }
 
-    private void startNewFragment(BaseFragment fragment, String nameMVP) {
+    private void startNewFragment(BaseFragment fragment, String nameMVP, MultiComponents mComponent) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (mComponent.animateScreen != null
-                && mComponent.animateScreen != Constants.AnimateScreen.NO) {
+        if (mComponent.animateScreen != null) {
             switch (mComponent.animateScreen) {
                 case RL:
                     transaction.setCustomAnimations(R.anim.rl_in, R.anim.rl_out,
@@ -734,7 +711,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     }
 
     public void addParamValue(String name, String value) {
-        ComponGlob.getInstance().addParamValue(name, value);
+        componGlob.addParamValue(name, value);
     }
 
 

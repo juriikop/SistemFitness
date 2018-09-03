@@ -5,13 +5,11 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-//import fitness.sistem.interfaces_classes.IErrorDialog;
 import fitness.sistem.compon.interfaces_classes.IErrorDialog;
 import fitness.sistem.sistemfitness.R;
 

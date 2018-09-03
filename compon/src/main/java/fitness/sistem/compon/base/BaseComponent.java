@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import fitness.sistem.compon.ComponGlob;
@@ -34,6 +35,7 @@ import fitness.sistem.compon.tools.ComponPrefTool;
 
 import java.util.List;
 
+import static fitness.sistem.compon.param.ParamModel.GET_DB;
 import static fitness.sistem.compon.param.ParamModel.POST_DB;
 
 public abstract class BaseComponent {
@@ -153,6 +155,11 @@ public abstract class BaseComponent {
                         changeDataBase(paramMV.paramModel.dataFieldGet.getField(this));
                     }
                     break;
+                case GET_DB :
+                    Log.d("QWERT","BaseComponent BaseComponent");
+                    ComponGlob.getInstance().baseDB.get(this, null, listener);
+//                    changeDataBase(ComponGlob.getInstance().baseDB.get(paramMV.paramModel.url, null));
+                    break;
                 default: {
                     new BasePresenter(iBase, paramMV.paramModel, null, null, listener);
                 }
@@ -270,7 +277,7 @@ public abstract class BaseComponent {
                                 Record rec = setRecord(param);
                                 ComponGlob.getInstance().setParam(rec);
                                 if (vh.paramModel.method == POST_DB) {
-                                    ComponGlob.getInstance().baseDB.post(vh.paramModel.url, rec);
+                                    ComponGlob.getInstance().baseDB.insertRecord(vh.paramModel.url, rec);
                                 } else {
                                     new BasePresenter(iBase, vh.paramModel, null, rec, listener_send_back_screen);
                                 }

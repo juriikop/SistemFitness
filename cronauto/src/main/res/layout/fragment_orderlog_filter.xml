@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray">
+
+    <RelativeLayout
+        android:id="@+id/tool"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_tool_bar"
+        android:background="@color/primary">
+
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/h_tool_bar"
+            android:layout_height="@dimen/h_tool_bar"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/close" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/st_20_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/pad_72"
+            android:text="@string/filter" />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool"
+        android:layout_marginTop="@dimen/pad_8"
+        android:layout_marginLeft="@dimen/pad_8"
+        android:layout_marginRight="@dimen/pad_8"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/pad_24"
+            android:layout_marginTop="@dimen/pad_24"
+            android:textStyle="bold"
+            style="@style/st_18_black"
+            android:text="@string/date"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad_12"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/from_l"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/pad_24"
+                android:layout_marginRight="@dimen/pad_15"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/st_14_black_70"
+                    android:text="@string/from"/>
+                <TextView
+                    android:id="@+id/from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/pad_8"
+                    style="@style/st_16_black"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/pad_1"
+                    android:layout_marginTop="@dimen/pad_4"
+                    android:background="@color/black_10"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/before_l"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/pad_15"
+                android:layout_marginRight="@dimen/pad_24"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/st_14_black_70"
+                    android:text="@string/before"/>
+                <TextView
+                    android:id="@+id/before"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/pad_8"
+                    style="@style/st_16_black"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/pad_1"
+                    android:layout_marginTop="@dimen/pad_4"
+                    android:background="@color/black_10"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/calendar_panel"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:visibility="gone">-->
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/pad_48">-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="@dimen/pad_48"-->
+                    <!--android:layout_height="@dimen/pad_48"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:id="@+id/month_minus"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:gravity="center">-->
+
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_chevron_left_black_24dp" />-->
+                <!--</LinearLayout>-->
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--style="@style/st_14_black"-->
+                    <!--android:id="@+id/calendar_title"-->
+                    <!--android:gravity="center"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:layout_toRightOf="@+id/month_minus"-->
+                    <!--android:layout_toLeftOf="@+id/month_plus" />-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="@dimen/pad_48"-->
+                    <!--android:layout_height="@dimen/pad_48"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:id="@+id/month_plus"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:gravity="center">-->
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:src="@drawable/ic_chevron_right_black_24dp"-->
+                        <!--android:layout_gravity="center" />-->
+                <!--</LinearLayout>-->
+            <!--</RelativeLayout>-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/pad_1"-->
+                <!--android:background="@color/gray" />-->
+            <!--<brender.ua.cron_auto.tools.CalendarView-->
+                <!--xmlns:cln="http://schemas.android.com/apk/res-auto"-->
+                <!--android:id="@+id/calendar"-->
+                <!--cln:heightTitle="0dp"-->
+                <!--cln:heightCell="@dimen/h_cell_calendar"-->
+                <!--android:overScrollMode="never"-->
+                <!--android:scrollbars="none"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/h_calendar" />-->
+
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/pad_12">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/close"-->
+                    <!--style="@style/st_14_text"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="@dimen/pad_48"-->
+                    <!--android:layout_toLeftOf="@+id/ok"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="@string/cancel"-->
+                    <!--android:textAllCaps="true" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/ok"-->
+                    <!--style="@style/st_14_text"-->
+                    <!--android:layout_width="@dimen/pad_62"-->
+                    <!--android:layout_height="@dimen/pad_48"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_marginRight="@dimen/pad_24"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="OK" />-->
+            <!--</RelativeLayout>-->
+        <!--</LinearLayout>-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/st_18_black"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/pad_28"
+            android:layout_marginLeft="@dimen/pad_24"
+            android:text="@string/select_status"/>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/pad_16"-->
+            <!--android:layout_marginBottom="@dimen/pad_12"-->
+            <!--android:orientation="vertical">-->
+            <!--<RelativeLayout-->
+                <!--android:id="@+id/all"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/pad_50"-->
+                <!--android:background="@drawable/selector_status_backgr">-->
+
+                <!--<TextView-->
+                    <!--style="@style/st_16_text_blue"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginLeft="@dimen/pad_24"-->
+                    <!--android:text="@string/all" />-->
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/all_img"-->
+                    <!--android:layout_width="@dimen/pad_24"-->
+                    <!--android:layout_height="@dimen/pad_24"-->
+                    <!--android:layout_marginRight="@dimen/pad_24"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:background="@drawable/selector_status"-->
+                    <!--android:orientation="vertical" />-->
+                <!--<View-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="@dimen/pad_1"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:layout_marginLeft="@dimen/pad_24"-->
+                    <!--android:layout_marginRight="@dimen/pad_24"-->
+                    <!--android:background="@color/gray" />-->
+            <!--</RelativeLayout>-->
+            <!--<RelativeLayout-->
+                <!--android:id="@+id/new_ord"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/pad_50"-->
+                <!--android:background="@drawable/selector_status_backgr">-->
+
+                <!--<TextView-->
+                    <!--style="@style/st_16_text_blue"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginLeft="@dimen/pad_24"-->
+                    <!--android:text="@string/new_ord" />-->
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/new_ord_img"-->
+                    <!--android:layout_width="@dimen/pad_24"-->
+                    <!--android:layout_height="@dimen/pad_24"-->
+                    <!--android:layout_marginRight="@dimen/pad_24"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:background="@drawable/selector_status"-->
+                    <!--android:orientation="vertical" />-->
+
+                <!--<View-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="@dimen/pad_1"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:layout_marginLeft="@dimen/pad_24"-->
+                    <!--android:layout_marginRight="@dimen/pad_24"-->
+                    <!--android:background="@color/gray" />-->
+            <!--</RelativeLayout>-->
+            <!--<RelativeLayout-->
+                <!--android:id="@+id/accepted"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/pad_50"-->
+                <!--android:background="@drawable/selector_status_backgr">-->
+
+                <!--<TextView-->
+                    <!--style="@style/st_16_text_blue"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginLeft="@dimen/pad_24"-->
+                    <!--android:text="@string/accepted" />-->
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/accepted_img"-->
+                    <!--android:layout_width="@dimen/pad_24"-->
+                    <!--android:layout_height="@dimen/pad_24"-->
+                    <!--android:layout_marginRight="@dimen/pad_24"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:background="@drawable/selector_status"-->
+                    <!--android:orientation="vertical" />-->
+                <!--<View-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="@dimen/pad_1"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:layout_marginLeft="@dimen/pad_24"-->
+                    <!--android:layout_marginRight="@dimen/pad_24"-->
+                    <!--android:background="@color/gray" />-->
+            <!--</RelativeLayout>-->
+        <!--</LinearLayout>-->
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/done"
+        style="@style/st_button"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/pad_8"
+        android:layout_marginLeft="@dimen/pad_8"
+        android:layout_marginRight="@dimen/pad_8"
+        android:letterSpacing="0.14"
+        android:text="@string/apply" />
+</RelativeLayout>

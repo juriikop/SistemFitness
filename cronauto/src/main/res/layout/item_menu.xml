@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:layout_height="@dimen/h_menu">
+    <fitness.sistem.compon.custom_components.ImageViewColor
+        android:id="@+id/icon"
+        android:layout_width="@dimen/d_icon"
+        android:layout_height="@dimen/d_icon"
+        android:layout_marginLeft="@dimen/pad_16"
+        app:iconColor="@color/primary"/>
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/pad_14"
+        android:layout_marginLeft="@dimen/pad_12"
+        android:textColor="@color/primary"/>
+</LinearLayout>

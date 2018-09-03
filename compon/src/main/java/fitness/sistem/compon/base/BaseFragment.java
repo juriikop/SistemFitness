@@ -318,7 +318,6 @@ public class BaseFragment extends Fragment implements IBase {
 
     @Override
     public void backPressed() {
-        Log.d("QWERT","BaseFragment BaseFragment BaseFragment");
         ((BaseActivity) getActivity()).onBackPressed();
     }
 

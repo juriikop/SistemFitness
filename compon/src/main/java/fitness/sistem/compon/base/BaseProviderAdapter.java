@@ -6,12 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.interfaces_classes.Visibility;
 import fitness.sistem.compon.json_simple.Field;
+import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamView;
 import fitness.sistem.compon.json_simple.WorkWithRecordsAndViews;
@@ -25,10 +27,15 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private String layout;
     private Navigator navigator;
     private BaseComponent baseComponent;
+    private ParamView paramView;
     private boolean isClickItem;
     private Visibility[] visibilityManager;
     private LayoutInflater inflater;
     private IBase iBase;
+    public int duration = 250;
+    protected int[] positionLevel;
+    protected View[] imgLevel;
+    protected int maxPositionLevel = 3;
 
     public BaseProviderAdapter(BaseComponent baseComponent) {
         context = baseComponent.activity;
@@ -46,7 +53,7 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             }
         }
-        ParamView paramView = baseComponent.paramMV.paramView;
+        paramView = baseComponent.paramMV.paramView;
         if (paramView != null) {
             layoutItemId = paramView.layoutTypeId;
             fieldType = paramView.fieldType;
@@ -56,8 +63,12 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
         visibilityManager = paramView.visibilityArray;
         modelToView = new WorkWithRecordsAndViews();
-//        layout = "";
         layout = "item_recycler_" + baseComponent.paramMV.nameParentComponent;
+        positionLevel = new int[maxPositionLevel];
+        imgLevel = new ImageView[maxPositionLevel];
+        for (int i = 0; i < positionLevel.length; i++) {
+            positionLevel[i] = -1;
+        }
     }
 
     @Override
@@ -78,12 +89,6 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     long ll = (Long) f.value;
                     return (int) ll;
                 }
-//                if (f.type == Field.TYPE_INTEGER) {
-//                    return (int) provider.get(position).getValue(fieldType);
-//                } else {
-//                    long ll = (Long) f.value;
-//                    return (int) ll;
-//                }
             }
         }
     }
@@ -126,6 +131,22 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         } else if (baseComponent.moreWork != null) {
             baseComponent.moreWork.afterBindViewHolder(baseComponent.paramMV.paramView.viewId, position, record, holder);
         }
+        if (paramView.expandedList != null && paramView.expandedList.size() > 0) {
+            ParamView.Expanded exp = paramView.expandedList.get(0);
+            View expView = holder.itemView.findViewById(exp.expandedId);
+//            View expRotate = holder.itemView.findViewById(exp.rotateId);
+//            ((ItemHolder)holder).setRightRotation(record.getBooleanVisibility("isExpanded"));
+            if (expView != null) {
+                ((ItemHolder)holder).setExpandedImg(expView, this);
+                ((ItemHolder)holder).setRightRotation(record.getBooleanVisibility("isExpanded"));
+//                expView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                    }
+//                });
+            }
+        }
     }
 
     @Override
@@ -133,9 +154,118 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return provider.getCount();
     }
 
+    public void expanded(ItemHolder hold, int position) {
+        Record expandedItem = (Record) provider.get(position);
+        int level = expandedItem.getInt("expandedLevel");
+        boolean exp = expandedItem.getBooleanVisibility("isExpanded");
+        if (exp) {     // delete
+            expandedItem.setBoolean("isExpanded", false);
+            hold.isExpanded = false;
+            hold.expandedImg.animate().rotation(0).setDuration(duration).start();
+            delete(position, level);
+        } else {        // insert
+            int posLev = positionLevel[level];
+            int countDel = 0;
+            if (posLev > -1) {
+                imgLevel[level].animate().rotation(0).setDuration(duration).start();
+                provider.get(posLev).setBoolean("isExpanded", false);
+                countDel = delete(posLev, level);
+            }
+            if (posLev < position) {
+                position = position - countDel;
+            }
+            hold.isExpanded = true;
+            hold.expandedImg.animate().rotation(180).setDuration(duration).start();
+            imgLevel[level] = hold.expandedImg;
+            expandedItem.setBoolean("isExpanded", true);
+            for (int i = level; i < positionLevel.length; i++) {
+                if (i == level) {
+                    positionLevel[i] = position;
+                } else {
+                    positionLevel[i] = -1;
+                }
+            }
+            String nameF = paramView.expandedList.get(0).expandNameField;
+            if (nameF != null) {
+                Object obj = expandedItem.getValue(nameF);
+                if (obj != null) {
+                    setLevelData_1(level, position, (ListRecords) obj);
+                }
+            } else {
+
+//            listener.getLevelData(level, position, expandedItem);
+            }
+        }
+    }
+
+    private int delete(int position, int level) {
+        int position_1 = position + 1;
+        int countDel = 0;
+        if (position_1 <= provider.size()) {
+            Record expandedItem = (Record) provider.get(position_1);
+            while (expandedItem.getInt("expandedLevel") > level) {
+                provider.remove(position_1);
+                countDel++;
+                if (position_1 < provider.size()) {
+                    expandedItem = (Record) provider.get(position_1);
+                } else {
+                    break;
+                }
+            }
+            if (countDel > 0) {
+                notifyItemRangeRemoved(position_1, countDel);
+            }
+            for (int i = level; i < positionLevel.length; i++) {
+                positionLevel[i] = -1;
+            }
+        }
+        return countDel;
+    }
+
+    public void setLevelData_1(int level, int position, ListRecords data) {
+        int level_1 = level + 1;
+        for (Record rec : data) {
+            rec.setBoolean("isExpanded", false);
+            rec.setInteger("expandedLevel", level_1);
+        }
+        setLevelData(data, position);
+    }
+
+    public void setLevelData(ListRecords data, int position) {
+        if (data != null && data.size() > 0) {
+            provider.addAll(position + 1, data);
+            notifyItemRangeInserted(position + 1, data.size());
+        }
+    }
+
     public static class ItemHolder extends RecyclerView.ViewHolder {
+        public boolean isExpanded;
+        View expandedImg;
+        BaseProviderAdapter adapter;
+
         public ItemHolder(View itemView) {
             super(itemView);
+        }
+
+        public void setExpandedImg(View img, final BaseProviderAdapter adapter) {
+            expandedImg = img;
+            this.adapter = adapter;
+            expandedImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    adapter.expanded(ItemHolder.this, getAdapterPosition());
+                }
+            });
+        }
+
+        public void setRightRotation(boolean expanded) {
+            if (isExpanded != expanded) {
+                if (expanded) {
+                    expandedImg.animate().rotation(180).setDuration(adapter.duration).start();
+                } else {
+                    expandedImg.animate().rotation(0).setDuration(adapter.duration).start();
+                }
+            }
         }
     }
 }

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/black_50"
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/st_12_black_50"
+            android:layout_marginTop="@dimen/pad_16"
+            android:layout_marginLeft="@dimen/pad_36"
+            android:layout_marginRight="@dimen/pad_36">
+
+            <fitness.sistem.compon.custom_components.ComponEditText
+                android:id="@+id/login"
+                style="@style/st_16_black"
+                android:theme="@style/styleEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/black_50"
+                android:hint="@string/login"
+                android:imeOptions="actionNext"
+                android:maxLength="50"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="dolg"
+                app:minLength="3"
+                app:textError="@string/er_login"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/black_50"
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/st_12_black_50"
+            android:layout_marginTop="@dimen/pad_16"
+            android:layout_marginLeft="@dimen/pad_36"
+            android:layout_marginRight="@dimen/pad_36">
+
+            <fitness.sistem.compon.custom_components.ComponEditText
+                android:id="@+id/password"
+                style="@style/st_16_black"
+                android:theme="@style/styleEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/black_50"
+                android:hint="@string/password"
+                android:imeOptions="actionDone"
+                android:maxLength="50"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="123321"
+                app:minLength="6"
+                app:textError="@string/er_password"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/done"
+            style="@style/st_button"
+            android:letterSpacing="0.14"
+            android:layout_marginTop="@dimen/pad_12"
+            android:layout_marginLeft="@dimen/pad_36"
+            android:layout_marginRight="@dimen/pad_36"
+            android:text="@string/enter"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/forgot"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/h_button"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_marginTop="@dimen/pad_2"
+        android:gravity="center"
+        android:text="@string/forgot_password"
+        android:textAllCaps="true"
+        android:letterSpacing="0.07"
+        android:clickable="true"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/pad_14"
+        android:textStyle="bold" />
+
+</LinearLayout>

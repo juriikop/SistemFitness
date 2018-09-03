@@ -104,6 +104,32 @@ public class Record extends ArrayList<Field>{
         }
     }
 
+    public Integer getInteger(String name) {
+        Field f = getField(name);
+        if (f != null) {
+            return (Integer)f.value;
+        } else {
+            return null;
+        }
+    }
+
+    public int getInt(String name) {
+        Field f = getField(name);
+        if (f != null) {
+            if (f.value instanceof Long) {
+                long vv = (Long) f.value;
+                int ii = (int)vv;
+                return ii;
+            } else if (f.value instanceof Integer) {
+                return (Integer) f.value;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
     public boolean getBooleanVisibility(String name) {
         Field f = getField(name);
         if (f != null) {
@@ -136,6 +162,16 @@ public class Record extends ArrayList<Field>{
             f.value = value;
         } else {
             f = new Field(nameField, Field.TYPE_INTEGER, value);
+            add(f);
+        }
+    }
+
+    public void setBoolean(String nameField, Boolean value) {
+        Field f = getField(nameField);
+        if (f != null) {
+            f.value = value;
+        } else {
+            f = new Field(nameField, Field.TYPE_BOOLEAN, value);
             add(f);
         }
     }
