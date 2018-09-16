@@ -13,7 +13,6 @@ import java.util.Map;
 
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.base.BaseDB;
-import fitness.sistem.compon.base.BasePresenter;
 import fitness.sistem.compon.interfaces_classes.DescriptTableDB;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.IDbListener;
@@ -24,8 +23,6 @@ import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamModel;
 
-import static android.database.sqlite.SQLiteDatabase.CONFLICT_NONE;
-
 public class DatabaseManager extends BaseDB {
 
     private Context context;
@@ -33,7 +30,6 @@ public class DatabaseManager extends BaseDB {
     public DBHelper dbHelper;
     private int mOpenCounter;
     public SQLiteDatabase mDatabase;
-//    String table;
 
     public DatabaseManager(Context context, ParamDB paramDB) {
         this.context = context;
@@ -64,14 +60,38 @@ public class DatabaseManager extends BaseDB {
         String[] columnNames = null;
         String[] aliasNames = null;
         openDatabase();
-        Cursor c = mDatabase.rawQuery("SELECT * FROM " + table + " WHERE 0", null);
-        try {
-            columnNames = c.getColumnNames();
-        } finally {
-            c.close();
+        int[] columnType;
+        Cursor cc = mDatabase.rawQuery("PRAGMA table_info(" + table + ");", null);
+        int count = cc.getCount();
+        columnNames = new String[count];
+        columnType = new int[count];
+        int ind = 0;
+        if (cc.moveToFirst()) {
+            do {
+                columnNames[ind] = cc.getString(1);
+                int type = 0;
+                switch (cc.getString(2).toLowerCase()) {
+                    case "integer" :
+                        type = Cursor.FIELD_TYPE_INTEGER;
+                        break;
+                    case "text" :
+                        type = Cursor.FIELD_TYPE_STRING;
+                        break;
+                    case "real" :
+                        type = Cursor.FIELD_TYPE_FLOAT;
+                        break;
+                    case "blob" :
+                        type = Cursor.FIELD_TYPE_BLOB;
+                        break;
+                }
+                columnType[ind] = type;
+                ind++;
+            } while (cc.moveToNext());
         }
-        int jk = columnNames.length;
+        cc.close();
+
         if (columnNames != null) {
+            int jk = columnNames.length;
             aliasNames = new String[jk];
             for (int i = 0; i < jk; i++) {
                 aliasNames[i] = columnNames[i];
@@ -80,25 +100,42 @@ public class DatabaseManager extends BaseDB {
                 String[] na = nameAlias.split(";");
                 for (int i = 0; i < na.length; i++) {
                     String[] na1 = na[i].split(",");
-                    String name = na1[0];
+                    String name = na1[0].trim();
                     for (int j = 0; j < jk; j++) {
                         if (aliasNames[j].equals(name)) {
-                            aliasNames[j] = na1[1];
+                            aliasNames[j] = na1[1].trim();
                             break;
                         }
                     }
                 }
             }
+            for (int i = 0; i < columnNames.length; i++) {
+                Log.d("QWERT","insertListRecord i="+i+" columnNames="+columnNames[i]+"<< aliasNames="+aliasNames[i]);
+            }
             for (Record record : listRecords) {
                 ContentValues cv = new ContentValues();
+                String stt = "";
                 for (int j = 0; j < jk; j++) {
                     Field f = record.getField(aliasNames[j]);
                     if (f != null) {
-                        cv.put(columnNames[j], (String) f.value);
+                        stt += columnNames[j] + "=";
+                        switch (columnType[j]) {
+                            case Cursor.FIELD_TYPE_INTEGER :
+                                cv.put(columnNames[j], record.getLongField(f));
+                                stt+= record.getLongField(f) + ";";
+                                break;
+                            case Cursor.FIELD_TYPE_FLOAT :
+                                cv.put(columnNames[j], record.getFloatField(f));
+                                stt+= record.getFloatField(f) + ";";
+                                break;
+                            case Cursor.FIELD_TYPE_STRING :
+                                cv.put(columnNames[j], (String) f.value);
+                                stt+= (String) f.value + ";";
+                                break;
+                        }
                     }
                 }
-                long rowID = mDatabase.insert(table, null, cv);
-                Log.d("QWERT","rowID="+rowID);
+                long rowID = mDatabase.replace(table, null, cv);
             }
         }
         closeDatabase();
@@ -116,16 +153,20 @@ public class DatabaseManager extends BaseDB {
     }
 
     @Override
-    public void get(BaseComponent baseComponent, String[] param, IPresenterListener listener) {
-        Log.d("QWERT","DatabaseManager SQL="+baseComponent.paramMV.paramModel.url);
-        new GetDbPresenter(baseComponent, param, listener);
+    public void get(IBase iBase, ParamModel paramModel, String[] param, IPresenterListener listener) {
+        Log.d("QWERT","DatabaseManager SQL="+paramModel.url);
+        new GetDbPresenter(iBase, paramModel, param, listener);
     }
 
     @Override
     public Field get(String sql, String[] param) {
+        if (param != null) {
+            Log.d("QWERT", "DatabaseManager GET SQL=" + sql + "<< param=" + param.toString());
+        } else {
+            Log.d("QWERT", "DatabaseManager GET SQL=" + sql + "<<");
+        }
         openDatabase();
         Cursor c = mDatabase.rawQuery(sql, param);
-//        Cursor c = mDatabase.query(sql, null, null, null, null, null, null);
         ListRecords listRecords = null;
         if (c.moveToFirst()) {
             int countCol = c.getColumnCount();
@@ -153,7 +194,7 @@ public class DatabaseManager extends BaseDB {
                 listRecords.add(record);
             } while (c.moveToNext());
         } else {
-            Log.d("QWERT", "0 rows");
+            Log.d("QWERT", "DatabaseManager get 0 rows");
         }
         c.close();
         closeDatabase();
@@ -186,6 +227,7 @@ public class DatabaseManager extends BaseDB {
         @Override
         public void onCreate(SQLiteDatabase db) {
             for (DescriptTableDB dt : paramDB.listTables) {
+                db.execSQL("DROP TABLE IF EXISTS " + dt.nameTable + ";");
                 db.execSQL("create table " + dt.nameTable + " (" + dt.descriptTable + ");");
             }
         }

@@ -14,6 +14,15 @@ public class ComponPrefTool {
     private static final String TOKEN = "token";
     private static final String STATUS_COLOR = "STATUS_COLOR";
     private static final String LOCALE = "locale";
+    private static final String UPDATE_DB_DATE = "UpdateDBDate";
+
+    public static void setUpdateDBDate(String value) {
+        getEditor().putString(UPDATE_DB_DATE, value).commit();
+    }
+
+    public static String getUpdateDBDate() {
+        return getSharedPreferences().getString(UPDATE_DB_DATE, "");
+    }
 
     public static void setLocale(String value) {
         getEditor().putString(LOCALE, value).commit();

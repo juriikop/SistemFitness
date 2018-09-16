@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cron_auto</string>
+    <string name="app_name">Cron_auto_С</string>
     <string name="hint_id">Id</string>
     <string name="hint_name">Название</string>
     <string name="save">Сохранить</string>
@@ -86,6 +86,17 @@
     // INDEX
     <string name="filter">Фильтр</string>
     <string name="search">Поиск</string>
+
+    // ADD PRODUCT
+    <string name="add_product">Добавление товара</string>
+    <string name="code">Код\u0020</string>
+    <string name="oem">ОЕМ</string>
+    <string name="count">Количество</string>
+    <string name="add">Добавить</string>
+    <string name="price">Цена</string>
+    <string name="bonus">Бонус</string>
+    <string name="total">Итого</string>
+    <string name="create_new">Создать новый</string>
 
     // LOG ORDER
     <string name="new_ord">Новый</string>

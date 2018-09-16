@@ -79,6 +79,10 @@ public class Record extends ArrayList<Field>{
 
     public Float getFloat(String name) {
         Field f = getField(name);
+        return getFloatField(f);
+    }
+
+    public Float getFloatField(Field f) {
         if (f != null) {
             switch (f.type) {
                 case Field.TYPE_DOUBLE:
@@ -87,6 +91,56 @@ public class Record extends ArrayList<Field>{
                 case Field.TYPE_FLOAT:
                 case Field.TYPE_INTEGER:
                     return (float) f.value;
+                case Field.TYPE_NULL:
+                case Field.TYPE_STRING:
+                    String st = (String) f.value;
+                    if (st == null || st.equals("null")) {
+                        return 0f;
+                    } else {
+                        Float ff = null;
+                        try {
+                            ff = Float.valueOf(st);
+                        } catch (Exception e) {
+
+                        }
+                        return ff;
+                    }
+                default:
+                    return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public Long getLong(String name) {
+        Field f = getField(name);
+        return getLongField(f);
+    }
+
+    public Long getLongField(Field f) {
+        if (f != null) {
+            switch (f.type) {
+                case Field.TYPE_LONG:
+                    return (Long) f.value;
+                case Field.TYPE_INTEGER:
+                    int i = (Integer) f.value;
+                    long l = (long) i;
+                    return l;
+                case Field.TYPE_NULL:
+                case Field.TYPE_STRING:
+                    String st = (String) f.value;
+                    if (st == null || st.equals("null")) {
+                        return 0l;
+                    } else {
+                        Long ff = null;
+                        try {
+                            ff = Long.valueOf(st);
+                        } catch (Exception e) {
+
+                        }
+                        return ff;
+                    }
                 default:
                     return null;
             }

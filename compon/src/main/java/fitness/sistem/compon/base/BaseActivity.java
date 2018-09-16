@@ -40,6 +40,7 @@ import fitness.sistem.compon.interfaces_classes.RequestPermissionsResult;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.components.MultiComponents;
+import fitness.sistem.compon.json_simple.JsonSimple;
 import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.json_simple.SimpleRecordToJson;
@@ -74,6 +75,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     public String TAG = componGlob.appParams.NAME_LOG_APP;
     public List<RequestActivityResult> activityResultList;
     public List<RequestPermissionsResult> permissionsResultList;
+    public Field paramScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,12 +90,17 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         listInternetProvider = new ArrayList<>();
         listEvent = new ArrayList<>();
         String st = componGlob.appParams.nameLanguageInHeader;
+        Intent intent = getIntent();
+        String paramJson = intent.getStringExtra(Constants.NAME_PARAM_FOR_SCREEN);
+        if (paramJson != null && paramJson.length() >0) {
+            JsonSimple jsonSimple = new JsonSimple();
+            paramScreen = jsonSimple.jsonToModel(paramJson);
+        }
         if (st != null && st.length() > 0) {
             setLocale();
         }
         String nameScreen = getNameScreen();
         if (nameScreen == null) {
-            Intent intent = getIntent();
             nameScreen = intent.getStringExtra(Constants.NAME_MVP);
         }
 
@@ -768,5 +775,10 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     @Override
     public void delAnimatePanel(AnimatePanel animatePanel) {
         animatePanelList.remove(animatePanel);
+    }
+
+    @Override
+    public Field getParamScreen() {
+        return paramScreen;
     }
 }

@@ -24,6 +24,7 @@
     <dimen name="pad_28">28dp</dimen>
     <dimen name="pad_30">30dp</dimen>
     <dimen name="pad_32">32dp</dimen>
+    <dimen name="pad_34">34dp</dimen>
     <dimen name="pad_36">36dp</dimen>
     <dimen name="pad_40">40dp</dimen>
     <dimen name="pad_42">42dp</dimen>
@@ -31,6 +32,7 @@
     <dimen name="pad_46">46dp</dimen>
     <dimen name="pad_48">48dp</dimen>
     <dimen name="pad_50">50dp</dimen>
+    <dimen name="pad_52">52dp</dimen>
     <dimen name="pad_54">54dp</dimen>
     <dimen name="pad_62">62dp</dimen>
     <dimen name="pad_70">70dp</dimen>
@@ -38,6 +40,7 @@
     <dimen name="pad_80">80dp</dimen>
     <dimen name="pad_90">90dp</dimen>
     <dimen name="pad_100">100dp</dimen>
+    <dimen name="pad_120">120dp</dimen>
     <dimen name="pad_130">130dp</dimen>
     <dimen name="pad_200">200dp</dimen>
     <dimen name="pad_302">302dp</dimen>

@@ -8,15 +8,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.List;
+
+import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.interfaces_classes.IBase;
+import fitness.sistem.compon.interfaces_classes.IPresenterListener;
 import fitness.sistem.compon.interfaces_classes.Navigator;
+import fitness.sistem.compon.interfaces_classes.Param;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.interfaces_classes.Visibility;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
+import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.param.ParamView;
 import fitness.sistem.compon.json_simple.WorkWithRecordsAndViews;
+
+import static fitness.sistem.compon.param.ParamModel.GET_DB;
 
 public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private int[] layoutItemId;
@@ -36,6 +44,7 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     protected int[] positionLevel;
     protected View[] imgLevel;
     protected int maxPositionLevel = 3;
+    private int saveLevel, savePosition;
 
     public BaseProviderAdapter(BaseComponent baseComponent) {
         context = baseComponent.activity;
@@ -110,6 +119,7 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         final Record record = (Record) provider.get(position);
+//        Log.d("QWERT","onBindViewHolder record="+record.toString());
         modelToView.RecordToView(record,
                 holder.itemView, navigator, new View.OnClickListener() {
             @Override
@@ -134,17 +144,9 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (paramView.expandedList != null && paramView.expandedList.size() > 0) {
             ParamView.Expanded exp = paramView.expandedList.get(0);
             View expView = holder.itemView.findViewById(exp.expandedId);
-//            View expRotate = holder.itemView.findViewById(exp.rotateId);
-//            ((ItemHolder)holder).setRightRotation(record.getBooleanVisibility("isExpanded"));
             if (expView != null) {
                 ((ItemHolder)holder).setExpandedImg(expView, this);
                 ((ItemHolder)holder).setRightRotation(record.getBooleanVisibility("isExpanded"));
-//                expView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                    }
-//                });
             }
         }
     }
@@ -186,17 +188,61 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             }
             String nameF = paramView.expandedList.get(0).expandNameField;
-            if (nameF != null) {
+            if (nameF != null && nameF.length() > 0) {
                 Object obj = expandedItem.getValue(nameF);
                 if (obj != null) {
                     setLevelData_1(level, position, (ListRecords) obj);
                 }
             } else {
-
-//            listener.getLevelData(level, position, expandedItem);
+                ParamView.Expanded expand = paramView.expandedList.get(0);
+                ParamModel model = expand.expandModel;
+                if (model != null) {
+                    switch (model.method) {
+                        case GET_DB :
+                            String[] param = model.param.split(",");
+                            int ik = param.length;
+                            for (int i = 0; i < ik; i++) {
+                                String par = param[i];
+                                String parValue = expandedItem.getString(par);
+                                if (parValue == null) {
+                                    parValue = getGlobalParam(par);
+                                }
+                                if (parValue != null) {
+                                    param[i] = parValue;
+                                }
+                            }
+                            saveLevel = level;
+                            savePosition = position;
+                            ComponGlob.getInstance().baseDB.get(iBase, model, param, listener);
+                            break;
+                        default: {
+                            new BasePresenter(iBase, model, null, null, listener);
+                        }
+                    }
+                }
             }
         }
     }
+
+    private String getGlobalParam(String name) {
+        String st = null;
+        List<Param> paramV = ComponGlob.getInstance().paramValues;
+        for (Param par : paramV) {
+            if (par.name.equals(name)) {
+                st = par.value;
+                break;
+            }
+        }
+        return st;
+    }
+
+    IPresenterListener listener = new IPresenterListener() {
+        @Override
+        public void onResponse(Field response) {
+            if (response == null) return;
+            setLevelData_1(saveLevel, savePosition, (ListRecords) response.value);
+        }
+    };
 
     private int delete(int position, int level) {
         int position_1 = position + 1;

@@ -44,13 +44,13 @@ public class ComponGlob {
         token = "";
         language = "uk";
         MapScreen = new HashMap<String, MultiComponents>();
-        updateDB = new UpdateDB();
         profile = new FieldBroadcaster("profile", Field.TYPE_RECORD, null);
     }
 
     public void setContext(Context context) {
         this.context = context;
         cacheWork = new CacheWork(context);
+        updateDB = new UpdateDB();
     }
 
     public void setParam(Record fields) {

@@ -1,5 +1,7 @@
 package fitness.sistem.compon.db;
 
+import android.util.Log;
+
 import fitness.sistem.compon.base.BasePresenter;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.IDbListener;
@@ -12,12 +14,15 @@ public class RemoteToLocale {
 
     private String table, nameAlias;
     private IDbListener dbListener;
+    private IBase iBase;
 
     public RemoteToLocale(IBase iBase, String url, String table, String nameAlias, IDbListener dbListener) {
+        this.iBase = iBase;
         this.nameAlias = nameAlias;
         this.table = table;
         this.dbListener = dbListener;
         ParamModel paramModel = new ParamModel(url);
+        iBase.progressStart();
         new BasePresenter(iBase, paramModel, null, null, listener);
     }
 
@@ -26,6 +31,7 @@ public class RemoteToLocale {
         public void onResponse(Field response) {
             ListRecords listRecords = (ListRecords) response.value;
             dbListener.onResponse(listRecords, table, nameAlias);
+            iBase.progressStop();
         }
     };
 }

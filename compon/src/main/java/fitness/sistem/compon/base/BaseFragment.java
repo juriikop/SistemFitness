@@ -27,6 +27,7 @@ import fitness.sistem.compon.interfaces_classes.SetData;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.components.MultiComponents;
+import fitness.sistem.compon.json_simple.JsonSimple;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.tools.ComponPrefTool;
 import fitness.sistem.compon.tools.Constants;
@@ -51,6 +52,7 @@ public class BaseFragment extends Fragment implements IBase {
     protected BaseActivity activity;
     private String nameMvp = null;
     public String TAG = ComponGlob.getInstance().appParams.NAME_LOG_APP;
+    public Field paramScreen;
 
     public BaseFragment() {
         mObject = null;
@@ -70,6 +72,11 @@ public class BaseFragment extends Fragment implements IBase {
         Bundle bundle = getArguments();
         if (bundle != null) {
             nameMvp = bundle.getString(Constants.NAME_MVP);
+            String paramJson = bundle.getString(Constants.NAME_PARAM_FOR_SCREEN);
+            if (paramJson != null && paramJson.length() >0) {
+                JsonSimple jsonSimple = new JsonSimple();
+                paramScreen = jsonSimple.jsonToModel(paramJson);
+            }
         } else if (savedInstanceState != null) {
             nameMvp = savedInstanceState.getString(Constants.NAME_MVP);
         }
@@ -486,6 +493,11 @@ public class BaseFragment extends Fragment implements IBase {
     @Override
     public void delAnimatePanel(AnimatePanel animatePanel) {
         animatePanelList.remove(animatePanel);
+    }
+
+    @Override
+    public Field getParamScreen() {
+        return paramScreen;
     }
 
 }
