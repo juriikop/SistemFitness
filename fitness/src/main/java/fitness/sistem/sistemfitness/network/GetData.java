@@ -49,12 +49,15 @@ public class GetData extends DataFieldGet {
 
     private Field setMenu() {
         Menu menu = new Menu()
-                .addItem(R.drawable.targets, activity.getString(R.string.m_goals), MyListScreens.CREATE_CONTENT)
-                .addItem(R.drawable.targets, "Qwerty Asdfg", MyListScreens.MAP)
-                .addDivider()
-                .addItem(R.drawable.menu_clubs, activity.getString(R.string.m_clubs), MyListScreens.CLUBS, true)
-                .addDivider()
-                .addItem(R.drawable.menu_settings, activity.getString(R.string.m_settings), MyListScreens.SETTINGS);
+                .item(R.drawable.targets, activity.getString(R.string.m_goals), MyListScreens.CREATE_CONTENT)
+                .item(R.drawable.targets, "Qwerty Asdfg", MyListScreens.MAP)
+                .divider()
+                .item(R.drawable.menu_clubs, activity.getString(R.string.m_clubs), MyListScreens.CLUBS, true)
+                .divider()
+                .item(R.drawable.menu_clubs, activity.getString(R.string.order), MyListScreens.ORDER)
+                .item(R.drawable.menu_clubs, activity.getString(R.string.list_order), MyListScreens.LIST_ORDER)
+                .divider()
+                .item(R.drawable.menu_settings, activity.getString(R.string.m_settings), MyListScreens.SETTINGS);
         return menu;
     }
 

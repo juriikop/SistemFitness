@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:background="@color/white">
+    <fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient
+        android:id="@+id/tool"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:color_1="darkPrimary"
+        app:color_2="primary">
+
+        <fitness.sistem.sistemfitness.tools.changeColor.ImageViewColor
+            android:id="@+id/back"
+            android:layout_width="@dimen/d_icon"
+            android:layout_height="@dimen/d_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/pad_16"
+            android:src="@drawable/hamburger"
+            app:colorText="textOnPrimary" />
+
+        <fitness.sistem.sistemfitness.tools.changeColor.TextViewColor
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/title_order"
+            android:textAllCaps="true"
+            android:textSize="18dp"
+            app:colorText="textOnPrimary"/>
+
+    </fitness.sistem.sistemfitness.tools.changeColor.RelativeLayoutGradient>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/panel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/black_50"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/st_12_black_50"
+                android:layout_marginLeft="@dimen/pad_32"
+                android:layout_marginRight="@dimen/pad_32">
+
+                <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
+                    android:id="@+id/order_id"
+                    style="@style/st_16_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/black_50"
+                    android:hint="order_id"
+                    android:imeOptions="actionNext"
+                    android:maxLength="50"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    app:typeValidate="filled"
+                    app:textError="@string/er_filled"
+                    app:colorCursor="primary"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/black_50"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/st_12_black_50"
+                android:layout_marginLeft="@dimen/pad_32"
+                android:layout_marginRight="@dimen/pad_32">
+                <fitness.sistem.sistemfitness.tools.changeColor.EditTextColor
+                    android:id="@+id/order_name"
+                    style="@style/st_16_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:hint="order_name"
+                    android:textColorHint="@color/black_50"
+                    app:colorCursor="primary"
+                    app:typeValidate="filled"
+                    app:textError="@string/er_filled"
+                    android:maxLength="50"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <fitness.sistem.sistemfitness.tools.changeColor.ButtonColor
+                android:id="@+id/done_register"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/h_button"
+                android:layout_marginTop="@dimen/pad_24"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:paddingLeft="@dimen/pad_24"
+                android:paddingRight="@dimen/pad_24"
+                android:textAllCaps="true"
+                android:text="@string/contin"
+                app:colorText="textOnAccent"
+                app:color_1="accent"
+                app:color_2="lightAccent"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

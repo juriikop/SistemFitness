@@ -26,11 +26,8 @@ public class SetSettings {
         ComponPrefTool.setLocale(locale);
     }
 
-    public static void setDB(Context context, ParamDB paramDB) {
-        if (ComponGlob.getInstance().context == null) {
-            ComponGlob.getInstance().context = context;
-        }
-        ComponGlob.getInstance().baseDB = new DataBase(context, paramDB);
+    public static void setDB(BaseDB baseDB) {
+        ComponGlob.getInstance().baseDB = baseDB;
     }
 
 }

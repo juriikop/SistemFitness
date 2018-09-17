@@ -2,8 +2,8 @@ package fitness.sistem.sistemfitness;
 
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
-import android.util.Log;
 
+import fitness.sistem.compon.db.DatabaseManager;
 import fitness.sistem.compon.base.SetSettings;
 import fitness.sistem.compon.interfaces_classes.ParamDB;
 import fitness.sistem.sistemfitness.network.MyAppParams;
@@ -39,8 +39,8 @@ public class FitnessApp extends MultiDexApplication {
         ParamDB paramDB = new ParamDB();
         paramDB.nameDB = "db_fitness";
         paramDB.versionDB = 1;
-        paramDB.addTable("qqqq", "ZZZZZZZZZZZZZZZZZZZZZZZZZZ");
-        SetSettings.setDB(context, paramDB);
+        paramDB.addTable("order_tab", "order_id integer primary key,order_name text");
+        SetSettings.setDB(new DatabaseManager(context, paramDB));
 
     }
 }

@@ -20,31 +20,31 @@ public class Menu extends Field{
         menuStart = -1;
     }
 
-    public Menu addItem(int icon, String title, String nameFragment, TYPE type) {
-        return addItem(icon, title, nameFragment, type, -1);
+    public Menu item(int icon, String title, String nameFragment, TYPE type) {
+        return item(icon, title, nameFragment, type, -1);
     }
 
-    public Menu addItem(int icon, String title, String nameFragment) {
-        return addItem(icon, title, nameFragment, -1, false);
+    public Menu item(int icon, String title, String nameFragment) {
+        return item(icon, title, nameFragment, -1, false);
     }
 
-    public Menu addItem(int icon, String title, String nameFragment, int badge) {
-        addItem(icon, title, nameFragment, badge, false);
+    public Menu item(int icon, String title, String nameFragment, int badge) {
+        item(icon, title, nameFragment, badge, false);
         return this;
     }
 
-    public Menu addItem(int icon, String title, String nameFragment, boolean start) {
-        return addItem(icon, title, nameFragment, -1, start);
+    public Menu item(int icon, String title, String nameFragment, boolean start) {
+        return item(icon, title, nameFragment, -1, start);
     }
 
-    public Menu addDivider(){
+    public Menu divider(){
         Record item = new Record();
         item.add(new Field("select", Field.TYPE_INTEGER, 2));
         menuList.add(item);
         return this;
     }
 
-    public Menu addItem(int icon, String title, String nameFragment, TYPE type, int badge) {
+    public Menu item(int icon, String title, String nameFragment, TYPE type, int badge) {
         Record item = new Record();
         item.add(new Field("icon", Field.TYPE_INTEGER, icon));
         item.add(new Field("name", Field.TYPE_STRING, title));
@@ -55,7 +55,7 @@ public class Menu extends Field{
         return this;
     }
 
-    public Menu addItem(int icon, String title, String nameFragment, int badge, boolean start) {
+    public Menu item(int icon, String title, String nameFragment, int badge, boolean start) {
         Record item = new Record();
         item.add(new Field("icon", Field.TYPE_INTEGER, icon));
         item.add(new Field("name", Field.TYPE_STRING, title));

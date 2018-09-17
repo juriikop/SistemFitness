@@ -25,6 +25,8 @@
     <string name="title_SMS">Код СМС</string>
     <string name="title_settings">Настройки</string>
     <string name="title_language">Язык</string>
+    <string name="title_profile">Профиль</string>
+    <string name="title_order">Заказ</string>
 
     // Error text
     <string name="er_filled">Нужно заполнить</string>

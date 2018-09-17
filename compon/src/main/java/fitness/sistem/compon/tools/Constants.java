@@ -26,6 +26,7 @@ public class Constants {
     public static enum AnimateScreen {TB, BT, LR, RL, NO}
     public static String CHANGE_LOCALE = "CHANGE_LOCALE";
     public static int REQUEST_CODE_PHOTO = 5001;
+    public static int VOICE_RECOGNITION_REQUEST_CODE = 5002;
 
 
 //    public static String SEPARATOR_NAV = ":";

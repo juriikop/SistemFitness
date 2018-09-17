@@ -1,1 +1,1 @@
-include ':fitness', ':compon'
+include ':fitness', ':compon', ':cronauto'

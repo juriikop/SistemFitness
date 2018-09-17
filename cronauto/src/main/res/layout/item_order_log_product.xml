@@ -1,0 +1,116 @@
+<fitness.sistem.compon.custom_components.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/swipeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray">
+
+    <LinearLayout
+        android:id="@+id/del"
+        android:layout_width="@dimen/pad_90"
+        android:layout_height="@dimen/pad_50"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/delete" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="@dimen/pad_32"
+            android:layout_height="wrap_content"
+            style="@style/st_16_black"
+            android:gravity="right"
+            android:layout_marginTop="@dimen/pad_12"
+            android:text="1"/>
+
+        <TextView
+            android:id="@+id/productName"
+            style="@style/st_16_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/pad_45"
+            android:layout_marginRight="@dimen/pad_24"
+            android:text="Qwftwedf huhf jkrtj  rjtiertutt toiy  toi"
+            android:layout_marginTop="@dimen/pad_12"
+            android:fontFamily="sans-serif-light"/>
+
+        <RelativeLayout
+            android:id="@+id/sum_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad_12"
+            android:layout_marginLeft="@dimen/pad_45"
+            android:layout_marginRight="@dimen/pad_24"
+            android:layout_below="@+id/productName">
+            <TextView
+                android:id="@+id/amount"
+                style="@style/st_18_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="123.45 ₴"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/plus"
+                android:layout_width="@dimen/pad_36"
+                android:layout_height="@dimen/pad_36"
+                android:padding="@dimen/pad_6"
+                android:layout_alignParentRight="true"
+                android:clickable="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/plus" />
+
+            <LinearLayout
+                android:id="@+id/count_l"
+                android:layout_width="@dimen/pad_70"
+                android:layout_height="@dimen/pad_36"
+                android:layout_marginRight="@dimen/pad_16"
+                android:layout_marginLeft="@dimen/pad_16"
+                android:layout_toLeftOf="@+id/plus"
+                android:orientation="horizontal"
+                android:background="@color/gray">
+
+                <EditText
+                    android:id="@+id/count"
+                    style="@style/st_18_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#0000"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/minus"
+                android:layout_width="@dimen/pad_36"
+                android:layout_height="@dimen/pad_36"
+                android:padding="@dimen/pad_6"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/count_l"
+                android:clickable="true"
+                android:src="@drawable/minus" />
+        </RelativeLayout>
+        <View
+            android:layout_below="@+id/sum_add"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pad_1"
+            android:layout_marginTop="@dimen/pad_20"
+            android:layout_marginRight="@dimen/pad_24"
+            android:layout_marginLeft="@dimen/pad_24"
+            android:background="@color/black_10"/>
+    </RelativeLayout>
+
+</fitness.sistem.compon.custom_components.SwipeLayout>

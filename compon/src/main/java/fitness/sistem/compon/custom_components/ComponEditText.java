@@ -20,6 +20,7 @@ public class ComponEditText extends AppCompatEditText implements IComponent, IVa
     protected int typeValidate;
     protected final int FILLED = 0, EMAIL = 1, LENGTH = 2, DIAPASON = 3, MIN_LENGTH = 4;
     private int fieldLength;
+    private int minLength = -1;
     private int maxLength;
     private String alias;
     private OnChangeStatusListener statusListener;
@@ -29,7 +30,6 @@ public class ComponEditText extends AppCompatEditText implements IComponent, IVa
     private String minValueText, maxValueText;
     private double minValue, maxValue;
     private OnFocusChangeListener focusChangeListenerInheritor = null;
-    private int minLength = -1;
 
     public ComponEditText(Context context) {
         super(context);

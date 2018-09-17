@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#0e4ca0</color>
+    <color name="primary_30">#480e4ca0</color>
+    <color name="primary_dark">#043373</color>
+    <color name="primary_light">#58b7df</color>
+
+    <color name="accent">#1dd278</color>
+
+    <color name="fond">#eee</color>
+    <color name="text_color">#396e83</color>
+    <color name="text_color_50">#80396e83</color>
+    <color name="text_color_20">#32396e83</color>
+    <color name="text_white">#deffffff</color>
+    <color name="green">#7ed321</color>
+    <color name="blue">#4a90e2</color>
+
+    <color name="white">#fff</color>
+    <color name="white_20">#3fff</color>
+    <color name="white_40">#6fff</color>
+    <color name="white_70">#afff</color>
+    <color name="red">#f00</color>
+
+    <color name="gray">#eaecf2</color>
+    <color name="gray_b">#bbb</color>
+    <color name="gray_d">#ddd</color>
+    <color name="gray_d9">#d9deea</color>
+    <color name="gray_d9_50">#80d9deea</color>
+    <color name="c_2e">#2e517a</color>
+    <color name="c_2e_10">#192e517a</color>
+
+    <color name="text_blue">#417488</color>
+
+    <color name="black">#000</color>
+    <color name="black_10">#19000000</color>
+    <color name="black_30">#47000000</color>
+    <color name="black_50">#8000</color>
+    <color name="black_70">#b000</color>
+    <color name="blackb">#1b2851</color>
+    <color name="blackb_10">#191b2851</color>
+</resources>

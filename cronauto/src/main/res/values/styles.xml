@@ -1,0 +1,166 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorControlNormal">@color/gray_b</item>
+        <item name="colorControlActivated">@color/primary_light</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
+    <style name="styleEditText">
+        <item name="colorAccent">@color/primary_light</item>
+        <item name="colorControlNormal">@color/gray_b</item>
+        <item name="colorControlActivated">@color/primary_light</item>
+    </style>
+
+    <style name="navTheme">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorControlHighlight">@color/gray</item>
+    </style>
+
+    <style name="ProgressDialogStyle" parent="android:Theme.Light.NoTitleBar"></style>
+
+    <style name="st_text_color">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+        <item name="android:textColor">@color/text_color_50</item>
+    </style>
+
+    <style name="st_12_black">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="st_12_black_50">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black_50</item>
+    </style>
+
+    <style name="st_12_black_70">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black_70</item>
+    </style>
+
+    <style name="st_12_primary_l">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/primary_light</item>
+    </style>
+
+    <!--<style name="st_12_accent_l">-->
+    <!--<item name="android:textSize">12sp</item>-->
+    <!--<item name="android:textColor">@color/accent_light</item>-->
+    <!--</style>-->
+
+    <style name="st_14_primary_l">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/primary_light</item>
+    </style>
+
+    <style name="st_14_black">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="st_14_black_70">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black_70</item>
+    </style>
+
+    <style name="st_14_white">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="st_14_text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="st_16_primary">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="st_16_text_blue">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_blue</item>
+    </style>
+
+    <style name="st_16_green">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <style name="st_16_black">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="st_16_white">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="st_16_white_40">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white_40</item>
+    </style>
+
+    <style name="st_18_black">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="st_18_accent">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/accent</item>
+    </style>
+
+    <style name="st_18_text_blue">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text_blue</item>
+    </style>
+
+    <style name="st_20_text">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="st_20_white">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="st_24_black">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="st_text_bar">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <style name="st_button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/h_button</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/selector_button</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+</resources>

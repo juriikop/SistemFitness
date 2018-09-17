@@ -27,4 +27,9 @@ public class ActionsAfterResponse {
         viewHandlers.add(new ViewHandler(0, TYPE.BACK));
         return this;
     }
+
+    public ActionsAfterResponse noActions() {
+//        viewHandlers.add(new ViewHandler(0, TYPE.BACK));
+        return this;
+    }
 }

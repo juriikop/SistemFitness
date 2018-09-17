@@ -27,7 +27,7 @@ public class MyListScreens extends ListScreens {
             SPLASH = "splash", MAIN = "main", INTRO = "intro", AUTH = "auth",
             AUTH_PHONE = "auth_phone", AUTH_CODE = "auth_code", AUTH_REGISTER = "auth_register",
             CLUBS = "clubs", ADD_CLUB = "addClub", MAP = "map", CREATE_CONTENT = "create_content",
-            PROFILE = "profile", SETT = "sett";
+            PROFILE = "profile", SETT = "sett", ORDER = "order", LIST_ORDER = "list_order";
 
     public static String ACTUAL_CLUB = "actual_club", SELECT = "select";
 
@@ -70,6 +70,16 @@ public class MyListScreens extends ListScreens {
                                         actionsAfterResponse().startScreen(AUTH_CODE),false,
                                         R.id.phone, R.id.surname, R.id.name, R.id.patronymic, R.id.email));
 
+        fragment(ORDER, R.layout.fragment_order).animate(AS.RL)
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER))
+                .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
+                        new Navigator()
+                                .add(R.id.done_register, ViewHandler.TYPE.CLICK_SEND,
+                                        new ParamModel(ParamModel.POST_DB, Api.ORDER,
+                                                "order_id,order_name"),
+                                        actionsAfterResponse().noActions(),false,
+                                        R.id.order_id, R.id.order_name));
+
         fragment(AUTH_CODE, R.layout.fragment_auth_code)
                 .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
                         new Navigator().add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
@@ -102,7 +112,14 @@ public class MyListScreens extends ListScreens {
                         new Navigator().add(0, ViewHandler.TYPE.CLICK_VIEW),
                         0, FitnessProcessing.class).actualReceiver(ACTUAL_CLUB);
 
+        fragment(LIST_ORDER, R.layout.fragment_list_order)
+                .addNavigator(new Navigator().add(R.id.addclub, ADD_CLUB)
+                        .add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER))
+                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, Api.ORDER),
+                        new ParamView(R.id.recycler, R.layout.item_list_order), null);
+
 //        activity(SETT, SettingsActivity.class);
+
 
         fragment(SETTINGS, R.layout.fragment_settings, FitnessProcessing.class)
                 .addNavigator(new Navigator()
