@@ -1,6 +1,7 @@
 package fitness.sistem.compon.custom_components;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.animation.DynamicAnimation;
 import android.support.animation.FlingAnimation;
 import android.support.animation.FloatPropertyCompat;
@@ -14,6 +15,8 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+
+import fitness.sistem.compon.R;
 
 public class SwipeLayout extends RelativeLayout {
 
@@ -32,9 +35,13 @@ public class SwipeLayout extends RelativeLayout {
     private RecyclerView recycler;
     private RecyclerView.ViewHolder holder;
     private OnSwipeRemove listener;
+    private OnClickListener clickListener;
 
-    public enum TYPE_SWIPE {DRAG, CURTAIN, HARMONIC, REMOVE};
+    public enum TYPE_SWIPE {CURTAIN, DRAG, HARMONIC, REMOVE};
+    private int maxType = 4;
     public enum DIRECT {LEFT, RIGHT};
+    private int swipeId, rightId, leftId;
+    private TYPE_SWIPE rightType, leftType;
 
     public SwipeLayout(@NonNull Context context) {
         this(context, null);
@@ -54,12 +61,54 @@ public class SwipeLayout extends RelativeLayout {
         maxV = 0;
         startMove = false;
         isNoSwipe = false;
+        init(context, attrs);
+    }
+
+    private void init(Context context, @Nullable AttributeSet attrs) {
+        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.Simple,
+                0, 0);
+        try {
+            swipeId = a.getResourceId(R.styleable.Simple_swipeViewId, 0);
+            rightId = a.getResourceId(R.styleable.Simple_swipeRightViewId, 0);
+            leftId = a.getResourceId(R.styleable.Simple_swipeLeftViewId, 0);
+            int i = a.getInt(R.styleable.Simple_swipeRightType, 0);
+            if (i > -1 && i < maxType) {
+                rightType = TYPE_SWIPE.values()[i];
+            }
+            i = a.getInt(R.styleable.Simple_swipeLeftType, 0);
+            if (i > -1 && i < maxType) {
+                leftType = TYPE_SWIPE.values()[i];
+            }
+        } finally {
+            a.recycle();
+        }
+        if (swipeId != 0) {
+            View v = findViewById(swipeId);
+            if (v != null) {
+                setSwipeView(v);
+            }
+        }
+        if (rightId != 0) {
+            View v = findViewById(rightId);
+            if (v != null) {
+                setSwipeRight(rightType, v);
+            }
+        }
+        if (leftId != 0) {
+            View v = findViewById(leftId);
+            if (v != null) {
+                setSwipeLeft(leftType, v);
+            }
+        }
+    }
+
+    public void setOnClick(OnClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float tX;
-        if (mSwipeView == null) return false;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if ( ! isSwipe() && isSwipeInRecycler()) {
@@ -115,6 +164,13 @@ public class SwipeLayout extends RelativeLayout {
                 return true;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+                float delt = mDownX - event.getX();
+                if (delt < 0f) delt = - delt;
+                if (delt < 5f) {
+                    if (clickListener != null) {
+                        clickListener.onClick(mSwipeView);
+                    }
+                }
                 if (isNoSwipe) return true;
                 mVelocityTracker.computeCurrentVelocity(1000);
                 tX = mSwipeView.getTranslationX();

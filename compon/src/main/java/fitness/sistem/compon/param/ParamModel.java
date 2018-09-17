@@ -39,6 +39,8 @@ public class ParamModel <T> {
     public String paginationNameParamPerPage;
     public String paginationNameParamNumberPage;
     public String updateTable, updateUrl, updateAlias;
+    public String[] urlArray;
+    public int urlArrayIndex = -1;
 
     public Filters filters;
 //    public FilterParam[] filterParams;
@@ -62,6 +64,16 @@ public class ParamModel <T> {
 
     public ParamModel(int method, String urlOrNameParent) {
         this(method, urlOrNameParent, "", -1);
+    }
+
+    public ParamModel(int method, String[] urlArray, String param) {
+        this.method = method;
+        this.param = param;
+        this.urlArray = urlArray;
+        this.duration = -1;
+        nameField = null;
+        nameTakeField = null;
+        internetProvider = null;
     }
 
     public ParamModel(Field field) {
@@ -111,6 +123,7 @@ public class ParamModel <T> {
         this.param = param;
         this.duration = duration;
         nameField = null;
+        urlArray = null;
         nameTakeField = null;
         internetProvider = null;
     }

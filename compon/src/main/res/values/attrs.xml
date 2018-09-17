@@ -49,5 +49,20 @@
             <enum name="filled" value="0" />
             <enum name="email" value="1" />
         </attr>
+        <attr name="swipeViewId" format="reference"/>
+        <attr name="swipeRightViewId" format="reference"/>
+        <attr name="swipeLeftViewId" format="reference"/>
+        <attr name="swipeRightType">
+            <enum name="CURTAIN" value="0" />
+            <enum name="DRAG" value="1" />
+            <enum name="HARMONIC" value="2" />
+            <enum name="REMOVE" value="3" />
+        </attr>
+        <attr name="swipeLeftType">
+            <enum name="CURTAIN" value="0" />
+            <enum name="DRAG" value="1" />
+            <enum name="HARMONIC" value="2" />
+            <enum name="REMOVE" value="3" />
+        </attr>
     </declare-styleable>
 </resources>

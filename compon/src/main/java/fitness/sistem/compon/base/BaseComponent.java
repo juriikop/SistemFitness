@@ -14,6 +14,7 @@ import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.components.MultiComponents;
 import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.IValidate;
+import fitness.sistem.compon.interfaces_classes.Param;
 import fitness.sistem.compon.param.ParamComponent;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.json_simple.WorkWithRecordsAndViews;
@@ -125,7 +126,9 @@ public abstract class BaseComponent {
     }
 
     public void actual() {
+        Log.d("QWERT","BaseComponent "+paramMV.nameParentComponent+"<< ***************");
         if (paramMV.paramModel != null) {
+            Log.d("QWERT","BaseComponent "+paramMV.nameParentComponent+"<< paramMV.paramModel.method="+paramMV.paramModel.method);
             switch (paramMV.paramModel.method) {
                 case ParamModel.PARENT :
                     ParentModel pm = iBase.getParentModel(paramMV.paramModel.url);
@@ -156,9 +159,18 @@ public abstract class BaseComponent {
                     }
                     break;
                 case GET_DB :
-                    Log.d("QWERT","BaseComponent BaseComponent");
-                    ComponGlob.getInstance().baseDB.get(this, null, listener);
-//                    changeDataBase(ComponGlob.getInstance().baseDB.get(paramMV.paramModel.url, null));
+                    Record paramScreen = null;
+                    if (paramMV.paramModel.urlArray != null) {
+                        Field f = iBase.getParamScreen();
+                        if (f != null && f.type == Field.TYPE_CLASS) {
+                            paramScreen = ((Record) f.value);
+                            paramMV.paramModel.urlArrayIndex = paramScreen.getInt(paramMV.paramModel.urlArray[0]);
+                            if (paramMV.paramModel.urlArrayIndex == 0) {
+                                paramMV.paramModel.urlArrayIndex = -1;
+                            }
+                        }
+                    }
+                    ComponGlob.getInstance().baseDB.get(iBase, paramMV.paramModel, setParam(paramMV.paramModel.param, paramScreen), listener);
                     break;
                 default: {
                     new BasePresenter(iBase, paramMV.paramModel, null, null, listener);
@@ -167,6 +179,40 @@ public abstract class BaseComponent {
         } else {
             changeDataBase(null);
         }
+    }
+
+    private String[] setParam(String paramSt, Record rec) {
+        if (paramSt == null) return null;
+        String[] param = paramSt.split(",");
+        int ik = param.length;
+        for (int i = 0; i < ik; i++) {
+            String par = param[i];
+            String parValue = null;
+            if (rec != null) {
+                parValue = rec.getString(par);
+            }
+            if (parValue == null) {
+                parValue = getGlobalParam(par);
+            }
+            if (parValue != null) {
+                param[i] = parValue;
+            } else {
+                return null;
+            }
+        }
+        return param;
+    }
+
+    private String getGlobalParam(String name) {
+        String st = null;
+        List<Param> paramV = ComponGlob.getInstance().paramValues;
+        for (Param par : paramV) {
+            if (par.name.equals(name)) {
+                st = par.value;
+                break;
+            }
+        }
+        return st;
     }
 
     public void setParentData(Field field) {

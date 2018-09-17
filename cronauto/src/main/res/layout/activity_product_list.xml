@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/h_tool_bar"
@@ -14,45 +15,13 @@
             android:padding="@dimen/pad_12"
             android:src="@drawable/nar_light" />
 
-        <TextView
-            android:id="@+id/bonus"
-            style="@style/st_16_green"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/pad_24"
-            android:text="+ 123 \u20b4"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/balance"
-            style="@style/st_16_white_40"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/pad_20"
-            android:layout_toLeftOf="@+id/bonus"
-            android:text="- 456 \u20b4"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/pad_1"
-            android:layout_alignParentBottom="true"
-            android:background="@color/white_20" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/h_tool_bar"
-        android:background="@color/primary">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/pad_36"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/pad_8"
             android:layout_toLeftOf="@+id/filter"
+            android:layout_toRightOf="@+id/back"
             android:background="@drawable/rect_white_r2">
 
             <EditText
@@ -60,11 +29,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/barcode"
                 android:layout_marginLeft="@dimen/pad_14"
-                android:inputType="textNoSuggestions"
+                android:layout_toLeftOf="@+id/barcode"
                 android:background="#0000"
                 android:hint="@string/search"
+                android:inputType="textNoSuggestions"
                 android:textColorHint="@color/primary_30" />
 
             <LinearLayout
@@ -116,4 +85,12 @@
             android:layout_marginRight="@dimen/pad_22"
             android:textAllCaps="true" />
     </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingRight="@dimen/pad_8"
+        android:paddingLeft="@dimen/pad_8"
+        android:background="@color/gray"/>
 </LinearLayout>

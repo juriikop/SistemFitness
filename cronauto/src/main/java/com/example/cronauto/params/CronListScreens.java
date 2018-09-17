@@ -14,6 +14,9 @@ import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.param.ParamComponent;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.param.ParamView;
+import fitness.sistem.compon.tools.Constants;
+
+import static fitness.sistem.compon.interfaces_classes.ViewHandler.TYPE_PARAM_FOR_SCREEN.RECORD;
 
 public class CronListScreens  extends ListScreens {
     public CronListScreens(Context context) {
@@ -81,13 +84,18 @@ public class CronListScreens  extends ListScreens {
         fragment(CATALOG, R.layout.fragment_catalog)
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.CATALOG_0)
                                 .updateDB(SQL.CATALOG_TAB, Api.DB_CATALOG, SQL.dayMillisecond,
-                                        "catalog_id,ID;parent_id,IBLOCK_SECTION_ID;catalog_name,NAME"),
-                        new ParamView(R.id.recycler, "type", new int[]{R.layout.item_catalog_type_1,
+                                        SQL.CATALOG_ALIAS),
+                        new ParamView(R.id.recycler, "expandedLevel", new int[]{R.layout.item_catalog_type_1,
                                 R.layout.item_catalog_type_2, R.layout.item_catalog_type_3})
-                                .expanded(R.id.expand, R.id.expand, new ParamModel()), null);
+                                .expanded(R.id.expand, R.id.expand, new ParamModel(ParamModel.GET_DB, SQL.CATALOG, "catalog_id")),
+                        new Navigator().add(0, PRODUCT_LIST, RECORD));
 
-        activity(PRODUCT_LIST, R.layout.activity_product_list)
-                .addRecognizeVoiceComponent(R.id.microphone, R.id.search);
+        activity(PRODUCT_LIST, R.layout.activity_product_list).animate(AS.RL)
+                .addRecognizeVoiceComponent(R.id.microphone, R.id.search)
+                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_QUERY_ARRAY, "catalog_id")
+                        .updateDB(SQL.PRODUCT_TAB, Api.DB_PRODUCT, SQL.dayMillisecond, SQL.PRODUCT_ALIAS),
+                        new ParamView(R.id.recycler, R.layout.item_product_list))
+        ;
 
         fragment(ORDER_LOG, R.layout.fragment_order_log)
                 .addNavigator(new Navigator().add(R.id.filter, ORDER_LOG_FILTER)

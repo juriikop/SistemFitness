@@ -42,6 +42,7 @@ public interface IBase {
 //    public void setMapComponent(MapComponent mapComponent);
     public void addAnimatePanel(AnimatePanel animatePanel);
     public void delAnimatePanel(AnimatePanel animatePanel);
+    public Field getParamScreen();
     public boolean isHideAnimatePanel();
     public void log(String msg);
 //    public void customClickListenet(int viewId, int position, Record record);

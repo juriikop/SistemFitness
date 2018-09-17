@@ -3,6 +3,7 @@ package com.example.cronauto;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
+import com.example.cronauto.data.db.SQL;
 import com.example.cronauto.params.CronAppParams;
 import com.example.cronauto.params.CronListScreens;
 import com.example.cronauto.tools.PreferenceTool;
@@ -33,9 +34,10 @@ public class CronApp extends MultiDexApplication {
         SetSettings.setListScreens(new CronListScreens(context));
 
         ParamDB paramDB = new ParamDB();
-        paramDB.nameDB = "db_cron";
-        paramDB.versionDB = 1;
-        paramDB.addTable("catalog", "catalog_id text primary key,parent_id text,catalog_name text");
+        paramDB.nameDB = SQL.DB_NAME;
+        paramDB.versionDB = 2;
+        paramDB.addTable(SQL.CATALOG_TAB, SQL.CATALOG_FIELDS);
+        paramDB.addTable(SQL.PRODUCT_TAB, SQL.PRODUCT_FIELDS);
         SetSettings.setDB(new DatabaseManager(context, paramDB));
 
     }
