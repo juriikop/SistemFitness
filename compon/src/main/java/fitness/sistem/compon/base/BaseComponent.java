@@ -165,8 +165,12 @@ public abstract class BaseComponent {
                         if (f != null && f.type == Field.TYPE_CLASS) {
                             paramScreen = ((Record) f.value);
                             paramMV.paramModel.urlArrayIndex = paramScreen.getInt(paramMV.paramModel.urlArray[0]);
-                            if (paramMV.paramModel.urlArrayIndex == 0) {
-                                paramMV.paramModel.urlArrayIndex = -1;
+                            if (paramMV.paramModel.urlArrayIndex < 0) {
+                                paramMV.paramModel.urlArrayIndex = 0;
+                            }
+                            int len = paramMV.paramModel.urlArray.length - 1;
+                            if (paramMV.paramModel.urlArrayIndex > len) {
+                                paramMV.paramModel.urlArrayIndex = len;
                             }
                         }
                         Log.d("QWERT","BaseComponent paramScreen="+paramScreen.toString()+"<< urlArrayIndex="+paramMV.paramModel.urlArrayIndex);
