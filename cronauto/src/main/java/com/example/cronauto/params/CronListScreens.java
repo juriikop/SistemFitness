@@ -72,16 +72,8 @@ public class CronListScreens  extends ListScreens {
                         new int[]{R.layout.item_menu, R.layout.item_menu_select,
                                 R.layout.item_menu_divider, R.layout.item_menu_enabled}));
 
-        fragment(INDEX, R.layout.fragment_index)
-                .addComponent(TC.PAGER_F, new ParamView(R.id.pager,
-                        new String[] {NOVELTIES, EXTRA_BONUS, CATALOG})
-                        .setTab(R.id.tabs, R.array.index_tab_name));
-
-        fragment(NOVELTIES, R.layout.fragment_novelties);
-
-        fragment(EXTRA_BONUS, R.layout.fragment_extra_bonus);
-
         fragment(CATALOG, R.layout.fragment_catalog)
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER))
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.CATALOG_0)
                                 .updateDB(SQL.CATALOG_TAB, Api.DB_CATALOG, SQL.dayMillisecond,
                                         SQL.CATALOG_ALIAS),
@@ -90,7 +82,27 @@ public class CronListScreens  extends ListScreens {
                                 .expanded(R.id.expand, R.id.expand, new ParamModel(ParamModel.GET_DB, SQL.CATALOG, "catalog_id")),
                         new Navigator().add(0, PRODUCT_LIST, RECORD));
 
+
+//        fragment(INDEX, R.layout.fragment_index)
+//                .addComponent(TC.PAGER_F, new ParamView(R.id.pager,
+//                        new String[] {NOVELTIES, EXTRA_BONUS, CATALOG})
+//                        .setTab(R.id.tabs, R.array.index_tab_name));
+
+        fragment(NOVELTIES, R.layout.fragment_novelties);
+
+        fragment(EXTRA_BONUS, R.layout.fragment_extra_bonus);
+
+//        fragment(CATALOG, R.layout.fragment_catalog)
+//                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.CATALOG_0)
+//                                .updateDB(SQL.CATALOG_TAB, Api.DB_CATALOG, SQL.dayMillisecond,
+//                                        SQL.CATALOG_ALIAS),
+//                        new ParamView(R.id.recycler, "expandedLevel", new int[]{R.layout.item_catalog_type_1,
+//                                R.layout.item_catalog_type_2, R.layout.item_catalog_type_3})
+//                                .expanded(R.id.expand, R.id.expand, new ParamModel(ParamModel.GET_DB, SQL.CATALOG, "catalog_id")),
+//                        new Navigator().add(0, PRODUCT_LIST, RECORD));
+
         activity(PRODUCT_LIST, R.layout.activity_product_list).animate(AS.RL)
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
                 .addRecognizeVoiceComponent(R.id.microphone, R.id.search)
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_QUERY_ARRAY, "catalog_id")
                         .updateDB(SQL.PRODUCT_TAB, Api.DB_PRODUCT, SQL.dayMillisecond, SQL.PRODUCT_ALIAS),

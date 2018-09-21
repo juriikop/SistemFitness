@@ -161,7 +161,11 @@ public class DatabaseManager extends BaseDB {
     @Override
     public Field get(String sql, String[] param) {
         if (param != null) {
-            Log.d("QWERT", "DatabaseManager GET SQL=" + sql + "<< param=" + param.toString());
+            String st = "";
+            for (String sti : param) {
+                st += sti + ",";
+            }
+            Log.d("QWERT", "DatabaseManager GET SQL=" + sql + "<< param=" + st);
         } else {
             Log.d("QWERT", "DatabaseManager GET SQL=" + sql + "<<");
         }
