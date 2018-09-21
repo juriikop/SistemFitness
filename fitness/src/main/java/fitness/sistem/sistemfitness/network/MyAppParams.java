@@ -1,8 +1,8 @@
 package fitness.sistem.sistemfitness.network;
 
 import fitness.sistem.compon.param.AppParams;
-import com.example.cronauto.dialogs.ErrorDialog;
-import com.example.cronauto.dialogs.ProgressDialog;
+import fitness.sistem.sistemfitness.dialogs.ErrorDialog;
+import fitness.sistem.sistemfitness.dialogs.ProgressDialog;
 
 public class MyAppParams extends AppParams {
     @Override

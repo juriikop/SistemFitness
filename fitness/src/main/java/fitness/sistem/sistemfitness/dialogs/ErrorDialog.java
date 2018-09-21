@@ -83,6 +83,11 @@ public class ErrorDialog extends DialogFragment implements IErrorDialog {
     }
 
     @Override
+    public void setParam(int status, String title, String message) {
+
+    }
+
+    @Override
     public void setOnClickListener(View.OnClickListener listener) {
         this.listener = listener;
     }
