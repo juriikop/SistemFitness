@@ -2,6 +2,7 @@ package fitness.sistem.compon.custom_components;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Handler;
 import android.support.animation.DynamicAnimation;
 import android.support.animation.FlingAnimation;
 import android.support.animation.FloatPropertyCompat;
@@ -42,6 +43,7 @@ public class SwipeLayout extends RelativeLayout {
     public enum DIRECT {LEFT, RIGHT};
     private int swipeId, rightId, leftId;
     private TYPE_SWIPE rightType, leftType;
+    private Handler handler = new Handler();
 
     public SwipeLayout(@NonNull Context context) {
         this(context, null);
@@ -82,8 +84,23 @@ public class SwipeLayout extends RelativeLayout {
         } finally {
             a.recycle();
         }
+        waitFormationChild.run();
+    }
+
+    Runnable waitFormationChild = new Runnable() {
+        @Override
+        public void run() {
+            if (getChildCount() > 0) {
+                setSwipeView();
+            } else {
+                handler.postDelayed(waitFormationChild, 20);
+            }
+        }
+    };
+
+    private void setSwipeView() {
         if (swipeId != 0) {
-            View v = findViewById(swipeId);
+            View v = this.findViewById(swipeId);
             if (v != null) {
                 setSwipeView(v);
             }
@@ -164,14 +181,16 @@ public class SwipeLayout extends RelativeLayout {
                 return true;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+                boolean ret = true;
                 float delt = mDownX - event.getX();
                 if (delt < 0f) delt = - delt;
                 if (delt < 5f) {
                     if (clickListener != null) {
                         clickListener.onClick(mSwipeView);
+                        ret = false;
                     }
                 }
-                if (isNoSwipe) return true;
+                if (isNoSwipe) return ret;
                 mVelocityTracker.computeCurrentVelocity(1000);
                 tX = mSwipeView.getTranslationX();
                 float minS, maxS;
@@ -196,7 +215,7 @@ public class SwipeLayout extends RelativeLayout {
                     setWidthRight();
                 }
                 mVelocityTracker.clear();
-                return true;
+                return ret;
         }
         return false;
     }
@@ -245,7 +264,7 @@ public class SwipeLayout extends RelativeLayout {
         return false;
     }
 
-    private boolean isSwipe() {
+    public boolean isSwipe() {
         return mSwipeView != null && mSwipeView.getTranslationX() != 0f;
     }
 

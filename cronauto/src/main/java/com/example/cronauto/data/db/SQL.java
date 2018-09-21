@@ -18,18 +18,16 @@ public class SQL {
 
     public static String PRODUCT_IN_CATALOG = "SELECT * FROM product WHERE catalog_id = ?";
 
-//    public static String PRODUCT_IN_CATALOG = "SELECT * FROM product";
+    public static String CATALOG_L1_L3 = "SELECT * FROM product, (SELECT catalog.catalog_id FROM catalog, " +
+            "(SELECT * FROM catalog WHERE parent_id = ?) AS cat1 WHERE catalog.parent_id = cat1.catalog_id) AS cat " +
+            "WHERE product.catalog_id = cat.catalog_id";
 
-    public static String CATALOG_L1_L3 = "SELECT * FROM ProductTab, (SELECT catalog_tab.catalog_id FROM catalog_tab, " +
-            "(SELECT * FROM catalog_tab WHERE parent_id = ?) AS cat1 WHERE catalog_tab.parent_id = cat1.catalog_id) AS cat " +
-            "WHERE ProductTab.catalog_id = cat.catalog_id";
+    public static String CATALOG_L2_L3 = "SELECT * FROM product, (SELECT catalog_id FROM catalog WHERE parent_id = ?) AS cat " +
+            "WHERE product.catalog_id = cat.catalog_id";
 
-    public static String CATALOG_L2_L3 = "SELECT * FROM ProductTab, (SELECT catalog_id FROM catalog_tab WHERE parent_id = ?) AS cat " +
-            "WHERE ProductTab.catalog_id = cat.catalog_id";
-
-    public static String PRODUCT_IN_ORDER = "SELECT ProductTab.product_name, ProductTab.price, " +
+    public static String PRODUCT_IN_ORDER = "SELECT product.product_name, product.price, " +
             "OrderProduct.productId, OrderProduct.orderId, OrderProduct.count, OrderProduct.productOrderId " +
-            "FROM OrderProduct, ProductTab WHERE OrderProduct.orderId = ? AND OrderProduct.productId = ProductTab.product_id";
+            "FROM OrderProduct, product WHERE OrderProduct.orderId = ? AND OrderProduct.productId = product.product_id";
 
     public static String[] PRODUCT_QUERY_ARRAY = {"expandedLevel", CATALOG_L1_L3, CATALOG_L2_L3, PRODUCT_IN_CATALOG};
 }

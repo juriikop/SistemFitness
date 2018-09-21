@@ -159,7 +159,7 @@ public abstract class BaseComponent {
                     }
                     break;
                 case GET_DB :
-                    Record paramScreen = null;
+                    Record paramScreen = null; // Параметри які передаються в Screen формує номер urlArrayIndex через параметри
                     if (paramMV.paramModel.urlArray != null) {
                         Field f = iBase.getParamScreen();
                         if (f != null && f.type == Field.TYPE_CLASS) {
@@ -169,6 +169,7 @@ public abstract class BaseComponent {
                                 paramMV.paramModel.urlArrayIndex = -1;
                             }
                         }
+                        Log.d("QWERT","BaseComponent paramScreen="+paramScreen.toString()+"<< urlArrayIndex="+paramMV.paramModel.urlArrayIndex);
                     }
                     ComponGlob.getInstance().baseDB.get(iBase, paramMV.paramModel, setParam(paramMV.paramModel.param, paramScreen), listener);
                     break;
