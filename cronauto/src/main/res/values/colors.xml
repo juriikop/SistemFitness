@@ -6,6 +6,8 @@
     <color name="primary_light">#58b7df</color>
 
     <color name="accent">#1dd278</color>
+    <color name="accent_y">#feb535</color>
+    <color name="accent_light_y">#fccd7b</color>
 
     <color name="fond">#eee</color>
     <color name="text_color">#396e83</color>
@@ -13,13 +15,16 @@
     <color name="text_color_20">#32396e83</color>
     <color name="text_white">#deffffff</color>
     <color name="green">#7ed321</color>
+    <color name="green_btn">#0ea053</color>
+    <color name="green_btn_l">#37d984</color>
     <color name="blue">#4a90e2</color>
 
     <color name="white">#fff</color>
     <color name="white_20">#3fff</color>
     <color name="white_40">#6fff</color>
     <color name="white_70">#afff</color>
-    <color name="red">#f00</color>
+    <color name="red">#db4437</color>
+    <color name="attention">#d0021b</color>
 
     <color name="gray">#eaecf2</color>
     <color name="gray_b">#bbb</color>
