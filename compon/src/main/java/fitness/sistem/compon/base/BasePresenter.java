@@ -136,7 +136,6 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
                     iBase.showDialog(BaseInternetProvider.JSONSYNTAXERROR, e.getMessage(), null);
                     e.printStackTrace();
                 }
-                Log.d("QWERT","BasePresenter Field="+f);
                 if (f != null && f.value != null) {
                     listener.onResponse(f);
 //                    if (f.type == Field.TYPE_LIST_RECORD) {

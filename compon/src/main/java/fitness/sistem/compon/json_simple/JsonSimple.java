@@ -1,8 +1,5 @@
 package fitness.sistem.compon.json_simple;
 
-import android.util.Log;
-
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 public class JsonSimple {
@@ -24,7 +21,6 @@ public class JsonSimple {
         if (firstSymbol()) {
             res = new Field();
             res.name = "";
-//            Log.d("JSON_S","currentSymbol="+currentSymbol+" indMax="+indMax);
             switch (currentSymbol) {
                 case "[" :
                     res.value = getList();
@@ -61,51 +57,18 @@ public class JsonSimple {
         }
     }
 
-//    private ListRecords getList() {
-//        ListRecords list = new ListRecords();
-//        if (firstSymbol()) {
-//            while ( ! currentSymbol.equals("]")) {
-//                if (currentSymbol.equals("{")) {
-//                    list.add(getClazz());
-//                    if ( ! firstSymbol()) {
-//                        Log.d("JSON_L", "No ]");
-//                    }
-//                } else {
-//                    Log.d("JSON_L", "No { ind=" + ind);
-//                }
-//            }
-//        }
-//        return list;
-//    }
-
     private Object getList() throws JsonSyntaxException {
-        int ii = 0;
-//        Log.d("QWERT","getList getList getList getList getList getList getList getList");
         if (firstSymbol()) {
             if (currentSymbol.equals("{") || currentSymbol.equals("]")) {
                 ListRecords list = new ListRecords();
                 while (!currentSymbol.equals("]")) {
-                    ii++;
-//                    if (ii > 332 && ii < 325) Log.d("QWERT","getList IIIIIIII="+ii);
-                    if (ii == 332) {
-                        int jj = json.length();
-                        int ik = ind + 500;
-                        if (ik >= jj) {
-                            ik = jj - 1;
-                        }
-//                        Log.d("QWERT","getList ind="+ind+" SSSS="+json.substring(ind - 10, ik)+"<<<<<<");
-                    }
-
                     if (currentSymbol.equals("{")) {
                         list.add(getClazz());
                         if (!firstSymbol()) {
-                            Log.d("QWERT", "No ] " + textForException());
                             throw new JsonSyntaxException("No ] " + textForException());
                         }
                     } else {
-                        Log.d("QWERT", "No { " + textForException());
                         throw new JsonSyntaxException("No { " + textForException());
-//                        if (ii > 332 && ii < 325) Log.d("JSON_L", "No { ind=" + ind);
                     }
                 }
                 return list;
@@ -114,7 +77,6 @@ public class JsonSimple {
                 while (!currentSymbol.equals("]")) {
                     listF.add(getField());
                     if (!firstSymbol()) {
-                        Log.d("QWERT", "No ] " + textForException());
                         throw new JsonSyntaxException("No ] " + textForException());
                     }
                 }
@@ -170,7 +132,6 @@ public class JsonSimple {
         Record list = new Record();
         if (firstSymbol()) {
             while ( ! currentSymbol.equals("}")) {
-//                if (ii > 332 && ii < 325) Log.d("QWERT","getClazz ii="+ii+" currentSymbol="+currentSymbol);
                     if (currentSymbol.equals(quote)) {
                     Field item = getValue();
                     if (item == null) {
@@ -178,15 +139,12 @@ public class JsonSimple {
                     }
                     list.add(item);
                     if ( ! firstSymbol()) {
-                        Log.d("QWERT", "No } " + textForException());
                         throw new JsonSyntaxException("No } " + textForException());
                     }
                 } else {
                     if (ind < indMax) {
-//                    Log.d("JSON_L", "Invalid character " + currentSymbol + " ind=" + ind);
                         firstSymbol();
                     } else {
-                        Log.d("QWERT", "No } " + textForException());
                         throw new JsonSyntaxException("No } " + textForException());
                     }
                 }
@@ -198,17 +156,11 @@ public class JsonSimple {
     private Field getValue() throws JsonSyntaxException {
         Field item = new Field();
         item.name = getName(quote);
-//        if (ii > 332 && ii < 325)  Log.d("QWERT","getValue item.name="+item.name);
-//        Log.d("JSON_L","NAME="+item.name);
         if (item.name != null && firstSymbol()) {
-//            if (ii > 332 && ii < 325)  Log.d("QWERT","getValue currentSymbol="+currentSymbol);
             if (currentSymbol.equals(":")) {
                 if (firstSymbol()) {
-//                    if (ii > 332 && ii < 325) Log.d("QWERT","getValue firstSymbol currentSymbol="+currentSymbol+" BBB="+(currentSymbol.equals(quote)));
                     switch (currentSymbol) {
                         case quote : // String
-//                            item.type = Field.TYPE_STRING;
-//                            item.value = getStringValue();
                             Field fs = getStringValue();
                             item.type = fs.type;
                             item.value = fs.value;
@@ -236,7 +188,6 @@ public class JsonSimple {
                             break;
                         default:
                             if (digits.contains(currentSymbol)) {    // digit
-//                                item.type = Field.TYPE_INTEGER;
                                 Field f = getDigitalValue(item.name);
                                 item.value = f.value;
                                 item.type = f.type;
@@ -245,15 +196,12 @@ public class JsonSimple {
                             }
                     }
                 } else {
-                    Log.d("QWERT", "No value " + textForException());
                     throw new JsonSyntaxException("No value " + textForException());
                 }
             } else {
-                Log.d("QWERT", "No : " + textForException());
                 throw new JsonSyntaxException("No : " + textForException());
             }
         } else {
-            Log.d("QWERT", "No : " + textForException());
             throw new JsonSyntaxException("No : " + textForException());
         }
         return item;
@@ -264,7 +212,6 @@ public class JsonSimple {
         if (st.toUpperCase().equals("NULL")) {
             ind+=3;
         } else {
-            Log.d("QWERT", "No NULL " + textForException());
             throw new JsonSyntaxException("No NULL " + textForException());
         }
         return null;
@@ -300,7 +247,6 @@ public class JsonSimple {
             j = i + 1;
             i = json.indexOf(quote, j);
             if (i < 0) {
-                Log.d("QWERT", "Not " + quote + " " + textForException());
                 throw new JsonSyntaxException("Not " + quote +" " + textForException());
             }
         } while (json.substring(i - 1, i).equals("\\"));
@@ -490,7 +436,6 @@ public class JsonSimple {
             st = json.substring(ind + 1, i);
             ind = i;
         } else {
-            Log.d("QWERT", "Not name " + textForException());
             throw new JsonSyntaxException("Not name " + textForException());
         }
         return st;
@@ -507,7 +452,6 @@ public class JsonSimple {
                 break;
             }
         }
-//        Log.d("JSON_S","firstSymbol ind="+ind+" currentSymbol="+currentSymbol+"<<");
         return ind < indMax;
     }
 }
