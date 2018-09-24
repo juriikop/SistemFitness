@@ -28,6 +28,7 @@ import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.components.MultiComponents;
 import fitness.sistem.compon.json_simple.JsonSimple;
+import fitness.sistem.compon.json_simple.JsonSyntaxException;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.tools.ComponPrefTool;
 import fitness.sistem.compon.tools.Constants;
@@ -75,7 +76,12 @@ public class BaseFragment extends Fragment implements IBase {
             String paramJson = bundle.getString(Constants.NAME_PARAM_FOR_SCREEN);
             if (paramJson != null && paramJson.length() >0) {
                 JsonSimple jsonSimple = new JsonSimple();
-                paramScreen = jsonSimple.jsonToModel(paramJson);
+                try {
+                    paramScreen = jsonSimple.jsonToModel(paramJson);
+                } catch (JsonSyntaxException e) {
+                    log(e.getMessage());
+                    e.printStackTrace();
+                }
             }
         } else if (savedInstanceState != null) {
             nameMvp = savedInstanceState.getString(Constants.NAME_MVP);

@@ -13,6 +13,7 @@ public class BaseInternetProvider {
     public static final int TIMEOUT = 702;
     public static final int SERVERERROR = 703;
     public static final int AUTHFAILURE = 704;
+    public static final int JSONSYNTAXERROR = 705;
 
     public void setParam(int method, String url, Map<String, String> headers,
                          String data, InternetProviderListener listener) {

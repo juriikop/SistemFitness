@@ -14,7 +14,8 @@ public class JsonSimple {
     private String currentSymbol;
     private String digits = "1234567890.+-";
     int ii = 0;
-    public Field jsonToModel(String st) {
+
+    public Field jsonToModel(String st) throws JsonSyntaxException {
         if (st == null) return null;
         Field res = null;
         json = st;
@@ -77,31 +78,34 @@ public class JsonSimple {
 //        return list;
 //    }
 
-    private Object getList() {
+    private Object getList() throws JsonSyntaxException {
         int ii = 0;
-        Log.d("QWERT","getList getList getList getList getList getList getList getList");
+//        Log.d("QWERT","getList getList getList getList getList getList getList getList");
         if (firstSymbol()) {
             if (currentSymbol.equals("{") || currentSymbol.equals("]")) {
                 ListRecords list = new ListRecords();
                 while (!currentSymbol.equals("]")) {
                     ii++;
-                    if (ii > 332 && ii < 325) Log.d("QWERT","getList IIIIIIII="+ii);
+//                    if (ii > 332 && ii < 325) Log.d("QWERT","getList IIIIIIII="+ii);
                     if (ii == 332) {
                         int jj = json.length();
                         int ik = ind + 500;
                         if (ik >= jj) {
                             ik = jj - 1;
                         }
-                        Log.d("QWERT","getList ind="+ind+" SSSS="+json.substring(ind - 10, ik)+"<<<<<<");
+//                        Log.d("QWERT","getList ind="+ind+" SSSS="+json.substring(ind - 10, ik)+"<<<<<<");
                     }
 
                     if (currentSymbol.equals("{")) {
                         list.add(getClazz());
                         if (!firstSymbol()) {
-                            Log.d("JSON_L", "No ]");
+                            Log.d("QWERT", "No ] " + textForException());
+                            throw new JsonSyntaxException("No ] " + textForException());
                         }
                     } else {
-                        if (ii > 332 && ii < 325) Log.d("JSON_L", "No { ind=" + ind);
+                        Log.d("QWERT", "No { " + textForException());
+                        throw new JsonSyntaxException("No { " + textForException());
+//                        if (ii > 332 && ii < 325) Log.d("JSON_L", "No { ind=" + ind);
                     }
                 }
                 return list;
@@ -110,7 +114,8 @@ public class JsonSimple {
                 while (!currentSymbol.equals("]")) {
                     listF.add(getField());
                     if (!firstSymbol()) {
-                        Log.d("JSON_L", "No ]");
+                        Log.d("QWERT", "No ] " + textForException());
+                        throw new JsonSyntaxException("No ] " + textForException());
                     }
                 }
                 return listF;
@@ -119,7 +124,19 @@ public class JsonSimple {
         return new ListRecords();
     }
 
-    private Field getField() {
+    private String textForException() {
+        int in = ind - 25;
+        if (in < 0) {
+            in = 0;
+        }
+        int ik = ind + 80;
+        if (ik > indMax) {
+            ik = indMax;
+        }
+        return "near position: " + ind + " text >>" + json.substring(in, ik) + "<<";
+    }
+
+    private Field getField() throws JsonSyntaxException {
         Field item = new Field();
         item.name = "";
         switch (currentSymbol) {
@@ -149,24 +166,28 @@ public class JsonSimple {
         return item;
     }
 
-    private Record getClazz() {
+    private Record getClazz() throws JsonSyntaxException {
         Record list = new Record();
         if (firstSymbol()) {
             while ( ! currentSymbol.equals("}")) {
-                if (ii > 332 && ii < 325) Log.d("QWERT","getClazz ii="+ii+" currentSymbol="+currentSymbol);
-                if (currentSymbol.equals(quote)) {
+//                if (ii > 332 && ii < 325) Log.d("QWERT","getClazz ii="+ii+" currentSymbol="+currentSymbol);
+                    if (currentSymbol.equals(quote)) {
                     Field item = getValue();
                     if (item == null) {
                         return list;
                     }
                     list.add(item);
                     if ( ! firstSymbol()) {
-                        Log.d("JSON_L", "No } ind=" + ind);
+                        Log.d("QWERT", "No } " + textForException());
+                        throw new JsonSyntaxException("No } " + textForException());
                     }
                 } else {
                     if (ind < indMax) {
-                    Log.d("JSON_L", "Invalid character " + currentSymbol + " ind=" + ind);
+//                    Log.d("JSON_L", "Invalid character " + currentSymbol + " ind=" + ind);
                         firstSymbol();
+                    } else {
+                        Log.d("QWERT", "No } " + textForException());
+                        throw new JsonSyntaxException("No } " + textForException());
                     }
                 }
             }
@@ -174,16 +195,16 @@ public class JsonSimple {
         return list;
     }
 
-    private Field getValue() {
+    private Field getValue() throws JsonSyntaxException {
         Field item = new Field();
         item.name = getName(quote);
-        if (ii > 332 && ii < 325)  Log.d("QWERT","getValue item.name="+item.name);
+//        if (ii > 332 && ii < 325)  Log.d("QWERT","getValue item.name="+item.name);
 //        Log.d("JSON_L","NAME="+item.name);
         if (item.name != null && firstSymbol()) {
-            if (ii > 332 && ii < 325)  Log.d("QWERT","getValue currentSymbol="+currentSymbol);
+//            if (ii > 332 && ii < 325)  Log.d("QWERT","getValue currentSymbol="+currentSymbol);
             if (currentSymbol.equals(":")) {
                 if (firstSymbol()) {
-                    if (ii > 332 && ii < 325) Log.d("QWERT","getValue firstSymbol currentSymbol="+currentSymbol+" BBB="+(currentSymbol.equals(quote)));
+//                    if (ii > 332 && ii < 325) Log.d("QWERT","getValue firstSymbol currentSymbol="+currentSymbol+" BBB="+(currentSymbol.equals(quote)));
                     switch (currentSymbol) {
                         case quote : // String
 //                            item.type = Field.TYPE_STRING;
@@ -224,26 +245,27 @@ public class JsonSimple {
                             }
                     }
                 } else {
-                    Log.d("JSON_L", "No value ind=" + ind);
-                    return null;
+                    Log.d("QWERT", "No value " + textForException());
+                    throw new JsonSyntaxException("No value " + textForException());
                 }
             } else {
-                Log.d("JSON_L", "No : ind=" + ind);
-                return null;
+                Log.d("QWERT", "No : " + textForException());
+                throw new JsonSyntaxException("No : " + textForException());
             }
         } else {
-            Log.d("JSON_L", "No : ind=" + ind);
-            return null;
+            Log.d("QWERT", "No : " + textForException());
+            throw new JsonSyntaxException("No : " + textForException());
         }
         return item;
     }
 
-    private Object getNullValue() {
+    private Object getNullValue() throws JsonSyntaxException {
         String st = json.substring(ind, ind + 4);
         if (st.toUpperCase().equals("NULL")) {
             ind+=3;
         } else {
-            Log.d("JSON_L", "No NULL ind=" + ind);
+            Log.d("QWERT", "No NULL " + textForException());
+            throw new JsonSyntaxException("No NULL " + textForException());
         }
         return null;
     }
@@ -272,18 +294,17 @@ public class JsonSimple {
         }
     }
 
-    private Field getStringValue() {
-        if (ii > 332) Log.d("QWERT","getStringValue ++++++++++++++++++");
+    private Field getStringValue() throws JsonSyntaxException {
         int i = ind, j;
         do {
             j = i + 1;
             i = json.indexOf(quote, j);
             if (i < 0) {
-                Log.d("JSON_L", "No \" ind=" + ind);
+                Log.d("QWERT", "Not " + quote + " " + textForException());
+                throw new JsonSyntaxException("Not " + quote +" " + textForException());
             }
         } while (json.substring(i - 1, i).equals("\\"));
         String st = json.substring(ind + 1, i);
-        if (ii > 332 && ii < 325) Log.d("QWERT","getStringValue SSSSSSSttttt="+st);
         st = delSlesh(st);
         ind = i;
         Field field = new Field();
@@ -432,34 +453,47 @@ public class JsonSimple {
         return -1;
     }
 
-    private String getName(String separ) {
-//        String st = "";
-        String separators_1 = "}]";
-        boolean errorName = false;
-//        int i = json.indexOf(quote, ind + 1);
-        ind++;
-        int i = ind;
-        currentSymbol = json.substring(ind, ind + 1);
-        while ( ! currentSymbol.equals(quote) && ind < indMax) {
-            if (separators_1.contains(currentSymbol)) {
-                errorName = true;
-                break;
-            }
-            ind++;
-            currentSymbol = json.substring(ind, ind + 1);
-        }
-        if (errorName) {
-            return null;
-        } else {
-            return json.substring(i, ind);
-//            if (i > -1) {
-//                st = json.substring(ind + 1, i);
-//                ind = i;
-//            } else {
-//                Log.d("JSON_L", "No name ind=" + ind);
+//    private String getName(String separ) {
+////        String st = "";
+//        String separators_1 = "}]";
+//        boolean errorName = false;
+////        int i = json.indexOf(quote, ind + 1);
+//        ind++;
+//        int i = ind;
+//        currentSymbol = json.substring(ind, ind + 1);
+//        while ( ! currentSymbol.equals(quote) && ind < indMax) {
+//            if (separators_1.contains(currentSymbol)) {
+//                errorName = true;
+//                break;
 //            }
+//            ind++;
+//            currentSymbol = json.substring(ind, ind + 1);
+//        }
+//        if (errorName) {
+//            return null;
+//        } else {
+//            return json.substring(i, ind);
+////            if (i > -1) {
+////                st = json.substring(ind + 1, i);
+////                ind = i;
+////            } else {
+////                Log.d("JSON_L", "No name ind=" + ind);
+////            }
+//        }
+////        return st;
+//    }
+
+    private String getName(String separ) throws JsonSyntaxException {
+        String st = "";
+        int i = json.indexOf(quote, ind + 1);
+        if (i > -1) {
+            st = json.substring(ind + 1, i);
+            ind = i;
+        } else {
+            Log.d("QWERT", "Not name " + textForException());
+            throw new JsonSyntaxException("Not name " + textForException());
         }
-//        return st;
+        return st;
     }
 
     private boolean firstSymbol() {

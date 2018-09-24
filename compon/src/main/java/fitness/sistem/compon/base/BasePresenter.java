@@ -8,6 +8,7 @@ import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.IPresenterListener;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.JsonSimple;
+import fitness.sistem.compon.json_simple.JsonSyntaxException;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.providers.VolleyInternetProvider;
@@ -64,7 +65,12 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
         if (duration > 0) {
             nameJson = url;
             json = ComponGlob.getInstance().cacheWork.getJson(nameJson);
-            listener.onResponse(jsonSimple.jsonToModel(Html.fromHtml(json).toString()));
+            try {
+                listener.onResponse(jsonSimple.jsonToModel(Html.fromHtml(json).toString()));
+            } catch (JsonSyntaxException e) {
+                iBase.log(e.getMessage());
+                e.printStackTrace();
+            }
             if (json == null) {
                 startInternetProvider();
             }
@@ -110,7 +116,6 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
 
     @Override
     public void response(String response) {
-Log.d("QWERT","BasePresenter response isCanceled="+isCanceled);
         iBase.progressStop();
         if (response == null) {
             iBase.showDialog("", "no response", null);
@@ -123,8 +128,14 @@ Log.d("QWERT","BasePresenter response isCanceled="+isCanceled);
             if (response.length() == 0) {
                 listener.onResponse(new Field("", TYPE_STRING, ""));
             } else {
-                Log.d("QWERT","BasePresenter !!!!!!!!!");
-                Field f = jsonSimple.jsonToModel(response);
+                Field f = null;
+                try {
+                    f = jsonSimple.jsonToModel(response);
+                } catch (JsonSyntaxException e) {
+//                    iBase.log(e.getMessage());
+                    iBase.showDialog(BaseInternetProvider.JSONSYNTAXERROR, e.getMessage(), null);
+                    e.printStackTrace();
+                }
                 Log.d("QWERT","BasePresenter Field="+f);
                 if (f != null && f.value != null) {
                     listener.onResponse(f);

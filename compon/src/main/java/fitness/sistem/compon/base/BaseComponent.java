@@ -15,6 +15,7 @@ import fitness.sistem.compon.components.MultiComponents;
 import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.IValidate;
 import fitness.sistem.compon.interfaces_classes.Param;
+import fitness.sistem.compon.json_simple.JsonSyntaxException;
 import fitness.sistem.compon.param.ParamComponent;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.json_simple.WorkWithRecordsAndViews;
@@ -149,7 +150,12 @@ public abstract class BaseComponent {
                     Intent intent = activity.getIntent();
                     String st = intent.getStringExtra(Constants.NAME_PARAM_FOR_SCREEN);
                     JsonSimple jsonSimple = new JsonSimple();
-                    argument = jsonSimple.jsonToModel(st);
+                    try {
+                        argument = jsonSimple.jsonToModel(st);
+                    } catch (JsonSyntaxException e) {
+                        iBase.log(e.getMessage());
+                        e.printStackTrace();
+                    }
                     changeDataBase(argument);
                     break;
                 case ParamModel.DATAFIELD :
