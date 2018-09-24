@@ -15,4 +15,8 @@ public class ParamDB {
     public void addTable(String nameTables, String description) {
         listTables.add(new DescriptTableDB(nameTables, description));
     }
+
+    public void addTable(String nameTables, String description, String indexName, String indexColumn) {
+        listTables.add(new DescriptTableDB(nameTables, description, indexName, indexColumn));
+    }
 }

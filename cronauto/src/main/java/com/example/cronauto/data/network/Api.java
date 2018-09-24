@@ -5,4 +5,5 @@ public class Api {
     public final static String ORDER_LOG = "ORDER_LOG";
     public static String DB_CATALOG = "sections/list.php";
     public static String DB_PRODUCT = "products/list.php";
+    public static String PROPERTY = "property/list.php";
 }

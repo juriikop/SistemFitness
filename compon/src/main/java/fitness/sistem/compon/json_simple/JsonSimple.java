@@ -13,7 +13,7 @@ public class JsonSimple {
     private final String a = "\\";
     private String currentSymbol;
     private String digits = "1234567890.+-";
-
+    int ii = 0;
     public Field jsonToModel(String st) {
         if (st == null) return null;
         Field res = null;
@@ -78,17 +78,30 @@ public class JsonSimple {
 //    }
 
     private Object getList() {
+        int ii = 0;
+        Log.d("QWERT","getList getList getList getList getList getList getList getList");
         if (firstSymbol()) {
             if (currentSymbol.equals("{") || currentSymbol.equals("]")) {
                 ListRecords list = new ListRecords();
                 while (!currentSymbol.equals("]")) {
+                    ii++;
+                    if (ii > 332 && ii < 325) Log.d("QWERT","getList IIIIIIII="+ii);
+                    if (ii == 332) {
+                        int jj = json.length();
+                        int ik = ind + 500;
+                        if (ik >= jj) {
+                            ik = jj - 1;
+                        }
+                        Log.d("QWERT","getList ind="+ind+" SSSS="+json.substring(ind - 10, ik)+"<<<<<<");
+                    }
+
                     if (currentSymbol.equals("{")) {
                         list.add(getClazz());
                         if (!firstSymbol()) {
                             Log.d("JSON_L", "No ]");
                         }
                     } else {
-                        Log.d("JSON_L", "No { ind=" + ind);
+                        if (ii > 332 && ii < 325) Log.d("JSON_L", "No { ind=" + ind);
                     }
                 }
                 return list;
@@ -140,6 +153,7 @@ public class JsonSimple {
         Record list = new Record();
         if (firstSymbol()) {
             while ( ! currentSymbol.equals("}")) {
+                if (ii > 332 && ii < 325) Log.d("QWERT","getClazz ii="+ii+" currentSymbol="+currentSymbol);
                 if (currentSymbol.equals(quote)) {
                     Field item = getValue();
                     if (item == null) {
@@ -150,7 +164,10 @@ public class JsonSimple {
                         Log.d("JSON_L", "No } ind=" + ind);
                     }
                 } else {
-//                    Log.d("JSON_S", "No \" ind=" + ind);
+                    if (ind < indMax) {
+                    Log.d("JSON_L", "Invalid character " + currentSymbol + " ind=" + ind);
+                        firstSymbol();
+                    }
                 }
             }
         }
@@ -158,13 +175,15 @@ public class JsonSimple {
     }
 
     private Field getValue() {
-//        Log.d("JSON_S","getValue");
         Field item = new Field();
         item.name = getName(quote);
+        if (ii > 332 && ii < 325)  Log.d("QWERT","getValue item.name="+item.name);
 //        Log.d("JSON_L","NAME="+item.name);
-        if (firstSymbol()) {
+        if (item.name != null && firstSymbol()) {
+            if (ii > 332 && ii < 325)  Log.d("QWERT","getValue currentSymbol="+currentSymbol);
             if (currentSymbol.equals(":")) {
                 if (firstSymbol()) {
+                    if (ii > 332 && ii < 325) Log.d("QWERT","getValue firstSymbol currentSymbol="+currentSymbol+" BBB="+(currentSymbol.equals(quote)));
                     switch (currentSymbol) {
                         case quote : // String
 //                            item.type = Field.TYPE_STRING;
@@ -254,6 +273,7 @@ public class JsonSimple {
     }
 
     private Field getStringValue() {
+        if (ii > 332) Log.d("QWERT","getStringValue ++++++++++++++++++");
         int i = ind, j;
         do {
             j = i + 1;
@@ -263,6 +283,7 @@ public class JsonSimple {
             }
         } while (json.substring(i - 1, i).equals("\\"));
         String st = json.substring(ind + 1, i);
+        if (ii > 332 && ii < 325) Log.d("QWERT","getStringValue SSSSSSSttttt="+st);
         st = delSlesh(st);
         ind = i;
         Field field = new Field();
@@ -412,15 +433,33 @@ public class JsonSimple {
     }
 
     private String getName(String separ) {
-        String st = "";
-        int i = json.indexOf(quote, ind + 1);
-        if (i > -1) {
-            st = json.substring(ind + 1, i);
-            ind = i;
-        } else {
-            Log.d("JSON_L", "No name ind=" + ind);
+//        String st = "";
+        String separators_1 = "}]";
+        boolean errorName = false;
+//        int i = json.indexOf(quote, ind + 1);
+        ind++;
+        int i = ind;
+        currentSymbol = json.substring(ind, ind + 1);
+        while ( ! currentSymbol.equals(quote) && ind < indMax) {
+            if (separators_1.contains(currentSymbol)) {
+                errorName = true;
+                break;
+            }
+            ind++;
+            currentSymbol = json.substring(ind, ind + 1);
         }
-        return st;
+        if (errorName) {
+            return null;
+        } else {
+            return json.substring(i, ind);
+//            if (i > -1) {
+//                st = json.substring(ind + 1, i);
+//                ind = i;
+//            } else {
+//                Log.d("JSON_L", "No name ind=" + ind);
+//            }
+        }
+//        return st;
     }
 
     private boolean firstSymbol() {

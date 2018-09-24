@@ -113,9 +113,22 @@
     <string name="all">Все</string>
     <string name="apply">Применить</string>
 
+    // PRODUCT DESCRIPT
+    <string name="catalog_code">Каталожный номер</string>
+    <string name="descript">Описание</string>
+    <string name="character">Характеристки</string>
+    <string name="change_bd_character">Обновление базы данных характеристик</string>
+    <string name="remainder">Остаток</string>
+    <string name="more_residue">Внимание! Заказываемое количество, превышает доступные остатки. Недостающее количество будет зарезервировано и поставлено. Возможно изменение стоимости в связи с изменением цены поступления.</string>
+
     <string-array name="auth_tab_name">
         <item>Вход</item>
         <item>Регистрация</item>
+    </string-array>
+
+    <string-array name="descript_tab_name">
+        <item>Описание</item>
+        <item>Характеристки</item>
     </string-array>
 
     <string-array name="index_tab_name">

@@ -1,6 +1,4 @@
 package fitness.sistem.compon.json_simple;
-import android.util.Log;
-
 import java.util.ArrayList;
 
 public class Record extends ArrayList<Field>{
@@ -94,7 +92,7 @@ public class Record extends ArrayList<Field>{
                 case Field.TYPE_NULL:
                 case Field.TYPE_STRING:
                     String st = (String) f.value;
-                    if (st == null || st.equals("null")) {
+                    if (st == null || st.length() == 0 || st.equals("null")) {
                         return 0f;
                     } else {
                         Float ff = null;
@@ -187,13 +185,17 @@ public class Record extends ArrayList<Field>{
     public boolean getBooleanVisibility(String name) {
         Field f = getField(name);
         if (f != null) {
-            switch (f.type) {
-                case Field.TYPE_BOOLEAN : return (boolean) f.value;
-                case Field.TYPE_DOUBLE : return ((Double) f.value) != 0d;
-                case Field.TYPE_INTEGER : return ((Integer) f.value) != 0;
-                case Field.TYPE_LONG : return ((Long) f.value) != 0;
-                case Field.TYPE_STRING : return ((String) f.value).length() > 0;
-                default: return false;
+            if (f.value == null) {
+                return false;
+            } else {
+                switch (f.type) {
+                    case Field.TYPE_BOOLEAN : return (boolean) f.value;
+                    case Field.TYPE_DOUBLE : return ((Double) f.value) != 0d;
+                    case Field.TYPE_INTEGER : return ((Integer) f.value) != 0;
+                    case Field.TYPE_LONG : return ((Long) f.value) != 0;
+                    case Field.TYPE_STRING : return ((String) f.value).length() > 0;
+                    default: return false;
+                }
             }
         } else {
             return false;

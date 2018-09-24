@@ -37,7 +37,7 @@ public class CronApp extends MultiDexApplication {
         paramDB.nameDB = SQL.DB_NAME;
         paramDB.versionDB = 2;
         paramDB.addTable(SQL.CATALOG_TAB, SQL.CATALOG_FIELDS);
-        paramDB.addTable(SQL.PRODUCT_TAB, SQL.PRODUCT_FIELDS);
+        paramDB.addTable(SQL.PRODUCT_TAB, SQL.PRODUCT_FIELDS, SQL.PRODUCT_INDEX_NAME, SQL.PRODUCT_INDEX_COLUMN);
         SetSettings.setDB(new DatabaseManager(context, paramDB));
 
     }

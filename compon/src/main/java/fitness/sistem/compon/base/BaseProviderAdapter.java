@@ -2,7 +2,6 @@ package fitness.sistem.compon.base;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,7 +118,6 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         final Record record = (Record) provider.get(position);
-//        Log.d("QWERT","onBindViewHolder record="+record.toString());
         modelToView.RecordToView(record,
                 holder.itemView, navigator, new View.OnClickListener() {
             @Override

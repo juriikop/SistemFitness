@@ -39,6 +39,7 @@ android:background="@color/primary">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/pad_4"
+            android:layout_marginLeft="@dimen/pad_2"
             android:src="@drawable/bonys"/>
 
         <ImageView
@@ -46,6 +47,7 @@ android:background="@color/primary">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/pad_4"
+            android:layout_marginLeft="@dimen/pad_2"
             android:src="@drawable/present" />
 
         <TextView
@@ -53,6 +55,7 @@ android:background="@color/primary">
             android:layout_width="@dimen/pad_22"
             android:layout_height="@dimen/pad_22"
             android:layout_marginTop="@dimen/pad_4"
+            android:layout_marginLeft="@dimen/pad_4"
             android:gravity="center"
             android:text="NEW"
             android:textColor="@color/primary"
@@ -112,7 +115,7 @@ android:background="@color/primary">
             android:layout_marginTop="@dimen/pad_6"
             android:layout_marginRight="@dimen/pad_34"/>
 
-        <TextView
+        <fitness.sistem.compon.custom_components.SimpleTextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -120,7 +123,8 @@ android:background="@color/primary">
             android:layout_marginTop="@dimen/pad_8"
             android:layout_marginBottom="@dimen/pad_16"
             android:textStyle="bold"
-            style="@style/st_20_black"/>
+            style="@style/st_20_black"
+            app:numberFormat="#0.00"/>
     </RelativeLayout>
 </RelativeLayout>
 </fitness.sistem.compon.custom_components.SwipeLayout>

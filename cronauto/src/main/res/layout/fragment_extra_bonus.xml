@@ -1,6 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/tool"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_tool_bar"
+        android:background="@color/primary">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="@dimen/h_tool_bar"
+            android:layout_height="@dimen/h_tool_bar"
+            android:padding="@dimen/pad_12"
+            android:src="@drawable/menu" />
+        <TextView
+            style="@style/st_20_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/pad_72"
+            android:text="@string/m_e_bonus" />
+        />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_tool_bar"
+        android:background="@color/primary">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pad_1"
+            android:background="@color/white_20"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pad_36"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/pad_8"
+            android:layout_toLeftOf="@+id/filter"
+            android:background="@drawable/rect_white_r2">
+
+            <EditText
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/pad_14"
+                android:layout_toLeftOf="@+id/barcode"
+                android:background="#0000"
+                android:hint="@string/search"
+                android:inputType="textNoSuggestions"
+                android:textColorHint="@color/primary_30" />
+
+            <LinearLayout
+                android:id="@+id/microphone"
+                android:layout_width="@dimen/pad_36"
+                android:layout_height="@dimen/pad_36"
+                android:layout_alignParentRight="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/mic" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/pad_1"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/microphone"
+                android:background="@color/blackb_10" />
+
+            <LinearLayout
+                android:id="@+id/barcode"
+                android:layout_width="@dimen/pad_36"
+                android:layout_height="@dimen/pad_36"
+                android:layout_marginRight="@dimen/pad_6"
+                android:layout_toLeftOf="@+id/microphone"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cod" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/filter"
+            style="@style/st_14_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/filter"
+            android:layout_marginLeft="@dimen/pad_22"
+            android:layout_marginRight="@dimen/pad_22"
+            android:textAllCaps="true" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingRight="@dimen/pad_8"
+        android:paddingLeft="@dimen/pad_8"
+        android:background="@color/gray"/>
 </LinearLayout>

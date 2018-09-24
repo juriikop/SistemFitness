@@ -26,9 +26,9 @@ public class GetData extends DataFieldGet {
     private Field setMenu() {
         Menu menu = new Menu()
                 .item(R.drawable.list, activity.getString(R.string.m_catalog), CronListScreens.CATALOG, true)
-                .item(R.drawable.user, activity.getString(R.string.m_profile), CronListScreens.CATALOG)
-                .item(R.drawable.extrabonus, activity.getString(R.string.m_e_bonus), CronListScreens.CATALOG)
-                .item(R.drawable.newitem, activity.getString(R.string.m_new_items), CronListScreens.CATALOG)
+                .item(R.drawable.user, activity.getString(R.string.m_profile), CronListScreens.NOVELTIES)
+                .item(R.drawable.extrabonus, activity.getString(R.string.m_e_bonus), CronListScreens.EXTRA_BONUS)
+                .item(R.drawable.newitem, activity.getString(R.string.m_new_items), CronListScreens.NOVELTIES)
                 .item(R.drawable.present, activity.getString(R.string.m_present), CronListScreens.CATALOG)
                 .item(R.drawable.shopping_cart, activity.getString(R.string.m_my_product), CronListScreens.CATALOG)
                 .divider()

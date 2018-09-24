@@ -58,7 +58,6 @@ public class VolleyRequest <T> extends Request<T> {
 
     @Override
     protected void deliverResponse(T response) {
-        Log.d(appParams.NAME_LOG_NET, "VolleyRequest deliverResponse");
         listener.onResponse((String) response);
     }
 

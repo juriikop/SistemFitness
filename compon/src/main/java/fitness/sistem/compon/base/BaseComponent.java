@@ -56,6 +56,7 @@ public abstract class BaseComponent {
     public View viewComponent;
     public Field argument;
     public MultiComponents multiComponent;
+
     public WorkWithRecordsAndViews workWithRecordsAndViews = new WorkWithRecordsAndViews();
 
     public BaseComponent(IBase iBase, ParamComponent paramMV, MultiComponents multiComponent){
@@ -126,9 +127,7 @@ public abstract class BaseComponent {
     }
 
     public void actual() {
-        Log.d("QWERT","BaseComponent "+paramMV.nameParentComponent+"<< ***************");
         if (paramMV.paramModel != null) {
-            Log.d("QWERT","BaseComponent "+paramMV.nameParentComponent+"<< paramMV.paramModel.method="+paramMV.paramModel.method);
             switch (paramMV.paramModel.method) {
                 case ParamModel.PARENT :
                     ParentModel pm = iBase.getParentModel(paramMV.paramModel.url);
@@ -173,7 +172,6 @@ public abstract class BaseComponent {
                                 paramMV.paramModel.urlArrayIndex = len;
                             }
                         }
-                        Log.d("QWERT","BaseComponent paramScreen="+paramScreen.toString()+"<< urlArrayIndex="+paramMV.paramModel.urlArrayIndex);
                     }
                     ComponGlob.getInstance().baseDB.get(iBase, paramMV.paramModel, setParam(paramMV.paramModel.param, paramScreen), listener);
                     break;

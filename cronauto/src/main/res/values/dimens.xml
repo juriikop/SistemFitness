@@ -13,6 +13,7 @@
     <dimen name="pad_4">4dp</dimen>
     <dimen name="pad_6">6dp</dimen>
     <dimen name="pad_8">8dp</dimen>
+    <dimen name="pad_10">10dp</dimen>
     <dimen name="pad_12">12dp</dimen>
     <dimen name="pad_14">14dp</dimen>
     <dimen name="pad_15">15dp</dimen>
@@ -34,6 +35,7 @@
     <dimen name="pad_50">50dp</dimen>
     <dimen name="pad_52">52dp</dimen>
     <dimen name="pad_54">54dp</dimen>
+    <dimen name="pad_60">60dp</dimen>
     <dimen name="pad_62">62dp</dimen>
     <dimen name="pad_70">70dp</dimen>
     <dimen name="pad_72">72dp</dimen>
@@ -42,9 +44,11 @@
     <dimen name="pad_100">100dp</dimen>
     <dimen name="pad_120">120dp</dimen>
     <dimen name="pad_130">130dp</dimen>
+    <dimen name="pad_170">170dp</dimen>
     <dimen name="pad_200">200dp</dimen>
     <dimen name="pad_302">302dp</dimen>
     <dimen name="pad_305">305dp</dimen>
+    <dimen name="pad_310">310dp</dimen>
 
     <dimen name="h_cell_calendar_f">56dp</dimen>
     <dimen name="h_calendar_f">392dp</dimen>

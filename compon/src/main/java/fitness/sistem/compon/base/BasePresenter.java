@@ -110,6 +110,7 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
 
     @Override
     public void response(String response) {
+Log.d("QWERT","BasePresenter response isCanceled="+isCanceled);
         iBase.progressStop();
         if (response == null) {
             iBase.showDialog("", "no response", null);
@@ -122,7 +123,9 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
             if (response.length() == 0) {
                 listener.onResponse(new Field("", TYPE_STRING, ""));
             } else {
+                Log.d("QWERT","BasePresenter !!!!!!!!!");
                 Field f = jsonSimple.jsonToModel(response);
+                Log.d("QWERT","BasePresenter Field="+f);
                 if (f != null && f.value != null) {
                     listener.onResponse(f);
 //                    if (f.type == Field.TYPE_LIST_RECORD) {

@@ -1,8 +1,5 @@
 package fitness.sistem.compon.json_simple;
 
-
-import android.util.Log;
-
 public class SimpleRecordToJson {
     private String quote = "\"";
     private String quoteColon = "\":";
@@ -41,7 +38,7 @@ public class SimpleRecordToJson {
                     sb.append(quote + f.name + quoteColon + f.value);
                     break;
                 case Field.TYPE_DOUBLE :
-                    sb.append(quote + f.name + quoteColon + (Double) f.value);
+                    sb.append(quote + f.name + quoteColon + f.value);
                     break;
                 case Field.TYPE_RECORD:
                     sb.append(quote + f.name + quoteColon);

@@ -17,8 +17,7 @@ public class PanelComponent extends BaseComponent {
         if (field.value instanceof Record) {
             Record rec = (Record) field.value;
             viewComponent = parentLayout.findViewById(paramMV.paramView.viewId);
-//        WorkWithRecordsAndViews rv = new WorkWithRecordsAndViews();
-            workWithRecordsAndViews.RecordToView(rec, viewComponent);
+            workWithRecordsAndViews.RecordToView(rec, viewComponent, null, null, paramMV.paramView.visibilityArray);
         } else {
             iBase.log("Тип данных не Record в " + paramMV.nameParentComponent);
         }

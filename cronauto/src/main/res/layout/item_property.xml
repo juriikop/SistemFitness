@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/pad_48">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/name"
+        style="@style/st_14_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/pad_4"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/value" />
+
+    <TextView
+        android:id="@+id/value"
+        style="@style/st_14_black_70"
+        android:layout_width="@dimen/pad_200"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true" />
+
+</RelativeLayout>

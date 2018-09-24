@@ -3,7 +3,6 @@ package fitness.sistem.compon.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -11,7 +10,6 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
-import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.base.BaseDB;
 import fitness.sistem.compon.interfaces_classes.DescriptTableDB;
 import fitness.sistem.compon.interfaces_classes.IBase;
@@ -45,6 +43,7 @@ public class DatabaseManager extends BaseDB {
     IDbListener dbListener = new IDbListener() {
         @Override
         public void onResponse(ListRecords listRecords, String table, String nameAlias) {
+            Log.d("QWERT","DatabaseManager dbListener nameAlias="+nameAlias+"<< listRecords.size="+listRecords.size());
             insertListRecord(table, listRecords, nameAlias);
         }
     };
@@ -60,6 +59,7 @@ public class DatabaseManager extends BaseDB {
         String[] columnNames = null;
         String[] aliasNames = null;
         openDatabase();
+        mDatabase.beginTransaction();
         int[] columnType;
         Cursor cc = mDatabase.rawQuery("PRAGMA table_info(" + table + ");", null);
         int count = cc.getCount();
@@ -109,10 +109,13 @@ public class DatabaseManager extends BaseDB {
                     }
                 }
             }
-            for (int i = 0; i < columnNames.length; i++) {
-                Log.d("QWERT","insertListRecord i="+i+" columnNames="+columnNames[i]+"<< aliasNames="+aliasNames[i]);
-            }
+            Log.d("QWERT","insertListRecord SSSS="+listRecords.size());
+            int ii = 0;
             for (Record record : listRecords) {
+                ii ++;
+                if ((ii % 200) == 0) {
+                    Log.d("QWERT","insertListRecord PPPPP="+ii);
+                }
                 ContentValues cv = new ContentValues();
                 String stt = "";
                 for (int j = 0; j < jk; j++) {
@@ -138,6 +141,8 @@ public class DatabaseManager extends BaseDB {
                 long rowID = mDatabase.replace(table, null, cv);
             }
         }
+        mDatabase.setTransactionSuccessful();
+        mDatabase.endTransaction();
         closeDatabase();
     }
 
@@ -185,7 +190,7 @@ public class DatabaseManager extends BaseDB {
                             record.add(new Field(nameColumn[i], Field.TYPE_LONG, c.getLong(i)));
                             break;
                         case Cursor.FIELD_TYPE_FLOAT :
-                            record.add(new Field(nameColumn[i], Field.TYPE_DOUBLE, c.getFloat(i)));
+                            record.add(new Field(nameColumn[i], Field.TYPE_DOUBLE, c.getDouble(i)));
                             break;
                         case Cursor.FIELD_TYPE_STRING :
                             record.add(new Field(nameColumn[i], Field.TYPE_STRING, c.getString(i)));
@@ -233,6 +238,10 @@ public class DatabaseManager extends BaseDB {
             for (DescriptTableDB dt : paramDB.listTables) {
                 db.execSQL("DROP TABLE IF EXISTS " + dt.nameTable + ";");
                 db.execSQL("create table " + dt.nameTable + " (" + dt.descriptTable + ");");
+                if (dt.indexName != null && dt.indexName.length() > 0) {
+                    db.execSQL("DROP INDEX IF EXISTS " + dt.indexName + ";");
+                    db.execSQL("CREATE INDEX IF NOT EXISTS " + dt.indexName + " ON " + dt.nameTable + " (" + dt.indexColumn + ");");
+                }
             }
         }
 

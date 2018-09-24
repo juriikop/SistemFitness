@@ -1,7 +1,6 @@
 package fitness.sistem.compon.json_simple;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -33,9 +32,6 @@ public class WorkWithRecordsAndViews {
     protected Record recordResult;
     private boolean setParam;
     private Visibility[] visibilityManager;
-//    private String quote = "\"";
-//    private String quoteColon = "\":";
-//    private StringBuffer sb;
 
     public void RecordToView(Record model, View view) {
         RecordToView(model, view, null, null, null);
