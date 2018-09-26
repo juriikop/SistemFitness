@@ -15,4 +15,5 @@ public interface ICustom {
     public void clickView(View viewClick, View parentView,
                           BaseComponent baseComponent, Record rec, int position);
     public void receiverWork(Intent intent);
+    public void changeValue(int viewId, Field field);
 }

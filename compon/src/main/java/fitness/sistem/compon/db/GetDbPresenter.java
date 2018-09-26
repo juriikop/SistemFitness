@@ -6,6 +6,7 @@ import java.util.Date;
 
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.base.BaseComponent;
+import fitness.sistem.compon.base.BaseDB;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.IDbListener;
 import fitness.sistem.compon.interfaces_classes.IPresenterListener;
@@ -36,10 +37,10 @@ public class GetDbPresenter {
                 Field f = null;
                 if (paramModel.urlArray != null) {
                     if (paramModel.urlArrayIndex > -1) {
-                        f = ComponGlob.getInstance().baseDB.get(paramModel.urlArray[paramModel.urlArrayIndex + 1], param);
+                        f = ComponGlob.getInstance().baseDB.get(iBase, paramModel.urlArray[paramModel.urlArrayIndex + 1], param);
                     }
                 } else {
-                    f = ComponGlob.getInstance().baseDB.get(paramModel.url, param);
+                    f = ComponGlob.getInstance().baseDB.get(iBase, paramModel.url, param);
                 }
                 listener.onResponse(f);
             }
@@ -47,10 +48,10 @@ public class GetDbPresenter {
             Field f = null;
             if (paramModel.urlArray != null) {
                 if (paramModel.urlArrayIndex > -1) {
-                    f = ComponGlob.getInstance().baseDB.get(paramModel.urlArray[paramModel.urlArrayIndex + 1], param);
+                    f = ComponGlob.getInstance().baseDB.get(iBase, paramModel.urlArray[paramModel.urlArrayIndex + 1], param);
                 }
             } else {
-                f = ComponGlob.getInstance().baseDB.get(paramModel.url, param);
+                f = ComponGlob.getInstance().baseDB.get(iBase, paramModel.url, param);
             }
             listener.onResponse(f);
         }
@@ -58,16 +59,17 @@ public class GetDbPresenter {
 
     IDbListener dbListener = new IDbListener() {
         @Override
-        public void onResponse(ListRecords listRecords, String table, String nameAlias) {
-            ComponGlob.getInstance().baseDB.insertListRecord(table, listRecords, nameAlias);
+        public void onResponse(IBase iBase, ListRecords listRecords, String table, String nameAlias) {
+            BaseDB baseDB = ComponGlob.getInstance().baseDB;
+            baseDB.insertListRecord(table, listRecords, nameAlias);
             ComponGlob.getInstance().updateDB.add(paramModel.updateTable, newDate);
             Field f = null;
             if (paramModel.urlArray != null) {
                 if (paramModel.urlArrayIndex > -1) {
-                    f = ComponGlob.getInstance().baseDB.get(paramModel.urlArray[paramModel.urlArrayIndex + 1], param);
+                    f = baseDB.get(iBase, paramModel.urlArray[paramModel.urlArrayIndex + 1], param);
                 }
             } else {
-                f = ComponGlob.getInstance().baseDB.get(paramModel.url, param);
+                f = baseDB.get(iBase, paramModel.url, param);
             }
             listener.onResponse(f);
         }

@@ -12,6 +12,7 @@ public class ParamView {
     public int[] layoutTypeId, layoutFurtherTypeId;
     public int indicatorId;
     public int furtherViewId;
+    public int viewId_1, viewId_2;
 //    public Visibility[] furtherVisibilityArray;
     public int tabId;
     public int arrayLabelId;

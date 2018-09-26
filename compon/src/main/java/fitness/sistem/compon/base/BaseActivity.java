@@ -32,6 +32,7 @@ import fitness.sistem.compon.interfaces_classes.ActivityResult;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.EventComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
+import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.IErrorDialog;
 import fitness.sistem.compon.interfaces_classes.ParentModel;
 import fitness.sistem.compon.interfaces_classes.PermissionsResult;
@@ -63,7 +64,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     private int countProgressStart;
     public List<BaseInternetProvider> listInternetProvider;
     public List<EventComponent> listEvent;
-    private View parentLayout;
+    public View parentLayout;
     public MultiComponents mComponent;
     public int containerFragmentId;
     private boolean isActive;
@@ -77,6 +78,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     public List<RequestActivityResult> activityResultList;
     public List<RequestPermissionsResult> permissionsResultList;
     public Field paramScreen;
+    public Record paramScreenRecord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +99,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             JsonSimple jsonSimple = new JsonSimple();
             try {
                 paramScreen = jsonSimple.jsonToModel(paramJson);
+                paramScreenRecord = (Record) paramScreen.value;
             } catch (JsonSyntaxException e) {
                 log(e.getMessage());
                 e.printStackTrace();
@@ -134,6 +137,10 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             if (mComponent.moreWork != null) {
                 mComponent.moreWork.startScreen();
             }
+        }
+
+        if (this instanceof ICustom) {
+            mComponent.setCustom((ICustom) this);
         }
 
 //        if (nameScreen != null && nameScreen.length() > 0) {
@@ -256,7 +263,12 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                 if (vh.viewId == id) {
                     switch (vh.type) {
                         case NAME_FRAGMENT:
-                            startScreen(vh.nameFragment, false);
+                            if (vh.paramForScreen == ViewHandler.TYPE_PARAM_FOR_SCREEN.RECORD) {
+                                startScreen(vh.nameFragment, false, paramScreenRecord);
+                            } else {
+                                startScreen(vh.nameFragment, false);
+                            }
+//                            startScreen(vh.nameFragment, false);
                             break;
                         case BACK:
                             onBackPressed();

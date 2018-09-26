@@ -29,10 +29,9 @@ public class RemoteToLocale {
     IPresenterListener listener = new IPresenterListener() {
         @Override
         public void onResponse(Field response) {
-            Log.d("QWERT","RemoteToLocale onResponse response="+response);
             ListRecords listRecords = (ListRecords) response.value;
-            dbListener.onResponse(listRecords, table, nameAlias);
             iBase.progressStop();
+            dbListener.onResponse(iBase, listRecords, table, nameAlias);
         }
     };
 }

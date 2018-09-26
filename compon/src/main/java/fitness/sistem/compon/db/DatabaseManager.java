@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -42,7 +43,7 @@ public class DatabaseManager extends BaseDB {
 
     IDbListener dbListener = new IDbListener() {
         @Override
-        public void onResponse(ListRecords listRecords, String table, String nameAlias) {
+        public void onResponse(IBase iBase, ListRecords listRecords, String table, String nameAlias) {
             Log.d("QWERT","DatabaseManager dbListener nameAlias="+nameAlias+"<< listRecords.size="+listRecords.size());
             insertListRecord(table, listRecords, nameAlias);
         }
@@ -109,13 +110,8 @@ public class DatabaseManager extends BaseDB {
                     }
                 }
             }
-            Log.d("QWERT","insertListRecord SSSS="+listRecords.size());
             int ii = 0;
             for (Record record : listRecords) {
-                ii ++;
-                if ((ii % 200) == 0) {
-                    Log.d("QWERT","insertListRecord PPPPP="+ii);
-                }
                 ContentValues cv = new ContentValues();
                 String stt = "";
                 for (int j = 0; j < jk; j++) {
@@ -158,13 +154,20 @@ public class DatabaseManager extends BaseDB {
     }
 
     @Override
+    public void insertCV(String nameTable, ContentValues cv) {
+        openDatabase();
+        long rowID = mDatabase.insert(nameTable, null, cv);
+        closeDatabase();
+    }
+
+    @Override
     public void get(IBase iBase, ParamModel paramModel, String[] param, IPresenterListener listener) {
         Log.d("QWERT","DatabaseManager SQL="+paramModel.url);
         new GetDbPresenter(iBase, paramModel, param, listener);
     }
 
     @Override
-    public Field get(String sql, String[] param) {
+    public Field get(IBase iBase, String sql, String[] param) {
         if (param != null) {
             String st = "";
             for (String sti : param) {
@@ -175,7 +178,12 @@ public class DatabaseManager extends BaseDB {
             Log.d("QWERT", "DatabaseManager GET SQL=" + sql + "<<");
         }
         openDatabase();
-        Cursor c = mDatabase.rawQuery(sql, param);
+        Cursor c = null;
+        try {
+            c = mDatabase.rawQuery(sql, param);
+        } catch (SQLiteException e) {
+            iBase.log(e.getMessage());
+        }
         ListRecords listRecords = null;
         if (c.moveToFirst()) {
             int countCol = c.getColumnCount();

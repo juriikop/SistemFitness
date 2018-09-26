@@ -1,5 +1,7 @@
 package com.example.cronauto.data.db;
 
+import java.util.Random;
+
 public class SQL {
     public static long dayMillisecond = 24*60*60*1000;
     public static String DB_NAME = "db_cron";
@@ -10,15 +12,24 @@ public class SQL {
     public static String CATALOG = "SELECT * FROM catalog WHERE parent_id = ?";
     public static String CATALOG_0 = "SELECT * FROM catalog WHERE parent_id = 0;";
 
-    public static String PROPERTY = "property";
+    public static String PROPERTY_TAB = "property";
+    public static String PROPERTY_INDEX_NAME = "property_ind";
+    public static String PROPERTY_INDEX_COLUMN = "product_id";
     public static String PROPERTY_FIELDS = "property_id INTEGER PRIMARY KEY, product_id INTEGER, name TEXT, value TEXT";
     public static String PROPERTY_ID_PRODUCT = "SELECT * FROM property WHERE product_id = ?";
+
+    public static String ORDER_TAB = "order_tab";
+    public static String ORDER_INDEX_NAME = "order_ind";
+    public static String ORDER_INDEX_COLUMN = "orderId";
+    public static String ORDER_FIELDS = "ord_ind INTEGER PRIMARY KEY, orderId TEXT, orderName TEXT, status INTEGER, comment TEXT, payBonus INTEGER, date INTEGER";
+    public static String ORDER_LIST = "SELECT * FROM order_tab";
+    public static String ORDER_NEW = "INSERT OR REPLACE INTO order_tab (orderId, orderName, status, comment, payBonus, date) VALUES (?, ?, 0, '', 0, ?)";
 
     public static String PRODUCT_TAB = "product";
     public static String PRODUCT_INDEX_NAME = "prod_ind";
     public static String PRODUCT_INDEX_COLUMN = "catalog_id";
     public static String PRODUCT_FIELDS = "product_id integer primary key, catalog_id integer, product_name TEXT, catalog_code TEXT, picture TEXT, " +
-            "bar_code, oem TEXT, price REAL, product_code TEXT, new_product INTEGER, extra_bonus REAL, measure TEXT, quantity TEXT, " +
+            "bar_code, oem TEXT, price REAL, product_code TEXT, new_product INTEGER, extra_bonus REAL, measure TEXT, quantity INTEGER, " +
             "analog TEXT, gift integer";
 
     public static String PRODUCT_ALIAS = "product_id,ID;catalog_id,SECTION_ID;product_name,NAME;catalog_code,CATALOG_CODE;picture,DETAIL_PICTURE;bar_code,BAR_CODE;" +
@@ -41,4 +52,5 @@ public class SQL {
             "FROM OrderProduct, product WHERE OrderProduct.orderId = ? AND OrderProduct.productId = product.product_id";
 
     public static String[] PRODUCT_QUERY_ARRAY = {"expandedLevel", CATALOG_L1_L3, CATALOG_L2_L3, PRODUCT_IN_CATALOG};
+
 }

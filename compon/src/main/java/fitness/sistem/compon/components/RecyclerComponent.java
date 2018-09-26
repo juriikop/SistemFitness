@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.base.BaseProvider;
 import fitness.sistem.compon.base.BaseProviderAdapter;
@@ -15,11 +16,13 @@ import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamComponent;
 import fitness.sistem.compon.presenter.ListPresenter;
+import fitness.sistem.compon.tools.ComponPrefTool;
 import fitness.sistem.compon.tools.StaticVM;
 
 public class RecyclerComponent extends BaseComponent {
     RecyclerView recycler;
     public BaseProviderAdapter adapter;
+    private String componentTag = "RECYCLER_";
 
     public RecyclerComponent(IBase iBase, ParamComponent paramMV, MultiComponents multiComponent) {
         super(iBase, paramMV, multiComponent);
@@ -65,6 +68,34 @@ public class RecyclerComponent extends BaseComponent {
         listData.clear();
         listData.addAll((ListRecords) field.value);
         provider.setData(listData);
+        if (listPresenter != null) {
+            int selectStart = ComponPrefTool.getNameInt(componentTag + multiComponent.nameComponent, -1);
+            int ik = listData.size();
+            Log.d("QWERT","changeData selectStart="+selectStart+" paramMV.paramView.fieldType="+paramMV.paramView.fieldType+"<< TTTT="+(componentTag + multiComponent.nameComponent));
+            if (selectStart == -1) {
+                for (int i = 0; i < ik; i++) {
+                    Record r = listData.get(i);
+                    int j = r.getInt(paramMV.paramView.fieldType);
+                    if (j == 1) {
+                        selectStart = i;
+                        break;
+                    }
+                }
+            } else {
+                for (int i = 0; i < ik; i++) {
+                    Record r = listData.get(i);
+                    Field f = r.getField(paramMV.paramView.fieldType);
+                    if (i == selectStart) {
+                        f.value = 1;
+                    } else {
+                        if (((Integer) f.value) == 1) {
+                            f.value = 0;
+                        }
+                    }
+                }
+            }
+            listPresenter.changeData(listData, selectStart);
+        }
         adapter.notifyDataSetChanged();
         int splash = paramMV.paramView.splashScreenViewId;
         if (splash != 0) {
@@ -79,19 +110,40 @@ public class RecyclerComponent extends BaseComponent {
                 iBase.log("Не найден SplashView в " + paramMV.nameParentComponent);
             }
         }
-        if (listPresenter != null) {
-            int selectStart = -1;
-            int ik = listData.size();
-            for (int i = 0; i < ik; i++) {
-                Record r = listData.get(i);
-                long j = (Long) r.getValue(paramMV.paramView.fieldType);
-                if (j == 1) {
-                    selectStart = i;
-                    break;
+
+
+
+
+//        if (listPresenter != null) {
+//            int selectStart = -1;
+//            int ik = listData.size();
+//            for (int i = 0; i < ik; i++) {
+//                Record r = listData.get(i);
+//                int j = r.getInt(paramMV.paramView.fieldType);
+//                if (j == 1) {
+//                    selectStart = i;
+//                    break;
+//                }
+//            }
+//            listPresenter.changeData(listData, selectStart);
+//        }
+        iBase.sendEvent(paramMV.paramView.viewId);
+    }
+
+    @Override
+    public void changeDataPosition(int position, boolean select) {
+        Log.d("QWERT","changeDataPosition position="+position+" select="+select);
+        if (paramMV.paramView.selected) {
+            adapter.notifyItemChanged(position);
+            ComponPrefTool.setNameInt(componentTag + multiComponent.nameComponent, position);
+            if (select && selectViewHandler != null) {
+                Record record = listData.get(position);
+                ComponGlob.getInstance().setParam(record);
+                String st = record.getString(selectViewHandler.nameFragment);
+                if (st != null && st.length() > 0) {
+                    iBase.startScreen(st, true);
                 }
             }
-            listPresenter.changeData(listData, selectStart);
         }
-        iBase.sendEvent(paramMV.paramView.viewId);
     }
 }

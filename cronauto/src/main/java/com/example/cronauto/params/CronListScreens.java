@@ -3,6 +3,7 @@ package com.example.cronauto.params;
 import android.content.Context;
 
 import com.example.cronauto.R;
+import com.example.cronauto.activity.AddProductActivity;
 import com.example.cronauto.data.db.SQL;
 import com.example.cronauto.data.network.Api;
 import com.example.cronauto.data.network.GetData;
@@ -29,7 +30,8 @@ public class CronListScreens  extends ListScreens {
             ORDER = "order", LIST_ORDER = "list_order", INDEX = "index", PRODUCT_LIST = "product_list",
             CATALOG = "catalog", ORDER_LOG = "order_log", ORDER_LOG_FILTER = "order_log_filter",
             NOVELTIES = "novelties", EXTRA_BONUS = "extra_bonus", PRODUCT_DESCRIPT = "product_descript",
-            DESCRIPT = "descript", CHARACTERISTIC = "characteristic", ADD_PRODUCT = "add_product";
+//            DESCRIPT = "descript", CHARACTERISTIC = "characteristic",
+            ADD_PRODUCT = "add_product";
 
     @Override
     public void initScreen() {
@@ -127,20 +129,25 @@ public class CronListScreens  extends ListScreens {
         fragment(ORDER_LOG_FILTER, R.layout.fragment_orderlog_filter).animate(AS.RL);
 
         activity(PRODUCT_DESCRIPT, R.layout.activity_product_descript).animate(AS.RL)
-                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER))
-//                .addComponent(TC.PAGER_F, new ParamView(R.id.pager, new String[] {DESCRIPT, CHARACTERISTIC})
-//                        .setTab(R.id.tabs, R.array.descript_tab_name))
-                .addComponent(ParamComponent.TC.PANEL, new ParamModel(ParamModel.ARGUMENTS),
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK)
+                        .add(R.id.add, ADD_PRODUCT, RECORD))
+                .addComponent(TC.PANEL, new ParamModel(ParamModel.ARGUMENTS),
                         new ParamView(R.id.panel).visibilityManager(visibility(R.id.bonus, "extra_bonus")))
-                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PROPERTY_ID_PRODUCT,"product_id")
-                        .updateDB(SQL.PROPERTY, Api.PROPERTY, SQL.dayMillisecond),
-                        new ParamView(R.id.recycler, R.layout.item_property));
+//                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PROPERTY_ID_PRODUCT,"product_id")
+//                        .updateDB(SQL.PROPERTY, Api.PROPERTY, SQL.dayMillisecond),
+//                        new ParamView(R.id.recycler, R.layout.item_property))
+        ;
 
-        fragment(DESCRIPT, R.layout.fragment_descript);
+//        fragment(DESCRIPT, R.layout.fragment_descript);
+//
+//        fragment(CHARACTERISTIC, R.layout.fragment_characteristic);
 
-        fragment(CHARACTERISTIC, R.layout.fragment_characteristic);
-
-        activity(ADD_PRODUCT, R.layout.activity_add_product);
+        activity(ADD_PRODUCT, AddProductActivity.class)
+                .addComponent(TC.PANEL, new ParamModel(ParamModel.ARGUMENTS),
+                        new ParamView(R.id.panel))
+                .addPlusMinus(R.id.count, R.id.plus, R.id.minus)
+                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.ORDER_LIST),
+                        new ParamView(R.id.recycler, "status", new int[] {R.layout.item_order_log, R.layout.item_order_log_select}).selected());
 
         super.initScreen();
     }

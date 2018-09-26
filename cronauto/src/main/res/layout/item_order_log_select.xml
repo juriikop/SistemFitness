@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/all"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pad_50"
+        android:background="@drawable/selector_status_backgr">
+
+        <TextView
+            android:id="@+id/orderName"
+            style="@style/st_16_text_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/pad_16"/>
+
+        <LinearLayout
+            android:id="@+id/img"
+            android:layout_width="@dimen/pad_24"
+            android:layout_height="@dimen/pad_24"
+            android:layout_marginRight="@dimen/pad_16"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/check_active"
+            android:orientation="vertical" />
+    </RelativeLayout>
+</LinearLayout>

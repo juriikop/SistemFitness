@@ -2,8 +2,12 @@ package fitness.sistem.compon.custom_components;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +33,8 @@ public class ComponEditText extends AppCompatEditText implements IComponent, IVa
     protected TextInputLayout textInputLayout;
     private String minValueText, maxValueText;
     private double minValue, maxValue;
+    private long minValueLong, maxValueLong;
+    private boolean typeClassNumber;
     private OnFocusChangeListener focusChangeListenerInheritor = null;
 
     public ComponEditText(Context context) {
@@ -70,26 +76,55 @@ public class ComponEditText extends AppCompatEditText implements IComponent, IVa
                 typeValidate = LENGTH;
             }
         }
-        maxValue = Double.MAX_VALUE;
-        minValue = Double.MIN_VALUE;
-        if (minValueText != null) {
-            try {
-                minValue = Double.valueOf(minValueText);
-            } catch (NumberFormatException e) {
-                minValue = Double.MIN_VALUE;
-                errorParam("minValue");
+
+        if (getInputType() == InputType.TYPE_CLASS_NUMBER) {
+            typeClassNumber = true;
+            maxValueLong = Long.MAX_VALUE;
+            minValueLong = Long.MIN_VALUE;
+            if (minValueText != null) {
+                try {
+                    minValueLong = Long.valueOf(minValueText);
+                } catch (NumberFormatException e) {
+                    minValueLong = Long.MIN_VALUE;
+                    errorParam("minValue");
+                }
             }
-        }
-        if (maxValueText != null) {
-            try {
-                maxValue = Double.valueOf(maxValueText);
-            } catch (NumberFormatException e) {
-                maxValue = Double.MAX_VALUE;
-                errorParam("maxValue");
+            if (maxValueText != null) {
+                try {
+                    maxValueLong = Long.valueOf(maxValueText);
+                } catch (NumberFormatException e) {
+                    maxValueLong = Long.MAX_VALUE;
+                    errorParam("maxValue");
+                }
             }
-        }
-        if (minValue != Double.MIN_VALUE || maxValue != Double.MAX_VALUE) {
-            typeValidate = DIAPASON;
+            if (minValueLong != Long.MIN_VALUE || maxValueLong != Long.MAX_VALUE) {
+                typeValidate = DIAPASON;
+                addTextChangedListener(new EditTextWatcher());
+            }
+        } else {
+            typeClassNumber = false;
+            maxValue = Double.MAX_VALUE;
+            minValue = Double.MIN_VALUE;
+            if (minValueText != null) {
+                try {
+                    minValue = Double.valueOf(minValueText);
+                } catch (NumberFormatException e) {
+                    minValue = Double.MIN_VALUE;
+                    errorParam("minValue");
+                }
+            }
+            if (maxValueText != null) {
+                try {
+                    maxValue = Double.valueOf(maxValueText);
+                } catch (NumberFormatException e) {
+                    maxValue = Double.MAX_VALUE;
+                    errorParam("maxValue");
+                }
+            }
+            if (minValue != Double.MIN_VALUE || maxValue != Double.MAX_VALUE) {
+                typeValidate = DIAPASON;
+                addTextChangedListener(new EditTextWatcher());
+            }
         }
 //        setFocusable(true);
 //        setFocusableInTouchMode(true);
@@ -184,6 +219,49 @@ public class ComponEditText extends AppCompatEditText implements IComponent, IVa
             setErrorValid(textError);
         }
         return result;
+    }
+
+    private class EditTextWatcher implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String st = s.toString();
+            if (typeClassNumber) {
+                long v = Long.valueOf(st);
+                if (v < minValueLong) {
+                    st = String.valueOf(minValueLong);
+                    setText(st);
+                    setSelection(st.length());
+                }
+                if (v > maxValueLong) {
+                    st = String.valueOf(maxValueLong);
+                    setText(st);
+                    setSelection(st.length());
+                }
+            } else {
+                double v = Double.valueOf(st);
+                if (v < minValue) {
+                    st = String.valueOf(minValue);
+                    setText(st);
+                    setSelection(st.length());
+                }
+                if (v > maxValue) {
+                    st = String.valueOf(maxValue);
+                    setText(st);
+                    setSelection(st.length());
+                }
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
     }
 
     private void getTextInputLayout() {

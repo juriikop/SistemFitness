@@ -85,7 +85,7 @@ public abstract class BaseComponent {
         initView();
         if (paramMV.nameReceiver != null) {
             LocalBroadcastManager.getInstance(iBase.getBaseActivity())
-                    .registerReceiver(atartActual, new IntentFilter(paramMV.nameReceiver));
+                    .registerReceiver(startActual, new IntentFilter(paramMV.nameReceiver));
         }
         if (paramMV.paramModel != null
                 && paramMV.paramModel.method == ParamModel.FIELD) {
@@ -106,7 +106,7 @@ public abstract class BaseComponent {
         }
     }
 
-    private BroadcastReceiver atartActual = new BroadcastReceiver() {
+    private BroadcastReceiver startActual = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             final Handler handler = new Handler();
@@ -238,7 +238,7 @@ public abstract class BaseComponent {
     }
 
     public void changeDataPosition(int position, boolean select) {
-
+        Log.d("QWERT","changeDataPosition changeDataPosition changeDataPosition");
     }
 
     private BaseComponent getThis() {
@@ -292,6 +292,9 @@ public abstract class BaseComponent {
         if (paramMV.paramModel != null && paramMV.paramModel.addRecordBegining != null
                 && ((ListRecords) field.value).size() > 0) {
             ((ListRecords) field.value).addAll(0, paramMV.paramModel.addRecordBegining);
+        }
+        if (iBase instanceof ICustom) {
+            ((ICustom) iBase).changeValue(paramMV.paramView.viewId, field);
         }
         changeData(field);
     }

@@ -179,6 +179,10 @@ public class MultiComponents <T>{
         return addComponent(ParamComponent.TC.DRAWER, new ParamView(viewId, nameFragments, containerId));
     }
 
+    public MultiComponents addPlusMinus(int editId, int plusId, int minusId) {
+        return addComponent(ParamComponent.TC.PLUS_MINUS, new ParamView(editId, plusId, minusId));
+    }
+
     public MultiComponents addSearchComponent(int viewIdEdit, ParamModel paramModel, ParamView paramView,
                                               Navigator navigator, boolean hideRecycler) {
         ParamComponent paramComponent = new ParamComponent();
@@ -394,6 +398,9 @@ public class MultiComponents <T>{
                     break;
                 case RECOGNIZE_VOICE:
                     new RecognizeVoiceComponent(iBase, cMV, this);
+                    break;
+                case PLUS_MINUS:
+                    new PlusMinusComponent(iBase, cMV, this);
                     break;
 //                case PHONE:
 //                    new EditPhoneComponent(iBase, cMV);

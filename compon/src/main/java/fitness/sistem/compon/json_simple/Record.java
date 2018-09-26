@@ -68,10 +68,10 @@ public class Record extends ArrayList<Field>{
                 case Field.TYPE_DOUBLE:
                     return (double) f.value;
                 default:
-                    return null;
+                    return 0d;
             }
         } else {
-            return null;
+            return 0d;
         }
     }
 

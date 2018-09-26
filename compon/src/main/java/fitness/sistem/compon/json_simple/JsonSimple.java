@@ -87,11 +87,11 @@ public class JsonSimple {
     }
 
     private String textForException() {
-        int in = ind - 25;
+        int in = ind - 30;
         if (in < 0) {
             in = 0;
         }
-        int ik = ind + 80;
+        int ik = ind + 60;
         if (ik > indMax) {
             ik = indMax;
         }

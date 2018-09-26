@@ -36,6 +36,7 @@ public class ListPresenter {
     }
 
     public void ranCommand(Command com, int position, Field field) {
+        Log.d("QWERT","ListPresenter ranCommand com="+com);
         switch (com) {
             case SELECT:
                 Record record = listData.get(position);
