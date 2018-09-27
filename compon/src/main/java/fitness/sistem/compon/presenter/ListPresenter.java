@@ -27,7 +27,7 @@ public class ListPresenter {
     public void changeData(ListRecords listData, int selectStart) {
         this.listData = listData;
         selectOld = selectStart;
-        if (selectStart > -1) {
+        if (selectStart > -1 && listData.size() > 0) {
             Record record = listData.get(selectStart);
             Field ff = record.getField(nameSelectField);
             ff.value = new Integer(1);
@@ -36,12 +36,12 @@ public class ListPresenter {
     }
 
     public void ranCommand(Command com, int position, Field field) {
-        Log.d("QWERT","ListPresenter ranCommand com="+com);
         switch (com) {
             case SELECT:
                 Record record = listData.get(position);
-                Field ff = record.getField(nameSelectField);
-                if ((Integer) ff.value < 2) {
+                Field ff;
+                int ii = record.getInt(nameSelectField);
+                if (ii < 2) {
                     if (selectOld > -1) {
                         record = listData.get(selectOld);
                         ff = record.getField(nameSelectField);

@@ -12,10 +12,8 @@ import com.example.cronauto.test_internrt.TestInternetProvider;
 import fitness.sistem.compon.base.ListScreens;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
-import fitness.sistem.compon.param.ParamComponent;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.param.ParamView;
-import fitness.sistem.compon.tools.Constants;
 
 import static fitness.sistem.compon.interfaces_classes.ViewHandler.TYPE_PARAM_FOR_SCREEN.RECORD;
 
@@ -30,7 +28,6 @@ public class CronListScreens  extends ListScreens {
             ORDER = "order", LIST_ORDER = "list_order", INDEX = "index", PRODUCT_LIST = "product_list",
             CATALOG = "catalog", ORDER_LOG = "order_log", ORDER_LOG_FILTER = "order_log_filter",
             NOVELTIES = "novelties", EXTRA_BONUS = "extra_bonus", PRODUCT_DESCRIPT = "product_descript",
-//            DESCRIPT = "descript", CHARACTERISTIC = "characteristic",
             ADD_PRODUCT = "add_product";
 
     @Override
@@ -45,9 +42,6 @@ public class CronListScreens  extends ListScreens {
                 .addComponent(TC.PAGER_F, new ParamView(R.id.pager,
                         new String[] {AUTH_LOGIN, AUTH_REGISTER})
                         .setTab(R.id.tabs, R.array.auth_tab_name));
-
-//        fragment(AUTH_LOGIN, R.layout.fragment_login)
-//                .addNavigator(new Navigator().add(R.id.done, MAIN));
 
         fragment(AUTH_LOGIN, R.layout.fragment_login)
                 .addNavigator(new Navigator().add(R.id.forgot, AUTH_FORGOT))
@@ -85,12 +79,6 @@ public class CronListScreens  extends ListScreens {
                                 .expanded(R.id.expand, R.id.expand, new ParamModel(ParamModel.GET_DB, SQL.CATALOG, "catalog_id")),
                         new Navigator().add(0, PRODUCT_LIST, RECORD));
 
-
-//        fragment(INDEX, R.layout.fragment_index)
-//                .addComponent(TC.PAGER_F, new ParamView(R.id.pager,
-//                        new String[] {NOVELTIES, EXTRA_BONUS, CATALOG})
-//                        .setTab(R.id.tabs, R.array.index_tab_name));
-
         fragment(NOVELTIES, R.layout.fragment_novelties);
 
         fragment(EXTRA_BONUS, R.layout.fragment_extra_bonus)
@@ -99,15 +87,6 @@ public class CronListScreens  extends ListScreens {
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_E_BONUS)
                                 .updateDB(SQL.PRODUCT_TAB, Api.DB_PRODUCT, SQL.dayMillisecond, SQL.PRODUCT_ALIAS),
                         new ParamView(R.id.recycler, R.layout.item_product_list));
-
-//        fragment(CATALOG, R.layout.fragment_catalog)
-//                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.CATALOG_0)
-//                                .updateDB(SQL.CATALOG_TAB, Api.DB_CATALOG, SQL.dayMillisecond,
-//                                        SQL.CATALOG_ALIAS),
-//                        new ParamView(R.id.recycler, "expandedLevel", new int[]{R.layout.item_catalog_type_1,
-//                                R.layout.item_catalog_type_2, R.layout.item_catalog_type_3})
-//                                .expanded(R.id.expand, R.id.expand, new ParamModel(ParamModel.GET_DB, SQL.CATALOG, "catalog_id")),
-//                        new Navigator().add(0, PRODUCT_LIST, RECORD));
 
         activity(PRODUCT_LIST, R.layout.activity_product_list).animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
@@ -138,16 +117,15 @@ public class CronListScreens  extends ListScreens {
 //                        new ParamView(R.id.recycler, R.layout.item_property))
         ;
 
-//        fragment(DESCRIPT, R.layout.fragment_descript);
-//
-//        fragment(CHARACTERISTIC, R.layout.fragment_characteristic);
-
-        activity(ADD_PRODUCT, AddProductActivity.class)
+        activity(ADD_PRODUCT, AddProductActivity.class).animate(AS.RL)
                 .addComponent(TC.PANEL, new ParamModel(ParamModel.ARGUMENTS),
                         new ParamView(R.id.panel))
                 .addPlusMinus(R.id.count, R.id.plus, R.id.minus)
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.ORDER_LIST),
-                        new ParamView(R.id.recycler, "status", new int[] {R.layout.item_order_log, R.layout.item_order_log_select}).selected());
+                        new ParamView(R.id.recycler, "status",
+                                new int[] {R.layout.item_order_log, R.layout.item_order_log_select}).selected(),
+                        new Navigator().add(0, ViewHandler.TYPE.SET_PARAM));
+
 
         super.initScreen();
     }

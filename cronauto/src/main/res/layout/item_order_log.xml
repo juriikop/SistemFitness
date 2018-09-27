@@ -6,7 +6,7 @@
         android:id="@+id/all"
         android:layout_width="match_parent"
         android:layout_height="@dimen/pad_50"
-        android:background="@drawable/selector_status_backgr">
+        android:background="@drawable/check_backgr_passive">
 
         <TextView
             android:id="@+id/orderName"
@@ -23,7 +23,7 @@
             android:layout_marginRight="@dimen/pad_16"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/check_passive"
+            android:background="@drawable/check_backgr_active"
             android:orientation="vertical" />
     </RelativeLayout>
 </LinearLayout>

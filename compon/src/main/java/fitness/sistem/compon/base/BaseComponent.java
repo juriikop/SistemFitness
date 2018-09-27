@@ -190,7 +190,7 @@ public abstract class BaseComponent {
         }
     }
 
-    private String[] setParam(String paramSt, Record rec) {
+    protected String[] setParam(String paramSt, Record rec) {
         if (paramSt == null) return null;
         String[] param = paramSt.split(",");
         int ik = param.length;
@@ -238,7 +238,6 @@ public abstract class BaseComponent {
     }
 
     public void changeDataPosition(int position, boolean select) {
-        Log.d("QWERT","changeDataPosition changeDataPosition changeDataPosition");
     }
 
     private BaseComponent getThis() {
@@ -361,6 +360,15 @@ public abstract class BaseComponent {
             for (ViewHandler vh : navigator.viewHandlers) {
                 if (vh.viewId == id) {
                     switch (vh.type) {
+                        case SELECT:
+                            if (listPresenter != null) {
+                                listPresenter.ranCommand(ListPresenter.Command.SELECT,
+                                        position, null);
+                            }
+                            break;
+                        case SET_PARAM:
+                            ComponGlob.getInstance().setParam(record);
+                            break;
                         case FIELD_WITH_NAME_FRAGMENT:
                             if (listPresenter != null) {
                                 listPresenter.ranCommand(ListPresenter.Command.SELECT,

@@ -11,6 +11,8 @@ import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.base.BaseProvider;
 import fitness.sistem.compon.base.BaseProviderAdapter;
 import fitness.sistem.compon.interfaces_classes.IBase;
+import fitness.sistem.compon.interfaces_classes.Navigator;
+import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
@@ -41,6 +43,10 @@ public class RecyclerComponent extends BaseComponent {
         }
         listData = new ListRecords();
         if (paramMV.paramView.selected) {
+            if (navigator == null) {
+                navigator = new Navigator();
+            }
+            navigator.add(0, ViewHandler.TYPE.SELECT);
             listPresenter = new ListPresenter(this);
         }
         provider = new BaseProvider(listData);
@@ -71,28 +77,35 @@ public class RecyclerComponent extends BaseComponent {
         if (listPresenter != null) {
             int selectStart = ComponPrefTool.getNameInt(componentTag + multiComponent.nameComponent, -1);
             int ik = listData.size();
-            Log.d("QWERT","changeData selectStart="+selectStart+" paramMV.paramView.fieldType="+paramMV.paramView.fieldType+"<< TTTT="+(componentTag + multiComponent.nameComponent));
-            if (selectStart == -1) {
-                for (int i = 0; i < ik; i++) {
-                    Record r = listData.get(i);
-                    int j = r.getInt(paramMV.paramView.fieldType);
-                    if (j == 1) {
-                        selectStart = i;
-                        break;
+            if (ik > 0) {
+                if (selectStart == -1) {
+                    for (int i = 0; i < ik; i++) {
+                        Record r = listData.get(i);
+                        int j = r.getInt(paramMV.paramView.fieldType);
+                        if (j == 1) {
+                            selectStart = i;
+                            break;
+                        }
                     }
-                }
-            } else {
-                for (int i = 0; i < ik; i++) {
-                    Record r = listData.get(i);
-                    Field f = r.getField(paramMV.paramView.fieldType);
-                    if (i == selectStart) {
-                        f.value = 1;
-                    } else {
-                        if (((Integer) f.value) == 1) {
-                            f.value = 0;
+                } else {
+                    for (int i = 0; i < ik; i++) {
+                        Record r = listData.get(i);
+                        Field f = r.getField(paramMV.paramView.fieldType);
+                        if (i == selectStart) {
+                            f.value = 1;
+                        } else {
+                            if (r.fieldToInt(f) == 1) {
+                                f.value = 0;
+                            }
                         }
                     }
                 }
+                if (selectStart < 0) {
+                    selectStart = 0;
+                } else if (selectStart >= ik && ik > 0) {
+                    selectStart = ik - 1;
+                }
+                ComponGlob.getInstance().setParam(listData.get(selectStart));
             }
             listPresenter.changeData(listData, selectStart);
         }
@@ -132,7 +145,6 @@ public class RecyclerComponent extends BaseComponent {
 
     @Override
     public void changeDataPosition(int position, boolean select) {
-        Log.d("QWERT","changeDataPosition position="+position+" select="+select);
         if (paramMV.paramView.selected) {
             adapter.notifyItemChanged(position);
             ComponPrefTool.setNameInt(componentTag + multiComponent.nameComponent, position);

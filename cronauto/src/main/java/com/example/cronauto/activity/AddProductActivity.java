@@ -31,12 +31,12 @@ public class AddProductActivity extends BaseActivity implements ICustom{
     @BindView(R.id.count) EditText count;
     @BindView(R.id.bonus_v) TextView bonus_v;
     @BindView(R.id.amount) TextView amount;
+    @BindView(R.id.more_residue) TextView more_residue;
 
     private DecimalFormat decimalFormat = new DecimalFormat("###,###,##0.00");
 
     private double price, priceBonus;
     private int quantity;
-//    private String measure;
     RecyclerComponent recyclerComponent;
 
     @Override
@@ -89,6 +89,11 @@ public class AddProductActivity extends BaseActivity implements ICustom{
                 long c = Long.valueOf(st);
                 amount.setText(decimalFormat.format(price * c));
                 bonus_v.setText(decimalFormat.format(priceBonus * c));
+                if (c > quantity) {
+                    more_residue.setVisibility(View.VISIBLE);
+                } else {
+                    more_residue.setVisibility(View.GONE);
+                }
                 break;
             case R.id.recycler :
                 if (field == null || field.value == null || ((ListRecords) field.value).size() == 0) {

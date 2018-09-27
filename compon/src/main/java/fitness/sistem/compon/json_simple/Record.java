@@ -167,6 +167,10 @@ public class Record extends ArrayList<Field>{
 
     public int getInt(String name) {
         Field f = getField(name);
+        return fieldToInt(f);
+    }
+
+    public int fieldToInt(Field f) {
         if (f != null) {
             if (f.value instanceof Long) {
                 long vv = (Long) f.value;
