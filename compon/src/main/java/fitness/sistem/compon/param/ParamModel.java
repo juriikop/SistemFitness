@@ -19,6 +19,7 @@ public class ParamModel <T> {
     public static int POST = 1;
     public static final int GET_DB = 10;
     public static int POST_DB = 11;
+    public static int INSERT_DB = 12;
     public static final int PARENT = 100;
     public static final int FIELD = 101;
     public static final int ARGUMENTS = 102;

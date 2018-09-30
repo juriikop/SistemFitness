@@ -267,27 +267,6 @@ public class JsonSimple {
         return field;
     }
 
-//    private String delSlesh(String st) {
-//        char[] c = st.toCharArray();
-//        StringBuilder builder = new StringBuilder();
-//        int start = 0;
-//        int ik = c.length;
-//        for (int i = 0; i < ik; i++) {
-//            if (c[i] == '\\') {
-//                if (i > 0) {
-//                    builder.append(c, start, i - start);
-//                }
-//                start = i + 1;
-//            }
-//        }
-//        if (start > 0) {
-//            builder.append(c, start, ik - start);
-//            return builder.toString();
-//        } else {
-//            return st;
-//        }
-//    }
-
     private String delSlesh(String st) {
         char[] c = st.toCharArray();
         StringBuilder builder = new StringBuilder();
@@ -398,36 +377,6 @@ public class JsonSimple {
         }
         return -1;
     }
-
-//    private String getName(String separ) {
-////        String st = "";
-//        String separators_1 = "}]";
-//        boolean errorName = false;
-////        int i = json.indexOf(quote, ind + 1);
-//        ind++;
-//        int i = ind;
-//        currentSymbol = json.substring(ind, ind + 1);
-//        while ( ! currentSymbol.equals(quote) && ind < indMax) {
-//            if (separators_1.contains(currentSymbol)) {
-//                errorName = true;
-//                break;
-//            }
-//            ind++;
-//            currentSymbol = json.substring(ind, ind + 1);
-//        }
-//        if (errorName) {
-//            return null;
-//        } else {
-//            return json.substring(i, ind);
-////            if (i > -1) {
-////                st = json.substring(ind + 1, i);
-////                ind = i;
-////            } else {
-////                Log.d("JSON_L", "No name ind=" + ind);
-////            }
-//        }
-////        return st;
-//    }
 
     private String getName(String separ) throws JsonSyntaxException {
         String st = "";

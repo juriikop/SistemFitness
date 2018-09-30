@@ -57,7 +57,6 @@ public class AddProductActivity extends BaseActivity implements ICustom{
 
     @Override
     public void customClick(int viewId, int position, Record record) {
-
     }
 
     @Override
@@ -72,7 +71,6 @@ public class AddProductActivity extends BaseActivity implements ICustom{
 
     @Override
     public void clickView(View viewClick, View parentView, BaseComponent baseComponent, Record rec, int position) {
-
     }
 
     @Override

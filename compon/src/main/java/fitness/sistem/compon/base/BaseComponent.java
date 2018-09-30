@@ -319,21 +319,25 @@ public abstract class BaseComponent {
                             break;
                         case CLICK_SEND :
                             boolean valid = true;
-                            for (int i : vh.mustValid) {
-                                View vv = viewComponent.findViewById(i);
-                                if (vv instanceof IValidate) {
-                                    boolean validI = ((IValidate) vv).isValid();
-                                    if ( ! validI) {
-                                        valid = false;
+                            if (vh.mustValid != null) {
+                                for (int i : vh.mustValid) {
+                                    View vv = viewComponent.findViewById(i);
+                                    if (vv instanceof IValidate) {
+                                        boolean validI = ((IValidate) vv).isValid();
+                                        if (!validI) {
+                                            valid = false;
+                                        }
                                     }
                                 }
                             }
+                            Log.d("QWERT","BaseComponent OnClickListener CLICK_SEND valid="+valid);
                             if (valid) {
                                 selectViewHandler = vh;
                                 param = workWithRecordsAndViews.ViewToRecord(viewComponent, vh.paramModel.param);
                                 Record rec = setRecord(param);
                                 ComponGlob.getInstance().setParam(rec);
                                 if (vh.paramModel.method == POST_DB) {
+                                    Log.d("QWERT","BaseComponent OnClickListener rec="+rec.toString());
                                     ComponGlob.getInstance().baseDB.insertRecord(vh.paramModel.url, rec);
                                 } else {
                                     new BasePresenter(iBase, vh.paramModel, null, rec, listener_send_back_screen);
