@@ -1,7 +1,5 @@
 package fitness.sistem.compon.components;
 
-import android.util.Log;
-
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.ICustom;
@@ -342,7 +340,7 @@ public class MultiComponents <T>{
                     new MultiPanelComponent(iBase, cMV, this);
                     break;
                 case PANEL_ENTER:
-                    new EnterPanelComponent(iBase, cMV, this);
+                    new PanelEnterComponent(iBase, cMV, this);
                     break;
                 case SPINNER :
                     new SpinnerComponent(iBase, cMV, this);

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pad_62"
+        android:background="@color/green_btn"
+        android:gravity="center"
+        style="@style/st_16_white"
+        android:text="@string/product_add_in_order"/>
+</LinearLayout>

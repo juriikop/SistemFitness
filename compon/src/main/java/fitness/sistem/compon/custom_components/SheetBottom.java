@@ -216,15 +216,25 @@ public class SheetBottom extends RelativeLayout implements AnimatePanel {
 //        super.setVisibility(vis);
 //    }
 
-//    @Override
-//    public void setVisibility(int visibility) {
+    @Override
+    public void setVisibility(int visibility) {
+        switch (visibility) {
+            case VISIBLE :
+                open();
+                break;
+            case GONE :
+                fadedScreenClose(true, null);
+                break;
+            default:
+                super.setVisibility(visibility);
+                break;
+        }
 //        if (visibility == VISIBLE) {
 //            open();
 //        } else {
 //            fadedScreenClose(true, null);
 //        }
-////        super.setVisibility(visibility);
-//    }
+    }
 
     private SheetBottomListener listenerForView = new SheetBottomListener() {
         @Override

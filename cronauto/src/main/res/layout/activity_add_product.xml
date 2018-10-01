@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
@@ -38,21 +38,31 @@
             android:singleLine="true" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/st_18_black"
-        android:lineSpacingExtra="9sp"
-        android:layout_marginRight="@dimen/pad_24"
-        android:layout_marginLeft="@dimen/pad_24"
-        android:layout_marginTop="@dimen/pad_22"/>
+    <!--<TextView-->
+        <!--android:id="@+id/name"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--style="@style/st_18_black"-->
+        <!--android:lineSpacingExtra="9sp"-->
+        <!--android:layout_marginRight="@dimen/pad_24"-->
+        <!--android:layout_marginLeft="@dimen/pad_24"-->
+        <!--android:layout_marginTop="@dimen/pad_22"/>-->
 
     <LinearLayout
         android:id="@+id/panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tool"
         android:orientation="vertical">
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/st_18_black"
+            android:lineSpacingExtra="9sp"
+            android:layout_marginRight="@dimen/pad_24"
+            android:layout_marginLeft="@dimen/pad_24"
+            android:layout_marginTop="@dimen/pad_22"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -201,77 +211,82 @@
                 android:text="@string/bonus"
                 android:layout_toLeftOf="@+id/bonus_v" />
         </RelativeLayout>
-    </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pad_40">
 
+            <TextView
+                style="@style/st_14_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/pad_16"
+                android:layout_marginBottom="@dimen/pad_2"
+                android:text="@string/total" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/pad_40">
+            <TextView
+                android:id="@+id/amount"
+                style="@style/st_24_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/pad_72"
+                android:textStyle="bold"/>
+        </RelativeLayout>
 
-        <TextView
-            style="@style/st_14_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pad_1"
+            android:background="@color/black_30"
+            android:layout_marginTop="@dimen/pad_24"
+            android:layout_marginRight="@dimen/pad_16"
             android:layout_marginLeft="@dimen/pad_16"
-            android:layout_marginBottom="@dimen/pad_2"
-            android:text="@string/total" />
+            android:layout_marginBottom="@dimen/pad_30"/>
 
-        <TextView
-            android:id="@+id/amount"
-            style="@style/st_24_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/pad_72"
-            android:textStyle="bold"/>
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/pad_1"
-        android:background="@color/black_30"
-        android:layout_marginTop="@dimen/pad_24"
-        android:layout_marginRight="@dimen/pad_16"
-        android:layout_marginLeft="@dimen/pad_16"
-        android:layout_marginBottom="@dimen/pad_30"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/pad_60"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/pad_24"
-        android:layout_marginLeft="@dimen/pad_8"
-        android:layout_marginRight="@dimen/pad_8"
-        android:layout_marginBottom="@dimen/pad_32">
-        <TextView
-            android:id="@+id/create_new"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            style="@style/st_14_primary"
-            android:letterSpacing="0.1"
-            android:textAllCaps="true"
-            android:gravity="center"
-            android:background="@drawable/selector_button_gray"
-            android:text="@string/create_new"/>
-        <TextView
-            android:id="@+id/add"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            style="@style/st_14_white"
-            android:letterSpacing="0.1"
-            android:textAllCaps="true"
-            android:gravity="center"
-            android:background="@drawable/selector_button_green"
-            android:text="@string/add"/>
+            android:layout_height="@dimen/pad_60"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/pad_24"
+            android:layout_marginLeft="@dimen/pad_8"
+            android:layout_marginRight="@dimen/pad_8"
+            android:layout_marginBottom="@dimen/pad_32">
+            <TextView
+                android:id="@+id/create_new"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                style="@style/st_14_primary"
+                android:letterSpacing="0.1"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:background="@drawable/selector_button_gray"
+                android:text="@string/create_new"/>
+            <TextView
+                android:id="@+id/add"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                style="@style/st_14_white"
+                android:letterSpacing="0.1"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:background="@drawable/selector_button_green"
+                android:text="@string/add"/>
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+
+    <fitness.sistem.compon.custom_components.SheetBottom
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:viewId=""/>
+
+
+</RelativeLayout>
