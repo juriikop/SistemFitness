@@ -118,14 +118,24 @@ public class CronListScreens  extends ListScreens {
         ;
 
         activity(ADD_PRODUCT, AddProductActivity.class).animate(AS.RL)
-                .addComponent(TC.PANEL, new ParamModel(ParamModel.ARGUMENTS),
-                        new ParamView(R.id.panel))
+                .addComponent(TC.PANEL_ENTER, new ParamModel(ParamModel.ARGUMENTS),
+                        new ParamView(R.id.panel), new Navigator().add(R.id.add, ViewHandler.TYPE.CLICK_SEND,
+                                new ParamModel(ParamModel.POST_DB, SQL.PRODUCT_ORDER, SQL.PRODUCT_ORDER_PARAM)))
                 .addPlusMinus(R.id.count, R.id.plus, R.id.minus)
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.ORDER_LIST),
                         new ParamView(R.id.recycler, "status",
                                 new int[] {R.layout.item_order_log, R.layout.item_order_log_select}).selected(),
                         new Navigator().add(0, ViewHandler.TYPE.SET_PARAM));
 
+
+//        .add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
+//                new ParamModel(ParamModel.POST, Api.LOGIN, "login,password"),
+//                actionsAfterResponse()
+//                        .preferenceSetToken("key")
+////                                        .preferenceSetName("phone")
+//                        .startScreen(MAIN)
+//                        .back(),
+//                false, R.id.login, R.id.password))
 
         super.initScreen();
     }

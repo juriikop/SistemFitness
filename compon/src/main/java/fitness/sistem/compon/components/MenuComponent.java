@@ -96,7 +96,6 @@ public class MenuComponent extends BaseComponent {
 
     @Override
     public void changeDataPosition(int position, boolean select) {
-        Log.d("QWERT","MenuComponent MenuComponent changeDataPosition");
         adapter.notifyItemChanged(position);
         ((BaseActivity) activity).closeDrawer();
         ComponPrefTool.setNameInt(componentTag + multiComponent.nameComponent, position);

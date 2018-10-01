@@ -9,6 +9,10 @@ import fitness.sistem.compon.param.ParamComponent;
 public class PanelComponent extends BaseComponent {
     @Override
     public void initView() {
+        viewComponent = parentLayout.findViewById(paramMV.paramView.viewId);
+        if (viewComponent == null) {
+            iBase.log("Не найдена панель в " + paramMV.nameParentComponent);
+        }
     }
 
     @Override
@@ -16,8 +20,7 @@ public class PanelComponent extends BaseComponent {
         if (field == null) return;
         if (field.value instanceof Record) {
             Record rec = (Record) field.value;
-            viewComponent = parentLayout.findViewById(paramMV.paramView.viewId);
-            workWithRecordsAndViews.RecordToView(rec, viewComponent, null, null, paramMV.paramView.visibilityArray);
+            workWithRecordsAndViews.RecordToView(rec, viewComponent, paramMV.navigator, null, paramMV.paramView.visibilityArray);
         } else {
             iBase.log("Тип данных не Record в " + paramMV.nameParentComponent);
         }
