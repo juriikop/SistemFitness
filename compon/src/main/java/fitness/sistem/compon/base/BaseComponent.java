@@ -12,6 +12,7 @@ import android.view.View;
 
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.components.MultiComponents;
+import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.IValidate;
 import fitness.sistem.compon.interfaces_classes.Param;
@@ -164,7 +165,7 @@ public abstract class BaseComponent {
                     }
                     break;
                 case GET_DB :
-                    Record paramScreen = null; // Параметри які передаються в Screen формує номер urlArrayIndex через параметри
+                    Record paramScreen = null; // ????? Параметри які передаються в Screen формує номер urlArrayIndex через параметри
                     if (paramMV.paramModel.urlArray != null) {
                         Field f = iBase.getParamScreen();
                         if (f != null && f.type == Field.TYPE_CLASS) {
@@ -179,6 +180,7 @@ public abstract class BaseComponent {
                             }
                         }
                     }
+                    Log.d("QWERT","BaseComponent setParam="+setParam(paramMV.paramModel.param, paramScreen)+"<<< param="+paramMV.paramModel.param);
                     ComponGlob.getInstance().baseDB.get(iBase, paramMV.paramModel, setParam(paramMV.paramModel.param, paramScreen), listener);
                     break;
                 default: {
@@ -330,15 +332,14 @@ public abstract class BaseComponent {
                                     }
                                 }
                             }
-                            Log.d("QWERT","BaseComponent OnClickListener CLICK_SEND valid="+valid);
                             if (valid) {
                                 selectViewHandler = vh;
                                 param = workWithRecordsAndViews.ViewToRecord(viewComponent, vh.paramModel.param);
                                 Record rec = setRecord(param);
                                 ComponGlob.getInstance().setParam(rec);
                                 if (vh.paramModel.method == POST_DB) {
-                                    Log.d("QWERT","BaseComponent OnClickListener rec="+rec.toString());
                                     ComponGlob.getInstance().baseDB.insertRecord(vh.paramModel.url, rec);
+                                    listener_send_back_screen.onResponse(null);
                                 } else {
                                     new BasePresenter(iBase, vh.paramModel, null, rec, listener_send_back_screen);
                                 }
@@ -461,6 +462,17 @@ public abstract class BaseComponent {
                                 ComponPrefTool.setNameString(vh.nameFieldWithValue, st);
                             }
                             break;
+                        case SHOW:
+                            View vv = parentLayout.findViewById(vh.viewId);
+                            if (vv instanceof AnimatePanel) {
+                                ((AnimatePanel) vv).show(iBase);
+                            } else {
+                                vv.setVisibility(View.VISIBLE);
+                            }
+                            if (vh.nameFieldWithValue.length() > 0) {
+                                workWithRecordsAndViews.RecordToView(paramToRecord(vh.nameFieldWithValue), vv);
+                            }
+                            break;
                         case BACK:
                             iBase.backPressed();
                             break;
@@ -469,6 +481,20 @@ public abstract class BaseComponent {
             }
         }
     };
+
+    private Record paramToRecord(String param) {
+        Record rec = new Record();
+        String[] par = param.split(",");
+        if (par.length > 0) {
+            for (String nameField : par) {
+                String value = ComponGlob.getInstance().getParamValue(nameField);
+                if (value.length() > 0) {
+                    rec.add(new Field(nameField, Field.TYPE_STRING, value));
+                }
+            }
+        }
+        return rec;
+    }
 
     IPresenterListener listener_send_change =new IPresenterListener() {
         @Override

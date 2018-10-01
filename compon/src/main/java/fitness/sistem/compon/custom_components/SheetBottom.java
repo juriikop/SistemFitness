@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -47,6 +48,7 @@ public class SheetBottom extends RelativeLayout implements AnimatePanel {
     private int fadedScreenColor = fadedScreenColorDefault;
     private IBase iBase;
     private SheetBottom thisSheet;
+    private int showTime;
 
     public SheetBottom(Context context) {
         super(context);
@@ -71,9 +73,8 @@ public class SheetBottom extends RelativeLayout implements AnimatePanel {
             viewId = a.getResourceId(R.styleable.Simple_viewId, 0);
             negativeViewId = a.getResourceId(R.styleable.Simple_negativeViewId, 0);
             positiveViewId = a.getResourceId(R.styleable.Simple_positiveViewId, 0);
-//            setView();
+            showTime = a.getInt(R.styleable.Simple_showTime, 0);
             fadedScreenColor = a.getColor(R.styleable.Simple_fadedScreenColor, fadedScreenColorDefault);
-//            setColor();
         }
         fadedScreen = new LinearLayout(context);
         LayoutParams lpFadedScreen = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -91,22 +92,9 @@ public class SheetBottom extends RelativeLayout implements AnimatePanel {
         LayoutParams lpContainer = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         sheetContainer.setLayoutParams(lpContainer);
-//        idContainer = View.generateViewId();
-//        sheetContainer.setId(idContainer);
         panel.addView(sheetContainer);
         super.setVisibility(GONE);
     }
-
-//    public void init(SheetBottomListener listener, FragmentManager fm) {
-//        this.allertListener = listener;
-//        fragmentManager = fm;
-//        panel.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-//    }
 
     public void open() {
         super.setVisibility(VISIBLE);
@@ -216,25 +204,25 @@ public class SheetBottom extends RelativeLayout implements AnimatePanel {
 //        super.setVisibility(vis);
 //    }
 
-    @Override
-    public void setVisibility(int visibility) {
-        switch (visibility) {
-            case VISIBLE :
-                open();
-                break;
-            case GONE :
-                fadedScreenClose(true, null);
-                break;
-            default:
-                super.setVisibility(visibility);
-                break;
-        }
-//        if (visibility == VISIBLE) {
-//            open();
-//        } else {
-//            fadedScreenClose(true, null);
+//    @Override
+//    public void setVisibility(int visibility) {
+//        switch (visibility) {
+//            case VISIBLE :
+//                open();
+//                break;
+//            case GONE :
+//                fadedScreenClose(true, null);
+//                break;
+//            default:
+//                super.setVisibility(visibility);
+//                break;
 //        }
-    }
+////        if (visibility == VISIBLE) {
+////            open();
+////        } else {
+////            fadedScreenClose(true, null);
+////        }
+//    }
 
     private SheetBottomListener listenerForView = new SheetBottomListener() {
         @Override
@@ -256,6 +244,14 @@ public class SheetBottom extends RelativeLayout implements AnimatePanel {
             open();
             this.iBase = iBase;
             iBase.addAnimatePanel(this);
+            if (showTime > 0) {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        hide();
+                    }
+                }, showTime);
+            }
         }
     }
 

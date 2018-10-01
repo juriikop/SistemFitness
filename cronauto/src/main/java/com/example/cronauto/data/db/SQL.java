@@ -41,6 +41,9 @@ public class SQL {
     public static String PRODUCT_ORDER_FIELDS = "prod_ord INTEGER PRIMARY KEY, orderId INTEGER, product_id INTEGER, count INTEGER";
     public static String PRODUCT_ORDER_PARAM = "orderId,product_id,count";
 
+    public static String PRODUCT_IN_ORDER = "SELECT product.product_name, product.price, " +
+            "OrderProduct.productId, OrderProduct.orderId, OrderProduct.count, OrderProduct.productOrderId " +
+            "FROM OrderProduct, product WHERE OrderProduct.orderId = ? AND OrderProduct.productId = product.product_id";
 
     public static String PRODUCT_IN_CATALOG = "SELECT * FROM product WHERE catalog_id = ?";
 
@@ -53,9 +56,6 @@ public class SQL {
     public static String CATALOG_L2_L3 = "SELECT * FROM product, (SELECT catalog_id FROM catalog WHERE parent_id = ?) AS cat " +
             "WHERE product.catalog_id = cat.catalog_id";
 
-    public static String PRODUCT_IN_ORDER = "SELECT product.product_name, product.price, " +
-            "OrderProduct.productId, OrderProduct.orderId, OrderProduct.count, OrderProduct.productOrderId " +
-            "FROM OrderProduct, product WHERE OrderProduct.orderId = ? AND OrderProduct.productId = product.product_id";
 
     public static String[] PRODUCT_QUERY_ARRAY = {"expandedLevel", CATALOG_L1_L3, CATALOG_L2_L3, PRODUCT_IN_CATALOG};
 
