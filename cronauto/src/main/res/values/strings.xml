@@ -113,6 +113,7 @@
     <string name="select_status">Выберите статус</string>
     <string name="all">Все</string>
     <string name="apply">Применить</string>
+    <string name="send_ord">Отправить</string>
 
     // PRODUCT DESCRIPT
     <string name="catalog_code">Каталожный номер</string>

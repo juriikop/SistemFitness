@@ -129,6 +129,7 @@ public abstract class BaseComponent {
     }
 
     public void actual() {
+        Log.d("QWERT","BaseComponent actual actual actual");
         if (paramMV.paramModel != null) {
             switch (paramMV.paramModel.method) {
                 case ParamModel.PARENT :
@@ -190,6 +191,10 @@ public abstract class BaseComponent {
         } else {
             changeDataBase(null);
         }
+    }
+
+    public BaseComponent getComponent(int id) {
+        return multiComponent.getComponent(id);
     }
 
     protected String[] setParam(String paramSt, Record rec) {
@@ -318,6 +323,11 @@ public abstract class BaseComponent {
                         case SEND_CHANGE_BACK :
                             Record param = workWithRecordsAndViews.ViewToRecord(viewComponent, vh.paramModel.param);
                             new BasePresenter(iBase, vh.paramModel, null, setRecord(param), listener_send_change);
+                            break;
+                        case EXEC:
+                            if (vh.execMethod != null) {
+                                vh.execMethod.run(getThis());
+                            }
                             break;
                         case CLICK_SEND :
                             boolean valid = true;

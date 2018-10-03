@@ -1,6 +1,7 @@
 package com.example.cronauto.params;
 
 import android.content.Context;
+import android.support.annotation.IntDef;
 import android.util.Log;
 
 import com.example.cronauto.R;
@@ -10,7 +11,12 @@ import com.example.cronauto.data.network.Api;
 import com.example.cronauto.data.network.GetData;
 import com.example.cronauto.test_internrt.TestInternetProvider;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.base.ListScreens;
+import fitness.sistem.compon.interfaces_classes.ExecMethod;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.param.ParamModel;
@@ -23,13 +29,19 @@ public class CronListScreens  extends ListScreens {
         super(context);
     }
 
+//    @IntDef({SETTING, DRAV})
+//    @Retention(RetentionPolicy.SOURCE)
+//    public @interface Screen {}
+//
+//    public static final int SETTING = 0, DRAV = 1;
+
     public final static String SETTINGS = "settings", DRAWER = "drawer", SPLASH = "splash",
             MAIN = "main", INTRO = "intro", AUTH = "auth", LOGIN_REGISTER = "login_register",
             AUTH_LOGIN = "auth_login", AUTH_REGISTER = "auth_register", AUTH_FORGOT = "forgot",
             ORDER = "order", LIST_ORDER = "list_order", INDEX = "index", PRODUCT_LIST = "product_list",
             CATALOG = "catalog", ORDER_LOG = "order_log", ORDER_LOG_FILTER = "order_log_filter",
             NOVELTIES = "novelties", EXTRA_BONUS = "extra_bonus", PRODUCT_DESCRIPT = "product_descript",
-            ADD_PRODUCT = "add_product";
+            ADD_PRODUCT = "add_product", EDIT_ORDER = "edit_order";
 
     @Override
     public void initScreen() {
@@ -105,8 +117,11 @@ public class CronListScreens  extends ListScreens {
                 new ParamView(R.id.recycler, "type", new int[]{R.layout.item_order_log_order,
                         R.layout.item_order_log_product, R.layout.item_order_log_amount})
                         .expanded(R.id.expand, R.id.expand, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_IN_ORDER, "orderId")),
-                        new Navigator().add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
+                        new Navigator().add(R.id.edit, EDIT_ORDER, RECORD)
+                                .add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
                                 new ParamModel(ParamModel.POST, Api.ORDER_ADD, "orderName,status,comment,payBonus,date")));
+
+        activity(EDIT_ORDER, R.layout.activity_edit_order);
 
         fragment(ORDER_LOG_FILTER, R.layout.fragment_orderlog_filter).animate(AS.RL);
 
@@ -122,7 +137,8 @@ public class CronListScreens  extends ListScreens {
 
         activity(ADD_PRODUCT, AddProductActivity.class).animate(AS.RL)
                 .addComponent(TC.PANEL_ENTER, new ParamModel(ParamModel.ARGUMENTS),
-                        new ParamView(R.id.panel), new Navigator().add(R.id.add, ViewHandler.TYPE.CLICK_SEND,
+                        new ParamView(R.id.panel), new Navigator()
+                                .add(R.id.add, ViewHandler.TYPE.CLICK_SEND,
                                 new ParamModel(ParamModel.POST_DB, SQL.PRODUCT_ORDER, SQL.PRODUCT_ORDER_PARAM),
                                 actionsAfterResponse().showComponent(R.id.inf_add_product, "orderName"), false))
                 .addPlusMinus(R.id.count, R.id.plus, R.id.minus)

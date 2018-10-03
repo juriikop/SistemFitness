@@ -105,13 +105,13 @@ public class AddProductActivity extends BaseActivity implements ICustom{
         }
     }
 
-    @OnClick(R.id.create_new)
-    public void create_new() {
-        if (recyclerComponent.listData.size() < 5) {
-            newOrder();
-            recyclerComponent.actual();
-        }
-    }
+//    @OnClick(R.id.create_new)
+//    public void create_new() {
+//        if (recyclerComponent.listData.size() < 5) {
+//            newOrder();
+//            recyclerComponent.actual();
+//        }
+//    }
 
     private void newOrder() {
         String id = createOrderId();

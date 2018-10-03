@@ -1,9 +1,15 @@
 package com.example.cronauto.data.db;
 
+import android.content.ContentValues;
+
+import java.util.Date;
 import java.util.Random;
 
+import fitness.sistem.compon.ComponGlob;
+import fitness.sistem.compon.base.BaseComponent;
+
 public class SQL {
-    public static long dayMillisecond = 24*60*60*1000;
+    public static long dayMillisecond = 20 * 24*60*60*1000;
     public static String DB_NAME = "db_cron";
 
     public static String CATALOG_TAB = "catalog";
@@ -23,7 +29,32 @@ public class SQL {
     public static String ORDER_INDEX_COLUMN = "orderId";
     public static String ORDER_FIELDS = "ord_ind INTEGER PRIMARY KEY, orderId TEXT, orderName TEXT, status INTEGER, comment TEXT, payBonus INTEGER, date INTEGER";
     public static String ORDER_LIST = "SELECT * FROM order_tab";
-    public static String ORDER_NEW = "INSERT OR REPLACE INTO order_tab (orderId, orderName, status, comment, payBonus, date) VALUES (?, ?, 0, '', 0, ?)";
+//    public static String ORDER_NEW = "INSERT OR REPLACE INTO order_tab (orderId, orderName, status, comment, payBonus, date) VALUES (?, ?, 0, '', 0, ?)";
+
+    public static void ORDER_NEW(BaseComponent component, int recyclerId) {
+        String id = createOrderId();
+        long d = new Date().getTime();
+        ContentValues cv = new ContentValues();
+        cv.put("orderId", id);
+        cv.put("orderName", "Заказ "+ id);
+        cv.put("status", 0);
+        cv.put("comment", "");
+        cv.put("payBonus", 0);
+        cv.put("date", d);
+        ComponGlob.getInstance().baseDB.insertCV(SQL.ORDER_TAB, cv);
+        component.getComponent(recyclerId).actual();
+    }
+
+    public static String createOrderId() {
+        String alf = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        Random random = new Random();
+        String st = "" + alf.charAt(random.nextInt(25));
+        for (int i = 0; i < 4; i++) {
+            int j = random.nextInt(35);
+            st+= alf.charAt(j);
+        }
+        return st;
+    }
 
     public static String PRODUCT_TAB = "product";
     public static String PRODUCT_INDEX_NAME = "prod_ind";
@@ -42,8 +73,8 @@ public class SQL {
     public static String PRODUCT_ORDER_PARAM = "orderId,product_id,count";
 
     public static String PRODUCT_IN_ORDER = "SELECT product.product_name, product.price, " +
-            "OrderProduct.productId, OrderProduct.orderId, OrderProduct.count, OrderProduct.productOrderId " +
-            "FROM OrderProduct, product WHERE OrderProduct.orderId = ? AND OrderProduct.productId = product.product_id";
+            "product_order.productId, product_order.orderId, product_order.count, product_order.productOrderId " +
+            "FROM product_order, product WHERE product_order.orderId = ? AND product_order.productId = product.product_id";
 
     public static String PRODUCT_IN_CATALOG = "SELECT * FROM product WHERE catalog_id = ?";
 

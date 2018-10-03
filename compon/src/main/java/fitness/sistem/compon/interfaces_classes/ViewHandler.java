@@ -6,7 +6,7 @@ public class ViewHandler {
     public int viewId;
     public enum TYPE {NAME_FRAGMENT, CLOSE_DRAWER, OPEN_DRAWER, MODEL_PARAM,
         BACK, PREFERENCE_SET_VALUE, PAGER_PLUS, PREFERENCE_SET_TOKEN, PREFERENCE_SET_NAME,
-        FIELD_WITH_NAME_FRAGMENT, SELECT, SET_PARAM,
+        FIELD_WITH_NAME_FRAGMENT, SELECT, SET_PARAM, EXEC,
         CLICK_VIEW, MAP_ROUTE, SHOW, BROADCAST, RECEIVER, CLICK_CUSTOM,
         CLICK_SEND, SEND_UPDATE, SEND_CHANGE_BACK}
     public TYPE type;
@@ -26,6 +26,7 @@ public class ViewHandler {
     public boolean[] validArray;
     public String nameFieldWithValue;
     public ActionsAfterResponse afterResponse;
+    public ExecMethod execMethod;
 
     public ViewHandler(String nameField) {
         type = TYPE.FIELD_WITH_NAME_FRAGMENT;
@@ -43,6 +44,13 @@ public class ViewHandler {
         paramForScreen = TYPE_PARAM_FOR_SCREEN.NONE;
         this.viewId = viewId;
         this.nameFragment = nameFragment;
+    }
+
+    public ViewHandler(int viewId, ExecMethod execMethod) {
+        type = TYPE.EXEC;
+        paramForScreen = TYPE_PARAM_FOR_SCREEN.NONE;
+        this.viewId = viewId;
+        this.execMethod = execMethod;
     }
 
     public ViewHandler(int viewId, String nameFragment, TYPE_PARAM_FOR_SCREEN paramForScreen) {
