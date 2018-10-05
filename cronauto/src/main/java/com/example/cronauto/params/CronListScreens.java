@@ -130,9 +130,9 @@ public class CronListScreens  extends ListScreens {
                         .add(R.id.add, ADD_PRODUCT, RECORD))
                 .addComponent(TC.PANEL, new ParamModel(ParamModel.ARGUMENTS),
                         new ParamView(R.id.panel).visibilityManager(visibility(R.id.bonus, "extra_bonus")))
-//                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PROPERTY_ID_PRODUCT,"product_id")
-//                        .updateDB(SQL.PROPERTY, Api.PROPERTY, SQL.dayMillisecond),
-//                        new ParamView(R.id.recycler, R.layout.item_property))
+                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PROPERTY_ID_PRODUCT,"product_id")
+                        .updateDB(SQL.PROPERTY_TAB, Api.PROPERTY, SQL.dayMillisecond),
+                        new ParamView(R.id.recycler, R.layout.item_property))
         ;
 
         activity(ADD_PRODUCT, AddProductActivity.class).animate(AS.RL)

@@ -9,7 +9,7 @@ import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.base.BaseComponent;
 
 public class SQL {
-    public static long dayMillisecond = 20 * 24*60*60*1000;
+    public static long dayMillisecond = 24*60*60*1000;
     public static String DB_NAME = "db_cron";
 
     public static String CATALOG_TAB = "catalog";

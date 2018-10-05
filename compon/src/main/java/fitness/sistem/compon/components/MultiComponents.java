@@ -181,6 +181,10 @@ public class MultiComponents <T>{
         return addComponent(ParamComponent.TC.PLUS_MINUS, new ParamView(editId, plusId, minusId));
     }
 
+    public MultiComponents addDateDiapasonComponent(int viewId, int from, int before) {
+        return addComponent(ParamComponent.TC.DATE_DIAPASON, new ParamView(viewId, from, before));
+    }
+
     public MultiComponents addSearchComponent(int viewIdEdit, ParamModel paramModel, ParamView paramView,
                                               Navigator navigator, boolean hideRecycler) {
         ParamComponent paramComponent = new ParamComponent();

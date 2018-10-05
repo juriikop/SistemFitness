@@ -20,6 +20,7 @@ import android.widget.TextView;
 import java.lang.reflect.Field;
 
 import fitness.sistem.compon.json_simple.JsonSimple;
+import fitness.sistem.compon.json_simple.JsonSyntaxException;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.sistemfitness.R;
 import fitness.sistem.sistemfitness.tools.PreferenceTool;
@@ -82,7 +83,11 @@ public class AppColors {
 
     public static void jsonToColor(String json) {
         JsonSimple rj = new JsonSimple();
-        recordToColor((Record) rj.jsonToModel(json).value);
+        try {
+            recordToColor((Record) rj.jsonToModel(json).value);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void setColors() {
