@@ -106,14 +106,15 @@
     <string name="pay_bonus">Оплатить бонусами</string>
     <string name="order_log">Журнал заказов</string>
     <string name="date">Дата</string>
-    <string name="from">От</string>
-    <string name="before">До</string>
+    <string name="from">С</string>
+    <string name="before">По</string>
     <string name="close">Закрыть</string>
     <string name="cancel">Отмена</string>
     <string name="select_status">Выберите статус</string>
     <string name="all">Все</string>
     <string name="apply">Применить</string>
     <string name="send_ord">Отправить</string>
+    <string name="order_history">История заказов</string>
 
     // PRODUCT DESCRIPT
     <string name="catalog_code">Каталожный номер</string>

@@ -1,5 +1,7 @@
 package fitness.sistem.compon.json_simple;
 
+import android.util.Log;
+
 import java.util.Date;
 
 public class JsonSimple {
@@ -7,6 +9,7 @@ public class JsonSimple {
     private String json;
     private String separators = " ,\n";
     private final String quote = "\"";
+    private final String quoteComa = quote + ",";
     private final String a = "\\";
     private String currentSymbol;
     private String digits = "1234567890.+-";
@@ -87,7 +90,7 @@ public class JsonSimple {
     }
 
     private String textForException() {
-        int in = ind - 30;
+        int in = ind - 200;
         if (in < 0) {
             in = 0;
         }
@@ -251,7 +254,7 @@ public class JsonSimple {
             }
         } while (json.substring(i - 1, i).equals("\\"));
         String st = json.substring(ind + 1, i);
-        st = delSlesh(st);
+        st = delSlash(st);
         ind = i;
         Field field = new Field();
         field.name = "";
@@ -267,12 +270,12 @@ public class JsonSimple {
         return field;
     }
 
-    private String delSlesh(String st) {
+    private String delSlash(String st) {
         char[] c = st.toCharArray();
         StringBuilder builder = new StringBuilder();
         int i1;
         int ik = c.length;
-        boolean isYetSlash = false;
+//        boolean isYetSlash = false;
         for (int i = 0; i < ik; i++) {
             if (c[i] == '\\') {
                 i1 = i + 1;
@@ -285,39 +288,40 @@ public class JsonSimple {
                             builder.append(cu);
                             i = iu;
                         }
-                    } else {
-                        builder.append(c[i]);
-                        isYetSlash = true;
                     }
+//                    else {
+//                        builder.append(c[i]);
+//                        isYetSlash = true;
+//                    }
                 }
             } else {
                 builder.append(c[i]);
             }
         }
         String result = builder.toString();
-        c = result.toCharArray();
-        ik = c.length;
-        builder = new StringBuilder();
-        int start = 0;
-        if (isYetSlash) {
-            for (int i = 0; i < ik; i++) {
-                if (c[i] == '\\') {
-                    i1 = i + 1;
-                    if (i1 < ik) {
-                        if (c[i1] == '/') {
-                            if (i > 0) {
-                                builder.append(c, start, i - start);
-                            }
-                            start = i + 1;
-                        }
-                    }
-                }
-            }
-            if (start > 0) {
-                builder.append(c, start, ik - start);
-                result = builder.toString();
-            }
-        }
+//        c = result.toCharArray();
+//        ik = c.length;
+//        builder = new StringBuilder();
+//        int start = 0;
+//        if (isYetSlash) {
+//            for (int i = 0; i < ik; i++) {
+//                if (c[i] == '\\') {
+//                    i1 = i + 1;
+//                    if (i1 < ik) {
+//                        if (c[i1] == '/') {
+//                            if (i > 0) {
+//                                builder.append(c, start, i - start);
+//                            }
+//                            start = i + 1;
+//                        }
+//                    }
+//                }
+//            }
+//            if (start > 0) {
+//                builder.append(c, start, ik - start);
+//                result = builder.toString();
+//            }
+//        }
         return result;
     }
 

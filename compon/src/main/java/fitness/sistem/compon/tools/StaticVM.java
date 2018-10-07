@@ -1,5 +1,6 @@
 package fitness.sistem.compon.tools;
 
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +15,17 @@ public class StaticVM {
         View vS = null;
         ViewGroup vg;
         int id;
-        String nameS;
+        String nameS = "";
         if (v instanceof ViewGroup) {
             vg = (ViewGroup) v;
             int countChild = vg.getChildCount();
             id = v.getId();
-            if (id > -1) {
-                nameS = v.getContext().getResources().getResourceEntryName(id);
+            if (id != -1) {
+                try {
+                    nameS = v.getContext().getResources().getResourceEntryName(id);
+                } catch (Resources.NotFoundException e) {
+                    nameS = "";
+                }
                 if (name.equals(nameS)) {
                     return v;
                 }

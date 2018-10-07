@@ -132,7 +132,7 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
                 try {
                     f = jsonSimple.jsonToModel(response);
                 } catch (JsonSyntaxException e) {
-//                    iBase.log(e.getMessage());
+                    iBase.log(e.getMessage());
                     iBase.showDialog(BaseInternetProvider.JSONSYNTAXERROR, e.getMessage(), null);
                     e.printStackTrace();
                 }

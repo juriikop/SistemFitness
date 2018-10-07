@@ -1,24 +1,16 @@
 package com.example.cronauto.params;
 
 import android.content.Context;
-import android.support.annotation.IntDef;
-import android.util.Log;
 
 import com.example.cronauto.R;
 import com.example.cronauto.activity.AddProductActivity;
 import com.example.cronauto.data.db.SQL;
 import com.example.cronauto.data.network.Api;
 import com.example.cronauto.data.network.GetData;
-import com.example.cronauto.test_internrt.TestInternetProvider;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.base.ListScreens;
-import fitness.sistem.compon.interfaces_classes.ExecMethod;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
+import fitness.sistem.compon.json_simple.JsonSimple;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.param.ParamView;
 
@@ -29,17 +21,11 @@ public class CronListScreens  extends ListScreens {
         super(context);
     }
 
-//    @IntDef({SETTING, DRAV})
-//    @Retention(RetentionPolicy.SOURCE)
-//    public @interface Screen {}
-//
-//    public static final int SETTING = 0, DRAV = 1;
-
     public final static String SETTINGS = "settings", DRAWER = "drawer", SPLASH = "splash",
             MAIN = "main", INTRO = "intro", AUTH = "auth", LOGIN_REGISTER = "login_register",
             AUTH_LOGIN = "auth_login", AUTH_REGISTER = "auth_register", AUTH_FORGOT = "forgot",
             ORDER = "order", LIST_ORDER = "list_order", INDEX = "index", PRODUCT_LIST = "product_list",
-            CATALOG = "catalog", ORDER_LOG = "order_log", ORDER_LOG_FILTER = "order_log_filter",
+            CATALOG = "catalog", ORDER_LOG = "order_log", ORDER_LOG_HISTORY = "order_log_history",
             NOVELTIES = "novelties", EXTRA_BONUS = "extra_bonus", PRODUCT_DESCRIPT = "product_descript",
             ADD_PRODUCT = "add_product", EDIT_ORDER = "edit_order";
 
@@ -111,7 +97,7 @@ public class CronListScreens  extends ListScreens {
                         new Navigator().add(R.id.swipe, PRODUCT_DESCRIPT, RECORD));
 
         fragment(ORDER_LOG, R.layout.fragment_order_log)
-                .addNavigator(new Navigator().add(R.id.filter, ORDER_LOG_FILTER)
+                .addNavigator(new Navigator().add(R.id.history, ORDER_LOG_HISTORY)
                         .add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER))
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.ORDER_LIST),
                 new ParamView(R.id.recycler, "type", new int[]{R.layout.item_order_log_order,
@@ -123,7 +109,8 @@ public class CronListScreens  extends ListScreens {
 
         activity(EDIT_ORDER, R.layout.activity_edit_order);
 
-        fragment(ORDER_LOG_FILTER, R.layout.fragment_orderlog_filter).animate(AS.RL);
+        fragment(ORDER_LOG_HISTORY, R.layout.fragment_orderlog_history).animate(AS.RL)
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK));
 
         activity(PRODUCT_DESCRIPT, R.layout.activity_product_descript).animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK)
