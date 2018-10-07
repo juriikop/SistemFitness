@@ -1,10 +1,8 @@
 package fitness.sistem.sistemfitness.network;
 
-import android.util.Log;
-
 import fitness.sistem.compon.base.BaseActivity;
 import fitness.sistem.compon.base.BaseComponent;
-import fitness.sistem.compon.components.Menu;
+import fitness.sistem.compon.interfaces_classes.Menu;
 import fitness.sistem.compon.interfaces_classes.DataFieldGet;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.ListRecords;

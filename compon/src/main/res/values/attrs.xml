@@ -27,6 +27,7 @@
         <attr name="viewId" format="reference"/>
         <attr name="negativeViewId" format="reference"/>
         <attr name="positiveViewId" format="reference"/>
+        <attr name="showTime" format="integer"/>
         <attr name="selectorLine" format="reference"/>
         <attr name="heightLine" format="dimension"/>
         <attr name="numberFormat" format="string"/>

@@ -11,9 +11,9 @@ import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamComponent;
 
-public class EnterPanelComponent extends BaseComponent {
+public class PanelEnterComponent extends BaseComponent {
 
-    public EnterPanelComponent(IBase iBase, ParamComponent paramMV, MultiComponents multiComponent) {
+    public PanelEnterComponent(IBase iBase, ParamComponent paramMV, MultiComponents multiComponent) {
         super(iBase, paramMV, multiComponent);
     }
 

@@ -1,6 +1,4 @@
-package fitness.sistem.compon.components;
-
-import android.util.Log;
+package fitness.sistem.compon.interfaces_classes;
 
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.ListRecords;

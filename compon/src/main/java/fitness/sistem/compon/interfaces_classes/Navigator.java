@@ -50,6 +50,11 @@ public class Navigator {
         return this;
     }
 
+    public Navigator add(int viewId, ExecMethod execMethod) {
+        viewHandlers.add(new ViewHandler(viewId, execMethod));
+        return this;
+    }
+
 //    public static ActionsAfterResponse actionsAfterResponse() {
 //        return new ActionsAfterResponse();
 //    }

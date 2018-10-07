@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
@@ -38,239 +38,253 @@
             android:singleLine="true" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/name"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/st_18_black"
-        android:lineSpacingExtra="9sp"
-        android:layout_marginRight="@dimen/pad_24"
-        android:layout_marginLeft="@dimen/pad_24"
-        android:layout_marginTop="@dimen/pad_22"/>
-
-    <LinearLayout
-        android:id="@+id/panel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool">
+        <LinearLayout
+            android:id="@+id/panel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pad_16"
-            android:layout_marginLeft="@dimen/pad_24"
-            android:layout_marginRight="@dimen/pad_24">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:orientation="vertical">
+                style="@style/st_18_black"
+                android:lineSpacingExtra="9sp"
+                android:layout_marginRight="@dimen/pad_24"
+                android:layout_marginLeft="@dimen/pad_24"
+                android:layout_marginTop="@dimen/pad_22"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad_16"
+                android:layout_marginLeft="@dimen/pad_24"
+                android:layout_marginRight="@dimen/pad_24">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+                    <TextView
+                        style="@style/st_14_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="@dimen/pad_12"
+                        android:text="@string/count" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/pad_4"
+                            style="@style/st_14_black"
+                            android:text="@string/remainder"/>
+                        <TextView
+                            android:id="@+id/quantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/st_14_black" />
+                        <TextView
+                            android:id="@+id/measure"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/pad_4"
+                            style="@style/st_14_black" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/plus"
+                    android:layout_width="@dimen/pad_36"
+                    android:layout_height="@dimen/pad_36"
+                    android:padding="@dimen/pad_6"
+                    android:layout_alignParentRight="true"
+                    android:clickable="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/plus" />
+
+                <LinearLayout
+                    android:id="@+id/count_l"
+                    android:layout_width="@dimen/pad_60"
+                    android:layout_height="@dimen/pad_36"
+                    android:layout_marginRight="@dimen/pad_10"
+                    android:layout_marginLeft="@dimen/pad_10"
+                    android:layout_toLeftOf="@+id/plus"
+                    android:orientation="horizontal"
+                    android:background="@color/gray">
+
+                    <fitness.sistem.compon.custom_components.ComponEditText
+                        android:id="@+id/count"
+                        style="@style/st_18_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#0000"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLength="5"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="1"
+                        app:minValue="1" />
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/minus"
+                    android:layout_width="@dimen/pad_36"
+                    android:layout_height="@dimen/pad_36"
+                    android:padding="@dimen/pad_6"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/count_l"
+                    android:clickable="true"
+                    android:src="@drawable/minus" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/more_residue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad_16"
+                android:layout_marginLeft="@dimen/pad_24"
+                android:layout_marginRight="@dimen/pad_24"
+                android:textSize="@dimen/pad_14"
+                android:textColor="@color/attention"
+                android:lineSpacingExtra="@dimen/pad_6"
+                android:text="@string/more_residue"
+                android:visibility="gone"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/pad_1"
+                android:background="@color/black_30"
+                android:layout_marginTop="@dimen/pad_20"
+                android:layout_marginRight="@dimen/pad_16"
+                android:layout_marginLeft="@dimen/pad_16"
+                android:layout_marginBottom="@dimen/pad_18"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/pad_24">
+
                 <TextView
                     style="@style/st_14_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:lineSpacingExtra="@dimen/pad_12"
-                    android:text="@string/count" />
-                <LinearLayout
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/pad_16"
+                    android:text="@string/price" />
+
+                <fitness.sistem.compon.custom_components.SimpleTextView
+                    android:id="@+id/price"
+                    style="@style/st_16_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/pad_4"
-                        style="@style/st_14_black"
-                        android:text="@string/remainder"/>
-                    <TextView
-                        android:id="@+id/quantity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/st_14_black" />
-                    <TextView
-                        android:id="@+id/measure"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/pad_4"
-                        style="@style/st_14_black" />
-                </LinearLayout>
-            </LinearLayout>
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/pad_72"
+                    app:numberFormat="#0.00"
+                    android:textStyle="bold"/>
 
-            <ImageView
-                android:id="@+id/plus"
-                android:layout_width="@dimen/pad_36"
-                android:layout_height="@dimen/pad_36"
-                android:padding="@dimen/pad_6"
-                android:layout_alignParentRight="true"
-                android:clickable="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/plus" />
+                <TextView
+                    android:id="@+id/bonus_v"
+                    style="@style/st_14_primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="@dimen/pad_24"/>
+
+                <TextView
+                    style="@style/st_14_primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="@dimen/pad_4"
+                    android:text="@string/bonus"
+                    android:layout_toLeftOf="@+id/bonus_v" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/pad_40">
+
+                <TextView
+                    style="@style/st_14_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/pad_16"
+                    android:layout_marginBottom="@dimen/pad_2"
+                    android:text="@string/total" />
+
+                <TextView
+                    android:id="@+id/amount"
+                    style="@style/st_24_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/pad_72"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/pad_1"
+                android:background="@color/black_30"
+                android:layout_marginTop="@dimen/pad_24"
+                android:layout_marginRight="@dimen/pad_16"
+                android:layout_marginLeft="@dimen/pad_16"
+                android:layout_marginBottom="@dimen/pad_30"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <LinearLayout
-                android:id="@+id/count_l"
-                android:layout_width="@dimen/pad_60"
-                android:layout_height="@dimen/pad_36"
-                android:layout_marginRight="@dimen/pad_10"
-                android:layout_marginLeft="@dimen/pad_10"
-                android:layout_toLeftOf="@+id/plus"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/pad_60"
                 android:orientation="horizontal"
-                android:background="@color/gray">
-
-                <fitness.sistem.compon.custom_components.ComponEditText
-                    android:id="@+id/count"
-                    style="@style/st_18_black"
+                android:layout_marginTop="@dimen/pad_24"
+                android:layout_marginLeft="@dimen/pad_8"
+                android:layout_marginRight="@dimen/pad_8"
+                android:layout_marginBottom="@dimen/pad_32">
+                <TextView
+                    android:id="@+id/create_new"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#0000"
+                    android:layout_weight="1"
+                    style="@style/st_14_primary"
+                    android:letterSpacing="0.1"
+                    android:textAllCaps="true"
                     android:gravity="center"
-                    android:inputType="number"
-                    android:maxLength="5"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="1"
-                    app:minValue="1" />
+                    android:background="@drawable/selector_button_gray"
+                    android:text="@string/create_new"/>
+                <TextView
+                    android:id="@+id/add"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/st_14_white"
+                    android:letterSpacing="0.1"
+                    android:textAllCaps="true"
+                    android:gravity="center"
+                    android:background="@drawable/selector_button_green"
+                    android:text="@string/add"/>
             </LinearLayout>
-            <ImageView
-                android:id="@+id/minus"
-                android:layout_width="@dimen/pad_36"
-                android:layout_height="@dimen/pad_36"
-                android:padding="@dimen/pad_6"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/count_l"
-                android:clickable="true"
-                android:src="@drawable/minus" />
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/more_residue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pad_16"
-            android:layout_marginLeft="@dimen/pad_24"
-            android:layout_marginRight="@dimen/pad_24"
-            android:textSize="@dimen/pad_14"
-            android:textColor="@color/attention"
-            android:lineSpacingExtra="@dimen/pad_6"
-            android:text="@string/more_residue"
-            android:visibility="gone"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/pad_1"
-            android:background="@color/black_30"
-            android:layout_marginTop="@dimen/pad_20"
-            android:layout_marginRight="@dimen/pad_16"
-            android:layout_marginLeft="@dimen/pad_16"
-            android:layout_marginBottom="@dimen/pad_18"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/pad_24">
-
-            <TextView
-                style="@style/st_14_black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/pad_16"
-                android:text="@string/price" />
-
-            <fitness.sistem.compon.custom_components.SimpleTextView
-                android:id="@+id/price"
-                style="@style/st_16_black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/pad_72"
-                app:numberFormat="#0.00"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/bonus_v"
-                style="@style/st_14_primary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="@dimen/pad_24"/>
-
-            <TextView
-                style="@style/st_14_primary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="@dimen/pad_4"
-                android:text="@string/bonus"
-                android:layout_toLeftOf="@+id/bonus_v" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/pad_40">
-
-            <TextView
-                style="@style/st_14_black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/pad_16"
-                android:layout_marginBottom="@dimen/pad_2"
-                android:text="@string/total" />
-
-            <TextView
-                android:id="@+id/amount"
-                style="@style/st_24_black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/pad_72"
-                android:textStyle="bold"/>
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/pad_1"
-            android:background="@color/black_30"
-            android:layout_marginTop="@dimen/pad_24"
-            android:layout_marginRight="@dimen/pad_16"
-            android:layout_marginLeft="@dimen/pad_16"
-            android:layout_marginBottom="@dimen/pad_30"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/pad_60"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/pad_24"
-            android:layout_marginLeft="@dimen/pad_8"
-            android:layout_marginRight="@dimen/pad_8"
-            android:layout_marginBottom="@dimen/pad_32">
-            <TextView
-                android:id="@+id/create_new"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                style="@style/st_14_primary"
-                android:letterSpacing="0.1"
-                android:textAllCaps="true"
-                android:gravity="center"
-                android:background="@drawable/selector_button_gray"
-                android:text="@string/create_new"/>
-            <TextView
-                android:id="@+id/add"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:clickable="true"
-                style="@style/st_14_white"
-                android:letterSpacing="0.1"
-                android:textAllCaps="true"
-                android:gravity="center"
-                android:background="@drawable/selector_button_green"
-                android:text="@string/add"/>
         </LinearLayout>
-    </LinearLayout>
 
-</LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+    <fitness.sistem.compon.custom_components.SheetBottom
+        android:id="@+id/inf_add_product"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:viewId="@layout/sheet_add_product"
+        app:showTime="3000"/>
+
+
+</RelativeLayout>

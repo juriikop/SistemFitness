@@ -100,22 +100,18 @@ public class AddProductActivity extends BaseActivity implements ICustom{
                         recyclerComponent = (RecyclerComponent) mComponent.getComponent(R.id.recycler);
                     }
                     recyclerComponent.actual();
-                } else {
-                    for (Record rec: (ListRecords) field.value) {
-                        Log.d("QWERT", "RRRR="+rec.toString());
-                    }
                 }
                 break;
         }
     }
 
-    @OnClick(R.id.create_new)
-    public void create_new() {
-        if (recyclerComponent.listData.size() < 5) {
-            newOrder();
-            recyclerComponent.actual();
-        }
-    }
+//    @OnClick(R.id.create_new)
+//    public void create_new() {
+//        if (recyclerComponent.listData.size() < 5) {
+//            newOrder();
+//            recyclerComponent.actual();
+//        }
+//    }
 
     private void newOrder() {
         String id = createOrderId();
@@ -125,6 +121,7 @@ public class AddProductActivity extends BaseActivity implements ICustom{
         cv.put("orderName", "Заказ "+ id);
         cv.put("status", 0);
         cv.put("comment", "");
+        cv.put("payBonus", 0);
         cv.put("date", d);
         ComponGlob.getInstance().baseDB.insertCV(SQL.ORDER_TAB, cv);
     }

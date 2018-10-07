@@ -28,28 +28,16 @@
             android:text="@string/order_log" />
 
         <LinearLayout
-            android:id="@+id/refresh"
+            android:id="@+id/filter"
             android:layout_width="@dimen/h_tool_bar"
             android:layout_height="@dimen/h_tool_bar"
             android:layout_alignParentRight="true"
             android:gravity="center">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/resresh"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/filter"
-            android:layout_width="@dimen/h_tool_bar"
-            android:layout_height="@dimen/h_tool_bar"
-            android:layout_toLeftOf="@+id/refresh"
-            android:gravity="center">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/filtres" />
+                android:src="@drawable/store" />
         </LinearLayout>
     </RelativeLayout>
 

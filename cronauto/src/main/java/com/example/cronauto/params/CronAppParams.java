@@ -9,7 +9,7 @@ import fitness.sistem.compon.param.AppParams;
 public class CronAppParams extends AppParams {
     @Override
     public void setParams() {
-        baseUrl =  "https://kronavto.ua/api/";
+        baseUrl =  "https://kronavto.ua/api_dmfv53dcrgohiru67e/";
         nameTokenInHeader = "Authorization";
         paginationPerPage = 30;
         paginationNameParamPerPage = "itemsPerPage";

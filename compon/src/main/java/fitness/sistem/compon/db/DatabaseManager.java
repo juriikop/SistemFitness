@@ -245,7 +245,7 @@ public class DatabaseManager extends BaseDB {
         public void onCreate(SQLiteDatabase db) {
             for (DescriptTableDB dt : paramDB.listTables) {
                 db.execSQL("DROP TABLE IF EXISTS " + dt.nameTable + ";");
-                db.execSQL("create table " + dt.nameTable + " (" + dt.descriptTable + ");");
+                db.execSQL("CREATE TABLE " + dt.nameTable + " (" + dt.descriptTable + ");");
                 if (dt.indexName != null && dt.indexName.length() > 0) {
                     db.execSQL("DROP INDEX IF EXISTS " + dt.indexName + ";");
                     db.execSQL("CREATE INDEX IF NOT EXISTS " + dt.indexName + " ON " + dt.nameTable + " (" + dt.indexColumn + ");");

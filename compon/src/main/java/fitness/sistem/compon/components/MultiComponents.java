@@ -1,7 +1,5 @@
 package fitness.sistem.compon.components;
 
-import android.util.Log;
-
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.ICustom;
@@ -183,6 +181,10 @@ public class MultiComponents <T>{
         return addComponent(ParamComponent.TC.PLUS_MINUS, new ParamView(editId, plusId, minusId));
     }
 
+    public MultiComponents addDateDiapasonComponent(int viewId, int from, int before) {
+        return addComponent(ParamComponent.TC.DATE_DIAPASON, new ParamView(viewId, from, before));
+    }
+
     public MultiComponents addSearchComponent(int viewIdEdit, ParamModel paramModel, ParamView paramView,
                                               Navigator navigator, boolean hideRecycler) {
         ParamComponent paramComponent = new ParamComponent();
@@ -342,7 +344,7 @@ public class MultiComponents <T>{
                     new MultiPanelComponent(iBase, cMV, this);
                     break;
                 case PANEL_ENTER:
-                    new EnterPanelComponent(iBase, cMV, this);
+                    new PanelEnterComponent(iBase, cMV, this);
                     break;
                 case SPINNER :
                     new SpinnerComponent(iBase, cMV, this);

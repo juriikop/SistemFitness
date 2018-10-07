@@ -18,6 +18,16 @@ public class ActionsAfterResponse {
         return this;
     }
 
+    public ActionsAfterResponse showComponent(int viewId) {
+        viewHandlers.add(new ViewHandler(0, TYPE.SHOW, viewId));
+        return this;
+    }
+
+    public ActionsAfterResponse showComponent(int viewId, String nameFieldWithValue) {
+        viewHandlers.add(new ViewHandler(viewId, TYPE.SHOW, nameFieldWithValue));
+        return this;
+    }
+
     public ActionsAfterResponse preferenceSetName(String nameField) {
         viewHandlers.add(new ViewHandler(0, TYPE.PREFERENCE_SET_NAME, nameField));
         return this;

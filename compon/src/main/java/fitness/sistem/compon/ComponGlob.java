@@ -1,6 +1,7 @@
 package fitness.sistem.compon;
 
 import android.content.Context;
+import android.util.Log;
 
 import fitness.sistem.compon.base.BaseDB;
 import fitness.sistem.compon.components.MultiComponents;
@@ -57,31 +58,32 @@ public class ComponGlob {
         int ik = paramValues.size();
         for (Field f: fields) {
             String name = f.name;
-
-            for (int i = 0; i < ik; i++) {
-                Param param = paramValues.get(i);
-                if (param.name.equals(name)) {
-                    switch (f.type) {
-                        case Field.TYPE_STRING :
-                            param.value = new String((String) f.value);
-                            break;
-                        case Field.TYPE_INTEGER :
-                            param.value = String.valueOf((Integer) f.value);
-                            break;
-                        case Field.TYPE_LONG :
-                            param.value = String.valueOf((Long) f.value);
-                            break;
-                        case Field.TYPE_FLOAT :
-                            param.value = String.valueOf((Float) f.value);
-                            break;
-                        case Field.TYPE_DOUBLE :
-                            param.value = String.valueOf((Double) f.value);
-                            break;
-                        case Field.TYPE_BOOLEAN :
-                            param.value = String.valueOf((Boolean) f.value);
-                            break;
+            if (f.value != null) {
+                for (int i = 0; i < ik; i++) {
+                    Param param = paramValues.get(i);
+                    if (param.name.equals(name)) {
+                        switch (f.type) {
+                            case Field.TYPE_STRING:
+                                param.value = new String((String) f.value);
+                                break;
+                            case Field.TYPE_INTEGER:
+                                param.value = String.valueOf((Integer) f.value);
+                                break;
+                            case Field.TYPE_LONG:
+                                param.value = String.valueOf(f.value);
+                                break;
+                            case Field.TYPE_FLOAT:
+                                param.value = String.valueOf((Float) f.value);
+                                break;
+                            case Field.TYPE_DOUBLE:
+                                param.value = String.valueOf((Double) f.value);
+                                break;
+                            case Field.TYPE_BOOLEAN:
+                                param.value = String.valueOf((Boolean) f.value);
+                                break;
+                        }
+                        break;
                     }
-                    break;
                 }
             }
         }
