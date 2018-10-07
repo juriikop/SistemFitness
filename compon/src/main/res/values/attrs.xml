@@ -65,4 +65,29 @@
             <enum name="REMOVE" value="3" />
         </attr>
     </declare-styleable>
+    <declare-styleable name="CalendarView">
+        <attr name="heightTitle" format="reference|dimension"/>
+        <attr name="heightCell" format="reference|dimension"/>
+        <attr name="border" format="reference|dimension"/>
+        <attr name="borderColorGrid" format="reference|color"/>
+        <attr name="countMonthLeft" format="integer" />
+        <attr name="countMonthRight" format="integer" />
+        <attr name="colorSelectText" format="reference|color"/>
+        <attr name="colorSelectTint" format="reference|color"/>
+        <attr name="colorCurrentText" format="reference|color"/>
+        <attr name="colorCurrentTint" format="reference|color"/>
+        <attr name="colorTitleText" format="reference|color"/>
+        <attr name="colorTitleTint" format="reference|color"/>
+        <attr name="colorWeekday" format="reference|color"/>
+        <attr name="colorWorkDay" format="reference|color"/>
+        <attr name="colorNoWorkDay" format="reference|color"/>
+        <attr name="textOk" format="reference|string" />
+        <attr name="textCancel" format="reference|string" />
+        <attr name="viewFrom" format="reference"/>
+        <attr name="viewBefore" format="reference"/>
+        <attr name="beginningWeek" format="enum">
+            <enum name="monday" value="0"/>
+            <enum name="sunday" value="1"/>
+        </attr>
+    </declare-styleable>
 </resources>
