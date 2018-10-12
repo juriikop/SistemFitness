@@ -29,9 +29,13 @@ public class RemoteToLocale {
     IPresenterListener listener = new IPresenterListener() {
         @Override
         public void onResponse(Field response) {
-            ListRecords listRecords = (ListRecords) response.value;
             iBase.progressStop();
-            dbListener.onResponse(iBase, listRecords, table, nameAlias);
+            if (response.value instanceof ListRecords) {
+                ListRecords listRecords = (ListRecords) response.value;
+                dbListener.onResponse(iBase, listRecords, table, nameAlias);
+            } else {
+                iBase.log("Type data for table " + table + " not ListRecords");
+            }
         }
     };
 }

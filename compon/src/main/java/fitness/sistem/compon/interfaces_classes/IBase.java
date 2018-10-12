@@ -45,5 +45,6 @@ public interface IBase {
     public Field getParamScreen();
     public boolean isHideAnimatePanel();
     public void log(String msg);
+    public void setResumePause(OnResumePause resumePause);
 //    public void customClickListenet(int viewId, int position, Record record);
 }
