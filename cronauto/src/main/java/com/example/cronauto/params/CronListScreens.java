@@ -27,7 +27,7 @@ public class CronListScreens  extends ListScreens {
             ORDER = "order", LIST_ORDER = "list_order", INDEX = "index", PRODUCT_LIST = "product_list",
             CATALOG = "catalog", ORDER_LOG = "order_log", ORDER_LOG_HISTORY = "order_log_history",
             NOVELTIES = "novelties", EXTRA_BONUS = "extra_bonus", PRODUCT_DESCRIPT = "product_descript",
-            ADD_PRODUCT = "add_product", EDIT_ORDER = "edit_order";
+            ADD_PRODUCT = "add_product", EDIT_ORDER = "edit_order", BARCODE = "barcode";
 
     @Override
     public void initScreen() {
@@ -88,13 +88,17 @@ public class CronListScreens  extends ListScreens {
                         new ParamView(R.id.recycler, R.layout.item_product_list));
 
         activity(PRODUCT_LIST, R.layout.activity_product_list).animate(AS.RL)
-                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK).add(R.id.barcode, BARCODE))
                 .addRecognizeVoiceComponent(R.id.microphone, R.id.search)
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_QUERY_ARRAY, "catalog_id")
                         .updateDB(SQL.PRODUCT_TAB, Api.DB_PRODUCT, SQL.dayMillisecond, SQL.PRODUCT_ALIAS),
                         new ParamView(R.id.recycler, R.layout.item_product_list)
                                 .visibilityManager(visibility(R.id.bonus, "extra_bonus")),
                         new Navigator().add(R.id.swipe, PRODUCT_DESCRIPT, RECORD));
+
+        activity(BARCODE, R.layout.activity_barcode).animate(AS.RL)
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
+                .addBarcodeComponent(R.id.barcode_scanner, R.id.result_scan, R.id.repeat);
 
         fragment(ORDER_LOG, R.layout.fragment_order_log)
                 .addNavigator(new Navigator().add(R.id.history, ORDER_LOG_HISTORY)

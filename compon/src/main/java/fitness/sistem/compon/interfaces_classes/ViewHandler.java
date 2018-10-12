@@ -46,6 +46,14 @@ public class ViewHandler {
         this.nameFragment = nameFragment;
     }
 
+    public ViewHandler(int viewId, String nameFragment, ActionsAfterResponse afterResponse) {
+        type = TYPE.NAME_FRAGMENT;
+        paramForScreen = TYPE_PARAM_FOR_SCREEN.NONE;
+        this.afterResponse = afterResponse;
+        this.viewId = viewId;
+        this.nameFragment = nameFragment;
+    }
+
     public ViewHandler(int viewId, ExecMethod execMethod) {
         type = TYPE.EXEC;
         paramForScreen = TYPE_PARAM_FOR_SCREEN.NONE;
@@ -56,6 +64,15 @@ public class ViewHandler {
     public ViewHandler(int viewId, String nameFragment, TYPE_PARAM_FOR_SCREEN paramForScreen) {
         type = TYPE.NAME_FRAGMENT;
         this.paramForScreen = paramForScreen;
+        this.viewId = viewId;
+        this.nameFragment = nameFragment;
+    }
+
+    public ViewHandler(int viewId, String nameFragment, TYPE_PARAM_FOR_SCREEN paramForScreen,
+                       ActionsAfterResponse afterResponse) {
+        type = TYPE.NAME_FRAGMENT;
+        this.paramForScreen = paramForScreen;
+        this.afterResponse = afterResponse;
         this.viewId = viewId;
         this.nameFragment = nameFragment;
     }

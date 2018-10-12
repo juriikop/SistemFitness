@@ -349,6 +349,11 @@ public class BaseFragment extends Fragment implements IBase {
     }
 
     @Override
+    public void startScreen(String nameMVP, boolean startFlag, Object object, int forResult) {
+
+    }
+
+    @Override
     public void backPressed() {
         ((BaseActivity) getActivity()).onBackPressed();
     }
@@ -437,11 +442,11 @@ public class BaseFragment extends Fragment implements IBase {
 
     @Override
     public void startScreen(String nameMVP, boolean startFlag) {
-        activity.startScreen(nameMVP, startFlag);
+        activity.startScreen(nameMVP, startFlag, -1);
     }
 //    @Override
     public void startFragment(String nameMVP, boolean startFlag,Object object) {
-        activity.startFragment(nameMVP, activity.mapFragment.get(nameMVP), startFlag, object);
+        activity.startFragment(nameMVP, activity.mapFragment.get(nameMVP), startFlag, object, -1);
     }
 
 //    @Override

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_tool_bar"
+        android:background="@color/primary">
+
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/h_tool_bar"
+            android:layout_height="@dimen/h_tool_bar"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/nar_light" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/st_20_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/pad_72"
+            android:text="@string/search_barcode" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--<me.dm7.barcodescanner.zxing.ZXingScannerView-->
+            <!--android:id="@+id/barcode_scaner"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"/>-->
+
+        <fitness.sistem.compon.custom_components.BarcodeScanner
+            android:id="@+id/barcode_scanner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pad_130"
+            android:orientation="vertical"
+            android:background="@drawable/white_transparent_gradient">
+            <TextView
+                android:id="@+id/result_scan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                style="@style/st_16_black"
+                android:layout_marginTop="@dimen/pad_16"/>
+            <TextView
+                style="@style/st_16_black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/pad_16"
+                android:lineSpacingExtra="6sp"
+                android:gravity="center"
+                android:text="@string/barcode_place" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/apply"
+            style="@style/st_button"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/pad_100"
+            android:layout_marginLeft="@dimen/pad_30"
+            android:layout_marginRight="@dimen/pad_30"
+            android:letterSpacing="0.14"
+            android:text="@string/barcode_scan" />
+
+        <TextView
+            android:id="@+id/repeat"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/h_button"
+            android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/pad_50"
+            android:layout_marginLeft="@dimen/pad_30"
+            android:layout_marginRight="@dimen/pad_30"
+            android:letterSpacing="0.14"
+            android:text="@string/repeat" />
+    </RelativeLayout>
+
+</LinearLayout>

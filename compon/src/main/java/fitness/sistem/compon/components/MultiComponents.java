@@ -185,6 +185,10 @@ public class MultiComponents <T>{
         return addComponent(ParamComponent.TC.DATE_DIAPASON, new ParamView(viewId, from, before));
     }
 
+    public MultiComponents addBarcodeComponent(int viewId, int viewCode, int repeat) {
+        return addComponent(ParamComponent.TC.BARCODE, new ParamView(viewId, viewCode, repeat));
+    }
+
     public MultiComponents addSearchComponent(int viewIdEdit, ParamModel paramModel, ParamView paramView,
                                               Navigator navigator, boolean hideRecycler) {
         ParamComponent paramComponent = new ParamComponent();
@@ -403,6 +407,12 @@ public class MultiComponents <T>{
                     break;
                 case PLUS_MINUS:
                     new PlusMinusComponent(iBase, cMV, this);
+                    break;
+                case BARCODE:
+                    new BarcodeComponent(iBase, cMV, this);
+                    break;
+                case DATE_DIAPASON:
+                    new DateDiapasonComponent(iBase, cMV, this);
                     break;
 //                case PHONE:
 //                    new EditPhoneComponent(iBase, cMV);

@@ -209,6 +209,15 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         permissionsResultList.add(new RequestPermissionsResult(requestCode, permissionsResult));
     }
 
+    public int addForResult(ActivityResult activityResult) {
+        int rc = 0;
+        if (activityResultList != null) {
+            rc = activityResultList.size();
+        }
+        addForResult(rc, activityResult);
+        return rc;
+    }
+
     public void addForResult(int requestCode, ActivityResult activityResult) {
         if (activityResultList == null) {
             activityResultList = new ArrayList<>();
@@ -270,7 +279,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                             } else {
                                 startScreen(vh.nameFragment, false);
                             }
-//                            startScreen(vh.nameFragment, false);
                             break;
                         case BACK:
                             onBackPressed();
@@ -480,13 +488,13 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     public void startActivitySimple(String nameMVP, Object object) {
         MultiComponents mc = mapFragment.get(nameMVP);
         if (mc != null) {
-            startActivitySimple(nameMVP, mc, object);
+            startActivitySimple(nameMVP, mc, object, -1);
         } else {
             log("Нет Screens с именем " + nameMVP);
         }
     }
 
-    public void startActivitySimple(String nameMVP, MultiComponents mc, Object object) {
+    public void startActivitySimple(String nameMVP, MultiComponents mc, Object object, int forResult) {
         Intent intent;
         if (mc.customFragment == null) {
             intent = new Intent(this, ComponBaseStartActivity.class);
@@ -629,6 +637,11 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     @Override
     public void startScreen(String nameMVP, boolean startFlag, Object object) {
+        startScreen(nameMVP, startFlag, object, -1);
+    }
+
+    @Override
+    public void startScreen(String nameMVP, boolean startFlag, Object object, int forResult) {
         MultiComponents mComponent = mapFragment.get(nameMVP);
         if (mComponent == null || mComponent.typeView == null) {
             log("Нет Screens с именем " + nameMVP);
@@ -636,21 +649,21 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         }
         switch (mComponent.typeView) {
             case ACTIVITY:
-                startActivitySimple(nameMVP, mComponent, object);
+                startActivitySimple(nameMVP, mComponent, object, forResult);
                 break;
             case CUSTOM_ACTIVITY:
-                startActivitySimple(nameMVP, mComponent, object);
+                startActivitySimple(nameMVP, mComponent, object, forResult);
                 break;
             case FRAGMENT:
-                startFragment(nameMVP, mComponent, startFlag, object);
+                startFragment(nameMVP, mComponent, startFlag, object, forResult);
                 break;
             case CUSTOM_FRAGMENT:
-                startCustomFragment(nameMVP, mComponent, startFlag, object);
+                startCustomFragment(nameMVP, mComponent, startFlag, object, forResult);
                 break;
         }
     }
 
-    public void startCustomFragment(String nameMVP, MultiComponents mComponent, boolean startFlag, Object object) {
+    public void startCustomFragment(String nameMVP, MultiComponents mComponent, boolean startFlag, Object object, int forResult) {
         BaseFragment fr = (BaseFragment) getSupportFragmentManager().findFragmentByTag(nameMVP);
         int count = (fr == null) ? 0 : 1;
         if (startFlag) {
@@ -704,7 +717,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         }
     }
 
-    public void startFragment(String nameMVP, MultiComponents mComponent, boolean startFlag, Object object) {
+    public void startFragment(String nameMVP, MultiComponents mComponent, boolean startFlag, Object object, int forResult) {
         BaseFragment fr = (BaseFragment) getSupportFragmentManager().findFragmentByTag(nameMVP);
         int count = (fr == null) ? 0 : 1;
         if (startFlag) {

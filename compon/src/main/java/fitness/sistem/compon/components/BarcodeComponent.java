@@ -7,6 +7,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,6 +26,8 @@ public class BarcodeComponent extends ButtonComponent {
 
     public BarcodeScanner scanner;
     private String rawResult;
+    private TextView viewResult;
+    private View repeat;
 
     public BarcodeComponent(IBase iBase, ParamComponent paramMV, MultiComponents multiComponent) {
         super(iBase, paramMV, multiComponent);
@@ -32,12 +35,23 @@ public class BarcodeComponent extends ButtonComponent {
 
     @Override
     public void initView() {
+        Log.d("QWERT","BarcodeComponent paramMV.paramView.viewId="+paramMV.paramView.viewId);
         if (paramMV.paramView == null || paramMV.paramView.viewId != 0) {
             scanner = (BarcodeScanner) parentLayout.findViewById(paramMV.paramView.viewId);
         }
+        Log.d("QWERT","BarcodeComponent scanner="+scanner);
         if (scanner == null) {
             iBase.log("Не найден BarcodeScanner в " + paramMV.nameParentComponent);
             return;
+        }
+        if (paramMV.paramView.layoutTypeId != null) {
+            viewResult = (TextView) parentLayout.findViewById(paramMV.paramView.layoutTypeId[0]);
+        }
+        if (paramMV.paramView.layoutFurtherTypeId != null) {
+            repeat = (TextView) parentLayout.findViewById(paramMV.paramView.layoutFurtherTypeId[0]);
+            if (repeat != null) {
+                repeat.setOnClickListener(repeatListener);
+            }
         }
 
         iBase.setResumePause(resumePause);
@@ -51,6 +65,19 @@ public class BarcodeComponent extends ButtonComponent {
             }
         }
     }
+
+    View.OnClickListener repeatListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(scanner != null) {
+                scanner.setResultHandler(null);
+                scanner.stopCamera();
+                scanner.setAutoFocus(true);
+                scanner.setResultHandler(resultHandler);
+                scanner.startCamera();
+            }
+        }
+    };
 
     OnResumePause resumePause = new OnResumePause() {
         @Override
@@ -82,6 +109,10 @@ public class BarcodeComponent extends ButtonComponent {
                 r.play();
             } catch (Exception e) {}
             rawResult = result.getText();
+            if (viewResult != buttonView) {
+                viewResult.setText(rawResult);
+            }
+            scanner.result = rawResult;
         }
     };
 

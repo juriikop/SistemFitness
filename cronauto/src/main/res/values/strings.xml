@@ -116,6 +116,12 @@
     <string name="send_ord">Отправить</string>
     <string name="order_history">История заказов</string>
 
+    // BARCODE scanner
+    <string name="barcode_place">Поместите штрихкод в поле</string>
+    <string name="barcode_scan">Применить</string>
+    <string name="repeat">Повторить</string>
+    <string name="search_barcode">Поиск по штрихкоду</string>
+
     // PRODUCT DESCRIPT
     <string name="catalog_code">Каталожный номер</string>
     <string name="descript">Описание</string>
