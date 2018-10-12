@@ -61,7 +61,6 @@ public class MapComponent extends BaseComponent {
     private ParamMap paramMap;
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
-//    private BaseActivity baseActivity;
     private Double latOrigin = null;
     private Double lonOrigin = null;
     private String nameApiParamLat, nameApiParamLon;
@@ -85,8 +84,6 @@ public class MapComponent extends BaseComponent {
         if (mapView == null) {
             iBase.log("Не найден MapView в " + paramMV.nameParentComponent);
         }
-//        baseActivity = iBase.getBaseActivity();
-//        baseActivity.setMapComponent(this);
         listData = new ListRecords();
         paramMap = paramMV.paramMap;
         if (paramMap.locationService) {
@@ -218,16 +215,16 @@ public class MapComponent extends BaseComponent {
     }
 
     public void requestMultiplePermissions() {
-        activity.addPermissionsResult(Constants.MAP_PERMISSION_REQUEST_CODE, permissionsResult);
+        activity.addPermissionsResult(Constants.REQUEST_CODE_MAP_PERMISSION, permissionsResult);
         ActivityCompat.requestPermissions(activity,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                Constants.MAP_PERMISSION_REQUEST_CODE);
+                Constants.REQUEST_CODE_MAP_PERMISSION);
     }
 
     public PermissionsResult permissionsResult = new PermissionsResult() {
         @Override
         public void onPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-            if (requestCode == Constants.MAP_PERMISSION_REQUEST_CODE && grantResults.length > 0) {
+            if (requestCode == Constants.REQUEST_CODE_MAP_PERMISSION && grantResults.length > 0) {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     locationSettings();
                 }
@@ -286,8 +283,8 @@ public class MapComponent extends BaseComponent {
                     try {
                         // Show the dialog by calling startResolutionForResult(), and check the result
                         // in onActivityResult().
-                        activity.addForResult(Constants.MAP_REQUEST_CHECK_SETTINGS, activityResult);
-                        status.startResolutionForResult(activity, Constants.MAP_REQUEST_CHECK_SETTINGS);
+                        activity.addForResult(Constants.REQUEST_CODE_MAP_CHECK_SETTINGS, activityResult);
+                        status.startResolutionForResult(activity, Constants.REQUEST_CODE_MAP_CHECK_SETTINGS);
 
                     } catch (IntentSender.SendIntentException e) {
                         //failed to show

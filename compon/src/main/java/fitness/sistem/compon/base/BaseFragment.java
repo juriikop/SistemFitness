@@ -21,6 +21,7 @@ import fitness.sistem.compon.components.MapComponent;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.EventComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
+import fitness.sistem.compon.interfaces_classes.OnResumePause;
 import fitness.sistem.compon.interfaces_classes.Param;
 import fitness.sistem.compon.interfaces_classes.ParentModel;
 import fitness.sistem.compon.interfaces_classes.SetData;
@@ -54,6 +55,7 @@ public class BaseFragment extends Fragment implements IBase {
     private String nameMvp = null;
     public String TAG = ComponGlob.getInstance().appParams.NAME_LOG_APP;
     public Field paramScreen;
+    public List<OnResumePause> resumePauseList;
 
     public BaseFragment() {
         mObject = null;
@@ -174,6 +176,14 @@ public class BaseFragment extends Fragment implements IBase {
         Log.i(TAG, msg);
     }
 
+    @Override
+    public void setResumePause(OnResumePause resumePause) {
+        if (resumePauseList == null) {
+            resumePauseList = new ArrayList<>();
+        }
+        resumePauseList.add(resumePause);
+    }
+
 //    @Override
 //    public void setMapComponent(MapComponent mapComponent) {
 //        getBaseActivity().setMapComponent(mapComponent);
@@ -272,25 +282,34 @@ public class BaseFragment extends Fragment implements IBase {
         this.googleApiClient = googleApiClient;
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-////        if (googleApiClient != null) {
-////            googleApiClient.connect();
-////        }
-//    }
-//
-//    @Override
-//    public void onPause() {
-////        if (googleApiClient != null) {
-////            googleApiClient.disconnect();
-////        }
-//        super.onPause();
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (resumePauseList != null) {
+            for (OnResumePause rp : resumePauseList) {
+                rp.onResume();
+            }
+        }
+    }
+
+    @Override
+    public void onPause() {
+        if (resumePauseList != null) {
+            for (OnResumePause rp : resumePauseList) {
+                rp.onPause();
+            }
+        }
+        super.onPause();
+    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (resumePauseList != null) {
+            for (OnResumePause rp : resumePauseList) {
+                rp.onDestroy();
+            }
+        }
         if (googleApiClient != null && googleApiClient.isConnected()) {
             googleApiClient.disconnect();
         }

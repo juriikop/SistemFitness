@@ -55,8 +55,8 @@ public class RecognizeVoiceComponent extends BaseComponent {
             intent.putExtra(RecognizerIntent.EXTRA_PROMPT, textView.getText().toString());
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
             intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
-            activity.addForResult(Constants.VOICE_RECOGNITION_REQUEST_CODE, activityResult);
-            activity.startActivityForResult(intent, Constants.VOICE_RECOGNITION_REQUEST_CODE);
+            activity.addForResult(Constants.REQUEST_CODE_VOICE_RECOGNITION, activityResult);
+            activity.startActivityForResult(intent, Constants.REQUEST_CODE_VOICE_RECOGNITION);
         }
     };
 

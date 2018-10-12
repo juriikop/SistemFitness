@@ -34,6 +34,7 @@ import fitness.sistem.compon.interfaces_classes.EventComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.IErrorDialog;
+import fitness.sistem.compon.interfaces_classes.OnResumePause;
 import fitness.sistem.compon.interfaces_classes.ParentModel;
 import fitness.sistem.compon.interfaces_classes.PermissionsResult;
 import fitness.sistem.compon.interfaces_classes.RequestActivityResult;
@@ -79,6 +80,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     public List<RequestPermissionsResult> permissionsResultList;
     public Field paramScreen;
     public Record paramScreenRecord;
+    public List<OnResumePause> resumePauseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -329,12 +331,35 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     }
 
     @Override
+    public void setResumePause(OnResumePause resumePause) {
+        if (resumePauseList == null) {
+            resumePauseList = new ArrayList<>();
+        }
+        resumePauseList.add(resumePause);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         int statusBarColor = ComponPrefTool.getStatusBarColor();
         if (statusBarColor != 0) {
             setStatusBarColor(statusBarColor);
         }
+        if (resumePauseList != null) {
+            for (OnResumePause rp : resumePauseList) {
+                rp.onResume();
+            }
+        }
+    }
+
+    @Override
+    public void onPause() {
+        if (resumePauseList != null) {
+            for (OnResumePause rp : resumePauseList) {
+                rp.onPause();
+            }
+        }
+        super.onPause();
     }
 
     @Override
@@ -349,6 +374,11 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (resumePauseList != null) {
+            for (OnResumePause rp : resumePauseList) {
+                rp.onDestroy();
+            }
+        }
         if (googleApiClient != null && googleApiClient.isConnected()) {
             googleApiClient.disconnect();
         }

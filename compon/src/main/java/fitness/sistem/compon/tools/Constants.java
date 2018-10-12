@@ -12,6 +12,7 @@ public class Constants {
     public final static String TYPE_PAGER_SIMPLE = "PagerSimple";
     public final static String FIELD_VALUE = "field_value";
     public final static String ITEM = "_item";
+    public static String BAR_CODE = "bar_code";
     public static String STATUS_COLOR = "STATUS_COLOR";
     public static String SEPARATOR_LIST = ",";
     public static String SIMPLE_ViewId = "SIMPLE_ViewId";
@@ -21,12 +22,13 @@ public class Constants {
     public static String MARKER_LAT = "latitude";
     public static String MARKER_LON = "longitude";
     public static String MARKER_NAME_NUMBER = "markerNumber";
-    public static int MAP_PERMISSION_REQUEST_CODE = 10;
-    public static int MAP_REQUEST_CHECK_SETTINGS = 11;
     public static enum AnimateScreen {TB, BT, LR, RL, NO}
     public static String CHANGE_LOCALE = "CHANGE_LOCALE";
     public static int REQUEST_CODE_PHOTO = 5001;
-    public static int VOICE_RECOGNITION_REQUEST_CODE = 5002;
+    public static int REQUEST_CODE_VOICE_RECOGNITION = 5002;
+    public static int REQUEST_CODE_CAMERA = 5003;
+    public static int REQUEST_CODE_MAP_PERMISSION = 5004;
+    public static int REQUEST_CODE_MAP_CHECK_SETTINGS = 5005;
 
 
 //    public static String SEPARATOR_NAV = ":";
