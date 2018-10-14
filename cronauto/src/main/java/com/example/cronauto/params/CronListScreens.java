@@ -88,7 +88,9 @@ public class CronListScreens  extends ListScreens {
                         new ParamView(R.id.recycler, R.layout.item_product_list));
 
         activity(PRODUCT_LIST, R.layout.activity_product_list).animate(AS.RL)
-                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK).add(R.id.barcode, BARCODE))
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK)
+                        .add(R.id.barcode, BARCODE, actionsAfterResponse().updateDataByModel(R.id.recycler,
+                                new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_BARCODE, "barcode_scanner"))))
                 .addRecognizeVoiceComponent(R.id.microphone, R.id.search)
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_QUERY_ARRAY, "catalog_id")
                         .updateDB(SQL.PRODUCT_TAB, Api.DB_PRODUCT, SQL.dayMillisecond, SQL.PRODUCT_ALIAS),
@@ -97,7 +99,8 @@ public class CronListScreens  extends ListScreens {
                         new Navigator().add(R.id.swipe, PRODUCT_DESCRIPT, RECORD));
 
         activity(BARCODE, R.layout.activity_barcode).animate(AS.RL)
-                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK).add(R.id.apply,
+                        ViewHandler.TYPE.RESULT_PARAM, "barcode_scanner"))
                 .addBarcodeComponent(R.id.barcode_scanner, R.id.result_scan, R.id.repeat);
 
         fragment(ORDER_LOG, R.layout.fragment_order_log)

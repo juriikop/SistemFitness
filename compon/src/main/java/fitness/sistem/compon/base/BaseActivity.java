@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,15 +24,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.R;
-import fitness.sistem.compon.components.MapComponent;
 import fitness.sistem.compon.dialogs.DialogTools;
 //import fitness.sistem.compon.functions_fragment.ComponentsFragment;
+import fitness.sistem.compon.interfaces_classes.ActionsAfterResponse;
 import fitness.sistem.compon.interfaces_classes.ActivityResult;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.EventComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.ICustom;
-import fitness.sistem.compon.interfaces_classes.IErrorDialog;
 import fitness.sistem.compon.interfaces_classes.OnResumePause;
 import fitness.sistem.compon.interfaces_classes.ParentModel;
 import fitness.sistem.compon.interfaces_classes.PermissionsResult;
@@ -79,6 +77,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     public List<RequestActivityResult> activityResultList;
     public List<RequestPermissionsResult> permissionsResultList;
     public Field paramScreen;
+    public WorkWithRecordsAndViews workWithRecordsAndViews;
     public Record paramScreenRecord;
     public List<OnResumePause> resumePauseList;
 
@@ -96,6 +95,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         listEvent = new ArrayList<>();
         String st = componGlob.appParams.nameLanguageInHeader;
         Intent intent = getIntent();
+        workWithRecordsAndViews = new WorkWithRecordsAndViews();
         String paramJson = intent.getStringExtra(Constants.NAME_PARAM_FOR_SCREEN);
         if (paramJson != null && paramJson.length() >0) {
             JsonSimple jsonSimple = new JsonSimple();
@@ -209,13 +209,20 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         permissionsResultList.add(new RequestPermissionsResult(requestCode, permissionsResult));
     }
 
-    public int addForResult(ActivityResult activityResult) {
+    public int addForResult(ActionsAfterResponse afterResponse) {
         int rc = 0;
         if (activityResultList != null) {
             rc = activityResultList.size();
         }
-        addForResult(rc, activityResult);
+        addForResult(rc, afterResponse);
         return rc;
+    }
+
+    public void addForResult(int requestCode, ActionsAfterResponse afterResponse) {
+        if (activityResultList == null) {
+            activityResultList = new ArrayList<>();
+        }
+        activityResultList.add(new RequestActivityResult(requestCode, afterResponse));
     }
 
     public void addForResult(int requestCode, ActivityResult activityResult) {
@@ -255,13 +262,32 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             for (int i = 0; i < ik; i++) {
                 RequestActivityResult rar = activityResultList.get(i);
                 if (requestCode == rar.request) {
-                    rar.activityResult.onActivityResult(requestCode, resultCode, data);
-                    j = i;
+                    if (rar.afterResponse != null) {
+                        execAfter(requestCode, resultCode, data, rar.afterResponse);
+                        j = i;
+                    } else {
+                        rar.activityResult.onActivityResult(requestCode, resultCode, data);
+                        j = i;
+                    }
                     break;
                 }
             }
             if (j > -1) {
-                activityResultList.remove(j);
+                RequestActivityResult rar = activityResultList.get(j);
+                rar.activityResult = null;
+                rar.afterResponse = null;
+            }
+        }
+    }
+
+    private void execAfter(int requestCode, int resultCode, Intent data, ActionsAfterResponse afterResponse) {
+        if (requestCode == RESULT_OK) {
+            for (ViewHandler vh : afterResponse.viewHandlers) {
+                switch (vh.type) {
+                    case UPDATE_DATA:
+                        mComponent.getComponent(vh.viewId).updateData(vh.paramModel);
+                        break;
+                }
             }
         }
     }
@@ -274,6 +300,9 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                 if (vh.viewId == id) {
                     switch (vh.type) {
                         case NAME_FRAGMENT:
+                            if (vh.afterResponse != null) {
+
+                            }
                             if (vh.paramForScreen == ViewHandler.TYPE_PARAM_FOR_SCREEN.RECORD) {
                                 startScreen(vh.nameFragment, false, paramScreenRecord);
                             } else {
@@ -294,6 +323,15 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                         case RECEIVER:
                             LocalBroadcastManager.getInstance(BaseActivity.this).registerReceiver(broadcastReceiver,
                                     new IntentFilter(vh.nameFieldWithValue));
+                            break;
+                        case RESULT_PARAM :
+                            Record record = workWithRecordsAndViews.ViewToRecord(parentLayout, vh.nameFieldWithValue);
+                            Log.d("QWERT","RESULT_PARAM record="+record.toString());
+                            if (record != null) {
+                                ComponGlob.getInstance().setParam(record);
+                            }
+                            setResult(0);
+                            finishActivity();
                             break;
                     }
 //                    break;
@@ -426,23 +464,44 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             }
         } else {
             if (canBackPressed()) {
-                finish();
-                if (mComponent.animateScreen != null) {
-                    switch (mComponent.animateScreen) {
-                        case TB :
-                            overridePendingTransition(R.anim.bt_in, R.anim.bt_out);
-                            break;
-                        case BT :
-                            overridePendingTransition(R.anim.tb_in, R.anim.tb_out);
-                            break;
-                        case LR :
-                            overridePendingTransition(R.anim.rl_in, R.anim.rl_out);
-                            break;
-                        case RL :
-                            overridePendingTransition(R.anim.lr_in, R.anim.lr_out);
-                            break;
-                    }
-                }
+                finishActivity();
+//                finish();
+//                if (mComponent.animateScreen != null) {
+//                    switch (mComponent.animateScreen) {
+//                        case TB :
+//                            overridePendingTransition(R.anim.bt_in, R.anim.bt_out);
+//                            break;
+//                        case BT :
+//                            overridePendingTransition(R.anim.tb_in, R.anim.tb_out);
+//                            break;
+//                        case LR :
+//                            overridePendingTransition(R.anim.rl_in, R.anim.rl_out);
+//                            break;
+//                        case RL :
+//                            overridePendingTransition(R.anim.lr_in, R.anim.lr_out);
+//                            break;
+//                    }
+//                }
+            }
+        }
+    }
+
+    private void finishActivity() {
+        finish();
+        if (mComponent.animateScreen != null) {
+            switch (mComponent.animateScreen) {
+                case TB :
+                    overridePendingTransition(R.anim.bt_in, R.anim.bt_out);
+                    break;
+                case BT :
+                    overridePendingTransition(R.anim.tb_in, R.anim.tb_out);
+                    break;
+                case LR :
+                    overridePendingTransition(R.anim.rl_in, R.anim.rl_out);
+                    break;
+                case RL :
+                    overridePendingTransition(R.anim.lr_in, R.anim.lr_out);
+                    break;
             }
         }
     }
@@ -567,7 +626,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             View viewErrorDialog = parentLayout.findViewById(id);
             if (viewErrorDialog instanceof AnimatePanel) {
                 ((AnimatePanel) viewErrorDialog).show(this);
-                WorkWithRecordsAndViews workWithRecordsAndViews = new WorkWithRecordsAndViews();
                 workWithRecordsAndViews.RecordToView(rec, viewErrorDialog);
             }
         } else {

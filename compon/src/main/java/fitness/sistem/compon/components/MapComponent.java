@@ -36,7 +36,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import fitness.sistem.compon.ComponGlob;
-import fitness.sistem.compon.base.BaseActivity;
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.interfaces_classes.ActivityResult;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;

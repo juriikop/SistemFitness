@@ -60,7 +60,7 @@ public class SQL {
     public static String PRODUCT_INDEX_NAME = "prod_ind";
     public static String PRODUCT_INDEX_COLUMN = "catalog_id";
     public static String PRODUCT_FIELDS = "product_id INTEGER primary key, catalog_id INTEGER, product_name TEXT, catalog_code TEXT, picture TEXT, " +
-            "bar_code, oem TEXT, price REAL, product_code TEXT, new_product INTEGER, extra_bonus REAL, measure TEXT, quantity INTEGER, " +
+            "bar_code TEXT, oem TEXT, price REAL, product_code TEXT, new_product INTEGER, extra_bonus REAL, measure TEXT, quantity INTEGER, " +
             "analog TEXT, gift integer";
     public static String PRODUCT_ALIAS = "product_id,ID;catalog_id,SECTION_ID;product_name,NAME;catalog_code,CATALOG_CODE;picture,DETAIL_PICTURE;bar_code,BAR_CODE;" +
             "oem,OEM;price,PRICE;product_code,PRODUCT_CODE_1C;new_product,NEW_PRODUCT;extra_bonus,EXTRA_BONUS;measure,MEASURE;quantity,QUANTITY;" +
@@ -77,7 +77,7 @@ public class SQL {
             "FROM product_order, product WHERE product_order.orderId = ? AND product_order.productId = product.product_id";
 
     public static String PRODUCT_IN_CATALOG = "SELECT * FROM product WHERE catalog_id = ?";
-
+    public static String PRODUCT_BARCODE = "SELECT * FROM product WHERE bar_code = ?";
     public static String PRODUCT_E_BONUS = "SELECT * FROM product WHERE extra_bonus > 0 ";
 
     public static String CATALOG_L1_L3 = "SELECT * FROM product, (SELECT catalog.catalog_id FROM catalog, " +

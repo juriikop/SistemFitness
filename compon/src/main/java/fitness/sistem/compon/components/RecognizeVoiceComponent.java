@@ -2,9 +2,7 @@ package fitness.sistem.compon.components;
 
 import android.app.SearchManager;
 import android.content.Intent;
-import android.net.Uri;
 import android.speech.RecognizerIntent;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,7 +14,6 @@ import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.param.ParamComponent;
 import fitness.sistem.compon.tools.Constants;
-import fitness.sistem.compon.tools.StaticVM;
 
 import static android.app.Activity.RESULT_OK;
 

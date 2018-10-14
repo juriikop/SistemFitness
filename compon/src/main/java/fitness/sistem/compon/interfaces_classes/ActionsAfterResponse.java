@@ -3,6 +3,8 @@ package fitness.sistem.compon.interfaces_classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import fitness.sistem.compon.param.ParamModel;
+
 import static fitness.sistem.compon.interfaces_classes.ViewHandler.TYPE;
 
 public class ActionsAfterResponse {
@@ -25,6 +27,11 @@ public class ActionsAfterResponse {
 
     public ActionsAfterResponse showComponent(int viewId, String nameFieldWithValue) {
         viewHandlers.add(new ViewHandler(viewId, TYPE.SHOW, nameFieldWithValue));
+        return this;
+    }
+
+    public ActionsAfterResponse updateDataByModel(int viewId, ParamModel paramModel) {
+        viewHandlers.add(new ViewHandler(viewId, TYPE.UPDATE_DATA, paramModel));
         return this;
     }
 
