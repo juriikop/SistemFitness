@@ -11,6 +11,12 @@ public class RequestActivityResult {
         activityResult = null;
     }
 
+    public RequestActivityResult(int request, ActionsAfterResponse afterResponse, ActivityResult activityResult) {
+        this.request = request;
+        this.afterResponse = afterResponse;
+        this.activityResult = activityResult;
+    }
+
     public RequestActivityResult(int request, ActivityResult activityResult) {
         this.request = request;
         this.activityResult = activityResult;

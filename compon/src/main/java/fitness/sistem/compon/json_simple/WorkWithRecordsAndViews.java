@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.custom_components.SimpleImageView;
 import fitness.sistem.compon.custom_components.SimpleTextView;
+import fitness.sistem.compon.custom_components.SwipeLayout;
 import fitness.sistem.compon.interfaces_classes.IComponent;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
@@ -108,11 +109,16 @@ public class WorkWithRecordsAndViews {
         }
         if (setParam) {
             setRecordField(v, name);
+            return;
         }
         if (navigator != null) {
             for (ViewHandler vh : navigator.viewHandlers) {
                 if (id == vh.viewId) {
-                    v.setOnClickListener(clickView);
+                    if (view instanceof SwipeLayout) {
+                        ((SwipeLayout) view).setOnClick(clickView);
+                    } else {
+                        v.setOnClickListener(clickView);
+                    }
                     break;
                 }
             }

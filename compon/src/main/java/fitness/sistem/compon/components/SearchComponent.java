@@ -22,6 +22,7 @@ import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamComponent;
+import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.tools.StaticVM;
 
 import static android.view.View.GONE;
@@ -30,11 +31,13 @@ import static android.view.View.VISIBLE;
 public class SearchComponent extends BaseComponent {
 
     public View viewSearch;
-    RecyclerView recycler;
-    BaseProviderAdapter adapter;
+    RecyclerComponent recycler;
+//    BaseProviderAdapter adapter;
     Handler handler = new Handler();
     public String nameSearch;
     private boolean isChangeText;
+    private ParamModel modelNew;
+    private String[] paramArray;
 
     public SearchComponent(IBase iBase, ParamComponent paramMV, MultiComponents multiComponent) {
         super(iBase, paramMV, multiComponent);
@@ -51,69 +54,81 @@ public class SearchComponent extends BaseComponent {
             iBase.log("View для поиска должно быть IComponent или EditText в " + paramMV.nameParentComponent);
             return;
         }
-        if (paramMV.paramView == null || paramMV.paramView.viewId == 0) {
-            recycler = (RecyclerView) StaticVM.findViewByName(parentLayout, "recycler");
-        } else {
-            recycler = (RecyclerView) parentLayout.findViewById(paramMV.paramView.viewId);
+        if (paramMV.paramView != null || paramMV.paramView.viewId != 0) {
+            recycler = (RecyclerComponent) multiComponent.getComponent(paramMV.paramView.viewId);
         }
         if (recycler == null) {
             iBase.log("Не найден RecyclerView в " + paramMV.nameParentComponent);
             return;
         }
-        if (navigator == null) {
-            navigator = new Navigator();
+        modelNew = new ParamModel(paramMV.paramModel.method);
+        if (paramMV.paramModel.param != null && paramMV.paramModel.param.length() > 0) {
+            paramArray = paramMV.paramModel.param.split(",");
         }
-        navigator.viewHandlers.add(0, new ViewHandler(0, ViewHandler.TYPE.SELECT));
-        listData = new ListRecords();
-        provider = new BaseProvider(listData);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
-        recycler.setLayoutManager(layoutManager);
-        adapter = new BaseProviderAdapter(this);
-        recycler.setAdapter(adapter);
+
+//
+//        if (paramMV.paramView == null || paramMV.paramView.viewId == 0) {
+//            recycler = (RecyclerView) StaticVM.findViewByName(parentLayout, "recycler");
+//        } else {
+//            recycler = (RecyclerView) parentLayout.findViewById(paramMV.paramView.viewId);
+//        }
+//        if (recycler == null) {
+//            iBase.log("Не найден RecyclerView в " + paramMV.nameParentComponent);
+//            return;
+//        }
+//        if (navigator == null) {
+//            navigator = new Navigator();
+//        }
+//        navigator.viewHandlers.add(0, new ViewHandler(0, ViewHandler.TYPE.SELECT));
+
+
+//        listData = new ListRecords();
+//        provider = new BaseProvider(listData);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
+//        recycler.setLayoutManager(layoutManager);
+//        adapter = new BaseProviderAdapter(this);
+//        recycler.setAdapter(adapter);
     }
 
     @Override
     public void changeData(Field field) {
-        listData.clear();
-        listData.addAll((ListRecords) field.value);
-        adapter.notifyDataSetChanged();
-        int splash = paramMV.paramView.splashScreenViewId;
-        if (splash != 0) {
-            View v_splash = parentLayout.findViewById(splash);
-            if (v_splash != null) {
-                if (listData.size() > 0) {
-                    v_splash.setVisibility(GONE);
-                } else {
-                    v_splash.setVisibility(VISIBLE);
-                }
-            } else {
-                iBase.log("Не найден SplashView в " + paramMV.nameParentComponent);
-            }
-        }
-        iBase.sendEvent(paramMV.paramView.viewId);
+//        listData.clear();
+//        listData.addAll((ListRecords) field.value);
+//        adapter.notifyDataSetChanged();
+//        int splash = paramMV.paramView.splashScreenViewId;
+//        if (splash != 0) {
+//            View v_splash = parentLayout.findViewById(splash);
+//            if (v_splash != null) {
+//                if (listData.size() > 0) {
+//                    v_splash.setVisibility(GONE);
+//                } else {
+//                    v_splash.setVisibility(VISIBLE);
+//                }
+//            } else {
+//                iBase.log("Не найден SplashView в " + paramMV.nameParentComponent);
+//            }
+//        }
+//        iBase.sendEvent(paramMV.paramView.viewId);
     }
-
-    @Override
-    public void actual() {
-        listData.clear();
-        adapter.notifyDataSetChanged();
-        super.actual();
-    }
-
-    public void clickAdapter(RecyclerView.ViewHolder holder, View view, int position) {
-        Record record = provider.get(position);
-        String st = record.getString(nameSearch);
-        isChangeText = false;
-        ((EditText) viewSearch).setText(st);
-        isChangeText = true;
-        ComponGlob.getInstance().setParam(record);
-        if (paramMV.hide) {
-            recycler.setVisibility(GONE);
-        }
-        if (navigator.viewHandlers.size() > 1) {
-            super.clickAdapter(holder, view, position, record);
-        }
-    }
+//
+//    @Override
+//    public void actual() {
+//        listData.clear();
+//        adapter.notifyDataSetChanged();
+//        super.actual();
+//    }
+//
+//    public void clickAdapter(RecyclerView.ViewHolder holder, View view, int position) {
+//        Record record = provider.get(position);
+//        String st = record.getString(nameSearch);
+//        isChangeText = false;
+//        ((EditText) viewSearch).setText(st);
+//        isChangeText = true;
+//        ComponGlob.getInstance().setParam(record);
+//        if (navigator.viewHandlers.size() > 1) {
+//            super.clickAdapter(holder, view, position, record);
+//        }
+//    }
 
     public class Watcher implements TextWatcher{
 
@@ -123,11 +138,24 @@ public class SearchComponent extends BaseComponent {
         private Runnable task = new Runnable() {
             @Override
             public void run() {
-                ComponGlob.getInstance().addParamValue(nameParam, searchString);
-                if (recycler.getVisibility() == GONE) {
-                    recycler.setVisibility(VISIBLE);
+                String stringParam = " ";
+                if (modelNew.method == ParamModel.GET) {
+                    ComponGlob.getInstance().addParamValue(nameParam, searchString);
+                    actual();
+                } else if (modelNew.method == ParamModel.GET_DB) {
+                    if (paramArray != null) {
+                        String sep = "";
+                        String[] searchArray = searchString.split(" ");
+                        for (String st : paramArray) {
+                            for (String stSearch : searchArray) {
+                                stringParam += sep + st + " LIKE '%" + stSearch + "%' ";
+                                sep = " OR ";
+                            }
+                        }
+                        modelNew.url = paramMV.paramModel.url + stringParam;
+                        recycler.updateData(modelNew);
+                    }
                 }
-                actual();
             }
         };
 

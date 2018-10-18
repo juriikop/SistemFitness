@@ -35,11 +35,10 @@ public class BarcodeComponent extends ButtonComponent {
 
     @Override
     public void initView() {
-        Log.d("QWERT","BarcodeComponent paramMV.paramView.viewId="+paramMV.paramView.viewId);
         if (paramMV.paramView == null || paramMV.paramView.viewId != 0) {
             scanner = (BarcodeScanner) parentLayout.findViewById(paramMV.paramView.viewId);
         }
-        Log.d("QWERT","BarcodeComponent scanner="+scanner);
+//        Log.d("QWERT","BarcodeComponent scanner="+scanner);
         if (scanner == null) {
             iBase.log("Не найден BarcodeScanner в " + paramMV.nameParentComponent);
             return;
@@ -127,7 +126,7 @@ public class BarcodeComponent extends ButtonComponent {
     public PermissionsResult permissionsResult = new PermissionsResult() {
         @Override
         public void onPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-            if (requestCode == Constants.REQUEST_CODE_MAP_PERMISSION && grantResults.length > 0) {
+            if (requestCode == Constants.REQUEST_CODE_CAMERA && grantResults.length > 0) {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     initiateScannerView();
                 }

@@ -41,6 +41,6 @@ public class BarcodeScanner extends ZXingScannerView implements IComponent {
 
     @Override
     public String getString() {
-        return null;
+        return result;
     }
 }

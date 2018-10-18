@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import fitness.sistem.compon.base.BaseComponent;
+import fitness.sistem.compon.interfaces_classes.ActionsAfterResponse;
 import fitness.sistem.compon.interfaces_classes.ActivityResult;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.json_simple.Field;
@@ -101,7 +102,7 @@ public class PhotoComponent extends BaseComponent{
 
     private ActivityResult activityResult = new ActivityResult() {
         @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        public void onActivityResult(int requestCode, int resultCode, Intent data, ActionsAfterResponse afterResponse) {
             if(resultCode == activity.RESULT_OK) {
                 Uri selectedImage;
                 if (data == null) {

@@ -29,7 +29,11 @@ public class SimpleRecordToJson {
             separator = ",";
             switch (f.type) {
                 case Field.TYPE_STRING :
-                    sb.append(quote + f.name + quoteColon + quote + (String) f.value + quote);
+                    if (f.value == null) {
+                        sb.append(quote + f.name + quoteColon + "null");
+                    } else {
+                        sb.append(quote + f.name + quoteColon + quote + (String) f.value + quote);
+                    }
                     break;
                 case Field.TYPE_INTEGER :
                     sb.append(quote + f.name + quoteColon + (Integer) f.value);

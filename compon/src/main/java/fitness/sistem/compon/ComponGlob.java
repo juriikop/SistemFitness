@@ -56,36 +56,68 @@ public class ComponGlob {
 
     public void setParam(Record fields) {
         int ik = paramValues.size();
+        boolean isParam;
         for (Field f: fields) {
             String name = f.name;
             if (f.value != null) {
+                isParam = false;
                 for (int i = 0; i < ik; i++) {
                     Param param = paramValues.get(i);
                     if (param.name.equals(name)) {
-                        switch (f.type) {
-                            case Field.TYPE_STRING:
-                                param.value = new String((String) f.value);
-                                break;
-                            case Field.TYPE_INTEGER:
-                                param.value = String.valueOf((Integer) f.value);
-                                break;
-                            case Field.TYPE_LONG:
-                                param.value = String.valueOf(f.value);
-                                break;
-                            case Field.TYPE_FLOAT:
-                                param.value = String.valueOf((Float) f.value);
-                                break;
-                            case Field.TYPE_DOUBLE:
-                                param.value = String.valueOf((Double) f.value);
-                                break;
-                            case Field.TYPE_BOOLEAN:
-                                param.value = String.valueOf((Boolean) f.value);
-                                break;
-                        }
+                        isParam = true;
+                        setParamValue(param, f);
+//                        switch (f.type) {
+//                            case Field.TYPE_STRING:
+//                                param.value = new String((String) f.value);
+//                                break;
+//                            case Field.TYPE_INTEGER:
+//                                param.value = String.valueOf((Integer) f.value);
+//                                break;
+//                            case Field.TYPE_LONG:
+//                                param.value = String.valueOf(f.value);
+//                                break;
+//                            case Field.TYPE_FLOAT:
+//                                param.value = String.valueOf((Float) f.value);
+//                                break;
+//                            case Field.TYPE_DOUBLE:
+//                                param.value = String.valueOf((Double) f.value);
+//                                break;
+//                            case Field.TYPE_BOOLEAN:
+//                                param.value = String.valueOf((Boolean) f.value);
+//                                break;
+//                        }
                         break;
                     }
                 }
+                if ( ! isParam) {
+                    Param nParam = new Param(name, "");
+                    setParamValue(nParam, f);
+                    paramValues.add(nParam);
+                }
             }
+        }
+    }
+
+    private void setParamValue(Param param, Field f) {
+        switch (f.type) {
+            case Field.TYPE_STRING:
+                param.value = new String((String) f.value);
+                break;
+            case Field.TYPE_INTEGER:
+                param.value = String.valueOf((Integer) f.value);
+                break;
+            case Field.TYPE_LONG:
+                param.value = String.valueOf(f.value);
+                break;
+            case Field.TYPE_FLOAT:
+                param.value = String.valueOf((Float) f.value);
+                break;
+            case Field.TYPE_DOUBLE:
+                param.value = String.valueOf((Double) f.value);
+                break;
+            case Field.TYPE_BOOLEAN:
+                param.value = String.valueOf((Boolean) f.value);
+                break;
         }
     }
 

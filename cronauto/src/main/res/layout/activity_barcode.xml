@@ -33,11 +33,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!--<me.dm7.barcodescanner.zxing.ZXingScannerView-->
-            <!--android:id="@+id/barcode_scaner"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"/>-->
-
         <fitness.sistem.compon.custom_components.BarcodeScanner
             android:id="@+id/barcode_scanner"
             android:layout_width="match_parent"

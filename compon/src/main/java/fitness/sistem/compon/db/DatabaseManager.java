@@ -184,36 +184,38 @@ public class DatabaseManager extends BaseDB {
         } catch (SQLiteException e) {
             iBase.log(e.getMessage());
         }
-        ListRecords listRecords = null;
-        if (c.moveToFirst()) {
-            int countCol = c.getColumnCount();
-            String[] nameColumn = c.getColumnNames();
-            listRecords = new ListRecords();
-            Record record;
-            do {
-                record = new Record();
-                for (int i = 0; i < countCol; i++) {
-                    switch (c.getType(i)) {
-                        case Cursor.FIELD_TYPE_INTEGER :
-                            record.add(new Field(nameColumn[i], Field.TYPE_LONG, c.getLong(i)));
-                            break;
-                        case Cursor.FIELD_TYPE_FLOAT :
-                            record.add(new Field(nameColumn[i], Field.TYPE_DOUBLE, c.getDouble(i)));
-                            break;
-                        case Cursor.FIELD_TYPE_STRING :
-                            record.add(new Field(nameColumn[i], Field.TYPE_STRING, c.getString(i)));
-                            break;
-                        default:
-                            record.add(new Field(nameColumn[i], Field.TYPE_STRING, c.getString(i)));
-                            break;
+        ListRecords listRecords = new ListRecords();
+        if (c != null) {
+            if (c.moveToFirst()) {
+                int countCol = c.getColumnCount();
+                String[] nameColumn = c.getColumnNames();
+//                listRecords = new ListRecords();
+                Record record;
+                do {
+                    record = new Record();
+                    for (int i = 0; i < countCol; i++) {
+                        switch (c.getType(i)) {
+                            case Cursor.FIELD_TYPE_INTEGER:
+                                record.add(new Field(nameColumn[i], Field.TYPE_LONG, c.getLong(i)));
+                                break;
+                            case Cursor.FIELD_TYPE_FLOAT:
+                                record.add(new Field(nameColumn[i], Field.TYPE_DOUBLE, c.getDouble(i)));
+                                break;
+                            case Cursor.FIELD_TYPE_STRING:
+                                record.add(new Field(nameColumn[i], Field.TYPE_STRING, c.getString(i)));
+                                break;
+                            default:
+                                record.add(new Field(nameColumn[i], Field.TYPE_STRING, c.getString(i)));
+                                break;
+                        }
                     }
-                }
-                listRecords.add(record);
-            } while (c.moveToNext());
-        } else {
-            Log.d("QWERT", "DatabaseManager get 0 rows");
+                    listRecords.add(record);
+                } while (c.moveToNext());
+            } else {
+                Log.d("QWERT", "DatabaseManager get 0 rows");
+            }
+            c.close();
         }
-        c.close();
         closeDatabase();
         return new Field("", Field.TYPE_LIST_RECORD, listRecords);
     }

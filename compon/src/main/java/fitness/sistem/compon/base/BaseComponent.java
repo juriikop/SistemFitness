@@ -134,66 +134,6 @@ public abstract class BaseComponent {
 
     public void actual() {
         actualModel(paramMV.paramModel);
-//        if (paramMV.paramModel != null) {
-//            switch (paramMV.paramModel.method) {
-//                case ParamModel.PARENT :
-//                    ParentModel pm = iBase.getParentModel(paramMV.paramModel.url);
-//                    if (pm.field == null) {
-//                        for (BaseComponent bc : pm.componentList) {
-//                            if (bc == this) {
-//                                return;
-//                            }
-//                        }
-//                        pm.componentList.add(this);
-//                    } else {
-//                        setParentData(pm.field);
-//                    }
-//                    break;
-//                case ParamModel.FIELD:
-//                    changeDataBase(paramMV.paramModel.field);
-//                    break;
-//                case ParamModel.ARGUMENTS :
-//                    Intent intent = activity.getIntent();
-//                    String st = intent.getStringExtra(Constants.NAME_PARAM_FOR_SCREEN);
-//                    JsonSimple jsonSimple = new JsonSimple();
-//                    try {
-//                        argument = jsonSimple.jsonToModel(st);
-//                    } catch (JsonSyntaxException e) {
-//                        iBase.log(e.getMessage());
-//                        e.printStackTrace();
-//                    }
-//                    changeDataBase(argument);
-//                    break;
-//                case ParamModel.DATAFIELD :
-//                    if (paramMV.paramModel.dataFieldGet != null) {
-//                        changeDataBase(paramMV.paramModel.dataFieldGet.getField(this));
-//                    }
-//                    break;
-//                case GET_DB :
-//                    Record paramScreen = null; // ????? Параметри які передаються в Screen формує номер urlArrayIndex через параметри
-//                    if (paramMV.paramModel.urlArray != null) {
-//                        Field f = iBase.getParamScreen();
-//                        if (f != null && f.type == Field.TYPE_CLASS) {
-//                            paramScreen = ((Record) f.value);
-//                            paramMV.paramModel.urlArrayIndex = paramScreen.getInt(paramMV.paramModel.urlArray[0]);
-//                            if (paramMV.paramModel.urlArrayIndex < 0) {
-//                                paramMV.paramModel.urlArrayIndex = 0;
-//                            }
-//                            int len = paramMV.paramModel.urlArray.length - 1;
-//                            if (paramMV.paramModel.urlArrayIndex > len) {
-//                                paramMV.paramModel.urlArrayIndex = len;
-//                            }
-//                        }
-//                    }
-//                    ComponGlob.getInstance().baseDB.get(iBase, paramMV.paramModel, setParam(paramMV.paramModel.param, paramScreen), listener);
-//                    break;
-//                default: {
-//                    new BasePresenter(iBase, paramMV.paramModel, null, null, listener);
-//                }
-//            }
-//        } else {
-//            changeDataBase(null);
-//        }
     }
 
     private void actualModel(ParamModel paramModel) {

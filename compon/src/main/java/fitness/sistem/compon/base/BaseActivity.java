@@ -25,7 +25,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.R;
 import fitness.sistem.compon.dialogs.DialogTools;
-//import fitness.sistem.compon.functions_fragment.ComponentsFragment;
 import fitness.sistem.compon.interfaces_classes.ActionsAfterResponse;
 import fitness.sistem.compon.interfaces_classes.ActivityResult;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;
@@ -144,26 +143,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         if (this instanceof ICustom) {
             mComponent.setCustom((ICustom) this);
         }
-
-//        if (nameScreen != null && nameScreen.length() > 0) {
-//            mComponent = getComponent(nameScreen);
-//            parentLayout = inflate(this, mComponent.fragmentLayoutId, null);
-//            setContentView(parentLayout);
-//            if (mComponent.navigator != null) {
-//                for (ViewHandler vh : mComponent.navigator.viewHandlers) {
-//                    View v = findViewById(vh.viewId);
-//                    if (v != null) {
-//                        v.setOnClickListener(navigatorClick);
-//                    }
-//                }
-//            }
-//            mComponent.initComponents(this);
-//            if (mComponent.moreWork != null) {
-//                mComponent.moreWork.startScreen();
-//            }
-//        } else {
-//            parentLayout = inflate(this, getLayoutId(), null);
-//        }
         initView();
     }
 
@@ -209,20 +188,20 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         permissionsResultList.add(new RequestPermissionsResult(requestCode, permissionsResult));
     }
 
-    public int addForResult(ActionsAfterResponse afterResponse) {
+    public int addForResult(ActionsAfterResponse afterResponse, ActivityResult activityResult) {
         int rc = 0;
         if (activityResultList != null) {
             rc = activityResultList.size();
         }
-        addForResult(rc, afterResponse);
+        addForResult(rc, afterResponse, activityResult);
         return rc;
     }
 
-    public void addForResult(int requestCode, ActionsAfterResponse afterResponse) {
+    public void addForResult(int requestCode, ActionsAfterResponse afterResponse, ActivityResult activityResult) {
         if (activityResultList == null) {
             activityResultList = new ArrayList<>();
         }
-        activityResultList.add(new RequestActivityResult(requestCode, afterResponse));
+        activityResultList.add(new RequestActivityResult(requestCode, afterResponse, activityResult));
     }
 
     public void addForResult(int requestCode, ActivityResult activityResult) {
@@ -262,35 +241,34 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             for (int i = 0; i < ik; i++) {
                 RequestActivityResult rar = activityResultList.get(i);
                 if (requestCode == rar.request) {
-                    if (rar.afterResponse != null) {
-                        execAfter(requestCode, resultCode, data, rar.afterResponse);
-                        j = i;
-                    } else {
-                        rar.activityResult.onActivityResult(requestCode, resultCode, data);
-                        j = i;
-                    }
+                    j = i;
+                    rar.activityResult.onActivityResult(requestCode, resultCode, data, rar.afterResponse);
                     break;
                 }
             }
             if (j > -1) {
                 RequestActivityResult rar = activityResultList.get(j);
+                rar.request = -1;
                 rar.activityResult = null;
                 rar.afterResponse = null;
             }
         }
     }
 
-    private void execAfter(int requestCode, int resultCode, Intent data, ActionsAfterResponse afterResponse) {
-        if (requestCode == RESULT_OK) {
-            for (ViewHandler vh : afterResponse.viewHandlers) {
-                switch (vh.type) {
-                    case UPDATE_DATA:
-                        mComponent.getComponent(vh.viewId).updateData(vh.paramModel);
-                        break;
+    ActivityResult activityResult  = new ActivityResult() {
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data, ActionsAfterResponse afterResponse) {
+            if (resultCode == RESULT_OK) {
+                for (ViewHandler vh : afterResponse.viewHandlers) {
+                    switch (vh.type) {
+                        case UPDATE_DATA:
+                            mComponent.getComponent(vh.viewId).updateData(vh.paramModel);
+                            break;
+                    }
                 }
             }
         }
-    }
+    };
 
     View.OnClickListener navigatorClick = new View.OnClickListener() {
         @Override
@@ -300,13 +278,14 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                 if (vh.viewId == id) {
                     switch (vh.type) {
                         case NAME_FRAGMENT:
+                            int requestCode = -1;
                             if (vh.afterResponse != null) {
-
+                                requestCode = addForResult(vh.afterResponse, activityResult);
                             }
                             if (vh.paramForScreen == ViewHandler.TYPE_PARAM_FOR_SCREEN.RECORD) {
-                                startScreen(vh.nameFragment, false, paramScreenRecord);
+                                startScreen(vh.nameFragment, false, paramScreenRecord, requestCode);
                             } else {
-                                startScreen(vh.nameFragment, false);
+                                startScreen(vh.nameFragment, false, null, requestCode);
                             }
                             break;
                         case BACK:
@@ -326,15 +305,13 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                             break;
                         case RESULT_PARAM :
                             Record record = workWithRecordsAndViews.ViewToRecord(parentLayout, vh.nameFieldWithValue);
-                            Log.d("QWERT","RESULT_PARAM record="+record.toString());
                             if (record != null) {
                                 ComponGlob.getInstance().setParam(record);
                             }
-                            setResult(0);
+                            setResult(RESULT_OK);
                             finishActivity();
                             break;
                     }
-//                    break;
                 }
             }
         }
@@ -465,23 +442,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         } else {
             if (canBackPressed()) {
                 finishActivity();
-//                finish();
-//                if (mComponent.animateScreen != null) {
-//                    switch (mComponent.animateScreen) {
-//                        case TB :
-//                            overridePendingTransition(R.anim.bt_in, R.anim.bt_out);
-//                            break;
-//                        case BT :
-//                            overridePendingTransition(R.anim.tb_in, R.anim.tb_out);
-//                            break;
-//                        case LR :
-//                            overridePendingTransition(R.anim.rl_in, R.anim.rl_out);
-//                            break;
-//                        case RL :
-//                            overridePendingTransition(R.anim.lr_in, R.anim.lr_out);
-//                            break;
-//                    }
-//                }
             }
         }
     }
@@ -573,7 +533,11 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                 intent.putExtra(Constants.NAME_PARAM_FOR_SCREEN, recordToJson.modelToJson(f));
             }
         }
-        startActivity(intent);
+        if (forResult > -1) {
+            startActivityForResult(intent, forResult);
+        } else {
+            startActivity(intent);
+        }
         if (mc.animateScreen != null) {
             switch (mc.animateScreen) {
                 case TB :
@@ -682,7 +646,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     @Override
     public void startScreen(String nameMVP, boolean startFlag) {
-        startScreen(nameMVP, startFlag, null);
+        startScreen(nameMVP, startFlag, null, -1);
     }
 
     public void setStatusBarColor(int color) {
@@ -768,10 +732,6 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             fragment.setArguments(bundle);
             fragment.setModel(mComponent);
             startNewFragment(fragment, nameMVP, mComponent);
-//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//            transaction.replace(containerFragmentId, bf.getThis(), nameMVP)
-////                .addToBackStack(nameMVP)
-//                    .commit();
         }
     }
 
