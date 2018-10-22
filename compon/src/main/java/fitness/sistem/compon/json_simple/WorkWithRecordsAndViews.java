@@ -1,8 +1,10 @@
 package fitness.sistem.compon.json_simple;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +35,9 @@ public class WorkWithRecordsAndViews {
     protected Record recordResult;
     private boolean setParam;
     private Visibility[] visibilityManager;
+    private boolean isSwipe;
+    private int swipeId, rightId, leftId;
+    private SwipeLayout swipeLayout;
 
     public void RecordToView(Record model, View view) {
         RecordToView(model, view, null, null, null);
@@ -44,6 +49,15 @@ public class WorkWithRecordsAndViews {
         this.view = view;
         this.navigator = navigator;
         this.clickView = clickView;
+        if (view instanceof SwipeLayout) {
+            isSwipe = true;
+            swipeLayout = (SwipeLayout) view;
+            swipeId = swipeLayout.getSwipeId();
+            rightId = swipeLayout.getRightId();
+            leftId = swipeLayout.getLeftId();
+        } else {
+            isSwipe = false;
+        }
         context = view.getContext();
         setParam = false;
         this.visibilityManager = visibilityManager;
@@ -114,8 +128,33 @@ public class WorkWithRecordsAndViews {
         if (navigator != null) {
             for (ViewHandler vh : navigator.viewHandlers) {
                 if (id == vh.viewId) {
-                    if (view instanceof SwipeLayout) {
-                        ((SwipeLayout) view).setOnClick(clickView);
+                    if (isSwipe) {
+                        if (id == swipeId) {
+                            swipeLayout.setOnClick(clickView);
+                        } else {
+                        switch (typeSwipe(v)) {
+                            case 1:
+                                v.setOnClickListener(clickView);
+                                break;
+                            case 2:
+//                                v.setOnClickListener(clickRight);
+                                v.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        SwipeLayout rp = getRootParent(v);
+                                        Log.d("QWERT","clickRight TAG="+rp.getTag());
+                                        if (rp.isSwipeRight()) {
+                                            Log.d("QWERT","clickRight clickRight clickRight");
+                                            clickView.onClick(v);
+                                        }
+                                    }
+                                });
+                                break;
+                            case 3:
+                                v.setOnClickListener(clickLeft);
+                                break;
+                        }
+                        }
                     } else {
                         v.setOnClickListener(clickView);
                     }
@@ -232,5 +271,49 @@ public class WorkWithRecordsAndViews {
             }
         }
     }
+
+    private SwipeLayout getRootParent(View v) {
+        if (v == null) return null;
+        ViewParent vp = v.getParent();
+        while (vp != null && ! (vp instanceof SwipeLayout)) {
+            vp = vp.getParent();
+        }
+        return (SwipeLayout)vp;
+    }
+
+    private int typeSwipe(View v) {
+        View vv = v;
+        do {
+            int id = vv.getId();
+            if (id == swipeId) {
+                return 1;
+            } else if (id == rightId) {
+                return 2;
+            } else if (id == leftId) {
+                return 3;
+            }
+            vv = (ViewGroup) vv.getParent();
+        } while (vv != null);
+        return 0;
+    }
+
+    View.OnClickListener clickRight = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (swipeLayout.isSwipeRight()) {
+                Log.d("QWERT","clickRight clickRight clickRight");
+                clickView.onClick(v);
+            }
+        }
+    };
+
+    View.OnClickListener clickLeft = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (swipeLayout.isSwipeLeft()) {
+                clickView.onClick(v);
+            }
+        }
+    };
 
 }

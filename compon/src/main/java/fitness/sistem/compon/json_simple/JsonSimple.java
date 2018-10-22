@@ -11,6 +11,7 @@ public class JsonSimple {
     private final String quote = "\"";
     private final String quoteComa = quote + ",";
     private final String a = "\\";
+    private final String quoteEcran = a + quote;
     private String currentSymbol;
     private String digits = "1234567890.+-";
     int ii = 0;
@@ -49,7 +50,25 @@ public class JsonSimple {
             String sep = "";
             for (Field f : model) {
                 if (f.value != null) {
-                    st.append(sep + "\"" + f.name + "\":\"" + (String) f.value + "\"");
+                    if (f.type == Field.TYPE_STRING) {
+                        String stQ = (String) f.value;
+                        String stRes = "";
+                        int j = 0;
+                        int i;
+                        int iL = stQ.length();
+                        do {
+                            i = stQ.indexOf(quote, j);
+                            if (i > 0) {
+                                stRes += stQ.substring(j, i) + a + quote;
+                                j = i + 1;
+                            } else {
+                                stRes += stQ.substring(j, iL);
+                            }
+                        } while (i > 0);;
+                        st.append(quote + f.name + "\":\""  + quote + stRes + quote);
+                    } else {
+                        st.append(sep + "\"" + f.name + "\":\"" + (String) f.value + "\"");
+                    }
                     sep = ",";
                 }
             }

@@ -1,7 +1,11 @@
 package fitness.sistem.compon.json_simple;
 
+import android.util.Log;
+
 public class SimpleRecordToJson {
     private String quote = "\"";
+    private final String a = "\\";
+    private String quoteEcran = a + quote;
     private String quoteColon = "\":";
     private StringBuffer sb;
 
@@ -32,7 +36,21 @@ public class SimpleRecordToJson {
                     if (f.value == null) {
                         sb.append(quote + f.name + quoteColon + "null");
                     } else {
-                        sb.append(quote + f.name + quoteColon + quote + (String) f.value + quote);
+                        String stQ = (String) f.value;
+                        String stRes = "";
+                        int j = 0;
+                        int i;
+                        int iL = stQ.length();
+                        do {
+                            i = stQ.indexOf(quote, j);
+                            if (i > 0) {
+                                stRes += stQ.substring(j, i) + a + quote;
+                                j = i + 1;
+                            } else {
+                                stRes += stQ.substring(j, iL);
+                            }
+                        } while (i > 0);;
+                        sb.append(quote + f.name + quoteColon + quote + stRes + quote);
                     }
                     break;
                 case Field.TYPE_INTEGER :

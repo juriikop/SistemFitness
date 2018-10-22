@@ -97,6 +97,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         workWithRecordsAndViews = new WorkWithRecordsAndViews();
         String paramJson = intent.getStringExtra(Constants.NAME_PARAM_FOR_SCREEN);
         if (paramJson != null && paramJson.length() >0) {
+            Log.d("QWERT","BaseActivity paramJson="+paramJson);
             JsonSimple jsonSimple = new JsonSimple();
             try {
                 paramScreen = jsonSimple.jsonToModel(paramJson);

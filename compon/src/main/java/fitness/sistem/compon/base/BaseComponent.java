@@ -400,6 +400,7 @@ public abstract class BaseComponent {
                             }
                             break;
                         case NAME_FRAGMENT:
+                            Log.d("QWERT","clickAdapter record="+record.toString());
                             ComponGlob.getInstance().setParam(record);
                             if (vh.paramForScreen == ViewHandler.TYPE_PARAM_FOR_SCREEN.RECORD) {
                                 iBase.startScreen(vh.nameFragment, false, record);

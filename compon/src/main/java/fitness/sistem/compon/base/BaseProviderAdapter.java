@@ -2,6 +2,7 @@ package fitness.sistem.compon.base;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import java.util.List;
 
 import fitness.sistem.compon.ComponGlob;
+import fitness.sistem.compon.R;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.IPresenterListener;
 import fitness.sistem.compon.interfaces_classes.Navigator;
@@ -116,13 +118,19 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+
+        Log.d("QWERT","onBindViewHolder holder.itemView="+holder.itemView.getId());
+        holder.itemView.setTag("PP="+position);
         final Record record = (Record) provider.get(position);
         modelToView.RecordToView(record,
                 holder.itemView, navigator, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                baseComponent.clickItem.onClick(holder, view, holder.getAdapterPosition(), record);
+                int pos = holder.getAdapterPosition();
+                Record rec = (Record) provider.get(pos);
+                Log.d("QWERT","onBindViewHolder position="+position+" pos="+pos+" rec="+rec.toString());
+                baseComponent.clickItem.onClick(holder, view, pos, rec);
             }
         }, visibilityManager);
 
@@ -130,7 +138,8 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    baseComponent.clickItem.onClick(holder, null, holder.getAdapterPosition(), record);
+                    int pos = holder.getAdapterPosition();
+                    baseComponent.clickItem.onClick(holder, null, pos, (Record) provider.get(pos));
                 }
             });
         }

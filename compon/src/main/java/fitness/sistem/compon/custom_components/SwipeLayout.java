@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -123,6 +124,28 @@ public class SwipeLayout extends RelativeLayout {
         this.clickListener = clickListener;
     }
 
+    public int getSwipeId() {
+        return swipeId;
+    }
+
+    public int getRightId() {
+        return rightId;
+    }
+
+    public int getLeftId() {
+        return leftId;
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent (MotionEvent ev) {
+        Log.d("QWERT","onInterceptTouchEvent event.getAction()="+ev.getAction()+" mSwipeView.getTranslationX()="+mSwipeView.getTranslationX());
+        if (mSwipeView != null && mSwipeView.getTranslationX() != 0) {
+            return false;
+        }
+        return true;
+
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float tX;
@@ -176,6 +199,7 @@ public class SwipeLayout extends RelativeLayout {
                     tX = minV;
                 }
                 mSwipeView.setTranslationX(tX);
+                Log.d("QWERT","onTouchEvent ACTION_MOVE mSwipeView.getTranslationX()="+mSwipeView.getTranslationX());
                 swipeShow(tX);
                 mVelocityTracker.addMovement(event);
                 return true;
@@ -215,6 +239,7 @@ public class SwipeLayout extends RelativeLayout {
                     setWidthRight();
                 }
                 mVelocityTracker.clear();
+                Log.d("QWERT","onTouchEvent ACTION_CANCEL mSwipeView.getTranslationX()="+mSwipeView.getTranslationX());
                 return ret;
         }
         return false;
@@ -266,6 +291,15 @@ public class SwipeLayout extends RelativeLayout {
 
     public boolean isSwipe() {
         return mSwipeView != null && mSwipeView.getTranslationX() != 0f;
+    }
+
+    public boolean isSwipeRight() {
+        Log.d("QWERT","isSwipeRight mSwipeView.getTranslationX()="+mSwipeView.getTranslationX());
+        return mSwipeView != null && mSwipeView.getTranslationX() < 0f;
+    }
+
+    public boolean isSwipeLeft() {
+        return mSwipeView != null && mSwipeView.getTranslationX() > 0f;
     }
 
     public void setOneSwipe(RecyclerView recycler) {
