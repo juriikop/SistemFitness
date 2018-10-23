@@ -64,8 +64,8 @@ public class JsonSimple {
                             } else {
                                 stRes += stQ.substring(j, iL);
                             }
-                        } while (i > 0);;
-                        st.append(quote + f.name + "\":\""  + quote + stRes + quote);
+                        } while (i > 0);
+                        st.append(sep + "\"" + f.name + "\":\"" + stRes + "\"");
                     } else {
                         st.append(sep + "\"" + f.name + "\":\"" + (String) f.value + "\"");
                     }

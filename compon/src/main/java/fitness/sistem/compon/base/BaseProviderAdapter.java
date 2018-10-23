@@ -12,6 +12,7 @@ import java.util.List;
 
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.R;
+import fitness.sistem.compon.custom_components.SwipeLayout;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.IPresenterListener;
 import fitness.sistem.compon.interfaces_classes.Navigator;
@@ -119,8 +120,12 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-
-        Log.d("QWERT","onBindViewHolder holder.itemView="+holder.itemView.getId());
+        SwipeLayout swipeView;
+        if (holder.itemView instanceof SwipeLayout) {
+            swipeView = (SwipeLayout) holder.itemView;
+            swipeView.closeSwipe();
+        }
+        Log.d("QWERT","onBindViewHolder holder.itemView="+holder.itemView.getId()+" isSwipe="+(holder.itemView instanceof SwipeLayout));
         holder.itemView.setTag("PP="+position);
         final Record record = (Record) provider.get(position);
         modelToView.RecordToView(record,

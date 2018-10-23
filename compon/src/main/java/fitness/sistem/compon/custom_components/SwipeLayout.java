@@ -136,15 +136,15 @@ public class SwipeLayout extends RelativeLayout {
         return leftId;
     }
 
-    @Override
-    public boolean onInterceptTouchEvent (MotionEvent ev) {
-        Log.d("QWERT","onInterceptTouchEvent event.getAction()="+ev.getAction()+" mSwipeView.getTranslationX()="+mSwipeView.getTranslationX());
-        if (mSwipeView != null && mSwipeView.getTranslationX() != 0) {
-            return false;
-        }
-        return true;
-
-    }
+//    @Override
+//    public boolean onInterceptTouchEvent (MotionEvent ev) {
+////        Log.d("QWERT","onInterceptTouchEvent event.getAction()="+ev.getAction()+" mSwipeView.getTranslationX()="+mSwipeView.getTranslationX());
+////        if (mSwipeView != null && mSwipeView.getTranslationX() != 0) {
+////            return false;
+////        }
+////        return true;
+//        return onTouchEvent(ev);
+//    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -199,7 +199,6 @@ public class SwipeLayout extends RelativeLayout {
                     tX = minV;
                 }
                 mSwipeView.setTranslationX(tX);
-                Log.d("QWERT","onTouchEvent ACTION_MOVE mSwipeView.getTranslationX()="+mSwipeView.getTranslationX());
                 swipeShow(tX);
                 mVelocityTracker.addMovement(event);
                 return true;
@@ -316,6 +315,12 @@ public class SwipeLayout extends RelativeLayout {
         dragLeft = child;
         typeSwipeLeft = typeSwipe;
         child.setVisibility(VISIBLE);
+    }
+
+    public void closeSwipe() {
+        if (mSwipeView != null && mSwipeView.getTranslationX() != 0) {
+            mSwipeView.setTranslationX(0);
+        }
     }
 
     public void setSwipeView(View view) {

@@ -96,7 +96,10 @@ public class CronListScreens  extends ListScreens {
                         .updateDB(SQL.PRODUCT_TAB, Api.DB_PRODUCT, SQL.dayMillisecond, SQL.PRODUCT_ALIAS),
                         new ParamView(R.id.recycler, R.layout.item_product_list)
                                 .visibilityManager(visibility(R.id.bonus, "extra_bonus")),
-                        new Navigator().add(R.id.swipe, PRODUCT_DESCRIPT, RECORD).add(R.id.add, ADD_PRODUCT, RECORD))
+                        new Navigator()
+                                .add(R.id.swipe, PRODUCT_DESCRIPT, RECORD)
+//                                .add(R.id.add, ADD_PRODUCT, RECORD)
+                )
                 .addSearchComponent(R.id.search, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_SEARCH, "product_name"),
                         new ParamView(R.id.recycler), null, false);
 
