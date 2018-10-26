@@ -147,7 +147,7 @@ public class SwipeLayout extends RelativeLayout {
 //    }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean dispatchTouchEvent(MotionEvent event) {
         float tX;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -208,10 +208,11 @@ public class SwipeLayout extends RelativeLayout {
                 float delt = mDownX - event.getX();
                 if (delt < 0f) delt = - delt;
                 if (delt < 5f) {
-                    if (clickListener != null) {
-                        clickListener.onClick(mSwipeView);
-                        ret = false;
-                    }
+                    return false;
+//                    if (clickListener != null) {
+//                        clickListener.onClick(mSwipeView);
+//                        ret = false;
+//                    }
                 }
                 if (isNoSwipe) return ret;
                 mVelocityTracker.computeCurrentVelocity(1000);

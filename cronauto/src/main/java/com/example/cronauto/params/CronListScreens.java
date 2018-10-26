@@ -96,10 +96,8 @@ public class CronListScreens  extends ListScreens {
                         .updateDB(SQL.PRODUCT_TAB, Api.DB_PRODUCT, SQL.dayMillisecond, SQL.PRODUCT_ALIAS),
                         new ParamView(R.id.recycler, R.layout.item_product_list)
                                 .visibilityManager(visibility(R.id.bonus, "extra_bonus")),
-                        new Navigator()
-                                .add(R.id.swipe, PRODUCT_DESCRIPT, RECORD)
-//                                .add(R.id.add, ADD_PRODUCT, RECORD)
-                )
+                        new Navigator().add(0, PRODUCT_DESCRIPT, RECORD)
+                                .add(R.id.add, ADD_PRODUCT, RECORD))
                 .addSearchComponent(R.id.search, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_SEARCH, "product_name"),
                         new ParamView(R.id.recycler), null, false);
 
@@ -130,9 +128,17 @@ public class CronListScreens  extends ListScreens {
                 .addComponent(TC.PANEL, new ParamModel(ParamModel.ARGUMENTS),
                         new ParamView(R.id.panel).visibilityManager(visibility(R.id.bonus, "extra_bonus")))
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PROPERTY_ID_PRODUCT,"product_id")
-                        .updateDB(SQL.PROPERTY_TAB, Api.PROPERTY, SQL.dayMillisecond),
-                        new ParamView(R.id.recycler, R.layout.item_property))
-        ;
+                                .updateDB(SQL.PROPERTY_TAB, Api.PROPERTY, SQL.dayMillisecond),
+                        new ParamView(R.id.recycler, R.layout.item_property));
+
+//        activity(PRODUCT_DESCRIPT, R.layout.activity_product_descript).animate(AS.RL)
+//                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK)
+//                        .add(R.id.add, ADD_PRODUCT, RECORD))
+//                .addComponent(TC.PANEL, new ParamModel(ParamModel.ARGUMENTS),
+//                        new ParamView(R.id.panel).visibilityManager(visibility(R.id.bonus, "extra_bonus")))
+//                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PROPERTY_ID_PRODUCT,"product_id")
+//                        .updateDB(SQL.PROPERTY_TAB, Api.PROPERTY, SQL.dayMillisecond),
+//                        new ParamView(R.id.recycler, R.layout.item_property));
 
         activity(ADD_PRODUCT, AddProductActivity.class).animate(AS.RL)
                 .addComponent(TC.PANEL_ENTER, new ParamModel(ParamModel.ARGUMENTS),
