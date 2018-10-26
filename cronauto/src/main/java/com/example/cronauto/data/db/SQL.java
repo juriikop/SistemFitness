@@ -80,6 +80,7 @@ public class SQL {
     public static String PRODUCT_BARCODE = "SELECT * FROM product WHERE bar_code = ?";
     public static String PRODUCT_E_BONUS = "SELECT * FROM product WHERE extra_bonus > 0 ";
     public static String PRODUCT_SEARCH = "SELECT * FROM product WHERE ";
+    public static String PRODUCT_ID = "SELECT * FROM product WHERE product_id = ?";
 
     public static String CATALOG_L1_L3 = "SELECT * FROM product, (SELECT catalog.catalog_id FROM catalog, " +
             "(SELECT * FROM catalog WHERE parent_id = ?) AS cat1 WHERE catalog.parent_id = cat1.catalog_id) AS cat " +

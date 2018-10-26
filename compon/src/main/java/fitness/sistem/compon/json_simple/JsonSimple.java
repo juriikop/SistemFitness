@@ -17,6 +17,7 @@ public class JsonSimple {
     int ii = 0;
 
     public Field jsonToModel(String st) throws JsonSyntaxException {
+        Log.d("QWERT","JsonSimple jsonToModel");
         if (st == null) return null;
         Field res = null;
         json = st;
@@ -80,10 +81,18 @@ public class JsonSimple {
     }
 
     private Object getList() throws JsonSyntaxException {
+        int qqqq = 0;
+        int zzzz = 0;
         if (firstSymbol()) {
             if (currentSymbol.equals("{") || currentSymbol.equals("]")) {
                 ListRecords list = new ListRecords();
                 while (!currentSymbol.equals("]")) {
+                    qqqq++;
+                    if (qqqq == 500) {
+                        qqqq = 0;
+                        zzzz++;
+                        Log.d("QWERT","getList getList zzzz="+zzzz);
+                    }
                     if (currentSymbol.equals("{")) {
                         list.add(getClazz());
                         if (!firstSymbol()) {

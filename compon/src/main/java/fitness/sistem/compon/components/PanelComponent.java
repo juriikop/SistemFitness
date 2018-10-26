@@ -1,8 +1,11 @@
 package fitness.sistem.compon.components;
 
+import android.util.Log;
+
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.json_simple.Field;
+import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamComponent;
 
@@ -22,7 +25,17 @@ public class PanelComponent extends BaseComponent {
             Record rec = (Record) field.value;
             workWithRecordsAndViews.RecordToView(rec, viewComponent, paramMV.navigator, null, paramMV.paramView.visibilityArray);
         } else {
-            iBase.log("Тип данных не Record в " + paramMV.nameParentComponent);
+            if (field.value instanceof ListRecords) {
+                ListRecords lr = (ListRecords) field.value;
+                if (lr. size() > 0) {
+                    Record rec = lr.get(0);
+                    workWithRecordsAndViews.RecordToView(rec, viewComponent, paramMV.navigator, null, paramMV.paramView.visibilityArray);
+                } else {
+                    iBase.log("Тип данных не Record в " + paramMV.nameParentComponent);
+                }
+            } else {
+                iBase.log("Тип данных не Record в " + paramMV.nameParentComponent);
+            }
         }
     }
 

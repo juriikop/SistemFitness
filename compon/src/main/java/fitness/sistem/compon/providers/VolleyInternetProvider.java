@@ -88,6 +88,7 @@ public class VolleyInternetProvider extends BaseInternetProvider {
 
         @Override
         public void onResponse(String response) {
+            Log.d("QWERT","VolleyInternetProvider +++++ SIZE="+response.length());
             listener.response(response);
         }
     };

@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
@@ -32,6 +33,7 @@ import fitness.sistem.compon.interfaces_classes.EventComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.OnResumePause;
+import fitness.sistem.compon.interfaces_classes.Param;
 import fitness.sistem.compon.interfaces_classes.ParentModel;
 import fitness.sistem.compon.interfaces_classes.PermissionsResult;
 import fitness.sistem.compon.interfaces_classes.RequestActivityResult;
@@ -47,6 +49,7 @@ import fitness.sistem.compon.json_simple.SimpleRecordToJson;
 import fitness.sistem.compon.json_simple.WorkWithRecordsAndViews;
 import fitness.sistem.compon.tools.ComponPrefTool;
 import fitness.sistem.compon.tools.Constants;
+import fitness.sistem.compon.tools.StaticVM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +100,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         workWithRecordsAndViews = new WorkWithRecordsAndViews();
         String paramJson = intent.getStringExtra(Constants.NAME_PARAM_FOR_SCREEN);
         if (paramJson != null && paramJson.length() >0) {
-            Log.d("QWERT","BaseActivity paramJson="+paramJson);
+//            Log.d("QWERT","BaseActivity paramJson="+paramJson);
             JsonSimple jsonSimple = new JsonSimple();
             try {
                 paramScreen = jsonSimple.jsonToModel(paramJson);
@@ -143,6 +146,16 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
         if (this instanceof ICustom) {
             mComponent.setCustom((ICustom) this);
+        }
+        TextView title = (TextView) StaticVM.findViewByName(parentLayout, "title");
+        if (title != null && mComponent.title != null) {
+            if (mComponent.args != null && mComponent.args.length > 0) {
+                title.setText(String.format(mComponent.title, setFormatParam(mComponent.args)));
+            } else {
+                if (mComponent.title.length() > 0) {
+                    title.setText(mComponent.title);
+                }
+            }
         }
         initView();
     }
@@ -860,5 +873,25 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
     @Override
     public Field getParamScreen() {
         return paramScreen;
+    }
+
+    public String setFormatParam(String[] args) {
+        String st = "";
+        List<Param> paramValues = ComponGlob.getInstance().paramValues;
+//        List<String> namesParams = ComponGlob.getInstance().namesParams;
+//        List<String> valuesParams = ComponGlob.getInstance().valuesParams;
+        String sep = "";
+//        int ik = namesParams.size();
+        for (String arg : args) {
+//            String value = "";
+            for (Param paramV : paramValues) {
+                if (arg.equals(paramV.name)) {
+                    st = sep + paramV.value;
+                    sep = ",";
+                    break;
+                }
+            }
+        }
+        return st;
     }
 }

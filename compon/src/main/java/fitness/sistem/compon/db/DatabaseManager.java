@@ -56,7 +56,8 @@ public class DatabaseManager extends BaseDB {
 
     @Override
     public void insertListRecord(String table, ListRecords listRecords, String nameAlias) {
-        Map<String, String> mapField = new HashMap<>();
+//        Map<String, String> mapField = new HashMap<>();
+        Log.d("QWERT","DatabaseManager insertListRecord TABLE="+table+"<<< SIZE="+listRecords.size());
         String[] columnNames = null;
         String[] aliasNames = null;
         openDatabase();

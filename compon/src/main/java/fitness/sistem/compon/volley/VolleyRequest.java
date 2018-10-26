@@ -46,6 +46,7 @@ public class VolleyRequest <T> extends Request<T> {
             String jsonSt = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers));
             if (appParams.LOG_LEVEL > 2) Log.d(appParams.NAME_LOG_NET, "Respons json=" + jsonSt);
+            Log.d("QWERT","VolleyRequest\nVolleyRequest SIZE="+jsonSt.length());
             CookieManager.checkAndSaveSessionCookie(response.headers);
             return Response.success( (T) Html.fromHtml(jsonSt).toString(),
                     HttpHeaderParser.parseCacheHeaders(response));

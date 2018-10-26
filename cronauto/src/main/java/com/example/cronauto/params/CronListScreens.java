@@ -27,7 +27,8 @@ public class CronListScreens  extends ListScreens {
             ORDER = "order", LIST_ORDER = "list_order", INDEX = "index", PRODUCT_LIST = "product_list",
             CATALOG = "catalog", ORDER_LOG = "order_log", ORDER_LOG_HISTORY = "order_log_history",
             NOVELTIES = "novelties", EXTRA_BONUS = "extra_bonus", PRODUCT_DESCRIPT = "product_descript",
-            ADD_PRODUCT = "add_product", EDIT_ORDER = "edit_order", BARCODE = "barcode";
+            ADD_PRODUCT = "add_product", EDIT_ORDER = "edit_order", BARCODE = "barcode",
+            DESCRIPT = "descript", CHARACTERISTIC = "characteristic";
 
     @Override
     public void initScreen() {
@@ -122,14 +123,23 @@ public class CronListScreens  extends ListScreens {
         fragment(ORDER_LOG_HISTORY, R.layout.fragment_orderlog_history).animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK));
 
-        activity(PRODUCT_DESCRIPT, R.layout.activity_product_descript).animate(AS.RL)
-                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK)
-                        .add(R.id.add, ADD_PRODUCT, RECORD))
+        activity(PRODUCT_DESCRIPT, R.layout.activity_product_descript, "%1$s", "catalog_name").animate(AS.RL)
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
                 .addComponent(TC.PANEL, new ParamModel(ParamModel.ARGUMENTS),
-                        new ParamView(R.id.panel).visibilityManager(visibility(R.id.bonus, "extra_bonus")))
+                        new ParamView(R.id.name_panel))
+                .addComponent(TC.PAGER_F, new ParamView(R.id.pager,
+                        new String[] {DESCRIPT, CHARACTERISTIC})
+                        .setTab(R.id.tabs, R.array.descript_tab_name));
+
+        fragment(DESCRIPT, R.layout.fragment_descript)
+                .addComponent(TC.PANEL, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_ID, "product_id"),
+                        new ParamView(R.id.panel));
+
+        fragment(CHARACTERISTIC, R.layout.fragment_characteristic)
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PROPERTY_ID_PRODUCT,"product_id")
                                 .updateDB(SQL.PROPERTY_TAB, Api.PROPERTY, SQL.dayMillisecond),
                         new ParamView(R.id.recycler, R.layout.item_property));
+
 
 //        activity(PRODUCT_DESCRIPT, R.layout.activity_product_descript).animate(AS.RL)
 //                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK)

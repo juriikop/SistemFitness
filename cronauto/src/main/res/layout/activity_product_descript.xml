@@ -37,13 +37,13 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/name_l"
+        android:id="@+id/name_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tool"
         android:background="@color/gray">
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/product_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/st_18_black"
@@ -57,7 +57,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/pad_48"
-        android:layout_below="@+id/name_l"
+        android:layout_below="@+id/name_panel"
         android:background="@color/gray">
         <View
             android:layout_width="match_parent"
@@ -74,7 +74,7 @@
         app:tabTextColor="@color/text_color"
         app:tabSelectedTextColor="@color/text_color_50"
         app:tabIndicatorHeight="@dimen/pad_2"
-        android:layout_below="@+id/name_l" />
+        android:layout_below="@+id/name_panel" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"

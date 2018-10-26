@@ -129,6 +129,7 @@
     <string name="change_bd_character">Обновление базы данных характеристик</string>
     <string name="remainder">Остаток</string>
     <string name="more_residue">Внимание! Заказываемое количество, превышает доступные остатки. Недостающее количество будет зарезервировано и поставлено. Возможно изменение стоимости в связи с изменением цены поступления.</string>
+    <string name="analog">Аналоги</string>
 
     <string-array name="auth_tab_name">
         <item>Вход</item>

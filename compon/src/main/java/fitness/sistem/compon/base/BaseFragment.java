@@ -102,7 +102,7 @@ public class BaseFragment extends Fragment implements IBase {
             TextView title = (TextView) StaticVM.findViewByName(parentLayout, "title");
             if (title != null && mComponent.title != null) {
                 if (mComponent.args != null && mComponent.args.length > 0) {
-                    title.setText(String.format(mComponent.title, setFormatParam(mComponent.args)));
+                    title.setText(String.format(mComponent.title, activity.setFormatParam(mComponent.args)));
                 } else {
                     if (mComponent.title.length() > 0) {
                         title.setText(mComponent.title);
@@ -238,26 +238,26 @@ public class BaseFragment extends Fragment implements IBase {
         this.mComponent = mComponent;
     }
 
-    public String setFormatParam(String[] args) {
-        String st = "";
-        BaseActivity ba = (BaseActivity) getActivity();
-        List<Param> paramValues = ComponGlob.getInstance().paramValues;
-//        List<String> namesParams = ComponGlob.getInstance().namesParams;
-//        List<String> valuesParams = ComponGlob.getInstance().valuesParams;
-        String sep = "";
-//        int ik = namesParams.size();
-        for (String arg : args) {
-            String value = "";
-            for (Param paramV : paramValues) {
-                if (arg.equals(paramV.name)) {
-                    st = sep + paramV.value;
-                    sep = ",";
-                    break;
-                }
-            }
-        }
-        return st;
-    }
+//    public String setFormatParam(String[] args) {
+//        String st = "";
+//        BaseActivity ba = (BaseActivity) getActivity();
+//        List<Param> paramValues = ComponGlob.getInstance().paramValues;
+////        List<String> namesParams = ComponGlob.getInstance().namesParams;
+////        List<String> valuesParams = ComponGlob.getInstance().valuesParams;
+//        String sep = "";
+////        int ik = namesParams.size();
+//        for (String arg : args) {
+//            String value = "";
+//            for (Param paramV : paramValues) {
+//                if (arg.equals(paramV.name)) {
+//                    st = sep + paramV.value;
+//                    sep = ",";
+//                    break;
+//                }
+//            }
+//        }
+//        return st;
+//    }
 
     @Override
     public void onStop() {
