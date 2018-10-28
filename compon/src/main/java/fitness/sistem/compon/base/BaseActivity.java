@@ -633,13 +633,15 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                 progressDialog.show(getFragmentManager(), "MyProgressDialog");
             }
             countProgressStart++;
+            Log.d("QWERT","progressStart countProgressStart="+countProgressStart);
         }
     }
 
     @Override
     public void progressStop() {
         countProgressStart--;
-        if (countProgressStart == 0 && progressDialog != null) {
+        Log.d("QWERT","progressStop countProgressStart="+countProgressStart+" progressDialog="+progressDialog);
+        if (countProgressStart <= 0 && progressDialog != null) {
             progressDialog.dismiss();
             progressDialog = null;
         }

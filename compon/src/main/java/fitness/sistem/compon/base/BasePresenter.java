@@ -65,14 +65,15 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
         if (duration > 0) {
             nameJson = url;
             json = ComponGlob.getInstance().cacheWork.getJson(nameJson);
-            try {
-                listener.onResponse(jsonSimple.jsonToModel(Html.fromHtml(json).toString()));
-            } catch (JsonSyntaxException e) {
-                iBase.log(e.getMessage());
-                e.printStackTrace();
-            }
             if (json == null) {
                 startInternetProvider();
+            } else {
+                try {
+                    listener.onResponse(jsonSimple.jsonToModel(Html.fromHtml(json).toString()));
+                } catch (JsonSyntaxException e) {
+                    iBase.log(e.getMessage());
+                    e.printStackTrace();
+                }
             }
         } else {
             startInternetProvider();
@@ -116,7 +117,6 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
 
     @Override
     public void response(String response) {
-        Log.d("QWERT","BasePresenter response="+response.substring(0, 250));
         iBase.progressStop();
         if (response == null) {
             iBase.showDialog("", "no response", null);
@@ -130,7 +130,6 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
                 listener.onResponse(new Field("", TYPE_STRING, ""));
             } else {
                 Field f = null;
-                Log.d("QWERT","BasePresenter response ++++++++++++++++++++++++++++++++++++");
                 try {
                     f = jsonSimple.jsonToModel(response);
                 } catch (JsonSyntaxException e) {
@@ -138,7 +137,6 @@ public class BasePresenter implements BaseInternetProvider.InternetProviderListe
                     iBase.showDialog(BaseInternetProvider.JSONSYNTAXERROR, e.getMessage(), null);
                     e.printStackTrace();
                 }
-                Log.d("QWERT","BasePresenter response !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 if (f != null && f.value != null) {
                     listener.onResponse(f);
 //                    if (f.type == Field.TYPE_LIST_RECORD) {

@@ -29,7 +29,7 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/number"
+            android:id="@+id/row"
             android:layout_width="@dimen/pad_32"
             android:layout_height="wrap_content"
             style="@style/st_16_black"
@@ -38,13 +38,12 @@
             android:text="1"/>
 
         <TextView
-            android:id="@+id/productName"
+            android:id="@+id/product_name"
             style="@style/st_16_black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/pad_45"
             android:layout_marginRight="@dimen/pad_24"
-            android:text="Qwftwedf huhf jkrtj  rjtiertutt toiy  toi"
             android:layout_marginTop="@dimen/pad_12"
             android:fontFamily="sans-serif-light"/>
 
@@ -55,7 +54,7 @@
             android:layout_marginTop="@dimen/pad_12"
             android:layout_marginLeft="@dimen/pad_45"
             android:layout_marginRight="@dimen/pad_24"
-            android:layout_below="@+id/productName">
+            android:layout_below="@+id/product_name">
             <TextView
                 android:id="@+id/amount"
                 style="@style/st_18_black"

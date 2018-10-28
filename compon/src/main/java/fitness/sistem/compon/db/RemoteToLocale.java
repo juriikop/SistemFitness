@@ -22,7 +22,7 @@ public class RemoteToLocale {
         this.table = table;
         this.dbListener = dbListener;
         ParamModel paramModel = new ParamModel(url);
-        iBase.progressStart();
+//        iBase.progressStart();
         new BasePresenter(iBase, paramModel, null, null, listener);
     }
 

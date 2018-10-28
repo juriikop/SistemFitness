@@ -36,6 +36,7 @@ public class ParamModel <T> {
     public TypeParam typeParam = TypeParam.NAME;
     public boolean isPagination;
     public int paginationPerPage;
+    public String rowName;
     public int stringArray;
     public String paginationNameParamPerPage;
     public String paginationNameParamNumberPage;
@@ -90,6 +91,7 @@ public class ParamModel <T> {
     public ParamModel(String url, String param) {
         this(url, param, -1);
     }
+
     public ParamModel(int method, String urlOrNameParent, String paramOrField) {
         this(method, urlOrNameParent, paramOrField, -1);
     }
@@ -138,6 +140,11 @@ public class ParamModel <T> {
         updateUrl = url;
         this.duration = duration;
         updateAlias = nameAlias;
+        return this;
+    }
+
+    public ParamModel row(String nameRowField) {
+        rowName = nameRowField;
         return this;
     }
 

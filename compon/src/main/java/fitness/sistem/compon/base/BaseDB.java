@@ -14,7 +14,7 @@ public abstract class BaseDB {
     public abstract void insertCV(String nameTable, ContentValues cv);
     public abstract void insertListRecord(String sql, ListRecords listRecords, String nameAlias);
     public abstract void insertListRecord(String sql, ListRecords listRecords);
-    public abstract Field get(IBase iBase, String sql, String[] param);
+    public abstract Field get(IBase iBase, ParamModel paramModel, String sql, String[] param);
     public abstract void get(IBase iBase, ParamModel paramModel, String[] param, IPresenterListener listener);
     public abstract void remoteToLocale(IBase iBase, String url, String table, String nameAlias);
 }

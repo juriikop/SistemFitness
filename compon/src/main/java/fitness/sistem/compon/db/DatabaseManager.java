@@ -112,25 +112,27 @@ public class DatabaseManager extends BaseDB {
                 }
             }
             int ii = 0;
+            mDatabase.delete(table, null, null);
             for (Record record : listRecords) {
                 ContentValues cv = new ContentValues();
-                String stt = "";
+//                String stt = "";
                 for (int j = 0; j < jk; j++) {
                     Field f = record.getField(aliasNames[j]);
                     if (f != null) {
-                        stt += columnNames[j] + "=";
+//                        stt += columnNames[j] + "=";
                         switch (columnType[j]) {
                             case Cursor.FIELD_TYPE_INTEGER :
+
                                 cv.put(columnNames[j], record.getLongField(f));
-                                stt+= record.getLongField(f) + ";";
+//                                stt+= record.getLongField(f) + ";";
                                 break;
                             case Cursor.FIELD_TYPE_FLOAT :
                                 cv.put(columnNames[j], record.getFloatField(f));
-                                stt+= record.getFloatField(f) + ";";
+//                                stt+= record.getFloatField(f) + ";";
                                 break;
                             case Cursor.FIELD_TYPE_STRING :
                                 cv.put(columnNames[j], (String) f.value);
-                                stt+= (String) f.value + ";";
+//                                stt+= (String) f.value + ";";
                                 break;
                         }
                     }
@@ -168,7 +170,7 @@ public class DatabaseManager extends BaseDB {
     }
 
     @Override
-    public Field get(IBase iBase, String sql, String[] param) {
+    public Field get(IBase iBase, ParamModel paramModel, String sql, String[] param) {
         if (param != null) {
             String st = "";
             for (String sti : param) {
@@ -192,6 +194,7 @@ public class DatabaseManager extends BaseDB {
                 String[] nameColumn = c.getColumnNames();
 //                listRecords = new ListRecords();
                 Record record;
+                int row = 0;
                 do {
                     record = new Record();
                     for (int i = 0; i < countCol; i++) {
@@ -209,6 +212,10 @@ public class DatabaseManager extends BaseDB {
                                 record.add(new Field(nameColumn[i], Field.TYPE_STRING, c.getString(i)));
                                 break;
                         }
+                    }
+                    if (paramModel.rowName != null && paramModel.rowName.length() > 0) {
+                        row++;
+                        record.add(new Field(paramModel.rowName, Field.TYPE_LONG, row));
                     }
                     listRecords.add(record);
                 } while (c.moveToNext());

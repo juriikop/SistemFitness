@@ -52,6 +52,7 @@ public abstract class BaseComponent {
     public Navigator navigator;
     public MoreWork moreWork;
     public ListRecords listData;
+    public Record recordComponent;
     public IBase iBase;
     public ICustom iCustom;
     public ViewHandler selectViewHandler;
@@ -334,6 +335,19 @@ public abstract class BaseComponent {
                             if (vh.execMethod != null) {
                                 vh.execMethod.run(getThis());
                             }
+                            break;
+                        case NAME_FRAGMENT:
+                            if (recordComponent != null) {
+                                ComponGlob.getInstance().setParam(recordComponent);
+                            }
+                            if (vh.paramForScreen == ViewHandler.TYPE_PARAM_FOR_SCREEN.RECORD) {
+                                iBase.startScreen(vh.nameFragment, false, recordComponent);
+                            } else {
+                                iBase.startScreen(vh.nameFragment, false);
+                            }
+                            break;
+                        case BACK:
+                            activity.onBackPressed();
                             break;
                         case CLICK_SEND :
                             boolean valid = true;

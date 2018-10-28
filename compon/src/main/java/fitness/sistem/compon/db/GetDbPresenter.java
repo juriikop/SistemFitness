@@ -37,10 +37,10 @@ public class GetDbPresenter {
                 Field f = null;
                 if (paramModel.urlArray != null) {
                     if (paramModel.urlArrayIndex > -1) {
-                        f = ComponGlob.getInstance().baseDB.get(iBase, paramModel.urlArray[paramModel.urlArrayIndex + 1], param);
+                        f = ComponGlob.getInstance().baseDB.get(iBase, paramModel, paramModel.urlArray[paramModel.urlArrayIndex + 1], param);
                     }
                 } else {
-                    f = ComponGlob.getInstance().baseDB.get(iBase, paramModel.url, param);
+                    f = ComponGlob.getInstance().baseDB.get(iBase, paramModel, paramModel.url, param);
                 }
                 listener.onResponse(f);
             }
@@ -48,10 +48,10 @@ public class GetDbPresenter {
             Field f = null;
             if (paramModel.urlArray != null) {
                 if (paramModel.urlArrayIndex > -1) {
-                    f = ComponGlob.getInstance().baseDB.get(iBase, paramModel.urlArray[paramModel.urlArrayIndex + 1], param);
+                    f = ComponGlob.getInstance().baseDB.get(iBase, paramModel, paramModel.urlArray[paramModel.urlArrayIndex + 1], param);
                 }
             } else {
-                f = ComponGlob.getInstance().baseDB.get(iBase, paramModel.url, param);
+                f = ComponGlob.getInstance().baseDB.get(iBase, paramModel, paramModel.url, param);
             }
             listener.onResponse(f);
         }
@@ -66,10 +66,10 @@ public class GetDbPresenter {
             Field f = null;
             if (paramModel.urlArray != null) {
                 if (paramModel.urlArrayIndex > -1) {
-                    f = baseDB.get(iBase, paramModel.urlArray[paramModel.urlArrayIndex + 1], param);
+                    f = baseDB.get(iBase, paramModel, paramModel.urlArray[paramModel.urlArrayIndex + 1], param);
                 }
             } else {
-                f = baseDB.get(iBase, paramModel.url, param);
+                f = baseDB.get(iBase, paramModel, paramModel.url, param);
             }
             listener.onResponse(f);
         }

@@ -86,7 +86,22 @@ public class CronListScreens  extends ListScreens {
                 .addRecognizeVoiceComponent(R.id.microphone, R.id.search)
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_E_BONUS)
                                 .updateDB(SQL.PRODUCT_TAB, Api.DB_PRODUCT, SQL.dayMillisecond, SQL.PRODUCT_ALIAS),
-                        new ParamView(R.id.recycler, R.layout.item_product_list));
+                        new ParamView(R.id.recycler, R.layout.item_product_list),
+                new Navigator().add(0, PRODUCT_DESCRIPT, RECORD)
+                        .add(R.id.add, ADD_PRODUCT, RECORD))
+                .addSearchComponent(R.id.search, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_SEARCH, "product_name"),
+                new ParamView(R.id.recycler), null, false);
+
+        fragment(NOVELTIES, R.layout.fragment_novelties)
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER))
+                .addRecognizeVoiceComponent(R.id.microphone, R.id.search)
+                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_NOVELTIES)
+                                .updateDB(SQL.PRODUCT_TAB, Api.DB_PRODUCT, SQL.dayMillisecond, SQL.PRODUCT_ALIAS),
+                        new ParamView(R.id.recycler, R.layout.item_product_list),
+                        new Navigator().add(0, PRODUCT_DESCRIPT, RECORD)
+                                .add(R.id.add, ADD_PRODUCT, RECORD))
+                .addSearchComponent(R.id.search, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_SEARCH, "product_name"),
+                        new ParamView(R.id.recycler), null, false);
 
         activity(PRODUCT_LIST, R.layout.activity_product_list).animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK)
@@ -113,7 +128,8 @@ public class CronListScreens  extends ListScreens {
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.ORDER_LIST),
                 new ParamView(R.id.recycler, "type", new int[]{R.layout.item_order_log_order,
                         R.layout.item_order_log_product, R.layout.item_order_log_amount})
-                        .expanded(R.id.expand, R.id.expand, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_IN_ORDER, "orderId")),
+                        .expanded(R.id.expand, R.id.expand,
+                                new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_IN_ORDER, "orderId").row("row")),
                         new Navigator().add(R.id.edit, EDIT_ORDER, RECORD)
                                 .add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
                                 new ParamModel(ParamModel.POST, Api.ORDER_ADD, "orderName,status,comment,payBonus,date")));
@@ -133,22 +149,18 @@ public class CronListScreens  extends ListScreens {
 
         fragment(DESCRIPT, R.layout.fragment_descript)
                 .addComponent(TC.PANEL, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_ID, "product_id"),
-                        new ParamView(R.id.panel));
+                        new ParamView(R.id.panel).visibilityManager(visibility(R.id.bonus_img, "extra_bonus")),
+                        new Navigator().add(R.id.add, ADD_PRODUCT, RECORD))
+                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.ANALOG_ID_PRODUCT,"product_id")
+                                .updateDB(SQL.ANALOG_TAB, Api.ANALOG, SQL.dayMillisecond, SQL.ANALOG_ALIAS),
+                        new ParamView(R.id.recycler, R.layout.item_product_list).setSplashScreen(R.id.not_analog),
+                        new Navigator().add(0, PRODUCT_DESCRIPT, RECORD)
+                                .add(R.id.add, ADD_PRODUCT, RECORD).add(0, ViewHandler.TYPE.BACK));;
 
         fragment(CHARACTERISTIC, R.layout.fragment_characteristic)
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PROPERTY_ID_PRODUCT,"product_id")
-                                .updateDB(SQL.PROPERTY_TAB, Api.PROPERTY, SQL.dayMillisecond),
-                        new ParamView(R.id.recycler, R.layout.item_property));
-
-
-//        activity(PRODUCT_DESCRIPT, R.layout.activity_product_descript).animate(AS.RL)
-//                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK)
-//                        .add(R.id.add, ADD_PRODUCT, RECORD))
-//                .addComponent(TC.PANEL, new ParamModel(ParamModel.ARGUMENTS),
-//                        new ParamView(R.id.panel).visibilityManager(visibility(R.id.bonus, "extra_bonus")))
-//                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PROPERTY_ID_PRODUCT,"product_id")
-//                        .updateDB(SQL.PROPERTY_TAB, Api.PROPERTY, SQL.dayMillisecond),
-//                        new ParamView(R.id.recycler, R.layout.item_property));
+                                .updateDB(SQL.PROPERTY_TAB, Api.PROPERTY, SQL.dayMillisecond, SQL.PROPERTY_ALIAS),
+                        new ParamView(R.id.recycler, "2", new int[] {R.layout.item_property, R.layout.item_property_1}));
 
         activity(ADD_PRODUCT, AddProductActivity.class).animate(AS.RL)
                 .addComponent(TC.PANEL_ENTER, new ParamModel(ParamModel.ARGUMENTS),

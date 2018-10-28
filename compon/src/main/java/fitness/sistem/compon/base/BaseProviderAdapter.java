@@ -87,18 +87,22 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (fieldType.length() == 0) {
             return 0;
         } else {
-            Field f = provider.get(position).getField(fieldType);
-            if (f == null) {
-                return 0;
-            }
-            if (f.type == Field.TYPE_STRING) {
-                return Integer.valueOf((String) f.value);
+            if (fieldType.equals("2")) {
+                return position % 2;
             } else {
-                if (f.value instanceof Integer) {
-                    return (int) f.value;
+                Field f = provider.get(position).getField(fieldType);
+                if (f == null) {
+                    return 0;
+                }
+                if (f.type == Field.TYPE_STRING) {
+                    return Integer.valueOf((String) f.value);
                 } else {
-                    long ll = (Long) f.value;
-                    return (int) ll;
+                    if (f.value instanceof Integer) {
+                        return (int) f.value;
+                    } else {
+                        long ll = (Long) f.value;
+                        return (int) ll;
+                    }
                 }
             }
         }

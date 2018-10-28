@@ -37,17 +37,17 @@
         android:fontFamily="sans-serif-medium"
         android:letterSpacing="0.09" />
 
-    <TextView
-        android:id="@+id/send"
-        android:layout_width="@dimen/pad_80"
-        android:layout_height="@dimen/pad_40"
-        android:layout_alignParentRight="true"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/pad_14"
-        android:text="@string/send_ord"
-        android:layout_marginRight="@dimen/pad_8"
-        android:background="@color/primary"/>
+    <!--<TextView-->
+        <!--android:id="@+id/send"-->
+        <!--android:layout_width="@dimen/pad_80"-->
+        <!--android:layout_height="@dimen/pad_40"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:gravity="center"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="@dimen/pad_14"-->
+        <!--android:text="@string/send_ord"-->
+        <!--android:layout_marginRight="@dimen/pad_8"-->
+        <!--android:background="@color/primary"/>-->
 
     <ImageView
         android:id="@+id/edit"
