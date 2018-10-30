@@ -134,6 +134,7 @@ public class CronListScreens  extends ListScreens {
 
         activity(ORDER_PRODUCT, R.layout.activity_order_product, "%1$s", "orderName").animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
+                .addPlusMinus(R.id.count, R.id.plus, R.id.minus, new Multiply(R.id.amount, "price"))
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_IN_ORDER, "orderId").row("row"),
                         new ParamView(R.id.recycler, R.layout.item_order_log_product));
 

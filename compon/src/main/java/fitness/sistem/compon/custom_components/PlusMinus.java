@@ -69,9 +69,9 @@ public class PlusMinus extends AppCompatEditText {
 
     }
 
-    public void setParam(View view, final Record record, final BaseComponent component) {
+    public void setParam(View view, Record rec, BaseComponent component) {
         parentView = view;
-        this.record = record;
+        this.record = rec;
         iCustom = component.iCustom;
         paramMV = component.paramMV;
         this.component = component;
@@ -97,6 +97,12 @@ public class PlusMinus extends AppCompatEditText {
                     String st = getText().toString();
                     if (st != null && st.length() > 0) {
                         i = Integer.valueOf(st);
+                    }
+                    if (i < minValueInt) {
+                        i = minValueInt;
+                        String st1 = String.valueOf(i);
+                        setText(st1);
+                        setSelection(st1.length());
                     }
                     for (Multiply m : plusMinusComponent.paramMV.multiplies) {
                         Float mult = record.getFloat(m.nameField);
@@ -125,6 +131,7 @@ public class PlusMinus extends AppCompatEditText {
             plusId = plusMinusComponent.paramMV.paramView.layoutTypeId[0];
             minusId = plusMinusComponent.paramMV.paramView.layoutFurtherTypeId[0];
         }
+
 // PLUS
         if (plusId != 0) {
             View vPlus = parentView.findViewById(plusId);

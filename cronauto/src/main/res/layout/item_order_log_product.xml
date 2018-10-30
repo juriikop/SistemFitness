@@ -1,4 +1,4 @@
-<fitness.sistem.compon.custom_components.SwipeLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -34,8 +34,7 @@
             android:layout_height="wrap_content"
             style="@style/st_16_black"
             android:gravity="right"
-            android:layout_marginTop="@dimen/pad_12"
-            android:text="1"/>
+            android:layout_marginTop="@dimen/pad_12"/>
 
         <TextView
             android:id="@+id/product_name"
@@ -55,13 +54,20 @@
             android:layout_marginLeft="@dimen/pad_45"
             android:layout_marginRight="@dimen/pad_24"
             android:layout_below="@+id/product_name">
-            <TextView
+            <!--<TextView-->
+                <!--android:id="@+id/amount"-->
+                <!--style="@style/st_18_black"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textStyle="bold" />-->
+
+            <fitness.sistem.compon.custom_components.SimpleTextView
                 android:id="@+id/amount"
                 style="@style/st_18_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="123.45 ₴"
-                android:textStyle="bold" />
+                app:numberFormat="#0.00"
+                android:textStyle="bold"/>
 
             <ImageView
                 android:id="@+id/plus"
@@ -83,7 +89,7 @@
                 android:orientation="horizontal"
                 android:background="@color/gray">
 
-                <EditText
+                <fitness.sistem.compon.custom_components.PlusMinus
                     android:id="@+id/count"
                     style="@style/st_18_black"
                     android:layout_width="match_parent"
@@ -93,6 +99,7 @@
                     android:inputType="number"
                     android:maxLength="5"
                     android:maxLines="1"
+                    app:minValue="1"
                     android:singleLine="true" />
             </LinearLayout>
             <ImageView
@@ -115,4 +122,4 @@
             android:background="@color/black_10"/>
     </RelativeLayout>
 
-</fitness.sistem.compon.custom_components.SwipeLayout>
+</RelativeLayout>
