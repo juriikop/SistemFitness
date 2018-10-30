@@ -75,6 +75,7 @@ public class SheetBottom extends RelativeLayout implements AnimatePanel {
             positiveViewId = a.getResourceId(R.styleable.Simple_positiveViewId, 0);
             showTime = a.getInt(R.styleable.Simple_showTime, 0);
             fadedScreenColor = a.getColor(R.styleable.Simple_fadedScreenColor, fadedScreenColorDefault);
+            a.recycle();
         }
         fadedScreen = new LinearLayout(context);
         LayoutParams lpFadedScreen = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,

@@ -23,13 +23,15 @@ public class PanelComponent extends BaseComponent {
         if (field == null) return;
         if (field.value instanceof Record) {
             recordComponent = (Record) field.value;
-            workWithRecordsAndViews.RecordToView(recordComponent, viewComponent, paramMV.navigator, clickView, paramMV.paramView.visibilityArray);
+            workWithRecordsAndViews.RecordToView(recordComponent, viewComponent, this, clickView);
+//            workWithRecordsAndViews.RecordToView(recordComponent, viewComponent, paramMV.navigator, clickView, paramMV.paramView.visibilityArray);
         } else {
             if (field.value instanceof ListRecords) {
                 ListRecords lr = (ListRecords) field.value;
                 if (lr. size() > 0) {
                     recordComponent = lr.get(0);
-                    workWithRecordsAndViews.RecordToView(recordComponent, viewComponent, paramMV.navigator, clickView, paramMV.paramView.visibilityArray);
+                    workWithRecordsAndViews.RecordToView(recordComponent, viewComponent, this, clickView);
+//                    workWithRecordsAndViews.RecordToView(recordComponent, viewComponent, paramMV.navigator, clickView, paramMV.paramView.visibilityArray);
                 } else {
                     iBase.log("Тип данных не Record в " + paramMV.nameParentComponent);
                 }

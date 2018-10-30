@@ -84,7 +84,8 @@ public class TotalComponent extends BaseComponent {
                 }
             }
             iBase.log("total record="+record.toString());
-            workWithRecordsAndViews.RecordToView(record, totalView, null, null, paramMV.paramView.visibilityArray);
+            workWithRecordsAndViews.RecordToView(record, totalView, this, null);
+//            workWithRecordsAndViews.RecordToView(record, totalView, null, null, paramMV.paramView.visibilityArray);
         }
     }
 }

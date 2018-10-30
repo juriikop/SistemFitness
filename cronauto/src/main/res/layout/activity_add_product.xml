@@ -118,7 +118,7 @@
                     android:orientation="horizontal"
                     android:background="@color/gray">
 
-                    <fitness.sistem.compon.custom_components.ComponEditText
+                    <fitness.sistem.compon.custom_components.PlusMinus
                         android:id="@+id/count"
                         style="@style/st_18_black"
                         android:layout_width="match_parent"
@@ -131,6 +131,20 @@
                         android:singleLine="true"
                         android:text="1"
                         app:minValue="1" />
+
+                    <!--<fitness.sistem.compon.custom_components.ComponEditText-->
+                        <!--android:id="@+id/count"-->
+                        <!--style="@style/st_18_black"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:background="#0000"-->
+                        <!--android:gravity="center"-->
+                        <!--android:inputType="number"-->
+                        <!--android:maxLength="5"-->
+                        <!--android:maxLines="1"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:text="1"-->
+                        <!--app:minValue="1" />-->
                 </LinearLayout>
                 <ImageView
                     android:id="@+id/minus"
@@ -218,12 +232,13 @@
                     android:layout_marginBottom="@dimen/pad_2"
                     android:text="@string/total" />
 
-                <TextView
+                <fitness.sistem.compon.custom_components.SimpleTextView
                     android:id="@+id/amount"
                     style="@style/st_24_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    app:numberFormat="#0.00"
                     android:layout_marginLeft="@dimen/pad_72"
                     android:textStyle="bold"/>
             </RelativeLayout>

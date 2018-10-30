@@ -2,6 +2,7 @@ package fitness.sistem.compon.param;
 
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.interfaces_classes.MoreWork;
+import fitness.sistem.compon.interfaces_classes.Multiply;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 
 public class ParamComponent <T>{
@@ -31,4 +32,5 @@ public class ParamComponent <T>{
     public boolean startActual = true;
     public boolean hide = false;
     public String nameReceiver;
+    public Multiply[] multiplies;
 }

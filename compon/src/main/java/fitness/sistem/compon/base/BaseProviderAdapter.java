@@ -133,15 +133,25 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         holder.itemView.setTag("PP="+position);
         final Record record = (Record) provider.get(position);
         modelToView.RecordToView(record,
-                holder.itemView, navigator, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int pos = holder.getAdapterPosition();
-                Record rec = (Record) provider.get(pos);
+                holder.itemView, baseComponent, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int pos = holder.getAdapterPosition();
+                        Record rec = (Record) provider.get(pos);
 //                Log.d("QWERT","onBindViewHolder position="+position+" pos="+pos+" rec="+rec.toString());
-                baseComponent.clickItem.onClick(holder, view, pos, rec);
-            }
-        }, visibilityManager);
+                        baseComponent.clickItem.onClick(holder, view, pos, rec);
+                    }
+                });
+//        modelToView.RecordToView(record,
+//                holder.itemView, navigator, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                int pos = holder.getAdapterPosition();
+//                Record rec = (Record) provider.get(pos);
+////                Log.d("QWERT","onBindViewHolder position="+position+" pos="+pos+" rec="+rec.toString());
+//                baseComponent.clickItem.onClick(holder, view, pos, rec);
+//            }
+//        }, visibilityManager);
 
         if (isClickItem) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

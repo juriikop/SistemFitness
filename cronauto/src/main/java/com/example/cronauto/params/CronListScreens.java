@@ -1,6 +1,7 @@
 package com.example.cronauto.params;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.cronauto.R;
 import com.example.cronauto.activity.AddProductActivity;
@@ -8,6 +9,7 @@ import com.example.cronauto.data.db.SQL;
 import com.example.cronauto.data.network.Api;
 import com.example.cronauto.data.network.GetData;
 import fitness.sistem.compon.base.ListScreens;
+import fitness.sistem.compon.interfaces_classes.Multiply;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.JsonSimple;
@@ -26,6 +28,7 @@ public class CronListScreens  extends ListScreens {
             AUTH_LOGIN = "auth_login", AUTH_REGISTER = "auth_register", AUTH_FORGOT = "forgot",
             ORDER = "order", LIST_ORDER = "list_order", INDEX = "index", PRODUCT_LIST = "product_list",
             CATALOG = "catalog", ORDER_LOG = "order_log", ORDER_LOG_HISTORY = "order_log_history",
+            ORDER_PRODUCT = "order_product",
             NOVELTIES = "novelties", EXTRA_BONUS = "extra_bonus", PRODUCT_DESCRIPT = "product_descript",
             ADD_PRODUCT = "add_product", EDIT_ORDER = "edit_order", BARCODE = "barcode",
             DESCRIPT = "descript", CHARACTERISTIC = "characteristic";
@@ -126,13 +129,25 @@ public class CronListScreens  extends ListScreens {
                 .addNavigator(new Navigator().add(R.id.history, ORDER_LOG_HISTORY)
                         .add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER))
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.ORDER_LIST),
-                new ParamView(R.id.recycler, "type", new int[]{R.layout.item_order_log_order,
-                        R.layout.item_order_log_product, R.layout.item_order_log_amount})
-                        .expanded(R.id.expand, R.id.expand,
-                                new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_IN_ORDER, "orderId").row("row")),
-                        new Navigator().add(R.id.edit, EDIT_ORDER, RECORD)
-                                .add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
-                                new ParamModel(ParamModel.POST, Api.ORDER_ADD, "orderName,status,comment,payBonus,date")));
+                        new ParamView(R.id.recycler, R.layout.item_order_log_ord),
+                        new Navigator().add(0, ORDER_PRODUCT, RECORD));
+
+        activity(ORDER_PRODUCT, R.layout.activity_order_product, "%1$s", "orderName").animate(AS.RL)
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
+                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_IN_ORDER, "orderId").row("row"),
+                        new ParamView(R.id.recycler, R.layout.item_order_log_product));
+
+//        fragment(ORDER_LOG, R.layout.fragment_order_log)
+//                .addNavigator(new Navigator().add(R.id.history, ORDER_LOG_HISTORY)
+//                        .add(R.id.back, ViewHandler.TYPE.OPEN_DRAWER))
+//                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.ORDER_LIST),
+//                new ParamView(R.id.recycler, "type", new int[]{R.layout.item_order_log_order,
+//                        R.layout.item_order_log_product, R.layout.item_order_log_amount})
+//                        .expanded(R.id.expand, R.id.expand,
+//                                new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_IN_ORDER, "orderId").row("row")),
+//                        new Navigator().add(R.id.edit, EDIT_ORDER, RECORD)
+//                                .add(R.id.done, ViewHandler.TYPE.CLICK_SEND,
+//                                new ParamModel(ParamModel.POST, Api.ORDER_ADD, "orderName,status,comment,payBonus,date")));
 
         activity(EDIT_ORDER, R.layout.activity_edit_order);
 
@@ -163,12 +178,12 @@ public class CronListScreens  extends ListScreens {
                         new ParamView(R.id.recycler, "2", new int[] {R.layout.item_property, R.layout.item_property_1}));
 
         activity(ADD_PRODUCT, AddProductActivity.class).animate(AS.RL)
+                .addPlusMinus(R.id.count, R.id.plus, R.id.minus, new Multiply(R.id.amount, "price"))
                 .addComponent(TC.PANEL_ENTER, new ParamModel(ParamModel.ARGUMENTS),
                         new ParamView(R.id.panel), new Navigator()
                                 .add(R.id.add, ViewHandler.TYPE.CLICK_SEND,
                                 new ParamModel(ParamModel.POST_DB, SQL.PRODUCT_ORDER, SQL.PRODUCT_ORDER_PARAM),
                                 actionsAfterResponse().showComponent(R.id.inf_add_product, "orderName"), false))
-                .addPlusMinus(R.id.count, R.id.plus, R.id.minus)
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.ORDER_LIST),
                         new ParamView(R.id.recycler, "status",
                                 new int[] {R.layout.item_order_log, R.layout.item_order_log_select}).selected(),

@@ -142,7 +142,7 @@ public class IntroComponent extends BaseComponent {
         public Object instantiateItem(ViewGroup viewGroup, int position) {
             ViewGroup v = (ViewGroup) inflater.inflate(paramMV.paramView.layoutTypeId[0], null);
             Record record = listData.get(position);
-            modelToView.RecordToView(record, v, navigator, listener, null);
+            modelToView.RecordToView(record, v, IntroComponent.this, listener);
             viewGroup.addView(v);
             return v;
         }

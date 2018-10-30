@@ -184,7 +184,9 @@ public class MapComponent extends BaseComponent {
             }
             selectMarker = marker;
             workWithRecordsAndViews.RecordToView((Record) marker.getTag(), clickInfoWindow,
-                    paramMV.navigator, clickView, null);
+                    MapComponent.this, clickView);
+//            workWithRecordsAndViews.RecordToView((Record) marker.getTag(), clickInfoWindow,
+//                    paramMV.navigator, clickView, null);
             return true;
         }
     };

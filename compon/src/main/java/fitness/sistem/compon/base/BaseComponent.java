@@ -15,6 +15,7 @@ import fitness.sistem.compon.components.MultiComponents;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.IValidate;
+import fitness.sistem.compon.interfaces_classes.Multiply;
 import fitness.sistem.compon.interfaces_classes.Param;
 import fitness.sistem.compon.json_simple.JsonSyntaxException;
 import fitness.sistem.compon.param.ParamComponent;
@@ -59,6 +60,7 @@ public abstract class BaseComponent {
     public View viewComponent;
     public Field argument;
     public MultiComponents multiComponent;
+//    public Multiply[] multiplies;
 
     public WorkWithRecordsAndViews workWithRecordsAndViews = new WorkWithRecordsAndViews();
 

@@ -25,10 +25,13 @@ public class PanelEnterComponent extends BaseComponent {
         } else {
             if (paramMV.paramModel != null && paramMV.paramModel.method == paramMV.paramModel.FIELD) {
                 workWithRecordsAndViews.RecordToView((Record) paramMV.paramModel.field.value,
-                        viewComponent, paramMV.navigator, clickView, paramMV.paramView.visibilityArray);
+                        viewComponent, this, clickView);
+//                workWithRecordsAndViews.RecordToView((Record) paramMV.paramModel.field.value,
+//                        viewComponent, paramMV.navigator, clickView, paramMV.paramView.visibilityArray);
             } else {
-                workWithRecordsAndViews.RecordToView(null, viewComponent, paramMV.navigator,
-                        clickView, paramMV.paramView.visibilityArray);
+                workWithRecordsAndViews.RecordToView(null, viewComponent, this, clickView);
+//                workWithRecordsAndViews.RecordToView(null, viewComponent, paramMV.navigator,
+//                        clickView, paramMV.paramView.visibilityArray);
             }
             if (navigator != null) {
                 for (ViewHandler vh : navigator.viewHandlers) {
@@ -87,8 +90,9 @@ public class PanelEnterComponent extends BaseComponent {
     public void changeData(Field field) {
         if (field == null) return;
         Record rec = (Record)field.value;
-        workWithRecordsAndViews.RecordToView(rec, viewComponent, paramMV.navigator,
-                clickView, paramMV.paramView.visibilityArray);
+        workWithRecordsAndViews.RecordToView(rec, viewComponent, this, clickView);
+//        workWithRecordsAndViews.RecordToView(rec, viewComponent, paramMV.navigator,
+//                clickView, paramMV.paramView.visibilityArray);
     }
 
 }

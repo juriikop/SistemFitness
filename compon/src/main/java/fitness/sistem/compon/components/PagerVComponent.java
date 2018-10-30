@@ -61,8 +61,9 @@ public class PagerVComponent extends BaseComponent {
                 }
                 if (paramMV.paramView.furtherViewId != 0) {
                     further = (View) parentLayout.findViewById(paramMV.paramView.furtherViewId);
-                    modelToFurther.RecordToView(listData.get(0), further, navigator, listener,
-                            paramMV.paramView.visibilityArray);
+                    modelToFurther.RecordToView(listData.get(0), further, this, listener);
+//                    modelToFurther.RecordToView(listData.get(0), further, navigator, listener,
+//                            paramMV.paramView.visibilityArray);
                 }
                 pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
@@ -76,8 +77,9 @@ public class PagerVComponent extends BaseComponent {
                             indicator.setSelect(position);
                         }
                         if (further != null) {
-                            modelToFurther.RecordToView(listData.get(position), further, navigator, listener,
-                                    paramMV.paramView.visibilityArray);
+                            modelToFurther.RecordToView(listData.get(position), further, PagerVComponent.this, listener);
+//                            modelToFurther.RecordToView(listData.get(position), further, navigator, listener,
+//                                    paramMV.paramView.visibilityArray);
                         }
                     }
 
@@ -89,7 +91,8 @@ public class PagerVComponent extends BaseComponent {
                 pager.setAdapter(adapter);
                 if (count == 1) {
                     if (further != null) {
-                        modelToFurther.RecordToView(listData.get(0), further, navigator, listener, null);
+                        modelToFurther.RecordToView(listData.get(0), further, this, listener);
+//                        modelToFurther.RecordToView(listData.get(0), further, navigator, listener, null);
                     }
                 }
             }
@@ -107,7 +110,8 @@ public class PagerVComponent extends BaseComponent {
         public Object instantiateItem(ViewGroup viewGroup, int position) {
             ViewGroup v = (ViewGroup) inflater.inflate(paramMV.paramView.layoutTypeId[0], null);
             Record record = listData.get(position);
-            modelToView.RecordToView(record, v, navigator, listener, null);
+            modelToView.RecordToView(record, v, PagerVComponent.this, listener);
+//            modelToView.RecordToView(record, v, navigator, listener, null);
             viewGroup.addView(v);
             return v;
         }

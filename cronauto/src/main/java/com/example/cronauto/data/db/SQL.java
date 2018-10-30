@@ -9,7 +9,7 @@ import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.base.BaseComponent;
 
 public class SQL {
-    public static long dayMillisecond = 48*60*60*1000;
+    public static long dayMillisecond = 24*60*60*1000;
     public static String DB_NAME = "db_cron";
 
     public static String CATALOG_TAB = "catalog";
@@ -77,11 +77,11 @@ public class SQL {
     public static String PRODUCT_ORDER = "product_order";
     public static String PRODUCT_ORDER_INDEX_NAME = "prod_ord_ind";
     public static String PRODUCT_ORDER_INDEX_COLUMN = "orderId";
-    public static String PRODUCT_ORDER_FIELDS = "prod_ord INTEGER PRIMARY KEY, orderId INTEGER, product_id INTEGER, count INTEGER";
+    public static String PRODUCT_ORDER_FIELDS = "prod_ord INTEGER PRIMARY KEY, orderId TEXT, product_id INTEGER, count INTEGER";
     public static String PRODUCT_ORDER_PARAM = "orderId,product_id,count";
 
     public static String PRODUCT_IN_ORDER = "SELECT product.product_name, product.price, " +
-            "product_order.product_id, product_order.orderId, product_order.count, 1 AS type " +
+            "product_order.product_id, product_order.orderId, product_order.count " +
             "FROM product_order, product WHERE product_order.orderId = ? AND product_order.product_id = product.product_id ORDER BY product_name";
 
     public static String PRODUCT_IN_CATALOG = "SELECT * FROM product WHERE catalog_id = ? ORDER BY product.product_name";

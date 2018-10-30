@@ -21,54 +21,55 @@ public class PlusMinusComponent extends BaseComponent {
 
     @Override
     public void initView() {
-        editPlusMinus = (EditText) parentLayout.findViewById(paramMV.paramView.viewId);
-        editPlusMinus.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (iCustom != null) {
-                    iCustom.changeValue(paramMV.paramView.viewId, null);
-                }
-            }
-        });
-        parentLayout.findViewById(paramMV.paramView.layoutTypeId[0]).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int i = 0;
-                String st = editPlusMinus.getText().toString();
-                if (st != null && st.length() > 0) {
-                    i = Integer.valueOf(st);
-                }
-                i++;
-                st = String.valueOf(i);
-                editPlusMinus.setText(st);
-                editPlusMinus.setSelection(st.length());
-            }
-        });
-
-        parentLayout.findViewById(paramMV.paramView.layoutFurtherTypeId[0]).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int i = 0;
-                String st = editPlusMinus.getText().toString();
-                if (st != null && st.length() > 0) {
-                    i = Integer.valueOf(st);
-                }
-                i--;
-                st = String.valueOf(i);
-                editPlusMinus.setText(st);
-                editPlusMinus.setSelection(st.length());
-            }
-        });
+//        editPlusMinus = (EditText) parentLayout.findViewById(paramMV.paramView.viewId);
+//        editPlusMinus.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if (iCustom != null) {
+//                    iCustom.changeValue(paramMV.paramView.viewId, null);
+//                }
+//            }
+//        });
+//        // PLUS
+//        parentLayout.findViewById(paramMV.paramView.layoutTypeId[0]).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int i = 0;
+//                String st = editPlusMinus.getText().toString();
+//                if (st != null && st.length() > 0) {
+//                    i = Integer.valueOf(st);
+//                }
+//                i++;
+//                st = String.valueOf(i);
+//                editPlusMinus.setText(st);
+//                editPlusMinus.setSelection(st.length());
+//            }
+//        });
+//// MINUS
+//        parentLayout.findViewById(paramMV.paramView.layoutFurtherTypeId[0]).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int i = 0;
+//                String st = editPlusMinus.getText().toString();
+//                if (st != null && st.length() > 0) {
+//                    i = Integer.valueOf(st);
+//                }
+//                i--;
+//                st = String.valueOf(i);
+//                editPlusMinus.setText(st);
+//                editPlusMinus.setSelection(st.length());
+//            }
+//        });
     }
 
     @Override

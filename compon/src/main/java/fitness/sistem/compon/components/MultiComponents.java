@@ -4,6 +4,7 @@ import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.MoreWork;
+import fitness.sistem.compon.interfaces_classes.Multiply;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.SetData;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
@@ -179,6 +180,19 @@ public class MultiComponents <T>{
 
     public MultiComponents addPlusMinus(int editId, int plusId, int minusId) {
         return addComponent(ParamComponent.TC.PLUS_MINUS, new ParamView(editId, plusId, minusId));
+    }
+
+    public MultiComponents addPlusMinus(int editId, int plusId, int minusId, Multiply... args) {
+//        return addComponent(ParamComponent.TC.PLUS_MINUS, new ParamView(editId, plusId, minusId));
+
+
+        ParamComponent paramComponent = new ParamComponent();
+        paramComponent.type = ParamComponent.TC.PLUS_MINUS;
+        paramComponent.paramModel = null;
+        paramComponent.paramView = new ParamView(editId, plusId, minusId);
+        paramComponent.multiplies = args;
+        listComponents.add(paramComponent);
+        return this;
     }
 
     public MultiComponents addDateDiapasonComponent(int viewId, int from, int before) {

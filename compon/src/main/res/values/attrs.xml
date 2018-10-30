@@ -27,6 +27,8 @@
         <attr name="viewId" format="reference"/>
         <attr name="negativeViewId" format="reference"/>
         <attr name="positiveViewId" format="reference"/>
+        <attr name="plusViewId" format="reference"/>
+        <attr name="minusViewId" format="reference"/>
         <attr name="showTime" format="integer"/>
         <attr name="selectorLine" format="reference"/>
         <attr name="heightLine" format="dimension"/>
@@ -43,7 +45,7 @@
         <attr name="alias" format="string"/>
         <attr name="textError" format="string"/>
         <attr name="minValue" format="string"/>
-        <attr name="maxValue" format="string"/>
+        <attr name="maxValue" format="integer"/>
         <attr name="minLength" format="integer"/>
         <attr name="fieldLength" format="integer"/>
         <attr name="typeValidate">

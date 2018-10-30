@@ -46,11 +46,15 @@ public class MultiPanelComponent extends BaseComponent {
         if (record != null && record.size() > 0) {
             ((ViewGroup)viewComponent).addView(mInflater.inflate(paramMV.paramView.layoutTypeId[0], null));
             workWithRecordsAndViews.RecordToView((Record) paramMV.paramModel.field.value,
-                    viewComponent, paramMV.navigator, click, paramMV.paramView.visibilityArray);
+                    viewComponent, this, click);
+//            workWithRecordsAndViews.RecordToView((Record) paramMV.paramModel.field.value,
+//                    viewComponent, paramMV.navigator, click, paramMV.paramView.visibilityArray);
         } else {
             ((ViewGroup)viewComponent).addView(mInflater.inflate(paramMV.paramView.layoutFurtherTypeId[0], null));
             workWithRecordsAndViews.RecordToView((Record) paramMV.paramModel.field.value,
-                    viewComponent, paramMV.navigator, click, paramMV.paramView.visibilityArray);
+                    viewComponent, this, click);
+//            workWithRecordsAndViews.RecordToView((Record) paramMV.paramModel.field.value,
+//                    viewComponent, paramMV.navigator, click, paramMV.paramView.visibilityArray);
         }
     }
 

@@ -16,8 +16,10 @@ public class StaticListAdapter extends BaseStaticListAdapter {
     private BaseProvider provider;
     private WorkWithRecordsAndViews modelToView;
     private Context context;
+    private BaseComponent baseComponent;
 
     public StaticListAdapter(BaseComponent baseComponent) {
+        this.baseComponent = baseComponent;
         this.provider = baseComponent.provider;
         context = baseComponent.iBase.getBaseActivity();
         mvParam = baseComponent.paramMV;
@@ -31,7 +33,8 @@ public class StaticListAdapter extends BaseStaticListAdapter {
     @Override
     public View getView(int position) {
         View view = LayoutInflater.from(context).inflate(mvParam.paramView.layoutTypeId[0], null);
-        modelToView.RecordToView(provider.get(position), view, null, null, mvParam.paramView.visibilityArray);
+        modelToView.RecordToView(provider.get(position), view, baseComponent, null);
+//        modelToView.RecordToView(provider.get(position), view, null, null, mvParam.paramView.visibilityArray);
         return view;
     }
 

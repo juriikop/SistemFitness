@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import fitness.sistem.compon.ComponGlob;
+import fitness.sistem.compon.base.BaseComponent;
+import fitness.sistem.compon.custom_components.PlusMinus;
 import fitness.sistem.compon.custom_components.SimpleImageView;
 import fitness.sistem.compon.custom_components.SimpleTextView;
 import fitness.sistem.compon.custom_components.SwipeLayout;
@@ -33,6 +35,7 @@ public class WorkWithRecordsAndViews {
     protected Context context;
     protected String[] param;
     protected Record recordResult;
+    protected BaseComponent baseComponent;
     private boolean setParam;
     private Visibility[] visibilityManager;
     private boolean isSwipe;
@@ -40,14 +43,22 @@ public class WorkWithRecordsAndViews {
     private SwipeLayout swipeLayout;
 
     public void RecordToView(Record model, View view) {
-        RecordToView(model, view, null, null, null);
+//        RecordToView(model, view, null, null, null);
+        RecordToView(model, view, null, null);
     }
 
-    public void RecordToView(Record model, View view, Navigator navigator,
-                             View.OnClickListener clickView, Visibility[] visibilityManager) {
+//    public void RecordToView(Record model, View view, Navigator navigator,
+//                             View.OnClickListener clickView, Visibility[] visibilityManager) {
+    public void RecordToView(Record model, View view, BaseComponent bc,
+                         View.OnClickListener clickView) {
         this.model = model;
         this.view = view;
-        this.navigator = navigator;
+        if (bc != null) {
+            baseComponent = bc;
+            navigator = bc.navigator;
+            visibilityManager = bc.paramMV.paramView.visibilityArray;
+        }
+//        this.navigator = navigator;
         this.clickView = clickView;
         if (view instanceof SwipeLayout) {
             isSwipe = true;
@@ -60,7 +71,7 @@ public class WorkWithRecordsAndViews {
         }
         context = view.getContext();
         setParam = false;
-        this.visibilityManager = visibilityManager;
+//        this.visibilityManager = visibilityManager;
         enumViewChild(view);
     }
 
@@ -191,6 +202,9 @@ public class WorkWithRecordsAndViews {
         }
         if (model == null) {
             return;
+        }
+        if (v instanceof PlusMinus) {
+            ((PlusMinus) v).setParam(view, model, baseComponent);
         }
         Field field = model.getField(name);
         if (field != null) {

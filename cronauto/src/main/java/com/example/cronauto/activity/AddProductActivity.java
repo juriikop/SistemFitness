@@ -50,7 +50,7 @@ public class AddProductActivity extends BaseActivity implements ICustom{
         price = paramScreenRecord.getDouble("price");
         priceBonus = paramScreenRecord.getDouble("extra_bonus");
         quantity = paramScreenRecord.getInt("quantity");
-        amount.setText(decimalFormat.format(price));
+//        amount.setText(decimalFormat.format(price));
         bonus_v.setText(decimalFormat.format(priceBonus));
         recyclerComponent = (RecyclerComponent) mComponent.getComponent(R.id.recycler);
     }
@@ -82,16 +82,16 @@ public class AddProductActivity extends BaseActivity implements ICustom{
     public void changeValue(int viewId, Field field) {
         switch (viewId) {
             case R.id.count :
-                if (count == null) return;
-                String st = count.getText().toString();
-                long c = Long.valueOf(st);
-                amount.setText(decimalFormat.format(price * c));
-                bonus_v.setText(decimalFormat.format(priceBonus * c));
-                if (c > quantity) {
-                    more_residue.setVisibility(View.VISIBLE);
-                } else {
-                    more_residue.setVisibility(View.GONE);
-                }
+//                if (count == null) return;
+//                String st = count.getText().toString();
+//                long c = Long.valueOf(st);
+//                amount.setText(decimalFormat.format(price * c));
+//                bonus_v.setText(decimalFormat.format(priceBonus * c));
+//                if (c > quantity) {
+//                    more_residue.setVisibility(View.VISIBLE);
+//                } else {
+//                    more_residue.setVisibility(View.GONE);
+//                }
                 break;
             case R.id.recycler :
                 if (field == null || field.value == null || ((ListRecords) field.value).size() == 0) {
