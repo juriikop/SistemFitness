@@ -61,7 +61,7 @@ public class GetDbPresenter {
         @Override
         public void onResponse(IBase iBase, ListRecords listRecords, String table, String nameAlias) {
             BaseDB baseDB = ComponGlob.getInstance().baseDB;
-            baseDB.insertListRecord(table, listRecords, nameAlias);
+            baseDB.insertListRecord(iBase, table, listRecords, nameAlias);
             ComponGlob.getInstance().updateDB.add(paramModel.updateTable, newDate);
             Field f = null;
             if (paramModel.urlArray != null) {
