@@ -44,20 +44,20 @@ public class DatabaseManager extends BaseDB {
     IDbListener dbListener = new IDbListener() {
         @Override
         public void onResponse(IBase iBase, ListRecords listRecords, String table, String nameAlias) {
-            Log.d("QWERT","DatabaseManager dbListener nameAlias="+nameAlias+"<< listRecords.size="+listRecords.size());
-            insertListRecord(table, listRecords, nameAlias);
+            insertListRecord(iBase, table, listRecords, nameAlias);
         }
     };
 
-    @Override
-    public void insertListRecord(String table, ListRecords listRecords) {
-        insertListRecord(table, listRecords, null);
-    }
+//    @Override
+//    public void insertListRecord(IBase iBase, String table, ListRecords listRecords) {
+//        insertListRecord(iBase, table, listRecords, null);
+//    }
 
     @Override
-    public void insertListRecord(String table, ListRecords listRecords, String nameAlias) {
+    public void insertListRecord(IBase iBase, String table, ListRecords listRecords, String nameAlias) {
 //        Map<String, String> mapField = new HashMap<>();
-        Log.d("QWERT","DatabaseManager insertListRecord TABLE="+table+"<<< SIZE="+listRecords.size());
+        iBase.log("DatabaseManager insertListRecord TABLE="+table+" SIZE="+listRecords.size());
+//        Log.d("QWERT","DatabaseManager insertListRecord TABLE="+table+"<<< SIZE="+listRecords.size());
         String[] columnNames = null;
         String[] aliasNames = null;
         openDatabase();
@@ -165,7 +165,7 @@ public class DatabaseManager extends BaseDB {
 
     @Override
     public void get(IBase iBase, ParamModel paramModel, String[] param, IPresenterListener listener) {
-        Log.d("QWERT","DatabaseManager SQL="+paramModel.url);
+//        Log.d("QWERT","DatabaseManager SQL="+paramModel.url);
         new GetDbPresenter(iBase, paramModel, param, listener);
     }
 
@@ -176,9 +176,11 @@ public class DatabaseManager extends BaseDB {
             for (String sti : param) {
                 st += sti + ",";
             }
-            Log.d("QWERT", "DatabaseManager GET SQL=" + sql + "<< param=" + st);
+            iBase.log("DatabaseManager GET SQL=" + sql + "<< param=" + st);
+//            Log.d("QWERT", "DatabaseManager GET SQL=" + sql + "<< param=" + st);
         } else {
-            Log.d("QWERT", "DatabaseManager GET SQL=" + sql + "<<");
+            iBase.log("DatabaseManager GET SQL=" + sql + "<<");
+//            Log.d("QWERT", "DatabaseManager GET SQL=" + sql + "<<");
         }
         openDatabase();
         Cursor c = null;
@@ -220,7 +222,8 @@ public class DatabaseManager extends BaseDB {
                     listRecords.add(record);
                 } while (c.moveToNext());
             } else {
-                Log.d("QWERT", "DatabaseManager get 0 rows");
+                iBase.log("DatabaseManager get 0 rows");
+//                Log.d("QWERT", "DatabaseManager get 0 rows");
             }
             c.close();
         }
