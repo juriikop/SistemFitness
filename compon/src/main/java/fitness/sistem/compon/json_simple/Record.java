@@ -236,6 +236,16 @@ public class Record extends ArrayList<Field>{
         }
     }
 
+    public void setFloat(String nameField, Float value) {
+        Field f = getField(nameField);
+        if (f != null) {
+            f.value = value;
+        } else {
+            f = new Field(nameField, Field.TYPE_FLOAT, value);
+            add(f);
+        }
+    }
+
     @Override
     public String toString() {
         SimpleRecordToJson recordToJson = new SimpleRecordToJson();

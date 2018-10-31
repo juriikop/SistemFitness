@@ -39,8 +39,10 @@ public class TotalComponent extends BaseComponent {
         } else {
             iBase.log("Нет данных для TotalView в " + paramMV.nameParentComponent);
         }
-        for (Visibility vis : paramMV.paramView.visibilityArray) {
-            iBase.log("Visibility id="+vis.viewId+" tt="+vis.typeShow+" NN="+vis.nameField);
+        if (paramMV.paramView.visibilityArray != null) {
+            for (Visibility vis : paramMV.paramView.visibilityArray) {
+                iBase.log("Visibility id=" + vis.viewId + " tt=" + vis.typeShow + " NN=" + vis.nameField);
+            }
         }
     }
 

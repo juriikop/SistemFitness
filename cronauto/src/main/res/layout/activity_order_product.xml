@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -32,6 +33,22 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:singleLine="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/pad_70">
+        <fitness.sistem.compon.custom_components.SimpleTextView
+            android:id="@+id/amount"
+            style="@style/st_18_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/pad_24"
+            android:layout_marginTop="@dimen/pad_12"
+            app:numberFormat="#0.00"
+            android:text="1234.44"
+            android:textStyle="bold"/>
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

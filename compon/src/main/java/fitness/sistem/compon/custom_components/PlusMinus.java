@@ -16,6 +16,7 @@ import fitness.sistem.compon.components.PlusMinusComponent;
 import fitness.sistem.compon.interfaces_classes.IComponent;
 import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.Multiply;
+import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamComponent;
 
@@ -108,11 +109,38 @@ public class PlusMinus extends AppCompatEditText {
                         Float mult = record.getFloat(m.nameField);
                         if(mult != null) {
                             TextView tv = parentView.findViewById(m.viewId);
+                            Float ff = mult * i;
                             if (tv != null) {
                                 if (tv instanceof IComponent) {
-                                    ((IComponent) tv).setData(mult * i);
+                                    ((IComponent) tv).setData(ff);
                                 } else {
-                                    tv.setText(String.valueOf(mult * i));
+                                    tv.setText(String.valueOf(ff));
+                                }
+                            }
+                            if (m.nameFieldRes != null && m.nameFieldRes.length() > 0) {
+                                Field field = record.getField(m.nameFieldRes);
+                                if (field != null) {
+                                    switch (field.type) {
+                                        case Field.TYPE_DOUBLE :
+                                            Double d = Double.valueOf(ff);
+                                            field.value = d;
+                                            break;
+                                        case Field.TYPE_FLOAT :
+                                            field.value = ff;
+                                            break;
+                                        case Field.TYPE_INTEGER :
+                                            float ii = ff;
+                                            Integer in = Integer.valueOf((int)ii);
+                                            field.value = in;
+                                            break;
+                                        case Field.TYPE_LONG :
+                                            float iL = ff;
+                                            Long lon = Long.valueOf((long)iL);
+                                            field.value = lon;
+                                            break;
+                                    }
+                                } else {
+                                    record.add(new Field(m.nameFieldRes, Field.TYPE_FLOAT, ff));
                                 }
                             }
                         }
