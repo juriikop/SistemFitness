@@ -834,6 +834,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     @Override
     public void addEvent(int sender, BaseComponent receiver) {
+        Log.d("QWERT","BaseActivity addEvent sender="+sender+" CCC="+receiver.multiComponent.nameComponent+" TYPE="+receiver.paramMV.type);
         listEvent.add(new EventComponent(sender, receiver));
     }
 
@@ -846,6 +847,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     @Override
     public void sendEvent(int sender) {
+        Log.d("QWERT","sendEvent sender="+sender);
         for (EventComponent ev : listEvent) {
             if (ev.eventSenderId == sender) {
                 ev.eventReceiverComponent.actual();
