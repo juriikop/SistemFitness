@@ -59,14 +59,18 @@ public class TotalComponent extends BaseComponent {
     }
 
     private void total() {
+        Log.d("QWERT","TotalComponent total listData.size()="+listData.size());
         if (nameFields == null || nameFields.length == 0) return;
         if (listData.size() > 0) {
             Field field;
             record.clear();
             for (Record rec : listData) {
+                Log.d("QWERT","TotalComponent total rec="+rec.toString());
                 for (String name : nameFields) {
+                    Log.d("QWERT","TotalComponent total name="+name);
                     Field fRec = rec.getField(name);
-                    if (fRec == null) break;
+                    Log.d("QWERT","TotalComponent total fRec="+fRec);
+                    if (fRec == null) continue;
                     Field fRecord = record.getField(name);
                     if (fRecord == null) {
                         Object vv = null;
@@ -92,7 +96,8 @@ public class TotalComponent extends BaseComponent {
                     }
                 }
             }
-            iBase.log("total record="+record.toString());
+            Log.d("QWERT","total record="+record.toString());
+//            iBase.log("total record="+record.toString());
             workWithRecordsAndViews.RecordToView(record, totalView, this, null);
 //            workWithRecordsAndViews.RecordToView(record, totalView, null, null, paramMV.paramView.visibilityArray);
         }
