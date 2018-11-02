@@ -1,5 +1,6 @@
 package fitness.sistem.compon.components;
 
+import android.util.Log;
 import android.view.View;
 
 import fitness.sistem.compon.base.BaseComponent;
@@ -44,6 +45,12 @@ public class TotalComponent extends BaseComponent {
                 iBase.log("Visibility id=" + vis.viewId + " tt=" + vis.typeShow + " NN=" + vis.nameField);
             }
         }
+    }
+
+    @Override
+    public void actual() {
+        Log.d("QWERT","TotalComponent actual");
+        total();
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import fitness.sistem.compon.R;
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.components.PlusMinusComponent;
+import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.IComponent;
 import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.Multiply;
@@ -32,6 +33,7 @@ public class PlusMinus extends AppCompatEditText {
     private int minValueInt,maxValueInt;
     private String minValue,maxValue;
     private PlusMinusComponent plusMinusComponent;
+    private IBase iBase;
 
     public PlusMinus(Context context) {
         this(context, null);
@@ -74,6 +76,7 @@ public class PlusMinus extends AppCompatEditText {
         parentView = view;
         this.record = rec;
         iCustom = component.iCustom;
+        iBase = component.iBase;
         paramMV = component.paramMV;
         this.component = component;
         BaseComponent bc = component.multiComponent.getComponent(getId());
@@ -146,6 +149,7 @@ public class PlusMinus extends AppCompatEditText {
                         }
                     }
                 }
+                iBase.sendEvent(plusMinusComponent.paramMV.paramView.viewId);
                 iCustom = PlusMinus.this.component.iCustom;
                 if (iCustom != null) {
                     iCustom.changeValue(getId(), null);
