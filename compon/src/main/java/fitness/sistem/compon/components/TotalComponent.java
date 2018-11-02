@@ -76,7 +76,12 @@ public class TotalComponent extends BaseComponent {
                         Object vv = null;
                         switch (fRec.type) {
                             case TYPE_LONG :
-                                vv = new Long((Long) fRec.value);
+                                if (fRec.value instanceof Long) {
+                                    vv = new Long((Long) fRec.value);
+                                } else {
+                                    int iv = (Integer) fRec.value;
+                                    vv = new Long((long) iv);
+                                }
                                 break;
                             case TYPE_DOUBLE :
                                 vv = new Double((Double) fRec.value);

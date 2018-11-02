@@ -137,7 +137,7 @@ public class CronListScreens  extends ListScreens {
                 .addPlusMinus(R.id.count, R.id.plus, R.id.minus, new Multiply(R.id.amount, "price", "amount"))
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_IN_ORDER, "orderId").row("row"),
                         new ParamView(R.id.recycler, R.layout.item_order_log_product))
-                .addTotalComponent(R.id.total, R.id.recycler, R.id.count, null, "count");
+                .addTotalComponent(R.id.total, R.id.recycler, R.id.count, null, "amount", "count");
 
 //        fragment(ORDER_LOG, R.layout.fragment_order_log)
 //                .addNavigator(new Navigator().add(R.id.history, ORDER_LOG_HISTORY)

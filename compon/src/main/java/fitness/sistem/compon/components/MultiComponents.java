@@ -261,7 +261,7 @@ public class MultiComponents <T>{
         return this;
     }
 
-    public MultiComponents addTotalComponent(int viewId, int viewIdWithList, Visibility[] visbil, String nameFields) {
+    public MultiComponents addTotalComponent(int viewId, int viewIdWithList, Visibility[] visbil, String ... nameFields) {
         return addTotalComponent(viewId, viewIdWithList, 0, visbil, nameFields);
 //        ParamComponent paramComponent = new ParamComponent();
 //        paramComponent.type = ParamComponent.TC.TOTAL;
@@ -275,7 +275,7 @@ public class MultiComponents <T>{
 //        return this;
     }
 
-    public MultiComponents addTotalComponent(int viewId, int viewIdWithList, int viewEvent, Visibility[] visbil, String nameFields) {
+    public MultiComponents addTotalComponent(int viewId, int viewIdWithList, int viewEvent, Visibility[] visbil, String ... nameFields) {
         ParamComponent paramComponent = new ParamComponent();
         paramComponent.type = ParamComponent.TC.TOTAL;
         ParamView pv = new ParamView(viewId);

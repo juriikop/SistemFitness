@@ -29,6 +29,8 @@ public class PlusMinus extends AppCompatEditText {
     public ParamComponent paramMV;
     private View parentView;
     private Record record;
+    private Field field;
+    private String thisName;
     private BaseComponent component;
     private int minValueInt,maxValueInt;
     private String minValue,maxValue;
@@ -69,13 +71,15 @@ public class PlusMinus extends AppCompatEditText {
                 } catch (NumberFormatException e) {}
             }
         }
-
+        thisName = getContext().getResources().getResourceEntryName(getId());
+        Log.d("QWERT","PlusMinus thisName="+thisName);
     }
 
     public void setParam(View view, Record rec, BaseComponent component) {
         parentView = view;
         this.record = rec;
         iCustom = component.iCustom;
+        field = rec.getField(thisName);
         iBase = component.iBase;
         paramMV = component.paramMV;
         this.component = component;
@@ -108,6 +112,7 @@ public class PlusMinus extends AppCompatEditText {
                         setText(st1);
                         setSelection(st1.length());
                     }
+                    field.value = i;
                     for (Multiply m : plusMinusComponent.paramMV.multiplies) {
                         Float mult = record.getFloat(m.nameField);
                         if(mult != null) {

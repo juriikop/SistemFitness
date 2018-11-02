@@ -19,7 +19,7 @@ public class ParamView {
     public int splashScreenViewId;
     public ParamModel paramModel;
     public String[] nameFragment;
-    public String nameFields;
+    public String[] nameFields;
     public int furtherSkip, furtherNext, furtherStart;
     public Visibility[] visibilityArray;
     public boolean selected = false;
