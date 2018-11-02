@@ -106,7 +106,7 @@ public abstract class BaseComponent {
                 actual();
             }
         } else {
-            Log.d("QWERT","BaseComponent addEvent="+multiComponent.nameComponent);
+            Log.d("QWERT","BaseComponent addEvent="+multiComponent.nameComponent+" type="+paramMV.type);
             iBase.addEvent(paramMV.eventComponent, this);
         }
     }

@@ -1,5 +1,7 @@
 package fitness.sistem.compon.components;
 
+import android.util.Log;
+
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.ICustom;
@@ -183,9 +185,7 @@ public class MultiComponents <T>{
     }
 
     public MultiComponents addPlusMinus(int editId, int plusId, int minusId, Multiply... args) {
-//        return addComponent(ParamComponent.TC.PLUS_MINUS, new ParamView(editId, plusId, minusId));
-
-
+        Log.d("QWERT","addPlusMinus editId="+editId+" plusId="+plusId+" minusId="+minusId);
         ParamComponent paramComponent = new ParamComponent();
         paramComponent.type = ParamComponent.TC.PLUS_MINUS;
         paramComponent.paramModel = null;
@@ -284,6 +284,7 @@ public class MultiComponents <T>{
         pv.visibilityArray = visbil;
         pv.nameFields = nameFields;
         paramComponent.eventComponent = viewEvent;
+        Log.d("QWERT","addTotalComponent viewEvent="+viewEvent+" viewId="+viewId+" viewIdWithList="+viewIdWithList);
         listComponents.add(paramComponent);
         return this;
     }

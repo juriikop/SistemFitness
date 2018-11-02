@@ -847,9 +847,10 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     @Override
     public void sendEvent(int sender) {
-        Log.d("QWERT","sendEvent sender="+sender);
+        Log.d("QWERT","BaseActivity sendEvent sender="+sender);
         for (EventComponent ev : listEvent) {
             if (ev.eventSenderId == sender) {
+                Log.d("QWERT","BaseActivity sender================"+sender);
                 ev.eventReceiverComponent.actual();
             }
         }

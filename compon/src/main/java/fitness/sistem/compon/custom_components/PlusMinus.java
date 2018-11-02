@@ -149,7 +149,7 @@ public class PlusMinus extends AppCompatEditText {
                         }
                     }
                 }
-                iBase.sendEvent(paramMV.paramView.viewId);
+                iBase.sendEvent(plusMinusComponent.paramMV.paramView.viewId);
                 iCustom = PlusMinus.this.component.iCustom;
                 if (iCustom != null) {
                     iCustom.changeValue(getId(), null);
