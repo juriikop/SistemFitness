@@ -12,6 +12,8 @@ import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamComponent;
 
 import static fitness.sistem.compon.json_simple.Field.TYPE_DOUBLE;
+import static fitness.sistem.compon.json_simple.Field.TYPE_FLOAT;
+import static fitness.sistem.compon.json_simple.Field.TYPE_INTEGER;
 import static fitness.sistem.compon.json_simple.Field.TYPE_LONG;
 
 public class TotalComponent extends BaseComponent {
@@ -49,7 +51,6 @@ public class TotalComponent extends BaseComponent {
 
     @Override
     public void actual() {
-        Log.d("QWERT","TotalComponent actual");
         total();
     }
 
@@ -59,52 +60,56 @@ public class TotalComponent extends BaseComponent {
     }
 
     private void total() {
-        Log.d("QWERT","TotalComponent total listData.size()="+listData.size());
         if (nameFields == null || nameFields.length == 0) return;
         if (listData.size() > 0) {
             Field field;
             record.clear();
-            for (Record rec : listData) {
-                Log.d("QWERT","TotalComponent total rec="+rec.toString());
+            for (Record recList : listData) {
+//                Log.d("QWERT","TotalComponent recList="+recList.toString());
                 for (String name : nameFields) {
-                    Log.d("QWERT","TotalComponent total name="+name);
-                    Field fRec = rec.getField(name);
-                    Log.d("QWERT","TotalComponent total fRec="+fRec);
-                    if (fRec == null) continue;
+                    Field fRecList = recList.getField(name);
+                    if (fRecList == null) continue;
                     Field fRecord = record.getField(name);
                     if (fRecord == null) {
-                        Object vv = null;
-                        switch (fRec.type) {
+                        Field ff = new Field(name, fRecList.type, null);
+                        switch (fRecList.type) {
+                            case TYPE_INTEGER :
+                                ff.value = new Integer((Integer) fRecList.value);
+                                break;
                             case TYPE_LONG :
-                                if (fRec.value instanceof Long) {
-                                    vv = new Long((Long) fRec.value);
+                                ff.value = new Long ((Long) fRecList.value);
+                                break;
+                            case TYPE_DOUBLE :
+                                ff.value = new Double ((Double) fRecList.value);
+                                break;
+                            case TYPE_FLOAT :
+                                ff.value = new Float ((Float) fRecList.value);
+                                break;
+                        }
+                        record.add(ff);
+                    } else {
+                        switch (fRecord.type) {
+                            case TYPE_INTEGER :
+                                fRecord.value = (Integer) fRecord.value + (Integer) fRecList.value;
+                                break;
+                            case TYPE_LONG :
+                                if (fRecList.value instanceof Long) {
+                                    fRecord.value = (Long) fRecord.value + (Long) fRecList.value;
                                 } else {
-                                    int iv = (Integer) fRec.value;
-                                    vv = new Long((long) iv);
+                                    fRecord.value = (Long) fRecord.value + (Integer) fRecList.value;
                                 }
                                 break;
                             case TYPE_DOUBLE :
-                                vv = new Double((Double) fRec.value);
+                                fRecord.value = (Double) fRecord.value + (Double) fRecList.value;
                                 break;
-                        }
-                        fRecord = new Field(name, fRec.type, vv);
-                        record.add(fRecord);
-                    } else {
-                        switch (fRecord.type) {
-                            case TYPE_LONG :
-                                fRecord.value = (Long) fRecord.value + (Long) fRec.value;
-                                break;
-                            case TYPE_DOUBLE :
-                                fRecord.value = (Double) fRecord.value + (Double) fRec.value;
+                            case TYPE_FLOAT :
+                                fRecord.value = (Float) fRecord.value + (Float) fRecList.value;
                                 break;
                         }
                     }
                 }
             }
-            Log.d("QWERT","total record="+record.toString());
-//            iBase.log("total record="+record.toString());
             workWithRecordsAndViews.RecordToView(record, totalView, this, null);
-//            workWithRecordsAndViews.RecordToView(record, totalView, null, null, paramMV.paramView.visibilityArray);
         }
     }
 }

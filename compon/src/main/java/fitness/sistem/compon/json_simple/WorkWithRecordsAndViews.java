@@ -38,9 +38,9 @@ public class WorkWithRecordsAndViews {
     protected BaseComponent baseComponent;
     private boolean setParam;
     private Visibility[] visibilityManager;
-    private boolean isSwipe;
+//    private boolean isSwipe;
     private int swipeId, rightId, leftId;
-    private SwipeLayout swipeLayout;
+//    private SwipeLayout swipeLayout;
 
     public void RecordToView(Record model, View view) {
 //        RecordToView(model, view, null, null, null);
@@ -60,15 +60,15 @@ public class WorkWithRecordsAndViews {
         }
 //        this.navigator = navigator;
         this.clickView = clickView;
-        if (view instanceof SwipeLayout) {
-            isSwipe = true;
-            swipeLayout = (SwipeLayout) view;
-            swipeId = swipeLayout.getSwipeId();
-            rightId = swipeLayout.getRightId();
-            leftId = swipeLayout.getLeftId();
-        } else {
-            isSwipe = false;
-        }
+//        if (view instanceof SwipeLayout) {
+//            isSwipe = true;
+//            swipeLayout = (SwipeLayout) view;
+////            swipeId = swipeLayout.getSwipeId();
+////            rightId = swipeLayout.getRightId();
+////            leftId = swipeLayout.getLeftId();
+//        } else {
+//            isSwipe = false;
+//        }
         context = view.getContext();
         setParam = false;
 //        this.visibilityManager = visibilityManager;
@@ -139,37 +139,38 @@ public class WorkWithRecordsAndViews {
         if (navigator != null) {
             for (ViewHandler vh : navigator.viewHandlers) {
                 if (id == vh.viewId) {
-                    if (isSwipe) {
-                        if (id == swipeId) {
-                            swipeLayout.setOnClick(clickView);
-                        }
-//                        else {
-//                            switch (typeSwipe(v)) {
-//                                case 1:
-//                                    v.setOnClickListener(clickView);
-//                                    break;
-//                                case 2:
-//    //                                v.setOnClickListener(clickRight);
-//                                    v.setOnClickListener(new View.OnClickListener() {
-//                                        @Override
-//                                        public void onClick(View v) {
-//                                            SwipeLayout rp = getRootParent(v);
-//                                            Log.d("QWERT","clickRight TAG="+rp.getTag());
-//                                            if (rp.isSwipeRight()) {
-//                                                Log.d("QWERT","clickRight clickRight clickRight");
-//                                                clickView.onClick(v);
-//                                            }
-//                                        }
-//                                    });
-//                                    break;
-//                                case 3:
-//                                    v.setOnClickListener(clickLeft);
-//                                    break;
-//                            }
+                    v.setOnClickListener(clickView);
+//                    if (isSwipe) {
+//                        if (id == swipeId) {
+//                            swipeLayout.setOnClick(clickView);
 //                        }
-                    } else {
-                        v.setOnClickListener(clickView);
-                    }
+////                        else {
+////                            switch (typeSwipe(v)) {
+////                                case 1:
+////                                    v.setOnClickListener(clickView);
+////                                    break;
+////                                case 2:
+////    //                                v.setOnClickListener(clickRight);
+////                                    v.setOnClickListener(new View.OnClickListener() {
+////                                        @Override
+////                                        public void onClick(View v) {
+////                                            SwipeLayout rp = getRootParent(v);
+////                                            Log.d("QWERT","clickRight TAG="+rp.getTag());
+////                                            if (rp.isSwipeRight()) {
+////                                                Log.d("QWERT","clickRight clickRight clickRight");
+////                                                clickView.onClick(v);
+////                                            }
+////                                        }
+////                                    });
+////                                    break;
+////                                case 3:
+////                                    v.setOnClickListener(clickLeft);
+////                                    break;
+////                            }
+////                        }
+//                    } else {
+//                        v.setOnClickListener(clickView);
+//                    }
                     break;
                 }
             }
@@ -203,19 +204,18 @@ public class WorkWithRecordsAndViews {
         if (model == null) {
             return;
         }
-        if (v instanceof PlusMinus) {
-            ((PlusMinus) v).setParam(view, model, baseComponent);
-        }
         Field field = model.getField(name);
         if (field != null) {
             if (v instanceof IComponent) {
                 ((IComponent) v).setData(field.value);
                 return;
             }
-
             if (v instanceof TextView) {
                 if (field.value instanceof String) {
                     ((TextView) v).setText((String )field.value);
+                    if (v instanceof PlusMinus) {
+                        ((PlusMinus) v).setParam(view, model, baseComponent);
+                    }
                     return;
                 }
                 if (field.value instanceof Number) {
@@ -228,6 +228,9 @@ public class WorkWithRecordsAndViews {
                         }
                     } else {
                         ((TextView) v).setText(field.value.toString());
+                    }
+                    if (v instanceof PlusMinus) {
+                        ((PlusMinus) v).setParam(view, model, baseComponent);
                     }
                     return;
                 }
@@ -250,7 +253,6 @@ public class WorkWithRecordsAndViews {
                 return;
             }
         }
-
         if (v instanceof ImageView) {
             if (field == null) return;
             if (field.type == TYPE_STRING) {

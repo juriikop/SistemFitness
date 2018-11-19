@@ -79,9 +79,10 @@ public class SQL {
     public static String PRODUCT_ORDER_INDEX_COLUMN = "orderId";
     public static String PRODUCT_ORDER_FIELDS = "prod_ord INTEGER PRIMARY KEY, orderId TEXT, product_id INTEGER, count INTEGER";
     public static String PRODUCT_ORDER_PARAM = "orderId,product_id,count";
+    public static String PRODUCT_ORDER_WHERE = "product_id = ?";
 
     public static String PRODUCT_IN_ORDER = "SELECT product.product_name, product.price, " +
-            "product_order.product_id, product_order.orderId, product_order.count " +
+            "product_order.product_id, product_order.orderId, product_order.count, (product_order.count * product.price) AS amount " +
             "FROM product_order, product WHERE product_order.orderId = ? AND product_order.product_id = product.product_id ORDER BY product_name";
 
     public static String PRODUCT_IN_CATALOG = "SELECT * FROM product WHERE catalog_id = ? ORDER BY product.product_name";

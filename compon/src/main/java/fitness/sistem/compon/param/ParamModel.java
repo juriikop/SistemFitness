@@ -20,6 +20,7 @@ public class ParamModel <T> {
     public static final int GET_DB = 10;
     public static int POST_DB = 11;
     public static int INSERT_DB = 12;
+    public static int DEL_DB = 13;
     public static final int PARENT = 100;
     public static final int FIELD = 101;
     public static final int ARGUMENTS = 102;
@@ -94,6 +95,13 @@ public class ParamModel <T> {
 
     public ParamModel(int method, String urlOrNameParent, String paramOrField) {
         this(method, urlOrNameParent, paramOrField, -1);
+    }
+
+    public ParamModel(int method, String table, String where, String param) {
+        this.method = method;
+        updateTable = table;
+        updateUrl = where;
+        this.param = param;
     }
 
     public ParamModel(String url, String param, long duration) {

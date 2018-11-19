@@ -146,6 +146,15 @@ public class DatabaseManager extends BaseDB {
     }
 
     @Override
+    public void deleteRecord(IBase iBase, ParamModel paramModel, String[] param) {
+        openDatabase();
+        if (paramModel.method == ParamModel.DEL_DB) {
+            int i = mDatabase.delete(paramModel.updateTable, paramModel.updateUrl, param);
+        }
+        closeDatabase();
+    }
+
+    @Override
     public void insertRecord(String sql, Record record) {
         openDatabase();
         ContentValues cv = new ContentValues();
@@ -202,7 +211,7 @@ public class DatabaseManager extends BaseDB {
                     for (int i = 0; i < countCol; i++) {
                         switch (c.getType(i)) {
                             case Cursor.FIELD_TYPE_INTEGER:
-                                record.add(new Field(nameColumn[i], Field.TYPE_LONG, c.getLong(i)));
+                                record.add(new Field(nameColumn[i], Field.TYPE_LONG, new Long(c.getLong(i))));
                                 break;
                             case Cursor.FIELD_TYPE_FLOAT:
                                 record.add(new Field(nameColumn[i], Field.TYPE_DOUBLE, c.getDouble(i)));

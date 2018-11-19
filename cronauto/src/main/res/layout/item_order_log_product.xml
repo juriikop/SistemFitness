@@ -1,4 +1,4 @@
-<RelativeLayout
+<fitness.sistem.compon.custom_components.SwipeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -122,4 +122,4 @@
             android:background="@color/black_10"/>
     </RelativeLayout>
 
-</RelativeLayout>
+</fitness.sistem.compon.custom_components.SwipeLayout>

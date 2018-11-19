@@ -58,9 +58,7 @@
             android:layout_marginLeft="@dimen/pad_24"
             android:layout_marginTop="@dimen/pad_12"
             android:layout_toRightOf="@+id/amount"
-            android:text="1234.44"
-            android:textStyle="bold"
-            app:numberFormat="#0.00" />
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

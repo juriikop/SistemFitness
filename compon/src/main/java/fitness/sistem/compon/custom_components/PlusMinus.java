@@ -72,7 +72,6 @@ public class PlusMinus extends AppCompatEditText {
             }
         }
         thisName = getContext().getResources().getResourceEntryName(getId());
-        Log.d("QWERT","PlusMinus thisName="+thisName);
     }
 
     public void setParam(View view, Record rec, BaseComponent component) {
@@ -112,7 +111,11 @@ public class PlusMinus extends AppCompatEditText {
                         setText(st1);
                         setSelection(st1.length());
                     }
-                    field.value = i;
+                    if (field.type == Field.TYPE_LONG) {
+                        field.value = new Long(i);
+                    } else {
+                        field.value = i;
+                    }
                     for (Multiply m : plusMinusComponent.paramMV.multiplies) {
                         Float mult = record.getFloat(m.nameField);
                         if(mult != null) {
@@ -162,7 +165,7 @@ public class PlusMinus extends AppCompatEditText {
             }
         });
 
-        setText(getText());
+//        setText(getText());
 
         if (plusMinusComponent != null) {
             plusId = plusMinusComponent.paramMV.paramView.layoutTypeId[0];

@@ -1,439 +1,370 @@
 package fitness.sistem.compon.custom_components;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Handler;
-import android.support.animation.DynamicAnimation;
-import android.support.animation.FlingAnimation;
-import android.support.animation.FloatPropertyCompat;
-import android.support.animation.SpringAnimation;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.view.NestedScrollingParent;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.VelocityTracker;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.view.ViewParent;
+
+import java.lang.ref.WeakReference;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 import fitness.sistem.compon.R;
 
-public class SwipeLayout extends RelativeLayout {
+public class SwipeLayout extends ViewGroup {
 
-    private VelocityTracker mVelocityTracker;
-    private FlingAnimation mFlingXAnimation;
-    private SpringAnimation animX;
-    private View mSwipeView;
-    private float mDownX;
-    private float mOffsetX;
-    private float minV, halfMin;
-    private float maxV, halfMax;
-    private View dragRight, dragLeft;
-    private TYPE_SWIPE typeSwipeRight, typeSwipeLeft;
-    private boolean startMove;
-    private boolean isNoSwipe;
-    private RecyclerView recycler;
-    private RecyclerView.ViewHolder holder;
-    private OnSwipeRemove listener;
-    private OnClickListener clickListener;
+    private static final float VELOCITY_THRESHOLD = 500f;
+    private int MAX_OFFSET_FOR_RETURN = 30;
+    private ViewDragHelper dragHelper;
+    private View leftView;
+    private View rightView;
+    private View centerView;
+    private float velocityThreshold;
+    private float touchSlop;
+    private WeakReference<ObjectAnimator> resetAnimator;
+    private final Map<View, Boolean> hackedParents = new WeakHashMap<>();
 
-    public enum TYPE_SWIPE {CURTAIN, DRAG, HARMONIC, REMOVE};
-    private int maxType = 4;
-    public enum DIRECT {LEFT, RIGHT};
+    private static final int TOUCH_STATE_WAIT = 0;
+    private static final int TOUCH_STATE_SWIPE = 1;
+    private static final int TOUCH_STATE_SKIP = 2;
     private int swipeId, rightId, leftId;
-    private TYPE_SWIPE rightType, leftType;
-    private Handler handler = new Handler();
 
-    public SwipeLayout(@NonNull Context context) {
-        this(context, null);
+    private int touchState = TOUCH_STATE_WAIT;
+    private float touchX;
+    private float touchY;
+
+    public SwipeLayout(Context context) {
+        super(context);
+        init(context, null);
     }
 
-    public SwipeLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
-    public SwipeLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        mVelocityTracker = VelocityTracker.obtain();
-        dragRight = null;
-        dragLeft = null;
-        recycler = null;
-        minV = 0;
-        maxV = 0;
-        startMove = false;
-        isNoSwipe = false;
+    public SwipeLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
         init(context, attrs);
     }
 
-    private void init(Context context, @Nullable AttributeSet attrs) {
-        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.Simple,
-                0, 0);
-        try {
-            swipeId = a.getResourceId(R.styleable.Simple_swipeViewId, 0);
-            rightId = a.getResourceId(R.styleable.Simple_swipeRightViewId, 0);
-            leftId = a.getResourceId(R.styleable.Simple_swipeLeftViewId, 0);
-            int i = a.getInt(R.styleable.Simple_swipeRightType, 0);
-            if (i > -1 && i < maxType) {
-                rightType = TYPE_SWIPE.values()[i];
-            }
-            i = a.getInt(R.styleable.Simple_swipeLeftType, 0);
-            if (i > -1 && i < maxType) {
-                leftType = TYPE_SWIPE.values()[i];
-            }
-        } finally {
-            a.recycle();
-        }
-        waitFormationChild.run();
+    public SwipeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context, attrs);
     }
 
-    Runnable waitFormationChild = new Runnable() {
-        @Override
-        public void run() {
-            if (getChildCount() > 0) {
-                setSwipeView();
-            } else {
-                handler.postDelayed(waitFormationChild, 20);
-            }
-        }
-    };
+    private void init(Context context, AttributeSet attrs) {
+        dragHelper = ViewDragHelper.create(this, 1f, dragCallback);
+        velocityThreshold = VELOCITY_THRESHOLD;
+        touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
 
-    private void setSwipeView() {
-        if (swipeId != 0) {
-            View v = this.findViewById(swipeId);
-            if (v != null) {
-                setSwipeView(v);
-            }
-        }
-        if (rightId != 0) {
-            View v = findViewById(rightId);
-            if (v != null) {
-                setSwipeRight(rightType, v);
-            }
-        }
-        if (leftId != 0) {
-            View v = findViewById(leftId);
-            if (v != null) {
-                setSwipeLeft(leftType, v);
+        if (attrs != null) {
+            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.Simple,
+                    0, 0);
+            try {
+                swipeId = a.getResourceId(R.styleable.Simple_swipeViewId, 0);
+                rightId = a.getResourceId(R.styleable.Simple_swipeRightViewId, 0);
+                leftId = a.getResourceId(R.styleable.Simple_swipeLeftViewId, 0);
+            } finally {
+                a.recycle();
             }
         }
     }
 
-    public void setOnClick(OnClickListener clickListener) {
-        this.clickListener = clickListener;
+    public void setOffset(int offset) {
+        if (centerView != null) {
+            offsetChildren(null, - centerView.getLeft());
+        }
     }
-
-    public int getSwipeId() {
-        return swipeId;
-    }
-
-    public int getRightId() {
-        return rightId;
-    }
-
-    public int getLeftId() {
-        return leftId;
-    }
-
-//    @Override
-//    public boolean onInterceptTouchEvent (MotionEvent ev) {
-////        Log.d("QWERT","onInterceptTouchEvent event.getAction()="+ev.getAction()+" mSwipeView.getTranslationX()="+mSwipeView.getTranslationX());
-////        if (mSwipeView != null && mSwipeView.getTranslationX() != 0) {
-////            return false;
-////        }
-////        return true;
-//        return onTouchEvent(ev);
-//    }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        float tX;
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                if ( ! isSwipe() && isSwipeInRecycler()) {
-                    isNoSwipe = true;
-                    return true;
-                } else {
-                    isNoSwipe = false;
-                }
-                mDownX = event.getX();
-                if (animX != null) {
-                    animX.cancel();
-                }
-                if (mFlingXAnimation != null) {
-                    mFlingXAnimation.cancel();
-                }
-                if (typeSwipeLeft == TYPE_SWIPE.REMOVE) {
-                    maxV = mSwipeView.getWidth();
-                    halfMax = maxV / 2;
-                } else {
-                    if (dragLeft != null && maxV == 0) {
-                        maxV = dragLeft.getWidth();
-                        halfMax = maxV / 2;
-                    }
-                }
-                if (typeSwipeRight == TYPE_SWIPE.REMOVE) {
-                    minV = - mSwipeView.getWidth();
-                    halfMin = minV / 2;
-                } else {
-                    if (dragRight != null && minV == 0) {
-                        minV = -dragRight.getWidth();
-                        halfMin = minV / 2;
-                        setWidthRight();
-                    }
-                }
-                mOffsetX = mSwipeView.getTranslationX();
-                mVelocityTracker.addMovement(event);
-                startMove = true;
-                return true;
-            case MotionEvent.ACTION_MOVE:
-                if (isNoSwipe) return true;
-                tX = (event.getX() - mDownX + mOffsetX);
-                if (startMove && Math.abs(tX) < 20) return true;
-                startMove = false;
-                if (tX > maxV) {
-                    tX = maxV;
-                }
-                if (tX < minV ) {
-                    tX = minV;
-                }
-                mSwipeView.setTranslationX(tX);
-                swipeShow(tX);
-                mVelocityTracker.addMovement(event);
-                return true;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                boolean ret = true;
-                float delt = mDownX - event.getX();
-                if (delt < 0f) delt = - delt;
-                if (delt < 5f) {
-                    return false;
-//                    if (clickListener != null) {
-//                        clickListener.onClick(mSwipeView);
-//                        ret = false;
-//                    }
-                }
-                if (isNoSwipe) return ret;
-                mVelocityTracker.computeCurrentVelocity(1000);
-                tX = mSwipeView.getTranslationX();
-                float minS, maxS;
-                if (tX <= maxV && tX >= minV) {
-                    if (tX < 0) {
-                        minS = minV;
-                        maxS = 0f;
-                    } else {
-                        minS = 0f;
-                        maxS = maxV;
-                    }
-                    mFlingXAnimation = new FlingAnimation(mSwipeView,
-                            DynamicAnimation.TRANSLATION_X)
-                            .setFriction(0.5f)
-                            .setMinValue(minS)
-                            .setMaxValue(maxS)
-                            .setStartVelocity(mVelocityTracker.getXVelocity());
-                    mFlingXAnimation.addUpdateListener(updateListener);
-                    mFlingXAnimation.addEndListener(endListener);
-                    mFlingXAnimation.start();
-                } else {
-                    setWidthRight();
-                }
-                mVelocityTracker.clear();
-                Log.d("QWERT","onTouchEvent ACTION_CANCEL mSwipeView.getTranslationX()="+mSwipeView.getTranslationX());
-                return ret;
-        }
-        return false;
-    }
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int count = getChildCount();
+        int maxHeight = 0;
 
-    DynamicAnimation.OnAnimationUpdateListener updateListener = new DynamicAnimation.OnAnimationUpdateListener() {
-        @Override
-        public void onAnimationUpdate(DynamicAnimation animation, float value, float velocity) {
-            swipeShow(value);
-        }
-    };
-
-    DynamicAnimation.OnAnimationEndListener endListener = new DynamicAnimation.OnAnimationEndListener() {
-        @Override
-        public void onAnimationEnd(DynamicAnimation animation, boolean canceled, float value, float velocity) {
-            if (velocity == 0 ) {
-                if (value > 0) {
-                    if (value < halfMax) {
-                        closer(0f);
-                    } else {
-                        closer(maxV);
-                    }
-                } else {
-                    if (value > halfMin) {
-                        closer(0f);
-                    } else {
-                        closer(minV);
-                    }
-                }
-            } else {
-                setWidthRight();
-                swipeRemove(value);
-            }
-        }
-    };
-
-    private boolean isSwipeInRecycler() {
-        if (recycler != null) {
-            int ik = recycler.getChildCount();
-            for (int i = 0; i < ik; i++) {
-                boolean is = ((SwipeLayout) recycler.getChildAt(i)).isSwipe();
-                if (is) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean isSwipe() {
-        return mSwipeView != null && mSwipeView.getTranslationX() != 0f;
-    }
-
-    public boolean isSwipeRight() {
-        Log.d("QWERT","isSwipeRight mSwipeView.getTranslationX()="+mSwipeView.getTranslationX());
-        return mSwipeView != null && mSwipeView.getTranslationX() < 0f;
-    }
-
-    public boolean isSwipeLeft() {
-        return mSwipeView != null && mSwipeView.getTranslationX() > 0f;
-    }
-
-    public void setOneSwipe(RecyclerView recycler) {
-        this.recycler = recycler;
-    }
-
-    public void setSwipeRight(TYPE_SWIPE typeSwipe, View child) {
-        dragRight = child;
-        typeSwipeRight = typeSwipe;
-        child.setVisibility(VISIBLE);
-    }
-
-    public void setSwipeLeft(TYPE_SWIPE typeSwipe, View child) {
-        dragLeft = child;
-        typeSwipeLeft = typeSwipe;
-        child.setVisibility(VISIBLE);
-    }
-
-    public void closeSwipe() {
-        if (mSwipeView != null && mSwipeView.getTranslationX() != 0) {
-            mSwipeView.setTranslationX(0);
-        }
-    }
-
-    public void setSwipeView(View view) {
-        mSwipeView = view;
-        if (mSwipeView.getTranslationX() != 0) {
-            mSwipeView.setTranslationX(0);
-        }
-        dragRight = null;
-        dragLeft = null;
-        minV = 0;
-        maxV = 0;
-        int ik = getChildCount();
-        for (int i = 0; i < ik; i++) {
-            View v = getChildAt(i);
-            if (v != mSwipeView) {
-                v.setVisibility(INVISIBLE);
-            }
-        }
-    }
-
-    public void setOnSwipeRemove(boolean rightRemove, boolean leftRemove, RecyclerView.ViewHolder holder, OnSwipeRemove listener) {
-        if (rightRemove) {
-            typeSwipeRight = TYPE_SWIPE.REMOVE;
-        }
-        if (leftRemove) {
-            typeSwipeLeft = TYPE_SWIPE.REMOVE;
-        }
-        this.holder = holder;
-        this.listener = listener;
-    }
-
-    public interface OnSwipeRemove {
-        public void onRemove(DIRECT direct, int position);
-    }
-
-    private void swipeShow(float tX) {
-        if (tX < 0) {
-            if (dragRight != null) {
-                switch (typeSwipeRight) {
-                    case DRAG:
-                        dragRight.setTranslationX(tX - minV);
-                        break;
-                    case HARMONIC:
-                        LayoutParams rl = new LayoutParams(-(int) tX, ViewGroup.LayoutParams.MATCH_PARENT);
-                        rl.addRule(CENTER_IN_PARENT);
-                        rl.addRule(ALIGN_PARENT_RIGHT);
-                        dragRight.setLayoutParams(rl);
-                        break;
-                }
-            }
+        // Find out how big everyone wants to be
+        if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY) {
+            measureChildren(widthMeasureSpec, heightMeasureSpec);
         } else {
-            if (dragLeft != null) {
-                switch (typeSwipeLeft) {
-                    case DRAG:
-                        dragLeft.setTranslationX(tX - maxV);
-                        break;
-                    case HARMONIC:
-                        LayoutParams rl = new LayoutParams((int) tX, ViewGroup.LayoutParams.MATCH_PARENT);
-                        dragLeft.setLayoutParams(rl);
-                        break;
+            //find a child with biggest height
+            for (int i = 0; i < count; i++) {
+                View child = getChildAt(i);
+                measureChild(child, widthMeasureSpec, heightMeasureSpec);
+                maxHeight = Math.max(maxHeight, child.getMeasuredHeight());
+            }
+            if (maxHeight > 0) {
+                heightMeasureSpec = MeasureSpec.makeMeasureSpec(maxHeight, MeasureSpec.EXACTLY);
+                measureChildren(widthMeasureSpec, heightMeasureSpec);
+            }
+        }
+
+        // Find rightmost and bottom-most child
+        for (int i = 0; i < count; i++) {
+            View child = getChildAt(i);
+            if (child.getVisibility() != GONE) {
+                int childBottom;
+
+                childBottom = child.getMeasuredHeight();
+                maxHeight = Math.max(maxHeight, childBottom);
+            }
+        }
+        maxHeight += getPaddingTop() + getPaddingBottom();
+        maxHeight = Math.max(maxHeight, getSuggestedMinimumHeight());
+        setMeasuredDimension(resolveSize(getSuggestedMinimumWidth(), widthMeasureSpec),
+                resolveSize(maxHeight, heightMeasureSpec));
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        final int parentTop = getPaddingTop();
+        centerView = findViewById(swipeId);
+        rightView = findViewById(rightId);
+        leftView = findViewById(leftId);
+
+        if (centerView == null) throw new RuntimeException("Center view must be added");
+
+        int centerLeft = centerView.getLeft();
+        centerView.layout(centerLeft, parentTop, centerLeft + centerView.getMeasuredWidth(),
+                parentTop + centerView.getMeasuredHeight());
+        if (leftView != null) {
+            leftView.layout(centerLeft - leftView.getMeasuredWidth(), parentTop, centerLeft,
+                    parentTop + leftView.getMeasuredHeight());
+        }
+        if (rightView != null) {
+            int centerRight = centerView.getRight();
+            rightView.layout(centerRight, parentTop, centerRight + rightView.getMeasuredWidth(),
+                    parentTop + rightView.getMeasuredHeight());
+        }
+    }
+
+    private final ViewDragHelper.Callback dragCallback = new ViewDragHelper.Callback() {
+        int DX;
+        private int initLeft;
+
+        @Override
+        public boolean tryCaptureView(View child, int pointerId) {
+            initLeft = child.getLeft();
+            return true;
+        }
+
+        @Override
+        public int clampViewPositionHorizontal(View child, int left, int dx) {
+            if (dx > 0) {
+                return clampMoveRight(child, left);
+            } else {
+                return clampMoveLeft(child, left);
+            }
+        }
+
+        @Override
+        public int getViewHorizontalDragRange(View child) {
+            return getWidth();
+        }
+
+        @Override
+        public void onViewReleased(View releasedChild, float xvel, float yvel) {
+            int dx = releasedChild.getLeft() - initLeft;
+            if (dx == 0) return;
+            boolean handled = false;
+            if (dx > 0) {
+                handled = xvel >= 0 ? onMoveRightReleased(releasedChild, dx, xvel) : onMoveLeftReleased(releasedChild, dx, xvel);
+            } else {
+                handled = xvel <= 0 ? onMoveLeftReleased(releasedChild, dx, xvel) : onMoveRightReleased(releasedChild, dx, xvel);
+            }
+
+            if (!handled) {
+                startScrollAnimation(releasedChild, releasedChild.getLeft() - centerView.getLeft(), false, dx > 0);
+            }
+        }
+
+        @Override
+        public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
+            offsetChildren(changedView, dx);
+        }
+
+        private int clampMoveRight(View child, int left) {
+            if (leftView == null) {
+                return child == centerView ? Math.min(left, 0) : Math.min(left, getWidth());
+            }
+            return Math.min(left, child.getLeft() - leftView.getLeft());
+        }
+
+        private int clampMoveLeft(View child, int left) {
+            if (rightView == null) {
+                return child == centerView ? Math.max(left, 0) : Math.max(left, -child.getWidth());
+            }
+            return Math.max(left, getWidth() - rightView.getLeft() + child.getLeft() - rightView.getWidth());
+        }
+
+        private boolean onMoveRightReleased(View child, int dx, float xvel) {
+            if (xvel > velocityThreshold) {
+                int left = centerView.getLeft() < 0 ? child.getLeft() - centerView.getLeft() : getWidth();
+                boolean moveToOriginal = centerView.getLeft() < 0;
+                startScrollAnimation(child, clampMoveRight(child, left), !moveToOriginal, true);
+                return true;
+            }
+
+            if (leftView == null) {
+                startScrollAnimation(child, child.getLeft() - centerView.getLeft(), false, true);
+                return true;
+            }
+
+
+            if (dx > MAX_OFFSET_FOR_RETURN) {
+                startScrollAnimation(child, leftView.getWidth(), true, true);
+                return true;
+            }
+
+            return false;
+        }
+
+        private boolean onMoveLeftReleased(View child, int dx, float xvel) {
+            if (-xvel > velocityThreshold) {
+                int left = centerView.getLeft() > 0 ? child.getLeft() - centerView.getLeft() : -getWidth();
+                boolean moveToOriginal = centerView.getLeft() > 0;
+                startScrollAnimation(child, clampMoveLeft(child, left), !moveToOriginal, false);
+                return true;
+            }
+
+            if (rightView == null) {
+                startScrollAnimation(child, child.getLeft() - centerView.getLeft(), false, false);
+                return true;
+            }
+
+            if (dx < 0 && centerView.getLeft() < -MAX_OFFSET_FOR_RETURN) {
+                startScrollAnimation(child, - rightView.getWidth(), true, true);
+                return true;
+            }
+
+            if (dx > 0 && xvel >= 0 && leftView.getRight() > MAX_OFFSET_FOR_RETURN) {
+                int left = centerView.getLeft() < 0 ? child.getLeft() - centerView.getLeft() : getWidth();
+                startScrollAnimation(child, clampMoveRight(child, left), true, true);
+                return true;
+            }
+            return false;
+        }
+
+        private boolean isBetween(float left, float right, float check) {
+            return check >= left && check <= right;
+        }
+    };
+
+    private void startScrollAnimation(View view, int targetX, boolean moveToClamp, boolean toRight) {
+        if (dragHelper.settleCapturedViewAt(targetX, view.getTop())) {
+            ViewCompat.postOnAnimation(view, new SettleRunnable(view, moveToClamp, toRight));
+        } else {
+        }
+    }
+
+    private void offsetChildren(View skip, int dx) {
+        if (dx == 0) return;
+
+        int count = getChildCount();
+        for (int i = 0; i < count; i++) {
+            View child = getChildAt(i);
+            if (child == skip) continue;
+
+            child.offsetLeftAndRight(dx);
+            invalidate(child.getLeft(), child.getTop(), child.getRight(), child.getBottom());
+        }
+    }
+
+    private void hackParents() {
+        ViewParent parent = getParent();
+        while (parent != null) {
+            if (parent instanceof NestedScrollingParent) {
+                View view = (View) parent;
+                hackedParents.put(view, view.isEnabled());
+            }
+            parent = parent.getParent();
+        }
+    }
+
+    private void unHackParents() {
+        for (Map.Entry<View, Boolean> entry : hackedParents.entrySet()) {
+            View view = entry.getKey();
+            if (view != null) {
+                view.setEnabled(entry.getValue());
+            }
+        }
+        hackedParents.clear();
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        return internalOnInterceptTouchEvent(event);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                onTouchBegin(event);
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                if (touchState == TOUCH_STATE_WAIT) {
+                    float dx = Math.abs(event.getX() - touchX);
+                    float dy = Math.abs(event.getY() - touchY);
+
+                    if (dx >= touchSlop || dy >= touchSlop) {
+                        touchState = dy == 0 || dx / dy > 1f ? TOUCH_STATE_SWIPE : TOUCH_STATE_SKIP;
+                        if (touchState == TOUCH_STATE_SWIPE) {
+                            requestDisallowInterceptTouchEvent(true);
+                            hackParents();
+                        }
+                    }
                 }
-            }
+                break;
+
+            case MotionEvent.ACTION_CANCEL:
+            case MotionEvent.ACTION_UP:
+                if (touchState == TOUCH_STATE_SWIPE) {
+                    unHackParents();
+                    requestDisallowInterceptTouchEvent(false);
+                }
+                touchState = TOUCH_STATE_WAIT;
+                break;
         }
+
+        if (event.getActionMasked() != MotionEvent.ACTION_MOVE || touchState == TOUCH_STATE_SWIPE) {
+            dragHelper.processTouchEvent(event);
+        }
+
+        return true;
     }
 
-    private void closer(final float finalPosition) {
-        animX = new SpringAnimation(mSwipeView,
-                new FloatPropertyCompat<View>("translationX") {
-                    @Override
-                    public float getValue(View view) {
-                        return view.getTranslationX();
-                    }
-
-                    @Override
-                    public void setValue(View view, float value) {
-                        view.setTranslationX(value);
-                    }
-                }, finalPosition);
-        animX.getSpring().setStiffness(1000f);
-        animX.getSpring().setDampingRatio(0.7f);
-        animX.setStartVelocity(0);
-        animX.addUpdateListener(new DynamicAnimation.OnAnimationUpdateListener() {
-            @Override
-            public void onAnimationUpdate(DynamicAnimation animation, float value, float velocity) {
-                swipeShow(value);
-            }
-        });
-        animX.addEndListener(new DynamicAnimation.OnAnimationEndListener() {
-            @Override
-            public void onAnimationEnd(DynamicAnimation animation, boolean canceled, float value, float velocity) {
-                setWidthRight();
-                swipeRemove(finalPosition);
-            }
-        });
-        animX.start();
+    private boolean internalOnInterceptTouchEvent(MotionEvent event) {
+        if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+            onTouchBegin(event);
+        }
+        return dragHelper.shouldInterceptTouchEvent(event);
     }
 
-    private void swipeRemove(float finalPosition) {
-        if (finalPosition < 0 && typeSwipeRight == TYPE_SWIPE.REMOVE && listener != null) {
-            listener.onRemove(DIRECT.RIGHT, holder.getAdapterPosition());
-        }
-        if (finalPosition > 0 && typeSwipeLeft == TYPE_SWIPE.REMOVE && listener != null) {
-            listener.onRemove(DIRECT.LEFT, holder.getAdapterPosition());
-        }
+    private void onTouchBegin(MotionEvent event) {
+        touchState = TOUCH_STATE_WAIT;
+        touchX = event.getX();
+        touchY = event.getY();
     }
 
-    private void setWidthRight() {
-        if (dragRight != null) {
-            LayoutParams rl = new LayoutParams(-(int) minV, dragRight.getHeight());
-            rl.addRule(CENTER_IN_PARENT);
-            rl.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-            dragRight.setLayoutParams(rl);
+    private class SettleRunnable implements Runnable {
+        private final View view;
+        private final boolean moveToClamp;
+        private final boolean moveToRight;
+
+        SettleRunnable(View view, boolean moveToClamp, boolean moveToRight) {
+            this.view = view;
+            this.moveToClamp = moveToClamp;
+            this.moveToRight = moveToRight;
+        }
+
+        public void run() {
+            if (dragHelper != null && dragHelper.continueSettling(true)) {
+                ViewCompat.postOnAnimation(this.view, this);
+            }
         }
     }
 }

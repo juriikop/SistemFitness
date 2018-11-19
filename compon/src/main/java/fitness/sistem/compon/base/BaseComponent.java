@@ -12,6 +12,7 @@ import android.view.View;
 
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.components.MultiComponents;
+import fitness.sistem.compon.components.RecyclerComponent;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.IValidate;
@@ -39,6 +40,7 @@ import fitness.sistem.compon.tools.ComponPrefTool;
 
 import java.util.List;
 
+import static fitness.sistem.compon.param.ParamModel.DEL_DB;
 import static fitness.sistem.compon.param.ParamModel.GET_DB;
 import static fitness.sistem.compon.param.ParamModel.POST_DB;
 
@@ -106,7 +108,6 @@ public abstract class BaseComponent {
                 actual();
             }
         } else {
-            Log.d("QWERT","BaseComponent addEvent="+multiComponent.nameComponent+" type="+paramMV.type);
             iBase.addEvent(paramMV.eventComponent, this);
         }
     }
@@ -137,7 +138,6 @@ public abstract class BaseComponent {
     }
 
     public void actual() {
-        Log.d("QWERT","BaseComponent actual");
         actualModel(paramMV.paramModel);
     }
 
@@ -415,6 +415,21 @@ public abstract class BaseComponent {
                             } else {
                                 ComponGlob.getInstance().setParam(record);
                                 iBase.startScreen((String) record.getValue(vh.nameFragment), false);
+                            }
+                            break;
+                        case MODEL_PARAM:
+                            ParamModel pm = vh.paramModel;
+                            if (pm.method == DEL_DB) {
+                                ComponGlob.getInstance().baseDB.deleteRecord(iBase, pm, setParam(pm.param, record));
+                            }
+                            break;
+                        case ACTUAL:
+                            actual();
+                            break;
+                        case DEL_RECYCLER:
+                            listData.remove(position);
+                            if (this instanceof RecyclerComponent) {
+                                ((RecyclerComponent) this).adapter.notifyItemRemoved(position);
                             }
                             break;
                         case NAME_FRAGMENT:

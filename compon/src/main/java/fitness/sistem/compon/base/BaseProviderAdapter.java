@@ -127,7 +127,7 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         SwipeLayout swipeView;
         if (holder.itemView instanceof SwipeLayout) {
             swipeView = (SwipeLayout) holder.itemView;
-            swipeView.closeSwipe();
+            swipeView.setOffset(0);
         }
 //        Log.d("QWERT","onBindViewHolder holder.itemView="+holder.itemView.getId()+" isSwipe="+(holder.itemView instanceof SwipeLayout));
         holder.itemView.setTag("PP="+position);

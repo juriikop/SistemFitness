@@ -26,8 +26,6 @@ public class Record extends ArrayList<Field>{
             }
         } else {
             String st;
-//            String st = name.replaceAll("\\.", "-");
-//            String[] nameList = st.split("-");
             String[] nameList = name.split("\\.");
             Record record = this;
             int ik = nameList.length - 1;
