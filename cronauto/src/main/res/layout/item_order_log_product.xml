@@ -12,9 +12,7 @@
     <LinearLayout
         android:id="@+id/del"
         android:layout_width="@dimen/pad_90"
-        android:layout_height="@dimen/pad_50"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
+        android:layout_height="match_parent"
         android:gravity="center">
         <ImageView
             android:layout_width="wrap_content"
@@ -50,23 +48,25 @@
             android:id="@+id/sum_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pad_12"
+            android:layout_marginTop="@dimen/pad_8"
             android:layout_marginLeft="@dimen/pad_45"
             android:layout_marginRight="@dimen/pad_24"
             android:layout_below="@+id/product_name">
-            <!--<TextView-->
-                <!--android:id="@+id/amount"-->
-                <!--style="@style/st_18_black"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textStyle="bold" />-->
+
+            <fitness.sistem.compon.custom_components.SimpleTextView
+                android:id="@+id/price"
+                style="@style/st_14_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:numberFormat="#0.00 ₴"/>
 
             <fitness.sistem.compon.custom_components.SimpleTextView
                 android:id="@+id/amount"
                 style="@style/st_18_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:numberFormat="#0.00"
+                android:layout_below="@+id/price"
+                app:numberFormat="#0.00 ₴"
                 android:textStyle="bold"/>
 
             <ImageView
@@ -83,11 +83,12 @@
                 android:id="@+id/count_l"
                 android:layout_width="@dimen/pad_70"
                 android:layout_height="@dimen/pad_36"
-                android:layout_marginRight="@dimen/pad_16"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/pad_16"
+                android:layout_marginRight="@dimen/pad_16"
                 android:layout_toLeftOf="@+id/plus"
-                android:orientation="horizontal"
-                android:background="@color/gray">
+                android:background="@color/gray"
+                android:orientation="horizontal">
 
                 <fitness.sistem.compon.custom_components.PlusMinus
                     android:id="@+id/count"
@@ -99,8 +100,8 @@
                     android:inputType="number"
                     android:maxLength="5"
                     android:maxLines="1"
-                    app:minValue="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    app:minValue="1" />
             </LinearLayout>
             <ImageView
                 android:id="@+id/minus"
@@ -116,7 +117,7 @@
             android:layout_below="@+id/sum_add"
             android:layout_width="match_parent"
             android:layout_height="@dimen/pad_1"
-            android:layout_marginTop="@dimen/pad_20"
+            android:layout_marginTop="@dimen/pad_10"
             android:layout_marginRight="@dimen/pad_24"
             android:layout_marginLeft="@dimen/pad_24"
             android:background="@color/black_10"/>

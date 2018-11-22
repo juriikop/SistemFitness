@@ -155,6 +155,15 @@ public class DatabaseManager extends BaseDB {
     }
 
     @Override
+    public void updateRecord(IBase iBase, ParamModel paramModel, ContentValues cv, String[] param) {
+        openDatabase();
+        if (paramModel.method == ParamModel.UPDATE_DB) {
+            int i = mDatabase.update(paramModel.updateTable, cv, paramModel.updateUrl, param);
+        }
+        closeDatabase();
+    }
+
+    @Override
     public void insertRecord(String sql, Record record) {
         openDatabase();
         ContentValues cv = new ContentValues();

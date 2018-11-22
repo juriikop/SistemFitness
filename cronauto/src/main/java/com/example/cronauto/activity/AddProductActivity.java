@@ -21,7 +21,9 @@ import butterknife.OnClick;
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.base.BaseActivity;
 import fitness.sistem.compon.base.BaseComponent;
+import fitness.sistem.compon.components.PlusMinusComponent;
 import fitness.sistem.compon.components.RecyclerComponent;
+import fitness.sistem.compon.custom_components.PlusMinus;
 import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.ListRecords;
@@ -38,6 +40,7 @@ public class AddProductActivity extends BaseActivity implements ICustom{
     private double price, priceBonus;
     private int quantity;
     RecyclerComponent recyclerComponent;
+    PlusMinusComponent plusMinusComponent;
 
     @Override
     public int getLayoutId() {
@@ -50,9 +53,13 @@ public class AddProductActivity extends BaseActivity implements ICustom{
         price = paramScreenRecord.getDouble("price");
         priceBonus = paramScreenRecord.getDouble("extra_bonus");
         quantity = paramScreenRecord.getInt("quantity");
-//        amount.setText(decimalFormat.format(price));
+        amount.setText(decimalFormat.format(price));
         bonus_v.setText(decimalFormat.format(priceBonus));
         recyclerComponent = (RecyclerComponent) mComponent.getComponent(R.id.recycler);
+        plusMinusComponent = (PlusMinusComponent) mComponent.getComponent(R.id.count);
+        if (count instanceof PlusMinus) {
+            ((PlusMinus) count).setParam(parentLayout, paramScreenRecord, plusMinusComponent);
+        }
     }
 
     @Override
@@ -82,16 +89,16 @@ public class AddProductActivity extends BaseActivity implements ICustom{
     public void changeValue(int viewId, Field field) {
         switch (viewId) {
             case R.id.count :
-//                if (count == null) return;
-//                String st = count.getText().toString();
-//                long c = Long.valueOf(st);
+                if (count == null) return;
+                String st = count.getText().toString();
+                long c = Long.valueOf(st);
 //                amount.setText(decimalFormat.format(price * c));
 //                bonus_v.setText(decimalFormat.format(priceBonus * c));
-//                if (c > quantity) {
-//                    more_residue.setVisibility(View.VISIBLE);
-//                } else {
-//                    more_residue.setVisibility(View.GONE);
-//                }
+                if (c > quantity) {
+                    more_residue.setVisibility(View.VISIBLE);
+                } else {
+                    more_residue.setVisibility(View.GONE);
+                }
                 break;
             case R.id.recycler :
                 if (field == null || field.value == null || ((ListRecords) field.value).size() == 0) {

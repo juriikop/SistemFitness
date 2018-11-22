@@ -208,7 +208,7 @@ public abstract class BaseComponent {
         return multiComponent.getComponent(id);
     }
 
-    protected String[] setParam(String paramSt, Record rec) {
+    public String[] setParam(String paramSt, Record rec) {
         if (paramSt == null) return null;
         String[] param = paramSt.split(",");
         int ik = param.length;

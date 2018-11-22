@@ -184,11 +184,12 @@ public class MultiComponents <T>{
         return addComponent(ParamComponent.TC.PLUS_MINUS, new ParamView(editId, plusId, minusId));
     }
 
-    public MultiComponents addPlusMinus(int editId, int plusId, int minusId, Multiply... args) {
+    public MultiComponents addPlusMinus(int editId, int plusId, int minusId, Navigator navigator, Multiply... args) {
         ParamComponent paramComponent = new ParamComponent();
         paramComponent.type = ParamComponent.TC.PLUS_MINUS;
         paramComponent.paramModel = null;
         paramComponent.paramView = new ParamView(editId, plusId, minusId);
+        paramComponent.navigator = navigator;
         paramComponent.multiplies = args;
         listComponents.add(paramComponent);
         return this;

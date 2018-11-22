@@ -49,6 +49,11 @@
         <item name="android:textColor">@color/black_70</item>
     </style>
 
+    <style name="st_12_white">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="st_12_primary_l">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/primary_light</item>
@@ -74,6 +79,11 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="st_14_black_30">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black_30</item>
+    </style>
+
     <style name="st_14_black_50">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/black_50</item>
@@ -92,6 +102,16 @@
     <style name="st_14_text">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="st_14_text_blue">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_blue</item>
+    </style>
+
+    <style name="st_14_text_blue_50">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_blue_50</item>
     </style>
 
     <style name="st_16_primary">

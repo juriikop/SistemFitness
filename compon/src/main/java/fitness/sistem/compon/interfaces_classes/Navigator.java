@@ -33,6 +33,11 @@ public class Navigator {
         return this;
     }
 
+    public Navigator add(ParamModel paramModel) {
+        viewHandlers.add(new ViewHandler(0, paramModel));
+        return this;
+    }
+
     public Navigator add(int viewId, ViewHandler.TYPE type, ParamModel paramModel) {
         viewHandlers.add(new ViewHandler(viewId, type, paramModel));
         return this;

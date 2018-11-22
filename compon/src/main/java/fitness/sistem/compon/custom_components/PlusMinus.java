@@ -1,5 +1,6 @@
 package fitness.sistem.compon.custom_components;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.Editable;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.R;
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.components.PlusMinusComponent;
@@ -17,9 +19,13 @@ import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.interfaces_classes.IComponent;
 import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.Multiply;
+import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.param.ParamComponent;
+import fitness.sistem.compon.param.ParamModel;
+
+import static fitness.sistem.compon.param.ParamModel.UPDATE_DB;
 
 public class PlusMinus extends AppCompatEditText {
 
@@ -85,85 +91,89 @@ public class PlusMinus extends AppCompatEditText {
         BaseComponent bc = component.multiComponent.getComponent(getId());
         if (bc instanceof PlusMinusComponent) {
             plusMinusComponent = (PlusMinusComponent) bc;
-        }
-        addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
+            addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
 
-            }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (plusMinusComponent.paramMV.multiplies != null) {
-                    int i = 0;
-                    String st = getText().toString();
-                    if (st != null && st.length() > 0) {
-                        i = Integer.valueOf(st);
-                    }
-                    if (i < minValueInt) {
-                        i = minValueInt;
-                        String st1 = String.valueOf(i);
-                        setText(st1);
-                        setSelection(st1.length());
-                    }
-                    if (field.type == Field.TYPE_LONG) {
-                        field.value = new Long(i);
-                    } else {
-                        field.value = i;
-                    }
-                    for (Multiply m : plusMinusComponent.paramMV.multiplies) {
-                        Float mult = record.getFloat(m.nameField);
-                        if(mult != null) {
-                            TextView tv = parentView.findViewById(m.viewId);
-                            Float ff = mult * i;
-                            if (tv != null) {
-                                if (tv instanceof IComponent) {
-                                    ((IComponent) tv).setData(ff);
-                                } else {
-                                    tv.setText(String.valueOf(ff));
-                                }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (plusMinusComponent.paramMV.multiplies != null) {
+                        int i = 0;
+                        String st = getText().toString();
+                        if (st != null && st.length() > 0) {
+                            i = Integer.valueOf(st);
+                        }
+                        if (i < minValueInt) {
+                            i = minValueInt;
+                            String st1 = String.valueOf(i);
+                            setText(st1);
+                            setSelection(st1.length());
+                        }
+                        if (field != null) {
+                            if (field.type == Field.TYPE_LONG) {
+                                field.value = new Long(i);
+                            } else {
+                                field.value = i;
                             }
-                            if (m.nameFieldRes != null && m.nameFieldRes.length() > 0) {
-                                Field field = record.getField(m.nameFieldRes);
-                                if (field != null) {
-                                    switch (field.type) {
-                                        case Field.TYPE_DOUBLE :
-                                            Double d = Double.valueOf(ff);
-                                            field.value = d;
-                                            break;
-                                        case Field.TYPE_FLOAT :
-                                            field.value = ff;
-                                            break;
-                                        case Field.TYPE_INTEGER :
-                                            float ii = ff;
-                                            Integer in = Integer.valueOf((int)ii);
-                                            field.value = in;
-                                            break;
-                                        case Field.TYPE_LONG :
-                                            float iL = ff;
-                                            Long lon = Long.valueOf((long)iL);
-                                            field.value = lon;
-                                            break;
+                        }
+                        execNavigator(i);
+                        for (Multiply m : plusMinusComponent.paramMV.multiplies) {
+                            Float mult = record.getFloat(m.nameField);
+                            if (mult != null) {
+                                TextView tv = parentView.findViewById(m.viewId);
+                                Float ff = mult * i;
+                                if (tv != null) {
+                                    if (tv instanceof IComponent) {
+                                        ((IComponent) tv).setData(ff);
+                                    } else {
+                                        tv.setText(String.valueOf(ff));
                                     }
-                                } else {
-                                    record.add(new Field(m.nameFieldRes, Field.TYPE_FLOAT, ff));
+                                }
+                                if (m.nameFieldRes != null && m.nameFieldRes.length() > 0) {
+                                    Field field = record.getField(m.nameFieldRes);
+                                    if (field != null) {
+                                        switch (field.type) {
+                                            case Field.TYPE_DOUBLE:
+                                                Double d = Double.valueOf(ff);
+                                                field.value = d;
+                                                break;
+                                            case Field.TYPE_FLOAT:
+                                                field.value = ff;
+                                                break;
+                                            case Field.TYPE_INTEGER:
+                                                float ii = ff;
+                                                Integer in = Integer.valueOf((int) ii);
+                                                field.value = in;
+                                                break;
+                                            case Field.TYPE_LONG:
+                                                float iL = ff;
+                                                Long lon = Long.valueOf((long) iL);
+                                                field.value = lon;
+                                                break;
+                                        }
+                                    } else {
+                                        record.add(new Field(m.nameFieldRes, Field.TYPE_FLOAT, ff));
+                                    }
                                 }
                             }
                         }
                     }
+                    iBase.sendEvent(plusMinusComponent.paramMV.paramView.viewId);
+                    iCustom = PlusMinus.this.component.iCustom;
+                    if (iCustom != null) {
+                        iCustom.changeValue(getId(), null);
+                    }
                 }
-                iBase.sendEvent(plusMinusComponent.paramMV.paramView.viewId);
-                iCustom = PlusMinus.this.component.iCustom;
-                if (iCustom != null) {
-                    iCustom.changeValue(getId(), null);
-                }
-            }
-        });
+            });
+        }
 
 //        setText(getText());
 
@@ -214,6 +224,23 @@ public class PlusMinus extends AppCompatEditText {
                         }
                     }
                 });
+            }
+        }
+    }
+
+    private void execNavigator(int count) {
+        if (plusMinusComponent.navigator != null) {
+            for (ViewHandler vh : plusMinusComponent.navigator.viewHandlers) {
+                switch (vh.type) {
+                    case MODEL_PARAM:
+                        ParamModel pm = vh.paramModel;
+                        if (pm.method == UPDATE_DB) {
+                            ContentValues cv = new ContentValues();
+                            cv.put(pm.updateSet, count);
+                            ComponGlob.getInstance().baseDB.updateRecord(iBase, pm, cv, plusMinusComponent.setParam(pm.param, record));
+                        }
+                        break;
+                }
             }
         }
     }

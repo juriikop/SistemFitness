@@ -18,4 +18,5 @@ public abstract class BaseDB {
     public abstract Field get(IBase iBase, ParamModel paramModel, String sql, String[] param);
     public abstract void get(IBase iBase, ParamModel paramModel, String[] param, IPresenterListener listener);
     public abstract void remoteToLocale(IBase iBase, String url, String table, String nameAlias);
+    public abstract void updateRecord(IBase iBase, ParamModel paramModel, ContentValues cv, String[] param);
 }

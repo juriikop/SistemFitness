@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/gray">
     <RelativeLayout
         android:id="@+id/tool"
         android:layout_width="match_parent"
@@ -65,7 +66,9 @@
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingRight="@dimen/pad_8"
-        android:paddingLeft="@dimen/pad_8"
-        android:background="@color/gray"/>
+        android:background="@color/white"
+        android:layout_marginRight="@dimen/pad_8"
+        android:layout_marginLeft="@dimen/pad_8"
+        android:paddingBottom="@dimen/pad_24"
+        android:clipToPadding="false" />
 </LinearLayout>

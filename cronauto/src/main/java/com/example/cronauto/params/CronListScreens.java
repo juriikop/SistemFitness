@@ -5,10 +5,12 @@ import android.util.Log;
 
 import com.example.cronauto.R;
 import com.example.cronauto.activity.AddProductActivity;
+import com.example.cronauto.activity.FilterActivity;
 import com.example.cronauto.data.db.SQL;
 import com.example.cronauto.data.network.Api;
 import com.example.cronauto.data.network.GetData;
 import fitness.sistem.compon.base.ListScreens;
+import fitness.sistem.compon.components.MultiComponents;
 import fitness.sistem.compon.interfaces_classes.Multiply;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
@@ -28,7 +30,7 @@ public class CronListScreens  extends ListScreens {
             AUTH_LOGIN = "auth_login", AUTH_REGISTER = "auth_register", AUTH_FORGOT = "forgot",
             ORDER = "order", LIST_ORDER = "list_order", INDEX = "index", PRODUCT_LIST = "product_list",
             CATALOG = "catalog", ORDER_LOG = "order_log", ORDER_LOG_HISTORY = "order_log_history",
-            ORDER_PRODUCT = "order_product",
+            ORDER_PRODUCT = "order_product", FILTER = "filter",
             NOVELTIES = "novelties", EXTRA_BONUS = "extra_bonus", PRODUCT_DESCRIPT = "product_descript",
             ADD_PRODUCT = "add_product", EDIT_ORDER = "edit_order", BARCODE = "barcode",
             DESCRIPT = "descript", CHARACTERISTIC = "characteristic";
@@ -109,7 +111,8 @@ public class CronListScreens  extends ListScreens {
         activity(PRODUCT_LIST, R.layout.activity_product_list).animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK)
                         .add(R.id.barcode, BARCODE, actionsAfterResponse().updateDataByModel(R.id.recycler,
-                                new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_BARCODE, "barcode_scanner"))))
+                                new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_BARCODE, "barcode_scanner")))
+                        .add(R.id.filter, FILTER))
                 .addRecognizeVoiceComponent(R.id.microphone, R.id.search)
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_QUERY_ARRAY, "catalog_id")
                         .updateDB(SQL.PRODUCT_TAB, Api.DB_PRODUCT, SQL.dayMillisecond, SQL.PRODUCT_ALIAS),
@@ -119,6 +122,12 @@ public class CronListScreens  extends ListScreens {
                                 .add(R.id.add, ADD_PRODUCT, RECORD))
                 .addSearchComponent(R.id.search, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_SEARCH, "product_name"),
                         new ParamView(R.id.recycler), null, false);
+
+        activity(FILTER, FilterActivity.class).animate(AS.RL)
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
+                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.BRAND_LIST).updateDB(SQL.BRAND_TAB,
+                        Api.DB_BRAND, SQL.dayMillisecond, SQL.BRAND_ALIAS),
+                        new ParamView(R.id.recycler, "select", new int[] {R.layout.item_filter, R.layout.item_filter_sel}).selected());
 
         activity(BARCODE, R.layout.activity_barcode).animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK).add(R.id.apply,
@@ -134,7 +143,9 @@ public class CronListScreens  extends ListScreens {
 
         activity(ORDER_PRODUCT, R.layout.activity_order_product, "%1$s", "orderName").animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
-                .addPlusMinus(R.id.count, R.id.plus, R.id.minus, new Multiply(R.id.amount, "price", "amount"))
+                .addPlusMinus(R.id.count, R.id.plus, R.id.minus, new Navigator()
+                        .add(new ParamModel(ParamModel.UPDATE_DB, SQL.PRODUCT_ORDER, "count", SQL.PRODUCT_ORDER_WHERE, "product_id")),
+                        new Multiply(R.id.amount, "price", "amount"))
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.PRODUCT_IN_ORDER, "orderId").row("row"),
                         new ParamView(R.id.recycler, R.layout.item_order_log_product), new Navigator()
                                 .add(R.id.del, new ParamModel(ParamModel.DEL_DB, SQL.PRODUCT_ORDER, SQL.PRODUCT_ORDER_WHERE, "product_id"))
@@ -182,7 +193,7 @@ public class CronListScreens  extends ListScreens {
                         new ParamView(R.id.recycler, "2", new int[] {R.layout.item_property, R.layout.item_property_1}));
 
         activity(ADD_PRODUCT, AddProductActivity.class).animate(AS.RL)
-                .addPlusMinus(R.id.count, R.id.plus, R.id.minus, new Multiply(R.id.amount, "price"))
+                .addPlusMinus(R.id.count, R.id.plus, R.id.minus, null, new Multiply(R.id.amount, "price"))
                 .addComponent(TC.PANEL_ENTER, new ParamModel(ParamModel.ARGUMENTS),
                         new ParamView(R.id.panel), new Navigator()
                                 .add(R.id.add, ViewHandler.TYPE.CLICK_SEND,

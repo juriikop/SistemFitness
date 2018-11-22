@@ -76,6 +76,19 @@
     <string name="recovery">Восстановление пароля</string>
     <string name="enter_login_or_email">Введите Логин или Email. Контрольная строка для смены пароля, а также ваши регистрационные данные, будут высланы вам по Email.</string>
 
+    // FILTERS
+    <string name="filter">Фильтр</string>
+    <string name="brand">Бренд</string>
+    <string name="select_category">Выбрать категорию</string>
+    <string name="car_brand">Марка авто</string>
+    <string name="car_brand_1">Марка</string>
+    <string name="model">Модели</string>
+    <string name="select_car_brand">Выбрать марку и модель авто</string>
+    <string name="product_1">товар</string>
+    <string name="product_2_4">товара</string>
+    <string name="product_5_9">товаров</string>
+    <string name="reset">Сбросить</string>
+
     // Profile
     <string name="surname">Фамилия</string>
     <string name="name">Имя</string>
@@ -84,8 +97,20 @@
     <string name="city">Город</string>
 
     // INDEX
-    <string name="filter">Фильтр</string>
     <string name="search">Поиск</string>
+    <string name="all_news">Все новинки</string>
+    <string name="all_bonus">Все бонусы</string>
+    <string name="catalog">Каталог</string>
+    <string name="productTab">Товары</string>
+    <string name="change_bd_product">Обновление базы данных по продуктам</string>
+    <string name="change_bd_analog">Обновление базы данных аналогов</string>
+    <string name="change_bd_catalog">Обновление базы данных каталога</string>
+    <string name="change_bd_brand">Обновление базы данных брендов</string>
+    <string name="change_bd_bonus">Обновление базы данных бонусов</string>
+    <string name="change_bd_news">Обновление базы данных новостей</string>
+    <string name="change_bd_orders">Обновление базы данных заказов</string>
+    <string name="change_bd_mutual">Обновление базы данных взаиморасчетов</string>
+    <string name="result_find">Результаты поиска</string>
 
     // ADD PRODUCT
     <string name="add_product">Добавление товара</string>

@@ -33,6 +33,11 @@ public class SQL {
     public static String ANALOG_ID_PRODUCT = "SELECT product.* FROM product, analog WHERE analog.product_id = ? " +
             "AND analog.product_code = product.product_code";
 
+    public static String BRAND_TAB = "brand_tab";
+    public static String BRAND_FIELDS = "brand_ind INTEGER PRIMARY KEY, name TEXT";
+    public static String BRAND_ALIAS = "name,NAME";
+    public static String BRAND_LIST = "SELECT * FROM brand_tab";
+
     public static String ORDER_TAB = "order_tab";
     public static String ORDER_INDEX_NAME = "order_ind";
     public static String ORDER_INDEX_COLUMN = "orderId";

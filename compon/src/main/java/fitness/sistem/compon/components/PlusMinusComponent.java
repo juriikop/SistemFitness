@@ -1,15 +1,22 @@
 package fitness.sistem.compon.components;
 
+import android.content.ContentValues;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
+import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.param.ParamComponent;
+import fitness.sistem.compon.param.ParamModel;
+
+import static fitness.sistem.compon.param.ParamModel.DEL_DB;
+import static fitness.sistem.compon.param.ParamModel.UPDATE_DB;
 
 public class PlusMinusComponent extends BaseComponent {
 
@@ -71,6 +78,23 @@ public class PlusMinusComponent extends BaseComponent {
 //            }
 //        });
     }
+
+//    public void changeCount(int count) {
+//        if (navigator != null) {
+//            for (ViewHandler vh : navigator.viewHandlers) {
+//                switch (vh.type) {
+//                    case UPDATE_DATA:
+//                        ParamModel pm = vh.paramModel;
+//                        if (pm.method == UPDATE_DB) {
+//                            ContentValues cv = new ContentValues();
+//                            cv.put(pm.updateSet, count);
+//                            ComponGlob.getInstance().baseDB.updateRecord(iBase, pm, setParam(pm.param, record));
+//                        }
+//                        break;
+//                }
+//            }
+//        }
+//    }
 
     @Override
     public void changeData(Field field) {

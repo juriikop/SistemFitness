@@ -21,6 +21,7 @@ public class ParamModel <T> {
     public static int POST_DB = 11;
     public static int INSERT_DB = 12;
     public static int DEL_DB = 13;
+    public static int UPDATE_DB = 14;
     public static final int PARENT = 100;
     public static final int FIELD = 101;
     public static final int ARGUMENTS = 102;
@@ -41,7 +42,7 @@ public class ParamModel <T> {
     public int stringArray;
     public String paginationNameParamPerPage;
     public String paginationNameParamNumberPage;
-    public String updateTable, updateUrl, updateAlias;
+    public String updateTable, updateUrl, updateAlias, updateSet;
     public String[] urlArray;
     public int urlArrayIndex = -1;
 
@@ -101,6 +102,14 @@ public class ParamModel <T> {
         this.method = method;
         updateTable = table;
         updateUrl = where;
+        this.param = param;
+    }
+
+    public ParamModel(int method, String table, String set, String where, String param) {
+        this.method = method;
+        updateTable = table;
+        updateUrl = where;
+        updateSet = set;
         this.param = param;
     }
 
