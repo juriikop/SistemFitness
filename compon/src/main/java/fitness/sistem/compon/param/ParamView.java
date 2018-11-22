@@ -23,6 +23,7 @@ public class ParamView {
     public int furtherSkip, furtherNext, furtherStart;
     public Visibility[] visibilityArray;
     public boolean selected = false;
+    public int maxItemSelect;
     public List<Expanded> expandedList;
 
     public ParamView(int viewId) {
@@ -139,6 +140,13 @@ public class ParamView {
 
     public ParamView selected() {
         selected = true;
+        maxItemSelect = -1;
+        return this;
+    }
+
+    public ParamView selected(int maxItemSelect) {
+        selected = true;
+        this.maxItemSelect = maxItemSelect;
         return this;
     }
 

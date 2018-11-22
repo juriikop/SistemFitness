@@ -91,6 +91,10 @@ public class RecyclerComponent extends BaseComponent {
                     for (int i = 0; i < ik; i++) {
                         Record r = listData.get(i);
                         Field f = r.getField(paramMV.paramView.fieldType);
+                        if (f == null) {
+                            f = new Field(paramMV.paramView.fieldType, Field.TYPE_INTEGER, 0);
+                            r.add(f);
+                        }
                         if (i == selectStart) {
                             f.value = 1;
                         } else {
@@ -147,13 +151,15 @@ public class RecyclerComponent extends BaseComponent {
     public void changeDataPosition(int position, boolean select) {
         if (paramMV.paramView.selected) {
             adapter.notifyItemChanged(position);
-            ComponPrefTool.setNameInt(componentTag + multiComponent.nameComponent, position);
-            if (select && selectViewHandler != null) {
-                Record record = listData.get(position);
-                ComponGlob.getInstance().setParam(record);
-                String st = record.getString(selectViewHandler.nameFragment);
-                if (st != null && st.length() > 0) {
-                    iBase.startScreen(st, true);
+            if (paramMV.paramView.maxItemSelect == -1) {
+                ComponPrefTool.setNameInt(componentTag + multiComponent.nameComponent, position);
+                if (select && selectViewHandler != null) {
+                    Record record = listData.get(position);
+                    ComponGlob.getInstance().setParam(record);
+                    String st = record.getString(selectViewHandler.nameFragment);
+                    if (st != null && st.length() > 0) {
+                        iBase.startScreen(st, true);
+                    }
                 }
             }
         }

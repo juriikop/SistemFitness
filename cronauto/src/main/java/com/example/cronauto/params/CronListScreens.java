@@ -30,7 +30,7 @@ public class CronListScreens  extends ListScreens {
             AUTH_LOGIN = "auth_login", AUTH_REGISTER = "auth_register", AUTH_FORGOT = "forgot",
             ORDER = "order", LIST_ORDER = "list_order", INDEX = "index", PRODUCT_LIST = "product_list",
             CATALOG = "catalog", ORDER_LOG = "order_log", ORDER_LOG_HISTORY = "order_log_history",
-            ORDER_PRODUCT = "order_product", FILTER = "filter",
+            ORDER_PRODUCT = "order_product", FILTER = "filter", FILTER_CATEGORY = "filter_category",
             NOVELTIES = "novelties", EXTRA_BONUS = "extra_bonus", PRODUCT_DESCRIPT = "product_descript",
             ADD_PRODUCT = "add_product", EDIT_ORDER = "edit_order", BARCODE = "barcode",
             DESCRIPT = "descript", CHARACTERISTIC = "characteristic";
@@ -124,10 +124,15 @@ public class CronListScreens  extends ListScreens {
                         new ParamView(R.id.recycler), null, false);
 
         activity(FILTER, FilterActivity.class).animate(AS.RL)
-                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK).add(R.id.category, FILTER_CATEGORY))
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.BRAND_LIST).updateDB(SQL.BRAND_TAB,
                         Api.DB_BRAND, SQL.dayMillisecond, SQL.BRAND_ALIAS),
-                        new ParamView(R.id.recycler, "select", new int[] {R.layout.item_filter, R.layout.item_filter_sel}).selected());
+                        new ParamView(R.id.recycler, "select", new int[] {R.layout.item_filter, R.layout.item_filter_sel}).selected(5));
+
+        activity(FILTER_CATEGORY, R.layout.activity_filter_category).animate(AS.RL)
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK));
+
+
 
         activity(BARCODE, R.layout.activity_barcode).animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK).add(R.id.apply,
