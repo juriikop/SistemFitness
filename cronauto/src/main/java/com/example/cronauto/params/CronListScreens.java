@@ -131,7 +131,8 @@ public class CronListScreens  extends ListScreens {
                 .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.CATEGORY_1),
                         new ParamView(R.id.recycler, "expandedLevel", new int[]{R.layout.item_catalog_1,
                                 R.layout.item_catalog_2, R.layout.item_catalog_3})
-                                .expanded(R.id.expand, R.id.expand, new ParamModel(ParamModel.GET_DB, SQL.CATALOG, "catalog_id")),
+                                .expanded(R.id.expand, R.id.expand, new ParamModel(ParamModel.GET_DB, SQL.CATEGORY_2, "catalog_id"))
+                                .expanded(R.id.expand, R.id.expand, new ParamModel(ParamModel.GET_DB, SQL.CATEGORY_3, "catalog_id")),
                         null);
 
         activity(BARCODE, R.layout.activity_barcode).animate(AS.RL)

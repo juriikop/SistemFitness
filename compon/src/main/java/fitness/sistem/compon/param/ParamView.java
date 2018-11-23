@@ -1,5 +1,7 @@
 package fitness.sistem.compon.param;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 

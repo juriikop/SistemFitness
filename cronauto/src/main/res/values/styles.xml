@@ -39,6 +39,11 @@
         <item name="android:textColor">@color/text_blue</item>
     </style>
 
+    <style name="st_12_text_blue_50">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/text_blue_50</item>
+    </style>
+
     <style name="st_12_black">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/black</item>

@@ -220,7 +220,12 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     setLevelData_1(level, position, (ListRecords) obj);
                 }
             } else {
-                ParamView.Expanded expand = paramView.expandedList.get(0);
+                ParamView.Expanded expand;
+                if (paramView.expandedList.size() > level) {
+                    expand = paramView.expandedList.get(level);
+                } else {
+                    expand = paramView.expandedList.get(0);
+                }
                 ParamModel model = expand.expandModel;
                 if (model != null) {
                     switch (model.method) {

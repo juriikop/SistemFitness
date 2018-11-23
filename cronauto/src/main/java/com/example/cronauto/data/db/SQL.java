@@ -25,6 +25,15 @@ public class SQL {
             "(SELECT * FROM catalog WHERE parent_id = 0) AS cat1 WHERE catalog.parent_id = cat1.catalog_id) AS cat2 WHERE catalog.parent_id = cat2.catalog_id) AS cat " +
             "WHERE product.catalog_id = cat.catalog_id GROUP BY cat.group_id_1";
 
+    public static final String CATEGORY_2 = "SELECT cat.group_id AS catalog_id, cat.catalog_name AS catalog_name, COUNT(product.product_id) AS count_prod FROM product, " +
+            "(SELECT catalog.catalog_id, cat1.catalog_name, cat1.catalog_id AS group_id FROM catalog, " +
+            "(SELECT * FROM catalog WHERE parent_id = ?) AS cat1 WHERE catalog.parent_id = cat1.catalog_id) AS cat " +
+            "WHERE product.catalog_id = cat.catalog_id GROUP BY cat.group_id";
+
+    public static final String CATEGORY_3 = "SELECT cat.catalog_id AS catalog_id, cat.catalog_name AS catalog_name, COUNT(product.product_id) AS count_prod FROM product, " +
+            "(SELECT * FROM catalog WHERE parent_id = ?) AS cat WHERE product.catalog_id = cat.catalog_id GROUP BY cat.catalog_id";
+
+    public static final String CATEGORY_4 = "SSELECT * FROM catalog WHERE parent_id = ?";
 
     public static String PROPERTY_TAB = "property";
     public static String PROPERTY_INDEX_NAME = "property_ind";
