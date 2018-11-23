@@ -237,6 +237,7 @@ public class DatabaseManager extends BaseDB {
                         row++;
                         record.add(new Field(paramModel.rowName, Field.TYPE_LONG, row));
                     }
+//                    iBase.log("DatabaseManager RECORD=" + record.toString());
                     listRecords.add(record);
                 } while (c.moveToNext());
             } else {

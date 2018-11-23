@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/catalog_name"
+        style="@style/st_14_black_70"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_48"
+        android:layout_marginRight="@dimen/pad_24"
+        android:layout_marginTop="@dimen/pad_12"/>
+
+    <fitness.sistem.compon.custom_components.TextViewGrammar
+        android:id="@+id/catalog_count"
+        style="@style/st_12_black_70"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:stringArray="@array/prod_grammar"
+        android:layout_below="@+id/catalog_name"
+        android:layout_marginLeft="@dimen/pad_48"
+        android:layout_marginRight="@dimen/pad_24"
+        android:layout_marginTop="@dimen/pad_4"
+        android:layout_marginBottom="@dimen/pad_12"/>
+
+</RelativeLayout>

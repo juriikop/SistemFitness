@@ -1,7 +1,6 @@
 package com.example.cronauto.params;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.cronauto.R;
 import com.example.cronauto.activity.AddProductActivity;
@@ -10,11 +9,9 @@ import com.example.cronauto.data.db.SQL;
 import com.example.cronauto.data.network.Api;
 import com.example.cronauto.data.network.GetData;
 import fitness.sistem.compon.base.ListScreens;
-import fitness.sistem.compon.components.MultiComponents;
 import fitness.sistem.compon.interfaces_classes.Multiply;
 import fitness.sistem.compon.interfaces_classes.Navigator;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
-import fitness.sistem.compon.json_simple.JsonSimple;
 import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.param.ParamView;
 
@@ -130,9 +127,12 @@ public class CronListScreens  extends ListScreens {
                         new ParamView(R.id.recycler, "select", new int[] {R.layout.item_filter, R.layout.item_filter_sel}).selected(5));
 
         activity(FILTER_CATEGORY, R.layout.activity_filter_category).animate(AS.RL)
-                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK));
-
-
+                .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK))
+                .addComponent(TC.RECYCLER, new ParamModel(ParamModel.GET_DB, SQL.CATEGORY_1),
+                        new ParamView(R.id.recycler, "expandedLevel", new int[]{R.layout.item_catalog_1,
+                                R.layout.item_catalog_2, R.layout.item_catalog_3})
+                                .expanded(R.id.expand, R.id.expand, new ParamModel(ParamModel.GET_DB, SQL.CATALOG, "catalog_id")),
+                        null);
 
         activity(BARCODE, R.layout.activity_barcode).animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, ViewHandler.TYPE.BACK).add(R.id.apply,

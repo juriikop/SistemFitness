@@ -157,6 +157,12 @@
     <string name="analog">Аналоги</string>
     <string name="not_analog">Аналогов нет</string>
 
+    <string-array name="prod_grammar">
+        <item>товар</item>
+        <item>товара</item>
+        <item>товаров</item>
+    </string-array>
+
     <string-array name="auth_tab_name">
         <item>Вход</item>
         <item>Регистрация</item>

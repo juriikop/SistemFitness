@@ -18,6 +18,14 @@ public class SQL {
     public static String CATALOG = "SELECT * FROM catalog WHERE parent_id = ?";
     public static String CATALOG_0 = "SELECT * FROM catalog WHERE parent_id = 0;";
 
+
+    public static final String CATEGORY_1 = "SELECT cat.group_id_1 AS catalog_id, cat.catalog_name AS catalog_name, COUNT(product.product_id) AS count_prod FROM product, " +
+            "(SELECT catalog.catalog_id, cat2.catalog_name, cat2.group_id_1 FROM catalog, " +
+            "(SELECT catalog.catalog_id, cat1.catalog_name, cat1.catalog_id AS group_id_1 FROM catalog, " +
+            "(SELECT * FROM catalog WHERE parent_id = 0) AS cat1 WHERE catalog.parent_id = cat1.catalog_id) AS cat2 WHERE catalog.parent_id = cat2.catalog_id) AS cat " +
+            "WHERE product.catalog_id = cat.catalog_id GROUP BY cat.group_id_1";
+
+
     public static String PROPERTY_TAB = "property";
     public static String PROPERTY_INDEX_NAME = "property_ind";
     public static String PROPERTY_INDEX_COLUMN = "product_id";
