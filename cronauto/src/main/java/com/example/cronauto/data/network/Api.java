@@ -17,4 +17,5 @@ public class Api {
     public static String DB_MARKA_PROD = "products/auto/brands.php";
     public static String DB_MODEL_PROD = "products/auto/models.php";
     public static String CONTACTS = "user/contacts.php";
+    public static String NEWS = "news/list.php";
 }

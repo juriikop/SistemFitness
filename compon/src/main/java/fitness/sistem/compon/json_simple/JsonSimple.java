@@ -309,6 +309,8 @@ public class JsonSimple {
                             builder.append(cu);
                             i = iu;
                         }
+                    } else if (c1 == 'r' || c1 == 'n' || c1 == 't') {
+                        i++;
                     }
 //                    else {
 //                        builder.append(c[i]);

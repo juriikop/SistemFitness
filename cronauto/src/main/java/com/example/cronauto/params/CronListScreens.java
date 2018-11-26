@@ -32,7 +32,8 @@ public class CronListScreens  extends ListScreens {
             ADD_PRODUCT = "add_product", EDIT_ORDER = "edit_order", BARCODE = "barcode",
             DESCRIPT = "descript", CHARACTERISTIC = "characteristic", FILTER_MARKA = "filter_marka",
             FILTER_MODEL = "filter_model", HOW_BUY = "how_buy", GIFT = "gift", MY_PROD = "my_prod",
-            MUTUAL = "mutual", BONUS_S = "bonus", CONTACTS = "contacts";
+            MUTUAL = "mutual", BONUS_S = "bonus", CONTACTS = "contacts", NEWS = "news",
+            NEWS_DETAIL = "news_det";
 
     @Override
     public void initScreen() {
@@ -102,6 +103,11 @@ public class CronListScreens  extends ListScreens {
 
         fragment(MUTUAL, R.layout.fragment_mutual)
                 .addNavigator(new Navigator().add(R.id.back, VH.OPEN_DRAWER));
+
+        fragment(NEWS, R.layout.fragment_news)
+                .addNavigator(new Navigator().add(R.id.back, VH.OPEN_DRAWER))
+                .addComponent(TC.RECYCLER, new ParamModel(GET, Api.NEWS), new ParamView(R.id.recycler, R.layout.item_news),
+                        new Navigator().add(0, NEWS_DETAIL, RECORD));
 
         fragment(CONTACTS, R.layout.fragment_contacts)
                 .addNavigator(new Navigator().add(R.id.back, VH.OPEN_DRAWER))
@@ -233,6 +239,10 @@ public class CronListScreens  extends ListScreens {
 
         fragment(HOW_BUY, R.layout.fragment_how_buy)
                 .addNavigator(new Navigator().add(R.id.back, VH.OPEN_DRAWER));
+
+        activity(NEWS_DETAIL, R.layout.activity_news_detail)
+                .addNavigator(new Navigator().add(R.id.back, VH.BACK))
+                .addComponent(TC.PANEL, new ParamModel(ARGUMENTS), new ParamView(R.id.panel));
 
         super.initScreen();
     }

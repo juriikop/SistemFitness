@@ -34,6 +34,7 @@
         <attr name="heightLine" format="dimension"/>
         <attr name="numberFormat" format="string"/>
         <attr name="dateFormat" format="string"/>
+        <attr name="dateMilisec" format="boolean"/>
         <attr name="placeholder" format="reference"/>
         <attr name="viewLayoutId" format="string"/>
         <attr name="fadedScreenColor" format="color"/>

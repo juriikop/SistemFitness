@@ -4,7 +4,9 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:gravity="center_vertical"
-    android:layout_height="@dimen/h_menu">
+    android:layout_height="@dimen/h_menu"
+    android:background="@color/gray">
+
     <fitness.sistem.compon.custom_components.ImageViewColor
         android:id="@+id/icon"
         android:layout_width="@dimen/d_icon"

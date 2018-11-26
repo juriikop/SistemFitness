@@ -161,6 +161,9 @@
     <string name="mutual">4 Взаиморасчеты</string>
     <string name="how_catalog">5  Каталог</string>
 
+    // NEWS
+    <string name="news">Новости</string>
+
     // BARCODE scanner
     <string name="barcode_place">Поместите штрихкод в поле</string>
     <string name="barcode_scan">Применить</string>

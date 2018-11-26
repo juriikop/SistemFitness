@@ -21,6 +21,7 @@ public class SimpleTextView extends android.support.v7.widget.AppCompatTextView
         implements IComponent{
     private Context context;
     private String numberFormat, dateFormat;
+    private boolean dateMilisec;
     private Object data;
     private String alias;
 
@@ -45,6 +46,7 @@ public class SimpleTextView extends android.support.v7.widget.AppCompatTextView
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Simple);
         numberFormat = a.getString(R.styleable.Simple_numberFormat);
         dateFormat = a.getString(R.styleable.Simple_dateFormat);
+        dateMilisec = a.getBoolean(R.styleable.Simple_dateMilisec, true);
         alias = a.getString(R.styleable.Simple_alias);
         a.recycle();
     }
@@ -61,13 +63,18 @@ public class SimpleTextView extends android.support.v7.widget.AppCompatTextView
     public void setData(Object data) {
         this.data = data;
         if (dateFormat != null && dateFormat.length() > 0) {
+            SimpleDateFormat df = new SimpleDateFormat(dateFormat);
             if (data instanceof String) {
                 String stt = new String((String) data);
                 Date dat = stringToDate(stt).getTime();
-                SimpleDateFormat df = new SimpleDateFormat(dateFormat);
                 setText(df.format(dat));
             } else if (data instanceof Long) {
-
+                long d = (long)data;
+                if ( ! dateMilisec) {
+                    d = d * 1000;
+                }
+                Date dd = new Date(d);
+                setText(df.format(dd));
             } else if (data instanceof Date) {
 
             }

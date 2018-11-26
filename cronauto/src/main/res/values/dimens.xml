@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="h_menu">40dp</dimen>
+    <dimen name="h_menu">46dp</dimen>
     <dimen name="d_icon">24dp</dimen>
     <dimen name="h_tool_bar">50dp</dimen>
     <dimen name="h_button">50dp</dimen>
