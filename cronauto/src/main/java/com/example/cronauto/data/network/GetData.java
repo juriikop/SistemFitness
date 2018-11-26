@@ -37,7 +37,7 @@ public class GetData extends DataFieldGet {
                 .item(R.drawable.user, activity.getString(R.string.m_profile), CronListScreens.NOVELTIES)
                 .item(R.drawable.description, activity.getString(R.string.m_news), CronListScreens.CATALOG)
                 .item(R.drawable.information, activity.getString(R.string.m_how_to_buy), CronListScreens.HOW_BUY)
-                .item(R.drawable.pin, activity.getString(R.string.m_contacts), CronListScreens.CATALOG);
+                .item(R.drawable.pin, activity.getString(R.string.m_contacts), CronListScreens.CONTACTS);
         return menu;
     }
 

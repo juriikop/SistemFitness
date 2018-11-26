@@ -32,7 +32,7 @@ public class CronListScreens  extends ListScreens {
             ADD_PRODUCT = "add_product", EDIT_ORDER = "edit_order", BARCODE = "barcode",
             DESCRIPT = "descript", CHARACTERISTIC = "characteristic", FILTER_MARKA = "filter_marka",
             FILTER_MODEL = "filter_model", HOW_BUY = "how_buy", GIFT = "gift", MY_PROD = "my_prod",
-            MUTUAL = "mutual", BONUS_S = "bonus";
+            MUTUAL = "mutual", BONUS_S = "bonus", CONTACTS = "contacts";
 
     @Override
     public void initScreen() {
@@ -97,6 +97,10 @@ public class CronListScreens  extends ListScreens {
 
         fragment(MUTUAL, R.layout.fragment_mutual)
                 .addNavigator(new Navigator().add(R.id.back, VH.OPEN_DRAWER));
+
+        fragment(CONTACTS, R.layout.fragment_contacts)
+                .addNavigator(new Navigator().add(R.id.back, VH.OPEN_DRAWER))
+                .addComponent(TC.PANEL, new ParamModel(GET, Api.CONTACTS), new ParamView(R.id.panel));
 
         activity(PRODUCT_LIST, R.layout.activity_product_list).animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, VH.BACK)

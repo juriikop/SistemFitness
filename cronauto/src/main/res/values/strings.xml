@@ -26,6 +26,12 @@
     <string name="m_how_to_buy">Как купить</string>
     <string name="m_contacts">Контакты</string>
 
+    // CONTACTS
+    <string name="contacts">Контакты</string>
+    <string name="of_adr">ул. Буковая 40, Харьков</string>
+    <string name="of_mail">sales@kron.kh.ua</string>
+    <string name="of_phone">057-341-10-16 057-341-10-40</string>
+
     // Error text
     <string name="er_filled">Нужно заполнить</string>
     <string name="er_lenght">Количество знаков в поле\u0020</string>
