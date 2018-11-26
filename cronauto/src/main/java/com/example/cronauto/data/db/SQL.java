@@ -18,6 +18,31 @@ public class SQL {
     public static String CATALOG = "SELECT * FROM catalog WHERE parent_id = ?";
     public static String CATALOG_0 = "SELECT * FROM catalog WHERE parent_id = 0;";
 
+    public static String MARKA_TAB = "marka";
+    public static String MARKA_ALIAS = "marka_id,ID;marka_name,NAME";
+    public static String MARKA_FIELDS = "marka_id INTEGER PRIMARY KEY, marka_name TEXT";
+    public static String MARKA = "SELECT marka.marka_name AS marka_name, marka.marka_id AS marka_id, COUNT(marka_prod.product_id) AS count " +
+            "FROM marka, marka_prod WHERE marka.marka_id = marka_prod.marka_id GROUP BY marka.marka_id";
+
+    public static String MARKA_PROD = "marka_prod";
+    public static String MARKA_PROD_ALIAS = "marka_id,BRAND_ID;product_id,PRODUCT_ID";
+    public static String MARKA_PROD_FIELDS = "mp_id INTEGER PRIMARY KEY, marka_id INTEGER, product_id INTEGER";
+
+    public static String MODEL_TAB = "model";
+    public static String MODEL_ALIAS = "model_id,ID;model_name,NAME";
+    public static String MODEL_FIELDS = "model_id INTEGER PRIMARY KEY, model_name text";
+    public static String MODEL = "SELECT model.model_id AS model_id, model.model_name AS model_name, 0 AS sel, " +
+            "COUNT(model_prod.product_id) AS count FROM model, marka_model, model_prod WHERE marka_model.marka_id = ? " +
+            "AND model.model_id = marka_model.model_id AND model.model_id = model_prod.model_id GROUP BY model.model_id";
+
+    public static String MODEL_PROD = "model_prod";
+    public static String MODEL_PROD_ALIAS = "model_id,MODEL_ID;product_id,PRODUCT_ID";
+    public static String MODEL_PROD_FIELDS = "mp_id INTEGER PRIMARY KEY, model_id INTEGER, product_id INTEGER";
+
+    public static String MARKA_MODEL = "marka_model";
+    public static String MARKA_MODEL_ALIAS = "marka_id,BRAND_ID;model_id,MODEL_ID";
+    public static String MARKA_MODEL_FIELDS = "mm INTEGER PRIMARY KEY, marka_id INTEGER, model_id INTEGER";
+//    public static String MARKA_MODEL = "SELECT * FROM marka";
 
     public static final String CATEGORY_1 = "SELECT cat.group_id_1 AS catalog_id, cat.catalog_name AS catalog_name, COUNT(product.product_id) AS count_prod FROM product, " +
             "(SELECT catalog.catalog_id, cat2.catalog_name, cat2.group_id_1 FROM catalog, " +
@@ -55,6 +80,15 @@ public class SQL {
     public static String BRAND_ALIAS = "name,NAME";
     public static String BRAND_LIST = "SELECT * FROM brand_tab";
 
+    public static String BONUS_S = "bonus_tab";
+    public static String BONUS_S_FIELDS = "code TEXT, name TEXT, activeFrom INTEGER, activeTo INTEGER, description TEXT, " +
+            "extDescription TEXT, feature TEXT, thresholdBonuses TEXT, presentsProduct TEXT, manufacturer TEXT, " +
+            "isCumulative INTEGER, comulativeSum INTEGER";
+    public static String BONUS_S_ALIAS = "code,CODE;name,NAME;activeFrom,ACTIVE_FROM;activeTo,ACTIVE_TO;description,DESCRIPTION;" +
+            "extDescription,EXT_DESCRIPTION;feature,FEATURE;thresholdBonuses,THRESHOLD_BUNUSES;manufacturer,MANUFACTURER;" +
+            "presentsProduct,THRESHOLD_PRESENTS;isCumulative,IS_CUMULATIVE;comulativeSum,CUMULATIVE_SUM";
+    public static String BONUS_S_LIST = "SELECT * FROM bonus_tab WHERE code > '000000010'";
+
     public static String ORDER_TAB = "order_tab";
     public static String ORDER_INDEX_NAME = "order_ind";
     public static String ORDER_INDEX_COLUMN = "orderId";
@@ -91,10 +125,12 @@ public class SQL {
     public static String PRODUCT_INDEX_NAME = "prod_ind";
     public static String PRODUCT_INDEX_COLUMN = "catalog_id";
     public static String PRODUCT_FIELDS = "product_id INTEGER primary key, catalog_id INTEGER, product_name TEXT, catalog_code TEXT, picture TEXT, " +
-            "bar_code TEXT, oem TEXT, price REAL, product_code TEXT, new_product INTEGER, extra_bonus REAL, measure TEXT, quantity INTEGER, " +
-            "gift integer";
+            "bar_code TEXT, oem TEXT, price REAL, product_code TEXT, new_product TEXT, extra_bonus REAL, bonus REAL, measure TEXT, quantity INTEGER, " +
+            "brand TEXT, gift TEXT, bonus_programs TEXT, my_product TEXT";
+
     public static String PRODUCT_ALIAS = "product_id,ID;catalog_id,SECTION_ID;product_name,NAME;catalog_code,CATALOG_CODE;picture,DETAIL_PICTURE;bar_code,BAR_CODE;" +
-            "oem,OEM;price,PRICE;product_code,PRODUCT_CODE_1C;new_product,NEW_PRODUCT;extra_bonus,EXTRA_BONUS;measure,MEASURE;quantity,QUANTITY";
+            "oem,OEM;price,PRICE;product_code,PRODUCT_CODE_1C;new_product,NEW_PRODUCT;extra_bonus,EXTRA_BONUS;measure,MEASURE;quantity,QUANTITY;" +
+            "brand,BRAND;gift,PRESENT_PRODUCT_GIFT;my_product,MY_PRODUCTS_STIKER;bonus_programs,BONUS_PROGRAMS;bonus,BONUS";
 
     public static String PRODUCT_ORDER = "product_order";
     public static String PRODUCT_ORDER_INDEX_NAME = "prod_ord_ind";
@@ -110,7 +146,9 @@ public class SQL {
     public static String PRODUCT_IN_CATALOG = "SELECT * FROM product WHERE catalog_id = ? ORDER BY product.product_name";
     public static String PRODUCT_BARCODE = "SELECT * FROM product WHERE bar_code = ?";
     public static String PRODUCT_E_BONUS = "SELECT * FROM product WHERE extra_bonus > 0 ";
-    public static String PRODUCT_NOVELTIES = "SELECT * FROM product WHERE new_product > 0";
+    public static String PRODUCT_NOVELTIES = "SELECT * FROM product WHERE new_product = 'Y'";
+    public static String PRODUCT_MY = "SELECT * FROM product WHERE my_product = 'Y'";
+    public static String PRODUCT_GIFT = "SELECT * FROM product WHERE gift NOT = ''";
     public static String PRODUCT_SEARCH = "SELECT * FROM product WHERE ";
     public static String PRODUCT_ID = "SELECT * FROM product WHERE product_id = ?";
 

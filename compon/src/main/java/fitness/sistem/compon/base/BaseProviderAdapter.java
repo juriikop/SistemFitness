@@ -95,7 +95,17 @@ public class BaseProviderAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     return 0;
                 }
                 if (f.type == Field.TYPE_STRING) {
-                    return Integer.valueOf((String) f.value);
+                    String sv = (String) f.value;
+                    if (sv != null && sv.length() > 0) {
+                        char c = sv.charAt(0);
+                        if (Character.isDigit(c)) {
+                            return Integer.valueOf(sv);
+                        } else {
+                            return 1;
+                        }
+                    } else {
+                        return 0;
+                    }
                 } else {
                     if (f.value instanceof Integer) {
                         return (int) f.value;

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_tool_bar"
+        android:background="@color/primary">
+
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/h_tool_bar"
+            android:layout_height="@dimen/h_tool_bar"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu"/>
+        </LinearLayout>
+
+        <TextView
+            style="@style/st_20_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/pad_72"
+            android:text="@string/how_buy" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/pad_24"
+                android:layout_marginTop="@dimen/pad_24"
+                android:layout_marginBottom="@dimen/pad_10"
+                style="@style/st_18_black"
+                android:text="@string/product_select"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/group"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/pad_24"
+                android:layout_marginTop="@dimen/pad_52"
+                android:layout_marginBottom="@dimen/pad_10"
+                style="@style/st_18_black"
+                android:text="@string/forming_order"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/group_2"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/pad_24"
+                android:layout_marginTop="@dimen/pad_52"
+                android:layout_marginBottom="@dimen/pad_10"
+                style="@style/st_18_black"
+                android:text="@string/ordering"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/rectangle_31"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/pad_24"
+                android:layout_marginTop="@dimen/pad_52"
+                android:layout_marginBottom="@dimen/pad_10"
+                style="@style/st_18_black"
+                android:text="@string/mutual"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/rectangle_32"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/pad_24"
+                android:layout_marginTop="@dimen/pad_52"
+                android:layout_marginBottom="@dimen/pad_10"
+                style="@style/st_18_black"
+                android:text="@string/how_catalog"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/rectangle_33"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

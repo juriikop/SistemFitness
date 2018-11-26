@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/pad_24"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pad_24"
+        android:layout_marginLeft="@dimen/pad_24"
+        style="@style/st_18_black"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pad_12"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginRight="@dimen/pad_24"
+        style="@style/st_16_black"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pad_30">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/pad_38"
+            style="@style/st_12_black"
+            android:text="№"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/pad_72"
+            style="@style/st_12_black"
+            android:text="@string/threshold_value"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/pad_200"
+            style="@style/st_12_black"
+            android:text="@string/bonus_proc"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pad_1"
+        android:layout_marginTop="@dimen/pad_8"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginRight="@dimen/pad_24"
+        android:background="@color/gray_73"/>
+
+    <fitness.sistem.compon.custom_components.StaticList
+        android:id="@+id/thresholdBonuses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemLayoutId="@layout/item_bonus_threshold"/>
+
+</LinearLayout>

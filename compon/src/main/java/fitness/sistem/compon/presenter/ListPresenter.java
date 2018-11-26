@@ -21,6 +21,7 @@ public class ListPresenter {
         nameSelectField = baseComponent.paramMV.paramView.fieldType;
         maxItemSelect = baseComponent.paramMV.paramView.maxItemSelect;
         factItemSelect = 0;
+        selectOld = -1;
     }
 
     public void setNameSelectField(String name) {
@@ -30,7 +31,7 @@ public class ListPresenter {
     public void changeData(ListRecords listData, int selectStart) {
         this.listData = listData;
         selectOld = selectStart;
-        if (selectStart > -1 && listData.size() > 0) {
+        if (selectStart > -1 && listData.size() > 0 && maxItemSelect < 0) {
             Record record = listData.get(selectStart);
             Field ff = record.getField(nameSelectField);
             if (ff == null) {
@@ -47,7 +48,7 @@ public class ListPresenter {
             case SELECT:
                 Record record = listData.get(position);
                 Field ff;
-                if (maxItemSelect == -1) {
+                if (maxItemSelect < 0) {
                     int ii = record.getInt(nameSelectField);
                     if (ii < 2) {
                             if (selectOld > -1) {
@@ -68,11 +69,21 @@ public class ListPresenter {
                     }
                 } else {
                     ff = record.getField(nameSelectField);
+                    if (ff == null) {
+                        ff = new Field(nameSelectField, Field.TYPE_INTEGER, 0);
+                        record.add(ff);
+                    }
                     if (ff.type == Field.TYPE_BOOLEAN) {
                         if ((boolean) ff.value) {
                             ff.value = false;
+                            if (factItemSelect > 0) {
+                                factItemSelect--;
+                            }
                         } else {
-                            ff.value = true;
+                            if (factItemSelect < maxItemSelect) {
+                                ff.value = true;
+                                factItemSelect ++;
+                            }
                         }
                     } else {
                         if (record.fieldToInt(ff) == 0) {

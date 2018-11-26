@@ -25,18 +25,18 @@ public class GetData extends DataFieldGet {
     private Field setMenu() {
         Menu menu = new Menu()
                 .item(R.drawable.list, activity.getString(R.string.m_catalog), CronListScreens.CATALOG, true)
-                .item(R.drawable.user, activity.getString(R.string.m_profile), CronListScreens.NOVELTIES)
                 .item(R.drawable.extrabonus, activity.getString(R.string.m_e_bonus), CronListScreens.EXTRA_BONUS)
                 .item(R.drawable.newitem, activity.getString(R.string.m_new_items), CronListScreens.NOVELTIES)
-                .item(R.drawable.present, activity.getString(R.string.m_present), CronListScreens.CATALOG)
-                .item(R.drawable.shopping_cart, activity.getString(R.string.m_my_product), CronListScreens.CATALOG)
+                .item(R.drawable.present, activity.getString(R.string.m_present), CronListScreens.GIFT)
+                .item(R.drawable.shopping_cart, activity.getString(R.string.m_my_product), CronListScreens.MY_PROD)
                 .divider()
+                .item(R.drawable.sale, activity.getString(R.string.m_bonus_system), CronListScreens.BONUS_S)
                 .item(R.drawable.reader, activity.getString(R.string.m_log_orders), CronListScreens.ORDER_LOG)
-                .item(R.drawable.pay, activity.getString(R.string.m_mutual), CronListScreens.CATALOG)
+                .item(R.drawable.pay, activity.getString(R.string.m_mutual), CronListScreens.MUTUAL)
                 .divider()
+                .item(R.drawable.user, activity.getString(R.string.m_profile), CronListScreens.NOVELTIES)
                 .item(R.drawable.description, activity.getString(R.string.m_news), CronListScreens.CATALOG)
-                .item(R.drawable.sale, activity.getString(R.string.m_bonus_system), CronListScreens.CATALOG)
-                .item(R.drawable.information, activity.getString(R.string.m_how_to_buy), CronListScreens.CATALOG)
+                .item(R.drawable.information, activity.getString(R.string.m_how_to_buy), CronListScreens.HOW_BUY)
                 .item(R.drawable.pin, activity.getString(R.string.m_contacts), CronListScreens.CATALOG);
         return menu;
     }

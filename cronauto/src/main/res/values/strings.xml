@@ -112,6 +112,12 @@
     <string name="change_bd_mutual">Обновление базы данных взаиморасчетов</string>
     <string name="result_find">Результаты поиска</string>
 
+    // BONUS SYSTEM
+    <string name="bonus_system">Бонусная система</string>
+    <string name="threshold_value">Значение порога</string>
+    <string name="bonus_proc">Бонус,%</string>
+    <string name="bonus_present">Подарок</string>
+
     // ADD PRODUCT
     <string name="add_product">Добавление товара</string>
     <string name="product_add_in_order">Товар добавлен в заказ\u0020</string>
@@ -140,6 +146,14 @@
     <string name="apply">Применить</string>
     <string name="send_ord">Отправить</string>
     <string name="order_history">История заказов</string>
+
+    // HowBuy
+    <string name="how_buy">Как купить</string>
+    <string name="product_select">1  Подбор товара</string>
+    <string name="forming_order">2  Формирование заказа</string>
+    <string name="ordering">3  Оформление заказа</string>
+    <string name="mutual">4 Взаиморасчеты</string>
+    <string name="how_catalog">5  Каталог</string>
 
     // BARCODE scanner
     <string name="barcode_place">Поместите штрихкод в поле</string>

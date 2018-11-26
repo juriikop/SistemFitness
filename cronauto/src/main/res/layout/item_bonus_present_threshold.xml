@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginTop="@dimen/pad_8"
+        android:layout_marginBottom="@dimen/pad_12"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/number_n"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="№ "
+            style="@style/st_16_black"/>
+
+        <TextView
+            android:id="@+id/position"
+            style="@style/st_16_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginTop="@dimen/pad_10"
+        android:layout_marginBottom="@dimen/pad_12"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/threshold_value"
+            style="@style/st_12_black_70"/>
+        <TextView
+            android:id="@+id/THRESHOLD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/pad_6"
+            style="@style/st_16_black"/>
+        </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bonus_present"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginTop="@dimen/pad_10"
+        style="@style/st_12_black_70"/>
+    <TextView
+        android:id="@+id/NAME"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginTop="@dimen/pad_10"
+        style="@style/st_16_black"/>
+
+    <ImageView
+        android:id="@+id/DETAIL_PICTURE"
+        android:layout_width="@dimen/pad_148"
+        android:layout_height="@dimen/pad_100"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginTop="@dimen/pad_10"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pad_1"
+        android:layout_below="@+id/number"
+        android:background="@color/gray_d9"
+        android:layout_marginTop="@dimen/pad_10"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginRight="@dimen/pad_24"/>
+</LinearLayout>

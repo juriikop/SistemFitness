@@ -1,5 +1,5 @@
 package fitness.sistem.compon.db;
-
+// Підтримує роботу зі зберіганням дат оновленння баз даних
 import android.util.Log;
 
 import java.util.HashMap;

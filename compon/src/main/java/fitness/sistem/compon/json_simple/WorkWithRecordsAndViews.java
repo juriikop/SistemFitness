@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Formatter;
 
+import static fitness.sistem.compon.json_simple.Field.TYPE_INTEGER;
 import static fitness.sistem.compon.json_simple.Field.TYPE_STRING;
 
 public class WorkWithRecordsAndViews {
@@ -100,9 +101,11 @@ public class WorkWithRecordsAndViews {
                 enumViewChild(vg.getChildAt(i));
             }
         } else {
-            id = v.getId();
-            if (id != -1) {
-                setValue(v);
+            if (v != null) {
+                id = v.getId();
+                if (id != -1) {
+                    setValue(v);
+                }
             }
         }
     }
@@ -140,37 +143,6 @@ public class WorkWithRecordsAndViews {
             for (ViewHandler vh : navigator.viewHandlers) {
                 if (id == vh.viewId) {
                     v.setOnClickListener(clickView);
-//                    if (isSwipe) {
-//                        if (id == swipeId) {
-//                            swipeLayout.setOnClick(clickView);
-//                        }
-////                        else {
-////                            switch (typeSwipe(v)) {
-////                                case 1:
-////                                    v.setOnClickListener(clickView);
-////                                    break;
-////                                case 2:
-////    //                                v.setOnClickListener(clickRight);
-////                                    v.setOnClickListener(new View.OnClickListener() {
-////                                        @Override
-////                                        public void onClick(View v) {
-////                                            SwipeLayout rp = getRootParent(v);
-////                                            Log.d("QWERT","clickRight TAG="+rp.getTag());
-////                                            if (rp.isSwipeRight()) {
-////                                                Log.d("QWERT","clickRight clickRight clickRight");
-////                                                clickView.onClick(v);
-////                                            }
-////                                        }
-////                                    });
-////                                    break;
-////                                case 3:
-////                                    v.setOnClickListener(clickLeft);
-////                                    break;
-////                            }
-////                        }
-//                    } else {
-//                        v.setOnClickListener(clickView);
-//                    }
                     break;
                 }
             }
@@ -284,7 +256,9 @@ public class WorkWithRecordsAndViews {
                     }
                 }
             } else {
-                ((ImageView) v).setImageResource((Integer)field.value);
+                if (field.type == TYPE_INTEGER) {
+                    ((ImageView) v).setImageResource((Integer) field.value);
+                }
             }
         }
     }

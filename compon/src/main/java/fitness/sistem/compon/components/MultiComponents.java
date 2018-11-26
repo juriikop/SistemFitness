@@ -154,6 +154,7 @@ public class MultiComponents <T>{
         paramComponent.type = ParamComponent.TC.MENU;
         paramComponent.paramModel = paramModel;
         paramComponent.paramView = paramView;
+        paramComponent.paramView.maxItemSelect = -1;
         paramComponent.navigator = new Navigator().add("nameFunc");
         listComponents.add(paramComponent);
         return this;
@@ -284,6 +285,19 @@ public class MultiComponents <T>{
         pv.visibilityArray = visbil;
         pv.nameFields = nameFields;
         paramComponent.eventComponent = viewEvent;
+        listComponents.add(paramComponent);
+        return this;
+    }
+
+    public MultiComponents addLoadDb(String table, String url, long duration, String alias) {
+        ParamComponent paramComponent = new ParamComponent();
+        paramComponent.type = ParamComponent.TC.LOAD_DB;
+        ParamModel pm = new ParamModel();
+        pm.updateTable = table;
+        pm.updateUrl = url;
+        pm.duration = duration;
+        pm.updateAlias = alias;
+        paramComponent.paramModel = pm;
         listComponents.add(paramComponent);
         return this;
     }
@@ -441,6 +455,9 @@ public class MultiComponents <T>{
                     break;
                 case DATE_DIAPASON:
                     new DateDiapasonComponent(iBase, cMV, this);
+                    break;
+                case LOAD_DB:
+                    new LoadDbComponent(iBase, cMV, this);
                     break;
 //                case PHONE:
 //                    new EditPhoneComponent(iBase, cMV);

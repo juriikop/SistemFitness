@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_38"
+        android:layout_marginTop="@dimen/pad_10"
+        android:layout_marginBottom="@dimen/pad_12"
+        style="@style/st_16_black"/>
+    <TextView
+        android:id="@+id/THRESHOLD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_72"
+        android:layout_marginTop="@dimen/pad_10"
+        android:layout_marginBottom="@dimen/pad_12"
+        style="@style/st_16_black"/>
+    <TextView
+        android:id="@+id/VALUE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/pad_200"
+        android:layout_marginTop="@dimen/pad_10"
+        android:layout_marginBottom="@dimen/pad_12"
+        style="@style/st_16_black"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pad_1"
+        android:layout_below="@+id/number"
+        android:background="@color/gray_d9"
+        android:layout_marginLeft="@dimen/pad_24"
+        android:layout_marginRight="@dimen/pad_24"/>
+</RelativeLayout>

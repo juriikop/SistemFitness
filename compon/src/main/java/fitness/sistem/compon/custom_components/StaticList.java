@@ -2,17 +2,23 @@ package fitness.sistem.compon.custom_components;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import fitness.sistem.compon.interfaces_classes.IComponent;
 import fitness.sistem.compon.interfaces_classes.OnChangeStatusListener;
+import fitness.sistem.compon.json_simple.Field;
+import fitness.sistem.compon.json_simple.JsonSimple;
+import fitness.sistem.compon.json_simple.JsonSyntaxException;
 import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
 import fitness.sistem.compon.json_simple.WorkWithRecordsAndViews;
 
 public class StaticList extends BaseStaticList implements IComponent {
     protected ListRecords items;
+    protected JsonSimple jsonSimple;
+
     public StaticList(Context context) {
         super(context);
     }
@@ -23,7 +29,21 @@ public class StaticList extends BaseStaticList implements IComponent {
 
     @Override
     public void setData(Object data) {
-        items = (ListRecords) data;
+        if (data instanceof String) {
+            Log.d("QWERT","setData data="+data);
+            jsonSimple = new JsonSimple();
+            try {
+                Field ff = jsonSimple.jsonToModel((String) data);
+                items = (ListRecords) ff.value;
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
+            }
+        } else {
+            items = (ListRecords) data;
+        }
+        if (items == null) {
+            items = new ListRecords();
+        }
         setAdapter(adapter, false);
     }
 
@@ -59,6 +79,7 @@ public class StaticList extends BaseStaticList implements IComponent {
         public View getView(int position) {
             View v;
             Record record = items.get(position);
+            record.add(new Field("position", Field.TYPE_INTEGER, position + 1));
             v = ((LayoutInflater) context.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE)).inflate(ITEM_LAYOUT_ID, null);
             modelToView.RecordToView(record, v);

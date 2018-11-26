@@ -6,9 +6,11 @@ import android.util.Log;
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.components.MultiComponents;
 import fitness.sistem.compon.interfaces_classes.ActionsAfterResponse;
+import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.interfaces_classes.Visibility;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.param.ParamComponent;
+import fitness.sistem.compon.param.ParamModel;
 import fitness.sistem.compon.tools.Constants;
 
 import java.util.Map;
@@ -16,6 +18,13 @@ import java.util.Map;
 public class ListScreens <T>{
     protected ParamComponent.TC TC;
     protected Constants.AnimateScreen AS;
+    protected ViewHandler.TYPE VH;
+    protected int GET = ParamModel.GET, POST = ParamModel.POST,
+            GET_DB = ParamModel.GET_DB, POST_DB = ParamModel.POST_DB, UPDATE_DB = ParamModel.UPDATE_DB,
+            INSERT_DB = ParamModel.INSERT_DB, DEL_DB = ParamModel.DEL_DB, PARENT = ParamModel.PARENT,
+            FIELD = ParamModel.FIELD, ARGUMENTS = ParamModel.ARGUMENTS,
+            STRINGARRAY = ParamModel.STRINGARRAY, DATAFIELD = ParamModel.DATAFIELD;
+
     private Map<String, MultiComponents> MapScreen;
     protected Context context;
     protected ComponGlob componGlob;

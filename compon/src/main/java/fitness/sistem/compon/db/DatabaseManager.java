@@ -113,6 +113,7 @@ public class DatabaseManager extends BaseDB {
             }
             int ii = 0;
             mDatabase.delete(table, null, null);
+//            Log.d("QWERT","insertListRecord table="+table+" size="+listRecords.size());
             for (Record record : listRecords) {
                 ContentValues cv = new ContentValues();
 //                String stt = "";
@@ -137,6 +138,7 @@ public class DatabaseManager extends BaseDB {
                         }
                     }
                 }
+//                Log.d("QWERT","insertListRecord record="+record.toString());
                 long rowID = mDatabase.replace(table, null, cv);
             }
         }
