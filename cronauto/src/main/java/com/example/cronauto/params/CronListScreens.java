@@ -63,7 +63,12 @@ public class CronListScreens  extends ListScreens {
 
         fragment(AUTH_FORGOT, R.layout.fragment_forgot);
 
-        fragment(AUTH_REGISTER, R.layout.fragment_register);
+        fragment(AUTH_REGISTER, R.layout.fragment_register)
+                .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
+                        new Navigator().add(R.id.done, VH.CLICK_SEND,
+                                new ParamModel(POST, Api.REGISTER, "last_name,name,second_name,phone,email,city"),
+                                actionsAfterResponse().showComponent(R.id.send_ok, ""),
+                                false, R.id.last_name,R.id.name,R.id.second_name,R.id.phone,R.id.email,R.id.city));
 
         activity(MAIN, R.layout.activity_main)
                 .addDrawer(R.id.drawer, new int[] {R.id.content_frame, R.id.left_drawer},

@@ -514,13 +514,15 @@ public abstract class BaseComponent {
                             break;
                         case SHOW:
                             View vv = parentLayout.findViewById(vh.viewId);
-                            if (vv instanceof AnimatePanel) {
-                                ((AnimatePanel) vv).show(iBase);
-                            } else {
-                                vv.setVisibility(View.VISIBLE);
-                            }
-                            if (vh.nameFieldWithValue.length() > 0) {
-                                workWithRecordsAndViews.RecordToView(paramToRecord(vh.nameFieldWithValue), vv);
+                            if (vv != null) {
+                                if (vv instanceof AnimatePanel) {
+                                    ((AnimatePanel) vv).show(iBase);
+                                } else {
+                                    vv.setVisibility(View.VISIBLE);
+                                }
+                                if (vh.nameFieldWithValue.length() > 0) {
+                                    workWithRecordsAndViews.RecordToView(paramToRecord(vh.nameFieldWithValue), vv);
+                                }
                             }
                             break;
                         case BACK:

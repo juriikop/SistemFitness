@@ -307,10 +307,12 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                             break;
                         case SHOW:
                             View showView = parentLayout.findViewById(vh.showViewId);
-                            if (showView instanceof AnimatePanel) {
-                                ((AnimatePanel) showView).show(BaseActivity.this);
-                            } else {
-                                showView.setVisibility(View.VISIBLE);
+                            if (showView != null) {
+                                if (showView instanceof AnimatePanel) {
+                                    ((AnimatePanel) showView).show(BaseActivity.this);
+                                } else {
+                                    showView.setVisibility(View.VISIBLE);
+                                }
                             }
                             break;
                         case RECEIVER:
