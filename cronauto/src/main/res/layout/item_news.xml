@@ -13,11 +13,10 @@
         android:background="@color/white"
         android:orientation="vertical">
         <ImageView
-            android:id="@+id/img"
+            android:id="@+id/STIKER"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pad_10"
-            android:src="@drawable/news"/>
+            android:layout_marginTop="@dimen/pad_10"/>
         <TextView
             android:id="@+id/NAME"
             android:layout_width="match_parent"
