@@ -102,7 +102,10 @@ public class CronListScreens  extends ListScreens {
                         new ParamView(R.id.recycler, "thresholdBonuses", new int[] {R.layout.item_bonus_present, R.layout.item_bonus}));
 
         fragment(MUTUAL, R.layout.fragment_mutual)
-                .addNavigator(new Navigator().add(R.id.back, VH.OPEN_DRAWER));
+                .addNavigator(new Navigator().add(R.id.back, VH.OPEN_DRAWER))
+                .addDateDiapasonComponent(R.id.diapason, R.id.from, R.id.before)
+                .addComponent(TC.RECYCLER, new ParamModel(GET, Api.MUTUAL), new ParamView(R.id.recycler, R.layout.item_mutual)
+                        .visibilityManager(visibility(R.id.consum, "CONSUPTION")), null);
 
         fragment(NEWS, R.layout.fragment_news)
                 .addNavigator(new Navigator().add(R.id.back, VH.OPEN_DRAWER))

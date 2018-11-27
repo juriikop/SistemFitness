@@ -102,6 +102,16 @@
     <string name="email">Email</string>
     <string name="city">Город</string>
 
+    // MUTUAL PAYMENT
+    <string name="mutual_payment">Взаиморасчеты</string>
+    <string name="name_mutual">Название</string>
+    <string name="total_mutual">Итого</string>
+    <string name="date_mutual">Дата</string>
+    <string name="balance_mutual">Нач. остаток</string>
+    <string name="coming_mutual">Приход</string>
+    <string name="consumption_mutual">Расход</string>
+    <string name="final_balance_mutual">Кон. остаток</string>
+
     // INDEX
     <string name="search">Поиск</string>
     <string name="all_news">Все новинки</string>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pad_8"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/TITLE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pad_14"
+            android:layout_marginLeft="@dimen/pad_24"
+            android:layout_marginRight="@dimen/pad_24"
+            style="@style/st_16_black"/>
+
+        <fitness.sistem.compon.custom_components.SimpleTextView
+            android:id="@+id/DATE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/pad_24"
+            android:layout_marginTop="@dimen/pad_6"
+            app:dateMilisec="false"
+            app:dateFormat="dd.MM.YYYY"
+            style="@style/st_12_black_50"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/pad_1"
+            android:layout_marginLeft="@dimen/pad_24"
+            android:layout_marginRight="@dimen/pad_24"
+            android:layout_marginTop="@dimen/pad_10"
+            android:background="@color/blackb_10"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/pad_24"
+            android:layout_marginRight="@dimen/pad_24"
+            android:layout_marginTop="@dimen/pad_8"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/st_12_black_50"
+                    android:text="@string/balance_mutual"/>
+
+                <fitness.sistem.compon.custom_components.SimpleTextView
+                    android:id="@+id/BALANCE"
+                    style="@style/st_16_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/pad_10"
+                    android:layout_marginBottom="@dimen/pad_14"
+                    app:numberFormat="#0.00"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:id="@+id/comin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/st_12_black_50"
+                        android:text="@string/coming_mutual"/>
+
+                    <fitness.sistem.compon.custom_components.SimpleTextView
+                        android:id="@+id/COMING"
+                        style="@style/st_16_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/pad_10"
+                        android:layout_marginBottom="@dimen/pad_14"
+                        app:numberFormat="#0.00"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/consum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/st_12_black_50"
+                        android:text="@string/consumption_mutual"/>
+
+                    <fitness.sistem.compon.custom_components.SimpleTextView
+                        android:id="@+id/CONSUPTION"
+                        style="@style/st_16_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/pad_10"
+                        android:layout_marginBottom="@dimen/pad_14"
+                        app:numberFormat="#0.00"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/st_12_black_50"
+                    android:text="@string/final_balance_mutual"/>
+
+                <fitness.sistem.compon.custom_components.SimpleTextView
+                    android:id="@+id/FINAL_BALANCE"
+                    style="@style/st_16_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/pad_10"
+                    android:layout_marginBottom="@dimen/pad_14"
+                    app:numberFormat="#0.00"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

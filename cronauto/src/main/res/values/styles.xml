@@ -139,9 +139,20 @@
         <item name="android:textColor">@color/green</item>
     </style>
 
+
+    <!--<style name="st_16_black">-->
+        <!--<item name="android:textSize">16sp</item>-->
+        <!--<item name="android:textColor">@color/black</item>-->
+    <!--</style>-->
+
     <style name="st_16_black">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="st_16_black_30">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black_30</item>
     </style>
 
     <style name="st_16_white">
