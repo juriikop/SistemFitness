@@ -148,7 +148,7 @@ public class SQL {
     public static String PRODUCT_E_BONUS = "SELECT * FROM product WHERE extra_bonus > 0 ";
     public static String PRODUCT_NOVELTIES = "SELECT * FROM product WHERE new_product = 'Y'";
     public static String PRODUCT_MY = "SELECT * FROM product WHERE my_product = 'Y'";
-    public static String PRODUCT_GIFT = "SELECT * FROM product WHERE gift NOT = ''";
+    public static String PRODUCT_GIFT = "SELECT * FROM product WHERE NOT (gift = '')";
     public static String PRODUCT_SEARCH = "SELECT * FROM product WHERE ";
     public static String PRODUCT_ID = "SELECT * FROM product WHERE product_id = ?";
 
