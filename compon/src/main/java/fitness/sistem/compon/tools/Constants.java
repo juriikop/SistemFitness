@@ -19,6 +19,7 @@ public class Constants {
     public static String NAME_MVP = "NAME_MVP";
     public static String NAME_PARAM_FOR_SCREEN = "NAME_PARAM_FOR_SCREEN";
     public static String RECORD = "record";
+    public static String RESULT_RECORD = "result_record";
     public static String MARKER_LAT = "latitude";
     public static String MARKER_LON = "longitude";
     public static String MARKER_NAME_NUMBER = "markerNumber";

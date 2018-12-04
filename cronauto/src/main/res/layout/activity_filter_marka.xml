@@ -60,7 +60,6 @@
         android:layout_marginLeft="@dimen/pad_8"
         android:layout_marginRight="@dimen/pad_8"
         android:layout_marginBottom="@dimen/pad_8"
-        android:enabled="false"
         android:clickable="true"
         style="@style/st_button"
         android:layout_alignParentBottom="true"

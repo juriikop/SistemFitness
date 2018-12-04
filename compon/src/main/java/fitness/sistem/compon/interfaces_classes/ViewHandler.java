@@ -6,7 +6,8 @@ public class ViewHandler {
     public int viewId;
     public enum TYPE {NAME_FRAGMENT, CLOSE_DRAWER, OPEN_DRAWER, MODEL_PARAM,
         BACK, PREFERENCE_SET_VALUE, PAGER_PLUS, PREFERENCE_SET_TOKEN, PREFERENCE_SET_NAME,
-        FIELD_WITH_NAME_FRAGMENT, SELECT, SET_PARAM, EXEC, UPDATE_DATA, RESULT_PARAM,
+        FIELD_WITH_NAME_FRAGMENT, SELECT, SET_PARAM, EXEC, UPDATE_DATA, UPDATE_RESULT, UPDATE_PARAM,
+        RESULT_PARAM, RESULT_RECORD,
         CLICK_VIEW, MAP_ROUTE, SHOW, BROADCAST, RECEIVER, CLICK_CUSTOM, DEL_RECYCLER,
         CLICK_SEND, SEND_UPDATE, SEND_CHANGE_BACK, ACTUAL}
     public TYPE type;
@@ -25,7 +26,7 @@ public class ViewHandler {
     public boolean changeEnabled;
     public boolean[] validArray;
     public String nameFieldWithValue;
-    public ActionsAfterResponse afterResponse;
+    public ActionsAfter afterResponse;
     public ExecMethod execMethod;
 
     public ViewHandler(String nameField) {
@@ -46,7 +47,7 @@ public class ViewHandler {
         this.nameFragment = nameFragment;
     }
 
-    public ViewHandler(int viewId, String nameFragment, ActionsAfterResponse afterResponse) {
+    public ViewHandler(int viewId, String nameFragment, ActionsAfter afterResponse) {
         type = TYPE.NAME_FRAGMENT;
         paramForScreen = TYPE_PARAM_FOR_SCREEN.NONE;
         this.afterResponse = afterResponse;
@@ -69,7 +70,7 @@ public class ViewHandler {
     }
 
     public ViewHandler(int viewId, String nameFragment, TYPE_PARAM_FOR_SCREEN paramForScreen,
-                       ActionsAfterResponse afterResponse) {
+                       ActionsAfter afterResponse) {
         type = TYPE.NAME_FRAGMENT;
         this.paramForScreen = paramForScreen;
         this.afterResponse = afterResponse;
@@ -113,7 +114,7 @@ public class ViewHandler {
     }
 
     public ViewHandler(int viewId, TYPE type, ParamModel paramModel,
-                       ActionsAfterResponse afterResponse, boolean changeEnabled, int... mustValid) {
+                       ActionsAfter afterResponse, boolean changeEnabled, int... mustValid) {
         this.type = type;
         this.viewId = viewId;
         this.afterResponse = afterResponse;
@@ -141,6 +142,7 @@ public class ViewHandler {
     public ViewHandler(int viewId, TYPE type) {
         this.type = type;
         this.viewId = viewId;
+        nameFieldWithValue = "";
         this.paramModel = null;
     }
 

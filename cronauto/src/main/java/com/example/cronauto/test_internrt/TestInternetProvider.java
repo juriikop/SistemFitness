@@ -38,9 +38,9 @@ public class TestInternetProvider extends BaseInternetProvider {
     };
 
     private String jsonResult(String request) {
-        switch (request) {
-            case Api.ORDER_LOG: return setOrderLog();
-        }
+//        switch (request) {
+//            case Api.ORDER_LOG: return setOrderLog();
+//        }
         return null;
     }
 

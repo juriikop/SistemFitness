@@ -55,8 +55,7 @@ public class CronListScreens  extends ListScreens {
                         new Navigator()
                                 .add(R.id.done, VH.CLICK_SEND,
                                         new ParamModel(POST, Api.LOGIN, "login,password"),
-                                        actionsAfterResponse()
-                                                .preferenceSetToken("key")
+                                        actionsAfter().preferenceSetToken("key")
 //                                        .preferenceSetName("phone")
                                                 .startScreen(MAIN)
                                                 .back(),
@@ -68,7 +67,7 @@ public class CronListScreens  extends ListScreens {
                 .addComponent(TC.PANEL_ENTER, null, new ParamView(R.id.panel),
                         new Navigator().add(R.id.done, VH.CLICK_SEND,
                                 new ParamModel(POST, Api.REGISTER, "last_name,name,second_name,phone,email,city"),
-                                actionsAfterResponse().showComponent(R.id.send_ok, ""),
+                                actionsAfter().showComponent(R.id.send_ok, ""),
                                 false, R.id.last_name,R.id.name,R.id.second_name,R.id.phone,R.id.email,R.id.city));
 
         activity(MAIN, R.layout.activity_main)
@@ -118,7 +117,7 @@ public class CronListScreens  extends ListScreens {
 
         activity(PRODUCT_LIST, R.layout.activity_product_list).animate(AS.RL)
                 .addNavigator(new Navigator().add(R.id.back, VH.BACK)
-                        .add(R.id.barcode, BARCODE, actionsAfterResponse().updateDataByModel(R.id.recycler,
+                        .add(R.id.barcode, BARCODE, actionsAfter().updateDataByModel(R.id.recycler,
                                 new ParamModel(GET_DB, SQL.PRODUCT_BARCODE, "barcode_scanner")))
                         .add(R.id.filter, FILTER))
                 .addRecognizeVoiceComponent(R.id.microphone, R.id.search)
@@ -137,8 +136,12 @@ public class CronListScreens  extends ListScreens {
                 .addBarcodeComponent(R.id.barcode_scanner, R.id.result_scan, R.id.repeat);
 
         activity(FILTER, FilterActivity.class).animate(AS.RL)
-                .addNavigator(new Navigator().add(R.id.back, VH.BACK).add(R.id.category, FILTER_CATEGORY)
-                        .add(R.id.marka_s, FILTER_MARKA))
+                .addNavigator(new Navigator().add(R.id.back, VH.BACK).add(R.id.marka_s, FILTER_MARKA))
+                .addComponent(TC.PANEL, null, new ParamView(R.id.category),
+                        new Navigator().add(R.id.category, FILTER_CATEGORY, actionsAfter().updateFromResult()))
+                .addComponent(TC.PANEL, null, new ParamView(R.id.marka_s),
+//                        new Navigator().add(R.id.marka_s, FILTER_MARKA, actionsAfter().updateFromParam("marka,model")))
+                        new Navigator().add(R.id.marka_s, FILTER_MARKA, actionsAfter().showComponent(R.id.marka_s, "marka,model")))
                 .addLoadDb(SQL.MARKA_PROD, Api.DB_MARKA_PROD, SQL.dayMillisecond, SQL.MARKA_PROD_ALIAS)
                 .addComponent(TC.RECYCLER, new ParamModel(GET_DB, SQL.BRAND_LIST).updateDB(SQL.BRAND_TAB,
                         Api.DB_BRAND, SQL.dayMillisecond, SQL.BRAND_ALIAS),
@@ -151,10 +154,10 @@ public class CronListScreens  extends ListScreens {
                                 R.layout.item_catalog_2, R.layout.item_catalog_3})
                                 .expanded(R.id.expand, R.id.expand, new ParamModel(GET_DB, SQL.CATEGORY_2, "catalog_id"))
                                 .expanded(R.id.expand, R.id.expand, new ParamModel(GET_DB, SQL.CATEGORY_3, "catalog_id")),
-                        null);
+                        new Navigator().add(0, VH.RESULT_RECORD));
 
         activity(FILTER_MARKA, R.layout.activity_filter_marka).animate(AS.RL)
-                .addNavigator(new Navigator().add(R.id.back, VH.BACK))
+                .addNavigator(new Navigator().add(R.id.back, VH.BACK).add(R.id.apply, VH.RESULT_PARAM))
                 .addLoadDb(SQL.MARKA_MODEL, Api.DB_MARKA_MODEL, SQL.dayMillisecond, SQL.MARKA_MODEL_ALIAS)
                 .addLoadDb(SQL.MODEL_PROD, Api.DB_MODEL_PROD, SQL.dayMillisecond, SQL.MODEL_PROD_ALIAS)
                 .addComponent(TC.RECYCLER, new ParamModel(GET_DB, SQL.MARKA)
@@ -234,7 +237,7 @@ public class CronListScreens  extends ListScreens {
                         new ParamView(R.id.panel), new Navigator()
                                 .add(R.id.add, VH.CLICK_SEND,
                                 new ParamModel(POST_DB, SQL.PRODUCT_ORDER, SQL.PRODUCT_ORDER_PARAM),
-                                actionsAfterResponse().showComponent(R.id.inf_add_product, "orderName"), false))
+                                        actionsAfter().showComponent(R.id.inf_add_product, "orderName"), false))
                 .addComponent(TC.RECYCLER, new ParamModel(GET_DB, SQL.ORDER_LIST),
                         new ParamView(R.id.recycler, "status",
                                 new int[] {R.layout.item_order_log, R.layout.item_order_log_select}).selected(),
@@ -253,7 +256,7 @@ public class CronListScreens  extends ListScreens {
     private void setFragment(String name, String title, String sql) {
         fragment(name, R.layout.fragment_extra_bonus, title)
                 .addNavigator(new Navigator().add(R.id.back, VH.OPEN_DRAWER)
-                        .add(R.id.barcode, BARCODE, actionsAfterResponse().updateDataByModel(R.id.recycler,
+                        .add(R.id.barcode, BARCODE, actionsAfter().updateDataByModel(R.id.recycler,
                                 new ParamModel(GET_DB, SQL.PRODUCT_BARCODE, "barcode_scanner")))
                         .add(R.id.filter, FILTER))
                 .addRecognizeVoiceComponent(R.id.microphone, R.id.search)

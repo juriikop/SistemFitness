@@ -2,16 +2,16 @@ package fitness.sistem.compon.interfaces_classes;
 
 public class RequestActivityResult {
     public int request;
-    public ActionsAfterResponse afterResponse;
+    public ActionsAfter afterResponse;
     public ActivityResult activityResult;
 
-    public RequestActivityResult(int request, ActionsAfterResponse afterResponse) {
+    public RequestActivityResult(int request, ActionsAfter afterResponse) {
         this.request = request;
         this.afterResponse = afterResponse;
         activityResult = null;
     }
 
-    public RequestActivityResult(int request, ActionsAfterResponse afterResponse, ActivityResult activityResult) {
+    public RequestActivityResult(int request, ActionsAfter afterResponse, ActivityResult activityResult) {
         this.request = request;
         this.afterResponse = afterResponse;
         this.activityResult = activityResult;

@@ -201,10 +201,12 @@ public class BaseFragment extends Fragment implements IBase {
                             break;
                         case SHOW:
                             View showView = parentLayout.findViewById(vh.showViewId);
-                            if (showView instanceof AnimatePanel) {
-                                ((AnimatePanel) showView).show(BaseFragment.this);
-                            } else {
-                                showView.setVisibility(View.VISIBLE);
+                            if (showView != null) {
+                                if (showView instanceof AnimatePanel) {
+                                    ((AnimatePanel) showView).show(BaseFragment.this);
+                                } else {
+                                    showView.setVisibility(View.VISIBLE);
+                                }
                             }
                             break;
                         case BACK:

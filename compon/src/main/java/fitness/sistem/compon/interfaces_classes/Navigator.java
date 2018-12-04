@@ -18,7 +18,7 @@ public class Navigator {
         return this;
     }
 
-    public Navigator add(int viewId, String nameFragment, ActionsAfterResponse afterResponse) {
+    public Navigator add(int viewId, String nameFragment, ActionsAfter afterResponse) {
         viewHandlers.add(new ViewHandler(viewId, nameFragment, afterResponse));
         return this;
     }
@@ -55,7 +55,7 @@ public class Navigator {
     }
 
     public Navigator add(int viewId, ViewHandler.TYPE type, ParamModel paramModel,
-                         ActionsAfterResponse afterResponse, boolean changeEnabled, int... mustValid) {
+                         ActionsAfter afterResponse, boolean changeEnabled, int... mustValid) {
         viewHandlers.add(new ViewHandler(viewId, type, paramModel, afterResponse, changeEnabled, mustValid));
         return this;
     }
@@ -65,8 +65,8 @@ public class Navigator {
         return this;
     }
 
-//    public static ActionsAfterResponse actionsAfterResponse() {
-//        return new ActionsAfterResponse();
+//    public static ActionsAfter actionsAfterResponse() {
+//        return new ActionsAfter();
 //    }
 
     public Navigator add(int viewId, String namePreference, boolean value) {

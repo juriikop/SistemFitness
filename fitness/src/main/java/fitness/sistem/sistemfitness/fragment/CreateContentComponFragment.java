@@ -108,7 +108,7 @@ public class CreateContentComponFragment extends BaseFragment implements ICustom
     }
 
     @Override
-    public void changeValue(int viewId) {
+    public void changeValue(int viewId, Field field) {
 
     }
 

@@ -37,7 +37,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.base.BaseComponent;
-import fitness.sistem.compon.interfaces_classes.ActionsAfterResponse;
+import fitness.sistem.compon.interfaces_classes.ActionsAfter;
 import fitness.sistem.compon.interfaces_classes.ActivityResult;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.IBase;
@@ -301,7 +301,7 @@ public class MapComponent extends BaseComponent {
 
     public ActivityResult activityResult = new ActivityResult() {
         @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent data, ActionsAfterResponse afterResponse) {
+        public void onActivityResult(int requestCode, int resultCode, Intent data, ActionsAfter afterResponse) {
             setLocationServices();
         }
     };

@@ -1,11 +1,10 @@
 package fitness.sistem.compon.base;
 
 import android.content.Context;
-import android.util.Log;
 
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.components.MultiComponents;
-import fitness.sistem.compon.interfaces_classes.ActionsAfterResponse;
+import fitness.sistem.compon.interfaces_classes.ActionsAfter;
 import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.interfaces_classes.Visibility;
 import fitness.sistem.compon.json_simple.Field;
@@ -124,8 +123,8 @@ public class ListScreens <T>{
         return mc;
     }
 
-    public static ActionsAfterResponse actionsAfterResponse() {
-        return new ActionsAfterResponse();
+    public static ActionsAfter actionsAfter() {
+        return new ActionsAfter();
     }
 
     public static Visibility[] showManager(Visibility ... args) {

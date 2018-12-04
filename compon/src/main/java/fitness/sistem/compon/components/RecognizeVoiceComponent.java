@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import fitness.sistem.compon.base.BaseComponent;
-import fitness.sistem.compon.interfaces_classes.ActionsAfterResponse;
+import fitness.sistem.compon.interfaces_classes.ActionsAfter;
 import fitness.sistem.compon.interfaces_classes.ActivityResult;
 import fitness.sistem.compon.interfaces_classes.IBase;
 import fitness.sistem.compon.json_simple.Field;
@@ -60,7 +60,7 @@ public class RecognizeVoiceComponent extends BaseComponent {
 
     private ActivityResult activityResult = new ActivityResult() {
         @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent data, ActionsAfterResponse afterResponse) {
+        public void onActivityResult(int requestCode, int resultCode, Intent data, ActionsAfter afterResponse) {
             if (resultCode == RESULT_OK){
                 ArrayList<String> textMatchlist = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 if (!textMatchlist.isEmpty()){

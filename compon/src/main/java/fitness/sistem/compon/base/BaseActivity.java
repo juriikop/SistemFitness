@@ -26,7 +26,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.R;
 import fitness.sistem.compon.dialogs.DialogTools;
-import fitness.sistem.compon.interfaces_classes.ActionsAfterResponse;
+import fitness.sistem.compon.interfaces_classes.ActionsAfter;
 import fitness.sistem.compon.interfaces_classes.ActivityResult;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.EventComponent;
@@ -133,6 +133,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
             if (mComponent.navigator != null) {
                 for (ViewHandler vh : mComponent.navigator.viewHandlers) {
                     View v = findViewById(vh.viewId);
+                    Log.d("QWERT","SET NAVIGATOR ID="+vh.viewId+" TYPE="+vh.type+" VV="+v);
                     if (v != null) {
                         v.setOnClickListener(navigatorClick);
                     }
@@ -202,7 +203,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         permissionsResultList.add(new RequestPermissionsResult(requestCode, permissionsResult));
     }
 
-    public int addForResult(ActionsAfterResponse afterResponse, ActivityResult activityResult) {
+    public int addForResult(ActionsAfter afterResponse, ActivityResult activityResult) {
         int rc = 0;
         if (activityResultList != null) {
             rc = activityResultList.size();
@@ -211,7 +212,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         return rc;
     }
 
-    public void addForResult(int requestCode, ActionsAfterResponse afterResponse, ActivityResult activityResult) {
+    public void addForResult(int requestCode, ActionsAfter afterResponse, ActivityResult activityResult) {
         if (activityResultList == null) {
             activityResultList = new ArrayList<>();
         }
@@ -271,7 +272,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
 
     ActivityResult activityResult  = new ActivityResult() {
         @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent data, ActionsAfterResponse afterResponse) {
+        public void onActivityResult(int requestCode, int resultCode, Intent data, ActionsAfter afterResponse) {
             if (resultCode == RESULT_OK) {
                 for (ViewHandler vh : afterResponse.viewHandlers) {
                     switch (vh.type) {
@@ -288,6 +289,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         @Override
         public void onClick(View view) {
             int id = view.getId();
+            Record record;
             for (ViewHandler vh : mComponent.navigator.viewHandlers) {
                 if (vh.viewId == id) {
                     switch (vh.type) {
@@ -319,12 +321,21 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
                             LocalBroadcastManager.getInstance(BaseActivity.this).registerReceiver(broadcastReceiver,
                                     new IntentFilter(vh.nameFieldWithValue));
                             break;
-                        case RESULT_PARAM :
-                            Record record = workWithRecordsAndViews.ViewToRecord(parentLayout, vh.nameFieldWithValue);
-                            if (record != null) {
-                                ComponGlob.getInstance().setParam(record);
+                        case RESULT_PARAM:
+                            if (vh.nameFieldWithValue != null && vh.nameFieldWithValue.length() > 0) {
+                                record = workWithRecordsAndViews.ViewToRecord(parentLayout, vh.nameFieldWithValue);
+                                if (record != null) {
+                                    ComponGlob.getInstance().setParam(record);
+                                }
                             }
                             setResult(RESULT_OK);
+                            finishActivity();
+                            break;
+                        case RESULT_RECORD:
+                            record = workWithRecordsAndViews.ViewToRecord(parentLayout, vh.nameFieldWithValue);
+                            Intent intent = new Intent();
+                            intent.putExtra(Constants.RESULT_RECORD, record.toString());
+                            setResult(RESULT_OK, intent);
                             finishActivity();
                             break;
                     }
@@ -462,7 +473,7 @@ public abstract class BaseActivity extends FragmentActivity implements IBase {
         }
     }
 
-    private void finishActivity() {
+    public void finishActivity() {
         finish();
         if (mComponent.animateScreen != null) {
             switch (mComponent.animateScreen) {

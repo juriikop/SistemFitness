@@ -4,6 +4,7 @@ import android.util.Log;
 
 import fitness.sistem.compon.base.BaseComponent;
 import fitness.sistem.compon.interfaces_classes.IBase;
+import fitness.sistem.compon.interfaces_classes.ViewHandler;
 import fitness.sistem.compon.json_simple.Field;
 import fitness.sistem.compon.json_simple.ListRecords;
 import fitness.sistem.compon.json_simple.Record;
@@ -20,7 +21,14 @@ public class PanelComponent extends BaseComponent {
 
     @Override
     public void changeData(Field field) {
-        if (field == null) return;
+        if (field == null) {
+            if (navigator != null) {
+                for (ViewHandler vh : navigator.viewHandlers) {
+                    viewComponent.findViewById(vh.viewId).setOnClickListener(clickView);
+                }
+            }
+            return;
+        }
         if (field.value instanceof Record) {
             recordComponent = (Record) field.value;
             workWithRecordsAndViews.RecordToView(recordComponent, viewComponent, this, clickView);

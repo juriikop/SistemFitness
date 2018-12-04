@@ -3,7 +3,7 @@ package com.example.cronauto.data.network;
 public class Api {
     public static String LOGIN = "user/login.php";
     public static String REGISTER = "user/registration.php";
-    public final static String ORDER_LOG = "ORDER_LOG";
+    public final static String DB_ORDER_LOG = "order/history/orders.php";
     public static String ORDER_ADD = "order/add.php";
     public static String DB_CATALOG = "sections/list.php";
     public static String DB_PRODUCT = "products/list.php";

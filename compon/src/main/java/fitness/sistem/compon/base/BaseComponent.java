@@ -1,5 +1,6 @@
 package fitness.sistem.compon.base;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,16 +8,16 @@ import android.content.IntentFilter;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import fitness.sistem.compon.ComponGlob;
 import fitness.sistem.compon.components.MultiComponents;
 import fitness.sistem.compon.components.RecyclerComponent;
+import fitness.sistem.compon.interfaces_classes.ActionsAfter;
+import fitness.sistem.compon.interfaces_classes.ActivityResult;
 import fitness.sistem.compon.interfaces_classes.AnimatePanel;
 import fitness.sistem.compon.interfaces_classes.ICustom;
 import fitness.sistem.compon.interfaces_classes.IValidate;
-import fitness.sistem.compon.interfaces_classes.Multiply;
 import fitness.sistem.compon.interfaces_classes.Param;
 import fitness.sistem.compon.json_simple.JsonSyntaxException;
 import fitness.sistem.compon.param.ParamComponent;
@@ -114,6 +115,23 @@ public abstract class BaseComponent {
 
     public void updateData(ParamModel paramModel) {
         actualModel(paramModel);
+    }
+
+    public void updateData(String st) {
+        JsonSimple jsonSimple = new JsonSimple();
+        Field f = null;
+        try {
+            f = jsonSimple.jsonToModel(st);
+        } catch (JsonSyntaxException e) {
+            iBase.log(e.getMessage());
+            e.printStackTrace();
+        }
+        changeDataBase(f);
+    }
+
+    public void updateData(Record rec) {
+        Field f = new Field("n", Field.TYPE_RECORD, rec);
+        changeDataBase(f);
     }
 
     private BroadcastReceiver startActual = new BroadcastReceiver() {
@@ -344,10 +362,20 @@ public abstract class BaseComponent {
                             if (recordComponent != null) {
                                 ComponGlob.getInstance().setParam(recordComponent);
                             }
+//                            if (vh.paramForScreen == ViewHandler.TYPE_PARAM_FOR_SCREEN.RECORD) {
+//                                iBase.startScreen(vh.nameFragment, false, recordComponent);
+//                            } else {
+//                                iBase.startScreen(vh.nameFragment, false);
+//                            }
+
+                            int requestCode = -1;
+                            if (vh.afterResponse != null) {
+                                requestCode = activity.addForResult(vh.afterResponse, activityResult);
+                            }
                             if (vh.paramForScreen == ViewHandler.TYPE_PARAM_FOR_SCREEN.RECORD) {
-                                iBase.startScreen(vh.nameFragment, false, recordComponent);
+                                iBase.startScreen(vh.nameFragment, false, recordComponent, requestCode);
                             } else {
-                                iBase.startScreen(vh.nameFragment, false);
+                                iBase.startScreen(vh.nameFragment, false, null, requestCode);
                             }
                             break;
                         case BACK:
@@ -387,6 +415,52 @@ public abstract class BaseComponent {
             }
         }
     };
+
+    ActivityResult activityResult  = new ActivityResult() {
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data, ActionsAfter afterResponse) {
+            if (resultCode == Activity.RESULT_OK) {
+                for (ViewHandler vh : afterResponse.viewHandlers) {
+                    switch (vh.type) {
+                        case UPDATE_DATA:
+                            if (vh.viewId == 0) {
+                                updateData(vh.paramModel);
+                            } else {
+                                getComponent(vh.viewId).updateData(vh.paramModel);
+                            }
+                            break;
+                        case UPDATE_RESULT:
+                            String st = data.getStringExtra(Constants.RESULT_RECORD);
+                            if (vh.viewId == 0) {
+                                updateData(st);
+                            } else {
+                                getComponent(vh.viewId).updateData(st);
+                            }
+                            break;
+                        case UPDATE_PARAM:
+//                            Record rec = setRecordParam(vh.nameFieldWithValue);
+                            Record rec = paramToRecord(vh.nameFieldWithValue);
+                            if (vh.viewId == 0) {
+                                updateData(rec);
+                            } else {
+                                getComponent(vh.viewId).updateData(rec);
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+    };
+
+//    private Record setRecordParam(String param) {
+//        Record rec = new Record();
+//        String[] arPar = param.split(",");
+//        for (String st : arPar) {
+//            Field f = new Field(st, Field.TYPE_STRING, ComponGlob.getInstance().getParamValue(st));
+//            rec.add(f);
+//        }
+//        return rec;
+//    }
 
     public void specificComponentClick(ViewHandler viewHandler) {
 
@@ -460,6 +534,12 @@ public abstract class BaseComponent {
                             Intent intentBroad = new Intent(vh.nameFieldWithValue);
                             intentBroad.putExtra(Constants.RECORD, record.toString());
                             LocalBroadcastManager.getInstance(activity).sendBroadcast(intentBroad);
+                            break;
+                        case RESULT_RECORD:
+                            Intent intent = new Intent();
+                            intent.putExtra(Constants.RESULT_RECORD, record.toString());
+                            activity.setResult(Activity.RESULT_OK, intent);
+                            activity.finishActivity();
                             break;
                     }
                 }
