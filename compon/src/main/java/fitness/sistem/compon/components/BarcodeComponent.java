@@ -94,7 +94,6 @@ public class BarcodeComponent extends ButtonComponent {
                 scanner.setResultHandler(null);
                 scanner.stopCamera();
             }
-            scanner = null;
         }
     };
 
